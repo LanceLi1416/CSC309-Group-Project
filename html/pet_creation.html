@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <!--  Customized CSS  -->
     <link href="../css/main.css" rel="stylesheet">
-    <title>PetPal Example Page</title>
+    <title>PetPal - Pet Creation</title>
 </head>
 
 <body>
@@ -62,11 +62,13 @@
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
 <div>
   <h1>Upload a pet for adoption</h1>
+  
   <h2>Pet Information</h2>
-
   <div><label for="pet-name">Name</label></div>
   <div><input type="text" id="pet-name" name="pet-name" required></div>
 
+  <div><label for="pet-birthday">Birthday</label></div>
+  <div><input type="date" id="pet-birthday" name="pet-birthday" required></div>
     <!-- Birthday
     Weight -->
 
@@ -80,7 +82,20 @@
   <div><input type="text" id="colour" name="colour" required></div>
 
   <div><label for="other-info">Other Information</label></div>
-  <div><input type="textarea" id="other-info" name="other-info" required></div>
+  <div><input type="textarea" id="other-info" name="other-info"></div>
+
+  <h2>Owner Information</h2>
+  <div><label for="owner-name">Name</label></div>
+  <div><input type="text" id="owner" name="owner" required></div>
+
+  <!-- Phone NUmber -->
+  <div><label for="phone">Phone</label></div>
+  <div><input type="tel" id="phone" name="phone" required></div> <!-- Pattern="[0-9]*" -->
+
+  <div><label for="location">Location</label></div>
+  <div><input type="text" id="location" name="location" required></div>
+
+  <!-- Birthday -->
 </div>
   
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
