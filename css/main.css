@@ -1,0 +1,32 @@
+:root {
+    /* Bootstrap Re-Definition ****************************************************************************************/
+    /* Navbar */
+    --bs-nav-link-font-size: 18px;
+    --bs-nav-link-font-weight: 600;
+    --bs-nav-link-color: var(--bs-gray-400);
+    --bs-nav-link-hover-font-weight: 800;
+    --bs-nav-link-hover-color: var(--bs-light);
+
+    /* Colour *********************************************************************************************************/
+
+    /* Typography *****************************************************************************************************/
+    font-family: var(--bs-font-sans-serif);
+    font-size: 16px;
+}
+
+/* Bootstrap Re-Definition ********************************************************************************************/
+.nav-link:hover, .nav-link:focus {
+    color: var(--bs-nav-link-hover-color);
+    font-weight: var(--bs-nav-link-hover-font-weight);
+}
+
+/* HTML Classes *******************************************************************************************************/
+body {
+    padding: 60px 110px 3rem 110px;
+}
+
+p {
+    word-wrap: break-word;
+}
+
+/* Self-Defined Classes ***********************************************************************************************/
