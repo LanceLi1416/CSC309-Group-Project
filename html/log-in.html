@@ -13,7 +13,7 @@
     <!--  Customized CSS  -->
     <link href="../css/main.css" rel="stylesheet">
     <!-- TODO: Change title -->
-    <title>PetPal Template Page</title>
+    <title>PetPal Log In</title>
 </head>
 
 <body>
@@ -61,7 +61,45 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<!-- TODO: Add your content here -->
+<main class="container-sm container-fluid px-5">
+    <!-- Logo Image -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <img src="assets/svg/bootstrap.svg" alt="PetPal Logo" class="img-fluid">
+        </div>
+    </div>
+    <!-- Heading -->
+    <div class="row mt-4">
+        <div class="col">
+            <h1>Welcome Back to PetPal!</h1>
+            <p>Login with your email address and password.</p>
+        </div>
+    </div>
+    <div class="row mt-2 pb-3 border rounded">
+        <!-- Email -->
+        <div class="d-flex flex-row mt-3">
+            <div class="col form-group">
+                <!-- <label for="email">Email address</label> -->
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+        </div>
+        <!-- Password and Verify -->
+        <div class="d-flex flex-row mt-3">
+            <div class="col form-group">
+                <!-- <label for="password">Password</label> -->
+                <input type="password" class="form-control" id="password" placeholder="Password" required>        
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <button class="btn btn-outline-primary">Log In</button>
+    </div>
+    <div class="row mt-2">
+        <div class="col text-center">
+            Don't have a PetPal account yet? <a href="sign-up.html">Sign up</a>.
+        </div>
+    </div>
+</main>
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
