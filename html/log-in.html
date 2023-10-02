@@ -12,11 +12,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <!--  Customized CSS  -->
     <link href="../css/main.css" rel="stylesheet">
-    <!-- TODO: Change title -->
-    <title>PetPal Template Page</title>
+    <title>PetPal Log In</title>
 </head>
 
-<body>
+<body class="d-flex flex-column vh-100 justify-content-center align-items-center">
 <header>
     <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg bg-primary fixed-top">
@@ -25,7 +24,7 @@
             <a class="navbar-brand text-light" href="../index.html">
                 <!-- TODO: replace with actual Logo -->
                 <img alt="PetPal Logo" class="d-inline-block align-text-top me-2"
-                     src="/assets/svg/bootstrap.svg" width=30px>
+                     src="../assets/svg/bootstrap.svg" width=30px>
                 PetPal
             </a>
             <!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
@@ -53,7 +52,7 @@
                 <!-- Search Box -->
                 <form class="d-flex ps-2" role="search">
                     <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search">
-                    <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+                    <a href="search.html" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
                 </form>
             </div>
         </div>
@@ -61,7 +60,47 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<!-- TODO: Add your content here -->
+<main class="container-sm container-fluid px-5">
+    <!-- Logo Image -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <img src="../assets/svg/bootstrap.svg" alt="PetPal Logo" class="img-fluid">
+        </div>
+    </div>
+    <!-- Heading -->
+    <div class="row mt-4">
+        <div class="col">
+            <h1>Welcome Back to PetPal!</h1>
+            <p>Login with your email address and password.</p>
+        </div>
+    </div>
+    <form action="https://postman-echo.com/post" method="post">
+        <div class="form-group row mt-2 pb-3 border rounded">
+            <!-- Email -->
+            <div class="d-flex flex-row mt-3">
+                <div class="col form-group">
+                    <!-- <label for="email">Email address</label> -->
+                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                </div>
+            </div>
+            <!-- Password and Verify -->
+            <div class="d-flex flex-row mt-3">
+                <div class="col form-group">
+                    <!-- <label for="password">Password</label> -->
+                    <input type="password" class="form-control" id="password" placeholder="Password" required>        
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <button class="btn btn-outline-primary" type="submit">Log In</button>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <div class="col text-center">
+            Don't have a PetPal account yet? <a href="sign-up.html">Sign up</a>.
+        </div>
+    </div>
+</main>
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">

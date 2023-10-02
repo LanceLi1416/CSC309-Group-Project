@@ -16,7 +16,7 @@
     <title>PetPal</title>
 </head>
 
-<body>
+<body class="d-flex flex-column vh-100 justify-content-center align-items-center">
 <header>
     <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg bg-primary fixed-top">
@@ -53,7 +53,7 @@
                 <!-- Search Box -->
                 <form class="d-flex ps-2" role="search">
                     <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search">
-                    <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+                    <a href="html/search.html" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
                 </form>
             </div>
         </div>
@@ -61,7 +61,20 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<!-- TODO: Add your content here -->
+<main class="d-flex flex-column justify-content-center align-items-center">
+    <img src="assets/svg/bootstrap.svg" alt="PetPal Logo" class="img-fluid">
+    <h1 class="mt-4">We are PetPal!</h1>
+    <p class="mt-2 w-50 text-center">
+        We empower pet seekers to search for pets and apply for adoption and pet shelters to create listings for pets that are up for adoption.
+    <p>
+    <p class="fw-bold w-50 text-center text-primary mb-4">
+        Welcome to your one stop for helping more animals!
+    </p>
+    <p class="w-50 text-center">
+        Create an account or login to get started as a pet seeker or shelter.
+        Browse to see all pets or use the search below directly!
+    </p>
+</main>
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
