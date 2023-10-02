@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 shrink-to-fit=no"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
+    <!--  Bootstrap CSS  -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!--  Customized CSS  -->
+    <link href="../css/main.css" rel="stylesheet">
+    <title>PetPal - Pet Creation</title>
+</head>
+
+<body>
+<header>
+    <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg bg-primary fixed-top">
+        <div class="container-fluid">
+            <!-- Logo and Name -->
+            <a class="navbar-brand text-light" href="../index.html">
+                <!-- TODO: replace with actual Logo -->
+                <img alt="PetPal Logo" class="d-inline-block align-text-top me-2"
+                     src="/assets/svg/bootstrap.svg" width=30px>
+                PetPal
+            </a>
+            <!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
+            <button aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                    type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Major Contents -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <div class="me-auto mb-2 mb-lg-0">
+                    <a class="nav-link" href=#>Browse</a>  <!-- TODO: Specify this link -->
+                    <!-- TODO: more navigation links here -->
+                </div>
+
+                <!-- Right -->
+                <a class="nav-link m-1 p-1" href="log-in.html">Log In</a>
+                <a class="nav-link m-1 p-1" href="sign-up.html">Sign Up</a>
+                <!-- Search Box -->
+                <form class="d-flex ps-2" role="search">
+                    <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search">
+                    <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
+<div class="page-container">
+  <h1>Upload a pet for adoption</h1>
+  <p>Please fill in the form below with the pet and owner's details.</p>
+  
+  <h2>Pet Information</h2>
+
+  <div class="row mt-2 pb-3 border rounded">
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="pet-name">Name</label></div>
+      <div><input class="form-control" type="text" id="pet-name" name="pet-name" required></div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="pet-birthday">Birthday</label></div>
+      <div><input class="form-control" type="date" id="pet-birthday" name="pet-birthday"
+        required></div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="row form-group">
+      <div><label for="weight">Weight (kg)</label></div>
+      <div class="col-auto">
+        <div><input class="form-control" type="number" min="0" max="1000" id="weight"
+          name="weight" placeholder="0" required></div>
+      </div>
+      <div class="col-auto">
+        <select class="form-select" id="autoSizingSelect">
+          <option selected>Choose...</option>
+          <option value="kg">kg</option>
+          <option value="lb">lb</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+        <div><label for="animal">Animal</label></div>
+        <div><input class="form-control" type="text" id="animal" name="animal" required></div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="breed">Breed</label></div>
+      <div><input class="form-control" type="text" id="breed" name="breed" required></div>
+    </div>
+  </div>
+  
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="colour">Colour(s)</label></div>
+      <div><input class="form-control" type="text" id="colour" name="colour" required></div>
+    </div>
+  </div>
+  
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <input type="checkbox" id="vaccinated" name="vaccinated" required>
+      <label for="vaccinated">Vaccinated</label>
+    </div>
+  </div>
+  
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="other-info">Other Information</label></div>
+      <div><textarea class="form-control" id="other-info" name="other-info" row="5"></textarea></div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="formFileMultiple" class="form-label">Upload Pictures</label></div>
+      <div><input class="form-control" type="file" id="attachment" name="attachments" 
+        accept=".jpg, .png, .jpeg" multiple required></div>
+    </div>
+  </div>
+  </div>
+
+  <h2 class="page-title">Owner Information</h2>
+
+  <div class="row mt-2 pb-3 border rounded">
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+        <div><label for="owner-name">Name</label></div>
+        <div><input class="form-control" type="text" id="owner" name="owner" required></div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="phone">Phone</label></div>
+      <div><input class="form-control" type="tel" id="phone" name="phone" required></div> <!-- Pattern="[0-9]*" -->
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+        <div><label for="location">Location</label></div>
+        <div><input class="form-control" type="text" id="location" name="location" required></div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="owner-birthday">Birthday</label></div>
+      <div><input class="form-control" type="date" id="owner-birthday" name="owner-birthday" required></div>
+    </div>
+  </div>
+  </div>
+
+  <div class="row mt-4">
+    <button class="btn btn-outline-primary">Upload</button>
+  </div>
+</div>
+  
+<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
+
+<footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
+    <div class="d-flex align-items-center">
+        <a class="me-2 text-light text-decoration-none" href="../index.html">
+            <!-- TODO: PetPal logo here -->
+            <i class="bi bi-bootstrap"></i>
+        </a>
+        <span class="text-light">
+            © 2023 <a class="text-light" href="../index.html">PetPal</a>
+        </span>
+    </div>
+
+    <ul class="nav justify-content-end list-unstyled d-flex">
+        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
+            <i class="bi bi-twitter"></i>
+        </a></li>
+        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
+            <i class="bi bi-instagram"></i>
+        </a></li>
+        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
+            <i class="bi bi-facebook"></i>
+        </a></li>
+        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
+            <i class="bi bi-linkedin"></i>
+        </a></li>
+        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
+            <i class="bi bi-github"></i>
+        </a></li>
+    </ul>
+</footer>
+<!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
+<script crossorigin="anonymous" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
