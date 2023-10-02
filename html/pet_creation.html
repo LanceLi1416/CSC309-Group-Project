@@ -78,21 +78,24 @@
   <div class="d-flex flex-row mt-3">
     <div class="col form-group">
       <div><label for="pet-birthday">Birthday</label></div>
-      <div><input class="form-control" type="date" id="pet-birthday" name="pet-birthday" required></div>
+      <div><input class="form-control" type="date" id="pet-birthday" name="pet-birthday"
+        required></div>
     </div>
   </div>
 
   <div class="d-flex flex-row mt-3">
-    <div class="col gx-2 form-group">
+    <div class="row form-group">
       <div><label for="weight">Weight (kg)</label></div>
-      <div class="auto"><input class="form-control" type="number" min="0" max="1000" id="weight" name="weight" placeholder="0" required></div>
-      <div class="auto">
-      <select class="form-select" id="autoSizingSelect">
-        <option selected>Choose...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
+      <div class="col-auto">
+        <div><input class="form-control" type="number" min="0" max="1000" id="weight"
+          name="weight" placeholder="0" required></div>
+      </div>
+      <div class="col-auto">
+        <select class="form-select" id="autoSizingSelect">
+          <option selected>Choose...</option>
+          <option value="kg">kg</option>
+          <option value="lb">lb</option>
+        </select>
       </div>
     </div>
   </div>
@@ -135,7 +138,8 @@
   <div class="d-flex flex-row mt-3">
     <div class="col form-group">
       <div><label for="formFileMultiple" class="form-label">Upload Pictures</label></div>
-      <div><input class="form-control" type="file" id="attachment" name="attachments" accept=".jpg, .png, .jpeg" multiple required></div>
+      <div><input class="form-control" type="file" id="attachment" name="attachments" 
+        accept=".jpg, .png, .jpeg" multiple required></div>
     </div>
   </div>
   </div>
