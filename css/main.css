@@ -30,3 +30,15 @@ p {
 }
 
 /* Self-Defined Classes ***********************************************************************************************/
+.page-title {
+  padding-top: 50px;
+}
+
+.page-container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.bottom-spacing {
+
+}
