@@ -1,57 +1,78 @@
 :root {
-    /* Bootstrap Re-Definition ****************************************************************************************/
-    /* Navbar */
-    --bs-nav-link-font-size: 18px;
-    --bs-nav-link-font-weight: 600;
-    --bs-nav-link-color: var(--bs-gray-400);
-    --bs-nav-link-hover-font-weight: 800;
-    --bs-nav-link-hover-color: var(--bs-light);
+	/* Bootstrap Re-Definition ****************************************************************************************/
+	/* Navbar */
+	--bs-nav-link-font-size: 18px;
+	--bs-nav-link-font-weight: 600;
+	--bs-nav-link-color: var(--bs-gray-400);
+	--bs-nav-link-hover-font-weight: 800;
+	--bs-nav-link-hover-color: var(--bs-light);
 
-    /* Colour *********************************************************************************************************/
+	/* Colour *********************************************************************************************************/
 
-    /* Typography *****************************************************************************************************/
-    font-family: var(--bs-font-sans-serif);
-    font-size: 16px;
+	/* Typography *****************************************************************************************************/
+	font-family: var(--bs-font-sans-serif);
+	font-size: 16px;
 }
 
 /* Bootstrap Re-Definition ********************************************************************************************/
-.nav-link:hover, .nav-link:focus {
-    color: var(--bs-nav-link-hover-color);
-    font-weight: var(--bs-nav-link-hover-font-weight);
+.nav-link:hover,
+.nav-link:focus {
+	color: var(--bs-nav-link-hover-color);
+	font-weight: var(--bs-nav-link-hover-font-weight);
 }
 
 /* HTML Classes *******************************************************************************************************/
 body {
-    padding: 60px 110px 3rem 110px;
+	padding: 60px 110px 3rem 110px;
 }
 
 p {
-    word-wrap: break-word;
+	word-wrap: break-word;
 }
 
 /* Self-Defined Classes ***********************************************************************************************/
 .page-title {
-  padding-top: 25px;
+	padding-top: 25px;
 }
 
 .page-container {
-  padding-top: 50px;
-  padding-bottom: 50px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 .full-img {
-    width: 100%;
-    height: 100%; 
+	width: 100%;
+	height: 100%;
 }
 
 .subtitle {
-    color: var(--bs-secondary);
+	color: var(--bs-secondary);
 }
 
 .full-height {
-    height: 100%;
+	height: 100%;
 }
 
 .large-font {
-    font-size: 26px;
+	font-size: 26px;
 }
+
+/* Account update */
+
+.edit-icon {
+	width: 100px;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
+textarea {
+	resize: none;
+}
+/*****************/
