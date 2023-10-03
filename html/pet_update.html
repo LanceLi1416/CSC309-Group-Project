@@ -146,6 +146,30 @@
         accept=".jpg, .png, .jpeg" multiple required></div>
     </div>
   </div>
+
+  <div class="carousel slide" id="pet-pictures-indicators">
+    <ol class="carousel-indicators">
+      <li data-target="#pet-pictures-indicators" data-slide-to="0" class="active"></li>
+      <li data-target="#pet-pictures-indicators" data-slide-to="1"></li>
+      <li data-target="#pet-pictures-indicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d block w-50" src="../assets/jpg/sample_dog1.jpg" alt="First Slide">
+      </div>
+      <div class="carousel-item active">
+        <img class="d block w-50" src="../assets/jpg/sample_dog2.jpg" alt="Second Slide">
+      </div>
+    </div>
+    <a class="carousel-control-prev carousel-button-background" href="#pet-pictures-indicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next carousel-button-background" href="#pet-pictures-indicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
   </div>
 
   <h2 class="page-title">Owner Information</h2>
@@ -178,7 +202,8 @@
   <div class="d-flex flex-row mt-3">
     <div class="col form-group">
       <div><label for="owner-birthday">Birthday</label></div>
-      <div><input class="form-control" type="date" id="owner-birthday" name="owner-birthday" required></div>
+      <div><input class="form-control" type="date" id="owner-birthday" 
+        name="owner-birthday" value="2000-01-01" required disabled></div>
     </div>
   </div>
   </div>

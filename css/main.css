@@ -93,4 +93,14 @@ textarea {
 	display: flex;
 	justify-content: center;
 }
+
+.carousel {
+	text-align: center;
+	width: 100%;
+	/* justify-content: center; */
+}
+
+.carousel-button-background {
+	background-color: black;
+}
 /*****************/
