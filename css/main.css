@@ -36,8 +36,27 @@ p {
 }
 
 .page-container {
+	display: grid;
+	grid-gap: 50px;
+	grid-template-columns: 7fr 1fr;
 	padding-top: 50px;
 	padding-bottom: 50px;
+}
+
+.main-page {
+	/* margin-right: 25%; */
+	grid-column: 1 / 2;
+}
+
+.sidebar {
+	grid-column: 2 / 2;
+}
+
+.contact-info {
+	position: fixed;
+	display: block;
+	width: 14%;
+	top: 50%;
 }
 
 .full-img {
@@ -102,5 +121,35 @@ textarea {
 
 .carousel-button-background {
 	background-color: black;
+}
+
+#pet-summary-title {
+	padding-bottom: 8px;
+}
+
+.pet-detail-subtitles {
+	margin-top: 32px;
+}
+
+@media screen and (max-width: 992px) {
+	.page-container {
+		grid-template-columns: 1fr;
+		row-gap: 32px;
+	}
+
+	.main-page {
+		margin-right: 0;
+		display: block;
+	}
+
+	body {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+
+	.contact-info {
+		position: static;
+		width: 100%;
+	}
 }
 /*****************/
