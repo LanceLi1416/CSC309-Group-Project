@@ -134,6 +134,18 @@ textarea {
 	margin-top: 32px;
 }
 
+.error-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+#error-title-div {
+	margin-top: 16px;
+}
+
 @media screen and (max-width: 992px) {
 	#pet-detail-container {
 		grid-template-columns: 1fr;
