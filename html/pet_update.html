@@ -66,7 +66,8 @@
 <div class="page-container">
   <h1>Pet Information</h1>
   <p>Please click edit to update pet information.</p>
-  
+
+  <form action="https://postman-echo.com/post" method="POST">
   <h2>Pet Information</h2>
 
   <div class="row mt-2 pb-3 border rounded">
@@ -129,7 +130,7 @@
   
   <div class="d-flex flex-row mt-3">
     <div class="col form-group">
-      <input type="checkbox" id="vaccinated" name="vaccinated" checked required>
+      <input type="checkbox" id="vaccinated" name="vaccinated" value="yes" checked required>
       <label for="vaccinated">Vaccinated</label>
     </div>
   </div>
@@ -146,25 +147,27 @@
       <div><label for="other-info">Pictures</label></div>
     </div>
   </div>
-
-  <div class="carousel slide" id="pet-pictures-indicators" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d block w-50" src="../assets/jpg/sample_dog1.jpg" alt="First Slide">
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <div><label for="formFileMultiple" class="form-label">Upload Pictures</label></div>
+      <div><input class="form-control" type="file" id="attachment" name="attachments" 
+        accept=".jpg, .png, .jpeg" multiple></div>
+    </div>
+  </div>
+  <div class="d-flex flex-row mt-3">
+    <div class="col form-group">
+      <p class="form-label">Current Pictures (Check to Delete)</p>
+      <div class="pet-update-pics-div">
+        <input class="pet-update-pics-checkbox" type="checkbox" name="cur-pic1" value="delete">
+        <img src="../assets/jpg/sample_dog1.jpg">
       </div>
-      <div class="carousel-item">
-        <img class="d block w-50" src="../assets/jpg/sample_dog2.jpeg" alt="Second Slide">
+      <div class="pet-update-pics-div">
+        <input class="pet-update-pics-checkbox" type="checkbox" name="cur-pic2" value="delete">
+        <img src="../assets/jpg/sample_dog2.jpeg">
       </div>
     </div>
-    <a class="carousel-control-prev carousel-button-background" href="#pet-pictures-indicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next carousel-button-background" href="#pet-pictures-indicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
   </div>
+
   </div>
 
   <h2 class="page-title">Owner Information</h2>
@@ -210,10 +213,28 @@
   </div>
 
   <div class="row mt-4">
-    <button class="btn btn-outline-primary" 
-      onclick="location.href='pet_summary.html'">Update</button>
+    <button class="btn btn-outline-primary" data-toggle="modal"
+      data-target="#update-modal" type="button">Update</button>
   </div>
   </div>
+
+  <div class="modal" id="update-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Pet Information?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" value="Update">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
 </div>
   
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->

@@ -66,7 +66,7 @@
   
   <h2>Pet Information</h2>
 
-  <form action="" method="POST">
+  <form action="https://postman-echo.com/post" method="POST">
 
   <div class="row mt-2 pb-3 border rounded">
   <div class="d-flex flex-row mt-3">
@@ -124,7 +124,7 @@
   
   <div class="d-flex flex-row mt-3">
     <div class="col form-group">
-      <input type="checkbox" id="vaccinated" name="vaccinated" required>
+      <input type="checkbox" id="vaccinated" name="vaccinated" value="yes" required>
       <label for="vaccinated">Vaccinated</label>
     </div>
   </div>
@@ -186,7 +186,8 @@
   </div>
 
   <div class="row mt-4">
-    <button class="btn btn-outline-primary" onclick="location.href='pet_summary.html'">Upload</button>
+    <button class="btn btn-outline-primary" type="submit" 
+      onclick="location.href='pet_summary.html'">Upload</button>
   </div>
   </form>
 </div>
