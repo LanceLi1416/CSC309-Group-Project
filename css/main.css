@@ -31,6 +31,16 @@ p {
 }
 
 /* Self-Defined Classes ***********************************************************************************************/
+.form-left {
+	text-align: left;
+}
+
+@media (min-width: 992px) {
+	.form-left {
+		text-align: right !important;
+	}
+}
+
 .page-title {
 	padding-top: 25px;
 }
