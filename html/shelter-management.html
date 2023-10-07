@@ -75,8 +75,21 @@
 						>
 						<!-- Search Box -->
 						<form class="d-flex ps-2" role="search">
-							<input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search" id="search-input">
-                    		<a href="search.html" id="search-link" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
+							<input
+								aria-label="Search"
+								class="form-control mx-2"
+								placeholder="Search"
+								type="search"
+								id="search-input"
+							/>
+							<a
+								href="search.html"
+								id="search-link"
+								class="btn btn-outline-light mx-2"
+								role="button"
+								type="submit"
+								>Search</a
+							>
 						</form>
 					</div>
 				</div>
@@ -180,7 +193,7 @@
 				<div class="col-md-10">
 					<div class="row mx-2">
 						<div
-							class="col-md-3 d-flex align-items-center flex-column position-relative"
+							class="col-md-3 d-flex align-items-center flex-column position-relative pet-wrapper"
 						>
 							<img
 								src="../assets/svg/bootstrap.svg"
@@ -214,7 +227,11 @@
 									</li>
 								</ul>
 							</div>
-							<h5>Pet 1</h5>
+							<a
+								href="pet_update.html"
+								class="stretched-link text-decoration-none text-success"
+								><h5>Pet 1</h5></a
+							>
 						</div>
 						<div
 							class="col-md-3 d-flex align-items-center flex-column position-relative"
@@ -251,7 +268,11 @@
 									</li>
 								</ul>
 							</div>
-							<h5>Pet 2</h5>
+							<a
+								href="pet_update.html"
+								class="stretched-link text-decoration-none text-success"
+								><h5>Pet 2</h5></a
+							>
 						</div>
 						<div
 							class="col-md-3 d-flex align-items-center flex-column position-relative"
@@ -288,7 +309,11 @@
 									</li>
 								</ul>
 							</div>
-							<h5>Pet 3</h5>
+							<a
+								href="pet_update.html"
+								class="stretched-link text-decoration-none text-success"
+								><h5>Pet 3</h5></a
+							>
 						</div>
 						<div
 							class="col-md-3 d-flex align-items-center flex-column position-relative"
@@ -325,7 +350,11 @@
 									</li>
 								</ul>
 							</div>
-							<h5>Pet 4</h5>
+							<a
+								href="pet_update.html"
+								class="stretched-link text-decoration-none text-success"
+								><h5>Pet 4</h5></a
+							>
 						</div>
 					</div>
 					<div class="row mx-2 mb-5">
@@ -364,7 +393,11 @@
 									</li>
 								</ul>
 							</div>
-							<h5>Pet 5</h5>
+							<a
+								href="pet_update.html"
+								class="stretched-link text-decoration-none text-success"
+								><h5>Pet 5</h5></a
+							>
 						</div>
 						<div
 							class="col-md-3 d-flex align-items-center flex-column position-relative"
@@ -401,20 +434,42 @@
 									</li>
 								</ul>
 							</div>
-							<h5>Pet 6</h5>
+							<a
+								href="pet_update.html"
+								class="stretched-link text-decoration-none text-success"
+								><h5>Pet 6</h5></a
+							>
 						</div>
 						<div
 							class="col-md-3 d-flex align-items-center flex-column position-relative"
 						>
-							<a class="new-wrapper" href="pet_creation.html">
-								<img
-									src="../assets/svg/plus.svg"
-									alt="Image 6"
-									class="img-fluid full-img p-2 plus-sign"
-									role="button"
-								/>
+							<div class="new-wrapper">
+								<a
+									href="pet_creation.html"
+									class="d-flex justify-content-center"
+								>
+									<img
+										src="../assets/svg/plus.svg"
+										alt="Image 6"
+										class="img-fluid full-img p-2 plus-sign"
+										role="button"
+									/>
+								</a>
+							</div>
+							<a
+								href="pet_creation.html"
+								class="text-decoration-none text-success"
+								><h5>New</h5></a
+							>
+						</div>
+						<!-- Previous and Next Page -->
+						<div class="d-flex justify-content-between mb-4">
+							<a href="" class="btn btn-success btn-md">
+								<i class="bi bi-arrow-left"></i>
 							</a>
-							<h5>New</h5>
+							<a href="" class="btn btn-success btn-md">
+								<i class="bi bi-arrow-right"></i>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -471,6 +526,7 @@
 				</li>
 			</ul>
 		</footer>
+		<script src="../assets/js/management.js"></script>
 		<script src="../assets/js/main.js"></script>
 		<!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
 		<script

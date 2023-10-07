@@ -1,276 +1,507 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 shrink-to-fit=no"
-          name="viewport">
-    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 shrink-to-fit=no"
+			name="viewport"
+		/>
+		<meta content="ie=edge" http-equiv="X-UA-Compatible" />
 
-    <!--  Bootstrap CSS  -->
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!--  Customized CSS  -->
-    <link href="../css/main.css" rel="stylesheet">
-    <title>PetPal - Pet Creation</title>
-</head>
+		<!--  Bootstrap CSS  -->
+		<link
+			crossorigin="anonymous"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+			rel="stylesheet"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!--  Customized CSS  -->
+		<link href="../css/main.css" rel="stylesheet" />
+		<title>PetPal - Pet Creation</title>
+	</head>
 
-<body>
-<header>
-    <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-    <nav class="navbar navbar-expand-lg bg-primary fixed-top">
-        <div class="container-fluid">
-            <!-- Logo and Name -->
-            <a class="navbar-brand text-light" href="../index.html">
-                <!-- TODO: replace with actual Logo -->
-                <img alt="PetPal Logo" class="d-inline-block align-text-top me-2"
-                     src="/assets/svg/bootstrap.svg" width=30px>
-                PetPal
-            </a>
-            <!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
-            <button aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    class="navbar-toggler"
-                    data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse"
-                    type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+	<body>
+		<header>
+			<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+			<nav class="navbar navbar-expand-lg bg-success fixed-top">
+				<div class="container-fluid">
+					<!-- Logo and Name -->
+					<a class="navbar-brand text-light" href="../index.html">
+						<!-- TODO: replace with actual Logo -->
+						<img
+							alt="PetPal Logo"
+							class="d-inline-block align-text-top me-2"
+							src="/assets/svg/bootstrap.svg"
+							width="30px"
+						/>
+						PetPal
+					</a>
+					<!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
+					<button
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+						class="navbar-toggler"
+						data-bs-target="#navbarSupportedContent"
+						data-bs-toggle="collapse"
+						type="button"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-            <!-- Major Contents -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left -->
-                <div class="me-auto mb-2 mb-lg-0">
-                    <a class="nav-link" href=#>Browse</a>  <!-- TODO: Specify this link -->
-                    <!-- TODO: more navigation links here -->
-                </div>
+					<!-- Major Contents -->
+					<div
+						class="collapse navbar-collapse"
+						id="navbarSupportedContent"
+					>
+						<!-- Left -->
+						<div class="me-auto mb-2 mb-lg-0">
+							<a class="nav-link" href="#">Browse</a>
+							<!-- TODO: Specify this link -->
+							<!-- TODO: more navigation links here -->
+						</div>
 
-                <!-- Right -->
-                <a class="nav-link m-1 p-1" href="log-in.html">Log In</a>
-                <a class="nav-link m-1 p-1" href="sign-up.html">Sign Up</a>
-                <!-- Search Box -->
-                <form class="d-flex ps-2" role="search">
-                  <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search" id="search-input">
-                  <a href="search.html" id="search-link" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
-                </form>
-            </div>
-        </div>
-    </nav>
-</header>
+						<!-- Right -->
+						<a class="nav-link m-1 p-1" href="log-in.html"
+							>Log In</a
+						>
+						<a class="nav-link m-1 p-1" href="sign-up.html"
+							>Sign Up</a
+						>
+						<!-- Search Box -->
+						<form class="d-flex ps-2" role="search">
+							<input
+								aria-label="Search"
+								class="form-control mx-2"
+								placeholder="Search"
+								type="search"
+								id="search-input"
+							/>
+							<a
+								href="search.html"
+								id="search-link"
+								class="btn btn-outline-light mx-2"
+								role="button"
+								type="submit"
+								>Search</a
+							>
+						</form>
+					</div>
+				</div>
+			</nav>
+		</header>
 
-<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<div class="page-container">
-  <h1>Pet Information</h1>
-  <p>Please click edit to update pet information.</p>
+		<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
+		<div class="page-container">
+			<h1>Pet Information</h1>
+			<p>Please click edit to update pet information.</p>
 
-  <form action="https://postman-echo.com/post" method="POST">
-  <h2>Pet Information</h2>
+			<form action="https://postman-echo.com/post" method="POST">
+				<h2>Pet Information</h2>
 
-  <div class="row mt-2 pb-3 border rounded">
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="pet-name">Name</label></div>
-      <div><input class="form-control" type="text" id="pet-name" name="pet-name" 
-        required value="Doggy Bob"></div>
-    </div>
-  </div>
+				<div class="row mt-2 pb-3 border rounded">
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="pet-name">Name</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="text"
+									id="pet-name"
+									name="pet-name"
+									required
+									value="Doggy Bob"
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="pet-birthday">Birthday</label></div>
-      <div><input class="form-control" type="date" id="pet-birthday" name="pet-birthday"
-        value="2021-01-01" required></div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div>
+								<label for="pet-birthday">Birthday</label>
+							</div>
+							<div>
+								<input
+									class="form-control"
+									type="date"
+									id="pet-birthday"
+									name="pet-birthday"
+									value="2021-01-01"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="row form-group">
-      <div><label for="weight">Weight (kg)</label></div>
-      <div class="col-auto">
-        <div><input class="form-control" type="number" min="0" max="1000" id="weight"
-          name="weight" value="50" required></div>
-      </div>
-      <div class="col-auto">
-        <select class="form-select" id="autoSizingSelect" value="kg" required>
-          <!-- <option selected>Choose...</option> -->
-          <option value="kg">kg</option>
-          <!-- <option value="lb">lb</option> -->
-        </select>
-      </div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="row form-group">
+							<div><label for="weight">Weight (kg)</label></div>
+							<div class="col-auto">
+								<div>
+									<input
+										class="form-control"
+										type="number"
+										min="0"
+										max="1000"
+										id="weight"
+										name="weight"
+										value="50"
+										required
+									/>
+								</div>
+							</div>
+							<div class="col-auto">
+								<select
+									class="form-select"
+									id="autoSizingSelect"
+									value="kg"
+									required
+								>
+									<!-- <option selected>Choose...</option> -->
+									<option value="kg">kg</option>
+									<!-- <option value="lb">lb</option> -->
+								</select>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-        <div><label for="animal">Animal</label></div>
-        <div><input class="form-control" type="text" id="animal" 
-            name="animal" value="Dog" required></div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="animal">Animal</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="text"
+									id="animal"
+									name="animal"
+									value="Dog"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="breed">Breed</label></div>
-      <div><input class="form-control" type="text" id="breed" name="breed" 
-        value="Golden Retriever" required></div>
-    </div>
-  </div>
-  
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="colour">Colour(s)</label></div>
-      <div><input class="form-control" type="text" id="colour" 
-        name="colour" value="Brown" required></div>
-    </div>
-  </div>
-  
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <input type="checkbox" id="vaccinated" name="vaccinated" value="yes" checked required>
-      <label for="vaccinated">Vaccinated</label>
-    </div>
-  </div>
-  
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="other-info">Other Information</label></div>
-      <div><textarea class="form-control" id="other-info" name="other-info" row="5"></textarea></div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="breed">Breed</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="text"
+									id="breed"
+									name="breed"
+									value="Golden Retriever"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="other-info">Pictures</label></div>
-    </div>
-  </div>
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="formFileMultiple" class="form-label">Upload Pictures</label></div>
-      <div><input class="form-control" type="file" id="attachment" name="attachments" 
-        accept=".jpg, .png, .jpeg" multiple></div>
-    </div>
-  </div>
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <p class="form-label">Current Pictures (Check to Delete)</p>
-      <div class="pet-update-pics-div">
-        <input class="pet-update-pics-checkbox" type="checkbox" name="cur-pic1" value="delete">
-        <img src="../assets/jpg/sample_dog1.jpg">
-      </div>
-      <div class="pet-update-pics-div">
-        <input class="pet-update-pics-checkbox" type="checkbox" name="cur-pic2" value="delete">
-        <img src="../assets/jpg/sample_dog2.jpeg">
-      </div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="colour">Colour(s)</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="text"
+									id="colour"
+									name="colour"
+									value="Brown"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<input
+								type="checkbox"
+								id="vaccinated"
+								name="vaccinated"
+								value="yes"
+								checked
+								required
+							/>
+							<label for="vaccinated">Vaccinated</label>
+						</div>
+					</div>
 
-  <h2 class="page-title">Owner Information</h2>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div>
+								<label for="other-info"
+									>Other Information</label
+								>
+							</div>
+							<div>
+								<textarea
+									class="form-control"
+									id="other-info"
+									name="other-info"
+									row="5"
+								></textarea>
+							</div>
+						</div>
+					</div>
 
-  <div class="row mt-2 pb-3 border rounded">
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-        <div><label for="owner-name">Name</label></div>
-        <div><input class="form-control" type="text" id="owner" name="owner" value="Nicholas Poon" required></div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="other-info">Pictures</label></div>
+						</div>
+					</div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div>
+								<label for="formFileMultiple" class="form-label"
+									>Upload Pictures</label
+								>
+							</div>
+							<div>
+								<input
+									class="form-control"
+									type="file"
+									id="attachment"
+									name="attachments"
+									accept=".jpg, .png, .jpeg"
+									multiple
+								/>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<p class="form-label">
+								Current Pictures (Check to Delete)
+							</p>
+							<div class="pet-update-pics-div">
+								<input
+									class="pet-update-pics-checkbox"
+									type="checkbox"
+									name="cur-pic1"
+									value="delete"
+								/>
+								<img src="../assets/jpg/sample_dog1.jpg" />
+							</div>
+							<div class="pet-update-pics-div">
+								<input
+									class="pet-update-pics-checkbox"
+									type="checkbox"
+									name="cur-pic2"
+									value="delete"
+								/>
+								<img src="../assets/jpg/sample_dog2.jpeg" />
+							</div>
+						</div>
+					</div>
+				</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="email">Email</label></div>
-      <div><input class="form-control" type="email" id="email" name="email" 
-            value="example@utoronto.ca" required></div>
-    </div>
-  </div>
+				<h2 class="page-title">Owner Information</h2>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="phone">Phone</label></div>
-      <div><input class="form-control" type="tel" id="phone" name="phone" 
-            value="123-456-789" required></div> <!-- Pattern="[0-9]*" -->
-    </div>
-  </div>
+				<div class="row mt-2 pb-3 border rounded">
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="owner-name">Name</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="text"
+									id="owner"
+									name="owner"
+									value="Nicholas Poon"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-        <div><label for="location">Location</label></div>
-        <div><input class="form-control" type="text" id="location" 
-            name="location" value="Richmond Hill, ON, Canada" required></div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="email">Email</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="email"
+									id="email"
+									name="email"
+									value="example@utoronto.ca"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="d-flex flex-row mt-3">
-    <div class="col form-group">
-      <div><label for="owner-birthday">Birthday</label></div>
-      <div><input class="form-control" type="date" id="owner-birthday" 
-        name="owner-birthday" value="2000-01-01" required></div>
-    </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="phone">Phone</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="tel"
+									id="phone"
+									name="phone"
+									value="123-456-789"
+									required
+								/>
+							</div>
+							<!-- Pattern="[0-9]*" -->
+						</div>
+					</div>
 
-  <div class="row mt-4">
-    <button class="btn btn-outline-primary" data-toggle="modal"
-      data-target="#update-modal" type="button">Update</button>
-  </div>
-  </div>
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div><label for="location">Location</label></div>
+							<div>
+								<input
+									class="form-control"
+									type="text"
+									id="location"
+									name="location"
+									value="Richmond Hill, ON, Canada"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-  <div class="modal" id="update-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Update Pet Information?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" value="Update">Update</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  </form>
-</div>
-  
-<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
+					<div class="d-flex flex-row mt-3">
+						<div class="col form-group">
+							<div>
+								<label for="owner-birthday">Birthday</label>
+							</div>
+							<div>
+								<input
+									class="form-control"
+									type="date"
+									id="owner-birthday"
+									name="owner-birthday"
+									value="2000-01-01"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 
-<footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
-    <div class="d-flex align-items-center">
-        <a class="me-2 text-light text-decoration-none" href="../index.html">
-            <!-- TODO: PetPal logo here -->
-            <i class="bi bi-bootstrap"></i>
-        </a>
-        <span class="text-light">
-            © 2023 <a class="text-light" href="../index.html">PetPal</a>
-        </span>
-    </div>
+					<div class="row mt-4">
+						<button
+							class="btn btn-outline-success"
+							data-toggle="modal"
+							data-target="#update-modal"
+							type="button"
+						>
+							Update
+						</button>
+					</div>
+				</div>
 
-    <ul class="nav justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-twitter"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-instagram"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-facebook"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-linkedin"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-github"></i>
-        </a></li>
-    </ul>
-</footer>
-<script src="../assets/js/main.js"></script>
-<!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
-<script crossorigin="anonymous" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+				<div
+					class="modal"
+					id="update-modal"
+					tabindex="-1"
+					role="dialog"
+				>
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">
+									Update Pet Information?
+								</h5>
+								<button
+									type="button"
+									class="close"
+									data-dismiss="modal"
+									aria-label="Close"
+								>
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="submit"
+									class="btn btn-success"
+									value="Update"
+								>
+									Update
+								</button>
+								<button
+									type="button"
+									class="btn btn-secondary"
+									data-dismiss="modal"
+								>
+									Back
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
+
+		<footer
+			class="bg-success d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom"
+		>
+			<div class="d-flex align-items-center">
+				<a
+					class="me-2 text-light text-decoration-none"
+					href="../index.html"
+				>
+					<!-- TODO: PetPal logo here -->
+					<i class="bi bi-bootstrap"></i>
+				</a>
+				<span class="text-light">
+					© 2023 <a class="text-light" href="../index.html">PetPal</a>
+				</span>
+			</div>
+
+			<ul class="nav justify-content-end list-unstyled d-flex">
+				<li class="ms-3">
+					<a class="text-light" href="#">
+						<!-- TODO: Twitter social media integration -->
+						<i class="bi bi-twitter"></i>
+					</a>
+				</li>
+				<li class="ms-3">
+					<a class="text-light" href="#">
+						<!-- TODO: Twitter social media integration -->
+						<i class="bi bi-instagram"></i>
+					</a>
+				</li>
+				<li class="ms-3">
+					<a class="text-light" href="#">
+						<!-- TODO: Twitter social media integration -->
+						<i class="bi bi-facebook"></i>
+					</a>
+				</li>
+				<li class="ms-3">
+					<a class="text-light" href="#">
+						<!-- TODO: Twitter social media integration -->
+						<i class="bi bi-linkedin"></i>
+					</a>
+				</li>
+				<li class="ms-3">
+					<a class="text-light" href="#">
+						<!-- TODO: Twitter social media integration -->
+						<i class="bi bi-github"></i>
+					</a>
+				</li>
+			</ul>
+		</footer>
+		<script src="../assets/js/main.js"></script>
+		<!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
+		<script
+			crossorigin="anonymous"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		></script>
+	</body>
 </html>
