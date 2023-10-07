@@ -51,8 +51,8 @@
                 <a class="nav-link m-1 p-1" href="sign-up.html">Sign Up</a>
                 <!-- Search Box -->
                 <form class="d-flex ps-2" role="search">
-                    <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search">
-                    <a href="search.html" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
+                    <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search" id="search-input">
+                    <a href="search.html" id="search-link" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
                 </form>
             </div>
         </div>
@@ -74,42 +74,60 @@
             <p>Sign up below with your details.</p>
         </div>
     </div>
-    <form action="https://postman-echo.com/post" method="post">
+    <form action="https://postman-echo.com/post" method="post" class="needs-validation" novalidate>
         <div class="row mt-2 pb-3 border rounded">
             <!-- First and Last Name -->
             <div class="d-flex flex-row mt-3">
                 <div class="col-md-6 form-group">
                     <!-- <label for="first-name">First Name</label> -->
-                    <input type="text" class="form-control" id="first-name" placeholder="First Name" required>
+                    <input type="text" class="form-control" id="first-name" name="first-name" placeholder="First Name" required>
+                    <div class="invalid-feedback">
+                        Please enter your first name.
+                    </div>
                 </div>
                 <div class="col-md-6 form-group">
                     <!-- <label for="last-name">Last Name</label> -->
-                    <input type="text" class="form-control" id="last-name" placeholder="Last Name" required>
+                    <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Last Name" required>
+                    <div class="invalid-feedback">
+                        Please enter your last name.
+                    </div>
                 </div>
             </div>
             <!-- Email -->
-            <div class="d-flex flex-row mt-4">
+            <div class="d-flex flex-row">
                 <div class="col form-group">
                     <!-- <label for="email">Email address</label> -->
-                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
                 </div>
             </div>
             <!-- Password and Verify -->
-            <div class="d-flex flex-row mt-4">
+            <div class="d-flex flex-row">
                 <div class="col-md-6 form-group">
                     <!-- <label for="password">Password</label> -->
-                    <input type="password" class="form-control" id="password" placeholder="Password" required>        
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <div class="invalid-feedback">
+                        Please enter a password.
+                    </div>      
                 </div>
                 <div class="col-md-6 form-group">
                     <!-- <label for="reenter-password">Reenter Password</label> -->
-                    <input type="password" class="form-control" id="reenter-password" placeholder="Reenter Password" required>
+                    <input type="password" class="form-control" id="reenter-password" name="reenter-password" placeholder="Reenter Password" required>
+                    <div class="invalid-feedback">
+                        Please reenter the same password.
+                    </div>
                 </div>
             </div>
             <!-- Radio Buttons for Pet Seeker / Shelter Selection -->
-            <div class="d-flex flex-row mt-4 ms-2">
+            <div class="d-flex flex-row ms-2">
                 <div class="col-md-6 form-check">
                     <input class="form-check-input" type="radio" name="user-type" id="petseeker" required>
                     <label class="form-check-label" for="petseeker">Pet Seeker</label>
+                    <div class="invalid-feedback">
+                        Please select your user type.
+                    </div>
                 </div>
                 <div class="col-md-6 form-check">
                     <input class="form-check-input" type="radio" name="user-type" id="petshelter">
@@ -158,6 +176,7 @@
         </a></li>
     </ul>
 </footer>
+<script src="../assets/js/main.js"></script>
 <!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
 <script crossorigin="anonymous" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
