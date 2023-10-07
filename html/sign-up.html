@@ -15,7 +15,7 @@
     <title>PetPal Sign Up</title>
 </head>
 
-<body class="d-flex flex-column vh-100 justify-content-center align-items-center">
+<body class="d-flex flex-column justify-content-between align-items-center">
 <header>
     <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg bg-primary fixed-top">
@@ -60,7 +60,7 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<main class="container-sm container-fluid px-5">
+<main class="container-sm container-fluid px-5 py-3">
     <!-- Logo Image -->
     <div class="row mt-4">
         <div class="col text-center">
@@ -74,7 +74,7 @@
             <p>Sign up below with your details.</p>
         </div>
     </div>
-    <form action="https://postman-echo.com/post" method="post" class="needs-validation" novalidate>
+    <form action="https://postman-echo.com/post" method="post" class="needs-validation" novalidate id="signin-form">
         <div class="row mt-2 pb-3 border rounded">
             <!-- First and Last Name -->
             <div class="d-flex flex-row mt-3">
@@ -177,6 +177,7 @@
     </ul>
 </footer>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/signin.js"></script>
 <!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
 <script crossorigin="anonymous" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
