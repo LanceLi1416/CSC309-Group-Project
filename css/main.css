@@ -1,220 +1,250 @@
 :root {
-	/* Bootstrap Re-Definition ****************************************************************************************/
-	/* Navbar */
-	--bs-nav-link-font-size: 18px;
-	--bs-nav-link-font-weight: 600;
-	--bs-nav-link-color: var(--bs-gray-400);
-	--bs-nav-link-hover-font-weight: 800;
-	--bs-nav-link-hover-color: var(--bs-light);
+    /* Bootstrap Re-Definition ****************************************************************************************/
+    /* Navbar */
+    --bs-nav-link-font-size: 18px;
+    --bs-nav-link-font-weight: 600;
+    --bs-nav-link-color: var(--bs-gray-400);
+    --bs-nav-link-hover-font-weight: 800;
+    --bs-nav-link-hover-color: var(--bs-light);
 
-	/* Colour *********************************************************************************************************/
+    /* Colour *********************************************************************************************************/
 
-	/* Typography *****************************************************************************************************/
-	font-family: var(--bs-font-sans-serif);
-	font-size: 16px;
+    /* Typography *****************************************************************************************************/
+    font-family: var(--bs-font-sans-serif);
+    font-size: 16px;
 }
 
 /* Bootstrap Re-Definition ********************************************************************************************/
 .nav-link:hover,
 .nav-link:focus {
-	color: var(--bs-nav-link-hover-color);
-	font-weight: var(--bs-nav-link-hover-font-weight);
+    color: var(--bs-nav-link-hover-color);
+    font-weight: var(--bs-nav-link-hover-font-weight);
 }
 
 hr {
-	margin: 0;
-	color: inherit;
-	border: 0;
-	border-top: var(--bs-border-width) solid;
-	opacity: 0.5;
+    margin: 0;
+    color: inherit;
+    border: 0;
+    border-top: var(--bs-border-width) solid;
+    opacity: 0.5;
+}
+
+.vh-25 {
+    height: 25vh !important;
 }
 
 /* HTML Classes *******************************************************************************************************/
 body {
-	padding: 60px 110px 3rem 110px;
+    padding: 60px 110px 3rem 110px;
 }
 
 p {
-	word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 /* Self-Defined Classes ***********************************************************************************************/
 .form-left {
-	text-align: left;
+    text-align: left;
 }
 
 @media (min-width: 992px) {
-	.form-left {
-		text-align: right !important;
-	}
+    .form-left {
+        text-align: right !important;
+    }
 }
 
 .image-wrapper {
-	max-width: 200px;
-	max-height: 200px;
-	border-radius: 50px;
-	overflow: hidden;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50px;
+    overflow: hidden;
 }
 
 .application-card {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
-.application-card:hover{
-	transform: scale(0.99);
-	cursor: pointer;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.application-card:hover {
+    transform: scale(0.99);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.application-card-img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+.wrapped-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-wrapper {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.logo-image-wrapper {
+    width: 250px;
+    height: 250px;
+    max-width: 250px;
+    max-height: 250px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.review-container {
+    height: 75vh;
+}
+.shelter-contact-box {
+    max-width: 150px;
 }
 
 .page-title {
-	padding-top: 25px;
+    padding-top: 25px;
 }
 
 .page-container {
-	margin-top: 50px;
-	margin-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 #pet-detail-container {
-	display: grid;
-	grid-gap: 50px;
-	grid-template-columns: 7fr 1fr;
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 7fr 1fr;
 }
 
 .main-page {
-	/* margin-right: 25%; */
-	grid-column: 1 / 2;
+    /* margin-right: 25%; */
+    grid-column: 1 / 2;
 }
 
 .sidebar {
-	grid-column: 2 / 2;
+    grid-column: 2 / 2;
 }
 
 .contact-info {
-	position: fixed;
-	display: block;
-	width: 14%;
-	top: 50%;
+    position: fixed;
+    display: block;
+    width: 14%;
+    top: 50%;
 }
 
 .full-img {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .subtitle {
-	color: var(--bs-secondary);
+    color: var(--bs-secondary);
 }
 
 .full-height {
-	height: 100%;
+    height: 100%;
 }
 
 .large-font {
-	font-size: 26px;
+    font-size: 26px;
 }
 
 /* Account update */
 
 .edit-icon {
-	width: 100px;
-	height: 100px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
 
 .form-group {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 textarea {
-	resize: none;
+    resize: none;
 }
 
 .plus-sign {
-	width: 70%;
-	height: 100%;
+    width: 70%;
+    height: 100%;
 }
 
 .status {
-	position: absolute;
-	top: 5%;
-	right: 10%;
+    position: absolute;
+    top: 5%;
+    right: 10%;
 }
 
 .new-wrapper {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .carousel {
-	text-align: center;
-	width: 100%;
-	/* justify-content: center; */
+    text-align: center;
+    width: 100%;
+    /* justify-content: center; */
 }
 
 .carousel-button-background {
-	background-color: black;
+    background-color: black;
 }
 
 #pet-summary-title {
-	padding-bottom: 8px;
+    padding-bottom: 8px;
 }
 
 .pet-detail-subtitles {
-	margin-top: 32px;
+    margin-top: 32px;
 }
 
 .error-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }
 
 .pet-update-pics-checkbox {
-	margin-right: 1rem;
+    margin-right: 1rem;
 }
 
 .pet-update-pics-div {
-	margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 #error-title-div {
-	margin-top: 16px;
+    margin-top: 16px;
 }
 
 @media screen and (max-width: 992px) {
-	#pet-detail-container {
-		grid-template-columns: 1fr;
-		row-gap: 32px;
-	}
+    #pet-detail-container {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+    }
 
-	.main-page {
-		margin-right: 0;
-		display: block;
-	}
+    .main-page {
+        margin-right: 0;
+        display: block;
+    }
 
-	body {
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
-	}
+    body {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
 
-	.contact-info {
-		position: static;
-		width: 100%;
-	}
+    .contact-info {
+        position: static;
+        width: 100%;
+    }
 }
+
 /*****************/
