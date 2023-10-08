@@ -126,11 +126,11 @@ p {
 	grid-column: 2 / 2;
 }
 
-.contact-info {
+.sidebar-info {
 	position: fixed;
 	display: block;
 	width: 14%;
-	top: 50%;
+	top: 12%;
 }
 
 .full-img {
@@ -258,7 +258,7 @@ textarea {
 		padding-right: 1.5rem;
 	}
 
-	.contact-info {
+	.sidebar-info {
 		position: static;
 		width: 100%;
 	}
