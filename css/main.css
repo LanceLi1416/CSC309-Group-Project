@@ -203,7 +203,7 @@ textarea {
 	z-index: 1000;
 }
 
-.dropdown-item:focus {
+.status-item:focus {
 	background-color: var(--bs-success);
 }
 
