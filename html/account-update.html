@@ -87,53 +87,111 @@
     </nav>
 </header>
 
-<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<div class="col mt-4 justify-content-center align-items-center">
-    <h1 class="text-center">Update your profile</h1>
-
-    <div class="d-flex justify-content-center mb-3">
-        <input accept="image/*" class="d-none" id="picture" name="picture" type="file"/>
-        <label class="bg-secondary edit-icon text-align-center" for="picture" role="button">
-            <!-- TODO: use css for width and height -->
-            <img alt="Profile Picture Update" height="50px" src="../assets/png/edit.png" width="50px"/>
-        </label>
-    </div>
-
-    <form action="seeker-detail.html" class="w-50 col justify-content-center align-items-center mx-auto">
-        <div class="form-group">
-            <label for="input1">First name</label>
-            <input class="form-control" id="input1" type="text" value="Existing first name"/>
-        </div>
-        <div class="form-group">
-            <label for="input2">Last name</label>
-            <input class="form-control" id="input2" type="text" value="Existing last name"/>
-        </div>
-        <div class="form-group">
-            <label for="input3">Email</label>
-            <input class="form-control" id="input3" type="email" value="existing@email.com"/>
-        </div>
-        <div class="form-group">
-            <label for="input4">Phone number</label>
-            <input class="form-control" id="input4" type="tel" value="1111111111"/>
-        </div>
-        <div class="form-group">
-            <label for="input5">Location</label>
-            <input class="form-control" id="input5" type="text" value="Existing location"/>
-        </div>
-        <div class="form-group">
-            <label for="input6">Max distance (mi)</label>
-            <input class="form-control" id="input6" type="text" value="50"/>
-        </div>
-        <div class="form-group">
-            <label for="input6">Notify me?</label>
-            <input checked class="form-check-input" id="input6" type="checkbox"/>
-        </div>
-        <div class="row justify-content-center">
-            <button class="btn btn-primary w-50 mb-5" type="submit">Update</button>
-        </div>
-    </form>
-</div>
-<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
+		<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
+		<!-- TODO: Add your content here -->
+		<div class="col mt-4 justify-content-center align-items-center">
+			<h1 class="text-center">Update your profile</h1>
+			<div class="d-flex justify-content-center mb-3">
+				<input
+					type="file"
+					name="picture"
+					id="picture"
+					accept="image/*"
+					class="d-none"
+				/>
+				<label
+					for="picture"
+					role="button"
+					class="bg-secondary edit-icon text-align-center"
+				>
+					<img
+						src="../assets/png/edit.png"
+						width="50px"
+						height="50px"
+						alt=""
+					/>
+				</label>
+			</div>
+			<form
+				class="w-50 col justify-content-center align-items-center mx-auto"
+				action="profile.html"
+			>
+				<div class="form-group">
+					<label for="input1">First name</label>
+					<input
+						type="text"
+						class="form-control"
+						id="input1"
+						value="Existing first name"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="input2">Last name</label>
+					<input
+						type="text"
+						class="form-control"
+						id="input2"
+						value="Existing last name"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="input3">Email</label>
+					<input
+						type="email"
+						class="form-control"
+						id="input3"
+						value="existing@email.com"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="input4">Phone number</label>
+					<input
+						type="tel"
+						class="form-control"
+						id="input4"
+						value="1111111111"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="input5">Location</label>
+					<input
+						type="text"
+						class="form-control"
+						id="input5"
+						value="Existing location"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="input6">Max distance (mi)</label>
+					<input
+						type="text"
+						class="form-control"
+						id="input6"
+						value="50"
+					/>
+				</div>
+				<div class="form-group">
+					<label for="input6">Notify me?</label>
+					<input
+						class="form-check-input"
+						type="checkbox"
+						id="input6"
+						checked
+					/>
+				</div>
+				<div class="row justify-content-center">
+					<button type="submit" class="btn btn-primary w-50 mb-5">
+						Update
+					</button>
+				</div>
+			</form>
+		</div>
+		<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
     <div class="d-flex align-items-center">
