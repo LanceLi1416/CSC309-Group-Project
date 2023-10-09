@@ -95,22 +95,69 @@
         <!-- Arrow and Text -->
         <div class="d-flex flex-row">
             <div class="mx-3">
-                <h1 class="mt-4 mb-0">Manage your pet listings</h1>
+                <h1 class="my-4">Manage your pet listings</h1>
             </div>
         </div>
         <!-- Sorting -->
         <div class="d-flex flex-row justify-content-center align-items-center">
             <p class="m-0">Sort</p>
             <select aria-label="sort by select dropdown" class="form-select mx-2">
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
+                <option value="newest">New</option>
+                <option value="oldest">Old</option>
             </select>
         </div>
     </div>
 
-    <div class="d-flex flex-row mt-4">
+    <!-- Filter Options Dropdown Button, For Smaller Screens -->
+    <div class="row" id="filter-toggle">
+        <button class="btn btn-outline-success" id="filter-toggle-button">Show Filters</button>
+        <div class="p-2 border full-height" id="filter-small">
+            <!-- Filter By Date -->
+            <div class="mb-4 d-flex flex-column">
+                <h5>Date Added</h5>
+                <div>
+                    <label class="subtitle" for="start-date">From</label>
+                    <input class="form-control" id="start-date" placeholder="Start Date" type="date">
+                </div>
+                <div>
+                    <label class="subtitle" for="end-date">To</label>
+                    <input class="form-control" id="end-date" placeholder="Start Date" type="date">
+                </div>
+            </div>
+            <!-- Filter By Pet Type -->
+            <div class="mb-4">
+                <h5>Pet Type</h5>
+                <div class="form-check">
+                    <input class="form-check-input" id="dog" name="dog" type="checkbox" value="dog">
+                    <label for="dog">Dog</label><br>
+                    <input class="form-check-input" id="cat" name="cat" type="checkbox" value="cat">
+                    <label for="cat">Cat</label><br>
+                    <input class="form-check-input" id="bird" name="bird" type="checkbox" value="bird">
+                    <label for="bird">Bird</label><br>
+                    <input class="form-check-input" id="other" name="other" type="checkbox" value="other">
+                    <label for="other">Other</label>
+                </div>
+            </div>
+            <!-- Filter By Gender -->
+            <div class="mb-4">
+                <h5>Gender</h5>
+                <div class="form-check">
+                    <input class="form-check-input" id="female" name="female" type="checkbox" value="female">
+                    <label for="female">Female</label><br>
+                    <input class="form-check-input" id="male" name="male" type="checkbox" value="male">
+                    <label for="male">Male</label><br>
+                </div>
+            </div>
+            <!-- Save Search -->
+            <div class="mb-1">
+                <button class="btn btn-outline-primary" type="submit">Save Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row mt-3">
         <!-- Filter Options -->
-        <div class="p-2 border full-height">
+        <div class="p-2 border full-height" id="filter">
             <h3 class="mb-4">Filters</h3>
             <!-- Filter By Date -->
             <div class="mb-4 d-flex flex-column">
@@ -143,7 +190,7 @@
         <div class="col-md-10">
             <div class="row mx-2">
                 <div class="col-md-3 d-flex align-items-center flex-column position-relative pet-wrapper">
-                    <img alt="Image 1" class="img-fluid full-img px-2" src="../assets/svg/bootstrap.svg"/>
+                    <img alt="Image 1" class="img-fluid full-img px-2" src="../assets/svg/petpal.svg"/>
                     <div class="dropdown status">
                         <button aria-expanded="false"
                                 class="btn btn-info dropdown-toggle"
@@ -164,7 +211,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 d-flex align-items-center flex-column position-relative">
-                    <img alt="Image 2" class="img-fluid full-img p-2" src="../assets/svg/bootstrap.svg"/>
+                    <img alt="Image 2" class="img-fluid full-img p-2" src="../assets/svg/petpal.svg"/>
                     <div class="dropdown status">
                         <button aria-expanded="false"
                                 class="btn btn-warning dropdown-toggle"
@@ -183,7 +230,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 d-flex align-items-center flex-column position-relative">
-                    <img alt="Image 3" class="img-fluid full-img p-2" src="../assets/svg/bootstrap.svg"/>
+                    <img alt="Image 3" class="img-fluid full-img p-2" src="../assets/svg/petpal.svg"/>
                     <div class="dropdown status">
                         <button aria-expanded="false"
                                 class="btn btn-secondary dropdown-toggle"
@@ -202,7 +249,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 d-flex align-items-center flex-column position-relative">
-                    <img alt="Image 4" class="img-fluid full-img p-2" src="../assets/svg/bootstrap.svg"/>
+                    <img alt="Image 4" class="img-fluid full-img p-2" src="../assets/svg/petpal.svg"/>
                     <div class="dropdown status">
                         <button aria-expanded="false"
                                 class="btn btn-danger dropdown-toggle"
@@ -223,7 +270,7 @@
             </div>
             <div class="row mx-2 mb-5">
                 <div class="col-md-3 d-flex align-items-center flex-column position-relative">
-                    <img alt="Image 5" class="img-fluid full-img p-2" src="../assets/svg/bootstrap.svg"/>
+                    <img alt="Image 5" class="img-fluid full-img p-2" src="../assets/svg/petpal.svg"/>
                     <div class="dropdown status">
                         <button aria-expanded="false"
                                 class="btn btn-danger dropdown-toggle"
@@ -242,7 +289,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 d-flex align-items-center flex-column position-relative">
-                    <img alt="Image 6" class="img-fluid full-img p-2" src="../assets/svg/bootstrap.svg"/>
+                    <img alt="Image 6" class="img-fluid full-img p-2" src="../assets/svg/petpal.svg"/>
                     <div class="dropdown status">
                         <button aria-expanded="false"
                                 class="btn btn-danger dropdown-toggle"
@@ -305,6 +352,7 @@
     </ul>
 </footer>
 <!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
+<script src="../assets/js/management.js"></script>
 <script src="../assets/js/main.js"></script>
 <script
         crossorigin="anonymous"
