@@ -95,31 +95,41 @@
     <h1>Pet Information</h1>
     <p>Please click edit to update pet information.</p>
 
-    <form action="https://postman-echo.com/post" method="POST">
+    <form class="needs-validation" id="signin-form" action="https://postman-echo.com/post" method="POST" novalidate>
         <h2>Pet Information</h2>
 
         <div class="row mt-2 pb-3 border rounded">
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label for="pet-name">Name</label></div>
-                    <div><input class="form-control"
-                                id="pet-name"
-                                name="pet-name"
-                                required
-                                type="text"
-                                value="Doggy Bob"/></div>
+                    <div>
+                        <input class="form-control"
+                               id="pet-name"
+                               name="pet-name"
+                               required
+                               type="text"
+                               value="Doggy Bob"/>
+                        <div class="invalid-feedback">
+                            The pet's name must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label for="pet-birthday">Birthday</label></div>
-                    <div><input class="form-control"
-                                id="pet-birthday"
-                                name="pet-birthday"
-                                required
-                                type="date"
-                                value="2021-01-01"/></div>
+                    <div>
+                        <input class="form-control"
+                               id="pet-birthday"
+                               name="pet-birthday"
+                               required
+                               type="date"
+                               value="2021-01-01"/>
+                        <div class="invalid-feedback">
+                            The pet's birthday must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -127,14 +137,19 @@
                 <div class="row form-group">
                     <div><label for="weight">Weight (kg)</label></div>
                     <div class="col-auto">
-                        <div><input class="form-control"
-                                    id="weight"
-                                    max="1000"
-                                    min="0"
-                                    name="weight"
-                                    required
-                                    type="number"
-                                    value="50"/></div>
+                        <div>
+                            <input class="form-control"
+                                   id="weight"
+                                   max="1000"
+                                   min="0"
+                                   name="weight"
+                                   required
+                                   type="number"
+                                   value="50"/>
+                            <div class="invalid-feedback">
+                                The pet's weight must be provided.
+                            </div>
+                        </div>
                     </div>
                     <div class="col-auto">
                         <select class="form-select" id="autoSizingSelect" required>
@@ -142,6 +157,9 @@
                             <option value="kg" selected>kg</option>
                             <option value="lb">lb</option>
                         </select>
+                        <div class="invalid-feedback">
+                            The metric must be indicated.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,19 +167,29 @@
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label for="animal">Animal</label></div>
-                    <div><input class="form-control" id="animal" name="animal" required type="text" value="Dog"/></div>
+                    <div>
+                        <input class="form-control" id="animal" name="animal" required type="text" value="Dog"/>
+                        <div class="invalid-feedback">
+                            The type of animal must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label for="breed">Breed</label></div>
-                    <div><input class="form-control"
-                                id="breed"
-                                name="breed"
-                                required
-                                type="text"
-                                value="Golden Retriever"/></div>
+                    <div>
+                        <input class="form-control"
+                               id="breed"
+                               name="breed"
+                               required
+                               type="text"
+                               value="Golden Retriever"/>
+                        <div class="invalid-feedback">
+                            The pet's breed must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -170,14 +198,22 @@
                     <div><label for="colour">Colour(s)</label></div>
                     <div>
                         <input class="form-control" id="colour" name="colour" required type="text" value="Brown"/>
+                        <div class="invalid-feedback">
+                            The pet's colour(s) must be provided.
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
-                    <input checked id="vaccinated" name="vaccinated" required type="checkbox" value="yes"/>
                     <label for="vaccinated">Vaccinated</label>
+                    <div>
+                        <input checked id="vaccinated" name="vaccinated" required type="checkbox" value="yes"/>
+                        <div class="invalid-feedback">
+                            The pet must be vaccinated.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -196,12 +232,14 @@
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label class="form-label" for="formFileMultiple">Upload Pictures</label></div>
-                    <div><input accept=".jpg, .png, .jpeg"
-                                class="form-control"
-                                id="attachment"
-                                multiple
-                                name="attachments"
-                                type="file"/></div>
+                    <div>
+                        <input accept=".jpg, .png, .jpeg"
+                               class="form-control"
+                               id="attachment"
+                               multiple
+                               name="attachments"
+                               type="file"/>
+                    </div>
                 </div>
             </div>
             <div class="d-flex flex-row mt-3">
@@ -227,6 +265,9 @@
                     <div><label for="owner-name">Name</label></div>
                     <div>
                         <input class="form-control" id="owner" name="owner" required type="text" value="Nicholas Poon"/>
+                        <div class="invalid-feedback">
+                            The owner's name must be provided.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -234,12 +275,17 @@
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label for="email">Email</label></div>
-                    <div><input class="form-control"
-                                id="email"
-                                name="email"
-                                required
-                                type="email"
-                                value="example@utoronto.ca"/></div>
+                    <div>
+                        <input class="form-control"
+                               id="email"
+                               name="email"
+                               required
+                               type="email"
+                               value="example@utoronto.ca"/>
+                        <div class="invalid-feedback">
+                            The owner's email must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -248,6 +294,9 @@
                     <div><label for="phone">Phone</label></div>
                     <div>
                         <input class="form-control" id="phone" name="phone" required type="tel" value="123-456-789"/>
+                        <div class="invalid-feedback">
+                            The owner's phone number must be provided.
+                        </div>
                     </div>
                     <!-- Pattern="[0-9]*" -->
                 </div>
@@ -256,12 +305,17 @@
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
                     <div><label for="location">Location</label></div>
-                    <div><input class="form-control"
-                                id="location"
-                                name="location"
-                                required
-                                type="text"
-                                value="Richmond Hill, ON, Canada"/></div>
+                    <div>
+                        <input class="form-control"
+                               id="location"
+                               name="location"
+                               required
+                               type="text"
+                               value="Richmond Hill, ON, Canada"/>
+                        <div class="invalid-feedback">
+                            The owner's location must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -270,12 +324,17 @@
                     <div>
                         <label for="owner-birthday">Birthday</label>
                     </div>
-                    <div><input class="form-control"
-                                id="owner-birthday"
-                                name="owner-birthday"
-                                required
-                                type="date"
-                                value="2000-01-01"/></div>
+                    <div>
+                        <input class="form-control"
+                               id="owner-birthday"
+                               name="owner-birthday"
+                               required
+                               type="date"
+                               value="2000-01-01"/>
+                        <div class="invalid-feedback">
+                            The owner's birthday must be provided.
+                        </div>
+                    </div>
                 </div>
             </div>
 
