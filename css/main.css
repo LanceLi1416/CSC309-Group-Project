@@ -207,6 +207,10 @@ textarea {
 	background-color: var(--bs-success);
 }
 
+.notif-shelter:active {
+    background-color: var(--bs-success);
+}
+
 /*****************/
 
 .carousel {
