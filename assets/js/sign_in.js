@@ -7,10 +7,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Prevent the default form submission behavior
         event.preventDefault();
 
+        // Get the selected radio button value
+        const petSeekerType = document.querySelector('input[id="petseeker"]:checked');
+        const shelterType = document.querySelector('input[id="petshelter"]:checked');
+
         // Perform your form validation here
         if (form.checkValidity()) {
             // If validation passes, redirect the user
-            window.location.href = "../index-in.html";
+            if (petSeekerType) {
+                window.location.href = "../index-in.html";
+            }
+            else if (shelterType) {
+                window.location.href = "../index-in-shelter.html";
+            }
+            else {
+                window.location.href = "../index-in.html";
+            }
         }
     });
 });
