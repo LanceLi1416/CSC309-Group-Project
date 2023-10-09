@@ -18,7 +18,7 @@
 <body class="bg-light">
 <header>
     <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-    <nav class="navbar navbar-expand-lg bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg bg-success fixed-top">
         <div class="container-fluid">
             <!-- Logo and Name -->
             <a class="navbar-brand text-light" href="../index.html">
@@ -48,7 +48,7 @@
 
                 <!-- Right -->
                 <div class="dropdown">
-                    <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    <button aria-expanded="false" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown"
                             id="dropdownMenuButton1" type="button">
                         Notifications
                     </button>
@@ -75,13 +75,12 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<main class="main-page row my-5">
+<main class="main-page mb-5">
     <div class="row">
-        <div class="col-lg-1">
-            <a href="pet_detail.html" class="fs-5"><i class="bi bi-arrow-left me-1"></i>Back</a>
-        </div>
+        <!-- TODO: navigation -->
+        <div class="col-lg-1"></div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-8 mt-5 d-flex flex-column align-contents-center align-items-center">
             <div class="d-flex flex-column align-content-center align-items-center">
                 <!-- Heading -->
                 <div class="d-flex flex-column">
@@ -161,10 +160,12 @@
                     </div>
                 </div>
             </div>
+
+            <a href="account-update2.html" class="btn btn-outline-success">Update Profile</a>
         </div>
 
-        <div class="col-lg-3 h-75 mt-2">
-            <div class="d-flex flex-column container align-content-between gap-5 overflow-auto review-container">
+        <div class="col-lg-3 h-75">
+            <div class="d-flex flex-column container align-content-between gap-5 my-5 overflow-auto review-container">
                 <!-- Card 1 -->
                 <div class="d-flex flex-column align-content-between gap-3 rounded-5 bg-white p-3">
                     <!-- User info -->
@@ -301,7 +302,7 @@
 </main>
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
-<footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
+<footer class="bg-success d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
     <div class="d-flex align-items-center">
         <a class="me-2 text-light text-decoration-none" href="../index.html">
             <!-- TODO: PetPal logo here -->

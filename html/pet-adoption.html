@@ -67,8 +67,10 @@
                 <a class="nav-link m-1 p-1" href="sign-up.html">Sign Up</a>
                 <!-- Search Box -->
                 <form class="d-flex ps-2" role="search">
-                    <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search" id="search-input">
-                    <a href="search.html" id="search-link" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
+                    <input aria-label="Search" class="form-control mx-2" id="search-input" placeholder="Search"
+                           type="search">
+                    <a class="btn btn-outline-light mx-2" href="search.html" id="search-link" role="button"
+                       type="submit">Search</a>
                 </form>
             </div>
         </div>
@@ -76,255 +78,272 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<main class="page-container">
-    <h1 class="display-1 mb-5 text-center">
-        Adopt <span id="adopt-pet-name">Doggy</span> <!-- Actual pet name -->
-    </h1>
+<main class="page-container row">
+    <div class="col-lg-1">
+        <a class="fs-5" href="pet_detail.html"><i class="bi bi-arrow-left me-1"></i>Back</a>
+    </div>
+    <div class="col-lg-9">
+        <h1 class="display-1 mb-5 text-center">
+            Adopt <span id="adopt-pet-name">Doggy</span> <!-- Actual pet name -->
+        </h1>
 
-    <form class="mx-5">
-        <!-- Name -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-first-name">Name</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-first-name" placeholder="First Name" required type="text"/>
-            </div>
-            <div class="col">
-                <input class="form-control" name="adopt-fctrl-last-name" placeholder="Last Name" required type="text"/>
-            </div>
-        </div>
-        <!-- Age -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-age">Age</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-age" placeholder="19" required type="number"/>
-            </div>
-        </div>
-        <!-- City -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-city">City</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-city" placeholder="Toronto" required type="text"/>
-            </div>
-        </div>
-        <!-- Street -->
-        <div class="row mb-3 align-items-start">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" id="adopt-fctrl-addr">Street</label>
-            </div>
-            <div class="col">
-                <input aria-labelledby="adopt-fctrl-addr" class="form-control mb-3" id="adopt-fctrl-addr1"
-                       placeholder="Address" required type="text"/>
-                <input aria-labelledby="adopt-fctrl-addr" class="form-control" id="adopt-fctrl-addr2"
-                       placeholder="Apartment, suite, etc. (optional)" type="text"/>
-            </div>
-        </div>
-        <!-- Postal Code -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-postal">Postal Code</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-postal" placeholder="0A0 0A0" required type="text"/>
-            </div>
-        </div>
-        <!-- Phone Number -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-phone">Phone</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-phone" placeholder="000-000 (0000)" required type="tel"/>
-            </div>
-        </div>
-        <!-- Email -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-email">Email</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-email" placeholder="example@domain.com" required
-                       type="email"/>
-            </div>
-        </div>
-        <!-- Household Annual Income -->
-        <div class="row mb-3 align-items-start">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label">Household Annual Income</label>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" id="adopt-rad-income-1" type="radio"/>
-                    <label class="form-check-label" for="adopt-rad-income-1">$0 - $10,000</label></div>
-                <div class="form-check">
-                    <input class="form-check-input" id="adopt-rad-income-2" type="radio"/>
-                    <label class="form-check-label" for="adopt-rad-income-2">$10,001 - $30,000</label>
+        <form class="mx-5">
+            <!-- Name -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-first-name">Name</label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" id="adopt-rad-income-3" type="radio"/>
-                    <label class="form-check-label" for="adopt-rad-income-3">$30,001 - 60,000</label>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-first-name" placeholder="First Name" required
+                           type="text"/>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" id="adopt-rad-income-4" type="radio"/>
-                    <label class="form-check-label" for="adopt-rad-income-4">$60,001 - $90,000</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" id="adopt-rad-income-5" type="radio"/>
-                    <label class="form-check-label" for="adopt-rad-income-5">$90,001 - $120,000</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" id="adopt-rad-income-6" required type="radio"/>
-                    <label class="form-check-label" for="adopt-rad-income-6">$120,000+</label>
+                <div class="col">
+                    <input class="form-control" name="adopt-fctrl-last-name" placeholder="Last Name" required
+                           type="text"/>
                 </div>
             </div>
-        </div>
-        <!-- Experience with Pets -->
-        <div class="row mb-3 align-items-start">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label">Experience with Pets</label>
+            <!-- Age -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-age">Age</label>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-age" placeholder="19" required type="number"/>
+                </div>
             </div>
-            <div class="col">
-                <!-- Dogs -->
-                <div class="row">
-                    <div class="col">
-                        <fieldset>
-                            <legend>Dogs</legend>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-dog-1" name="dogs" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-dog-1">Never</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-dog-2" name="dogs" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-dog-2">Less then 2 years</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-dog-3" name="dogs" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-dog-3">2 - 5 years</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-dog-4" name="dogs" required
-                                       type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-dog-4">More than 6 years</label>
-                            </div>
-                        </fieldset>
+            <!-- City -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-city">City</label>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-city" placeholder="Toronto" required type="text"/>
+                </div>
+            </div>
+            <!-- Street -->
+            <div class="row mb-3 align-items-start">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" id="adopt-fctrl-addr">Street</label>
+                </div>
+                <div class="col">
+                    <input aria-labelledby="adopt-fctrl-addr" class="form-control mb-3" id="adopt-fctrl-addr1"
+                           placeholder="Address" required type="text"/>
+                    <input aria-labelledby="adopt-fctrl-addr" class="form-control" id="adopt-fctrl-addr2"
+                           placeholder="Apartment, suite, etc. (optional)" type="text"/>
+                </div>
+            </div>
+            <!-- Postal Code -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-postal">Postal Code</label>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-postal" placeholder="0A0 0A0" required type="text"/>
+                </div>
+            </div>
+            <!-- Phone Number -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-phone">Phone</label>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-phone" placeholder="000-000 (0000)" required
+                           type="tel"/>
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-email">Email</label>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-email" placeholder="example@domain.com" required
+                           type="email"/>
+                </div>
+            </div>
+            <!-- Household Annual Income -->
+            <div class="row mb-3 align-items-start">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label">Household Annual Income</label>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" id="adopt-rad-income-1" type="radio"/>
+                        <label class="form-check-label" for="adopt-rad-income-1">$0 - $10,000</label></div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="adopt-rad-income-2" type="radio"/>
+                        <label class="form-check-label" for="adopt-rad-income-2">$10,001 - $30,000</label>
                     </div>
-                </div>
-                <!-- Cats -->
-                <div class="row">
-                    <div class="col">
-                        <fieldset>
-                            <legend>Cats</legend>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-cat-1" name="cats" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-cat-1">Never</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-cat-2" name="cats" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-cat-2">Less then 2 years</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-cat-3" name="cats" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-cat-3">2 - 5 years</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-cat-4" name="cats" required
-                                       type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-cat-4">More than 6 years</label>
-                            </div>
-                        </fieldset>
+                    <div class="form-check">
+                        <input class="form-check-input" id="adopt-rad-income-3" type="radio"/>
+                        <label class="form-check-label" for="adopt-rad-income-3">$30,001 - 60,000</label>
                     </div>
-                </div>
-                <!-- Other -->
-                <div class="row">
-                    <div class="col">
-                        <fieldset>
-                            <legend>Other</legend>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-other-1" name="other" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-other-1">Never</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-other-2" name="other" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-other-2">Less then 2 years</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-other-3" name="other" type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-other-3">2 - 5 years</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="adopt-rad-exp-other-4" name="other" required
-                                       type="radio"/>
-                                <label class="form-check-label" for="adopt-rad-exp-other-4">More than 6 years</label>
-                            </div>
-                        </fieldset>
+                    <div class="form-check">
+                        <input class="form-check-input" id="adopt-rad-income-4" type="radio"/>
+                        <label class="form-check-label" for="adopt-rad-income-4">$60,001 - $90,000</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="adopt-rad-income-5" type="radio"/>
+                        <label class="form-check-label" for="adopt-rad-income-5">$90,001 - $120,000</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="adopt-rad-income-6" required type="radio"/>
+                        <label class="form-check-label" for="adopt-rad-income-6">$120,000+</label>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Pets Currently Own -->
-        <div class="row mb-3 align-items-start">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label">Pets Currently Own</label>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-lg-1">
-                        <label class="col-form-label" for="adopt-fctrl-curr-dogs">Dogs</label>
+            <!-- Experience with Pets -->
+            <div class="row mb-3 align-items-start">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label">Experience with Pets</label>
+                </div>
+                <div class="col">
+                    <!-- Dogs -->
+                    <div class="row">
+                        <div class="col">
+                            <fieldset>
+                                <legend>Dogs</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-dog-1" name="dogs" type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-dog-1">Never</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-dog-2" name="dogs" type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-dog-2">Less then 2 years</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-dog-3" name="dogs" type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-dog-3">2 - 5 years</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-dog-4" name="dogs" required
+                                           type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-dog-4">More than 6 years</label>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
-                    <div class="col">
-                        <input class="form-control" id="adopt-fctrl-curr-dogs" placeholder="0" required type="number"/>
+                    <!-- Cats -->
+                    <div class="row">
+                        <div class="col">
+                            <fieldset>
+                                <legend>Cats</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-cat-1" name="cats" type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-cat-1">Never</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-cat-2" name="cats" type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-cat-2">Less then 2 years</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-cat-3" name="cats" type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-cat-3">2 - 5 years</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-cat-4" name="cats" required
+                                           type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-cat-4">More than 6 years</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- Other -->
+                    <div class="row">
+                        <div class="col">
+                            <fieldset>
+                                <legend>Other</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-other-1" name="other"
+                                           type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-other-1">Never</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-other-2" name="other"
+                                           type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-other-2">Less then 2
+                                        years</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-other-3" name="other"
+                                           type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-other-3">2 - 5 years</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="adopt-rad-exp-other-4" name="other" required
+                                           type="radio"/>
+                                    <label class="form-check-label" for="adopt-rad-exp-other-4">More than 6
+                                        years</label>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-1">
-                        <label class="col-form-label" for="adopt-fctrl-curr-cats">Cats</label>
+            </div>
+            <!-- Pets Currently Own -->
+            <div class="row mb-3 align-items-start">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label">Pets Currently Own</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label class="col-form-label" for="adopt-fctrl-curr-dogs">Dogs</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="adopt-fctrl-curr-dogs" placeholder="0" required
+                                   type="number"/>
+                        </div>
                     </div>
-                    <div class="col">
-                        <input class="form-control" id="adopt-fctrl-curr-cats" placeholder="0" required type="number"/>
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label class="col-form-label" for="adopt-fctrl-curr-cats">Cats</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="adopt-fctrl-curr-cats" placeholder="0" required
+                                   type="number"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label class="col-form-label" for="adopt-fctrl-curr-other">Other</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="adopt-fctrl-curr-other" placeholder="0" required
+                                   type="number"/>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-1">
-                        <label class="col-form-label" for="adopt-fctrl-curr-other">Other</label>
-                    </div>
-                    <div class="col">
-                        <input class="form-control" id="adopt-fctrl-curr-other" placeholder="0" required type="number"/>
-                    </div>
+            </div>
+            <!-- Available Time -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <label class="col-form-label" for="adopt-fctrl-date">Available Time</label>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="adopt-fctrl-date" required type="date"/>
                 </div>
             </div>
-        </div>
-        <!-- Available Time -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <label class="col-form-label" for="adopt-fctrl-date">Available Time</label>
+            <!-- Consent -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-lg-2 form-left">
+                    <input id="adopt-chkbx-consent" required type="checkbox"/>
+                </div>
+                <div class="col">
+                    <label class="col-form-label" for="adopt-chkbx-consent">
+                        I hereby declare that the information provided is true and correct.
+                    </label>
+                </div>
             </div>
-            <div class="col">
-                <input class="form-control" id="adopt-fctrl-date" required type="date"/>
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="col text-center">
+                    <input class="btn btn-outline-primary" type="submit"/>
+                </div>
             </div>
-        </div>
-        <!-- Consent -->
-        <div class="row mb-3 align-items-center">
-            <div class="col-lg-2 form-left">
-                <input id="adopt-chkbx-consent" required type="checkbox"/>
-            </div>
-            <div class="col">
-                <label class="col-form-label" for="adopt-chkbx-consent">
-                    I hereby declare that the information provided is true and correct.
-                </label>
-            </div>
-        </div>
-        <!-- Submit Button -->
-        <div class="row">
-            <div class="col text-center">
-                <input class="btn btn-outline-primary" type="submit"/>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </main>
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
