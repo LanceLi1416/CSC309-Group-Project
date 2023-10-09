@@ -243,16 +243,17 @@ textarea {
 	margin-top: 1rem;
 }
 
+.sidebar-button {
+	margin-left: 12px;
+	margin-right: 12px;
+	width: calc(100% - 24px);
+}
+
 #error-title-div {
 	margin-top: 16px;
 }
 
 @media screen and (max-width: 992px) {
-	#pet-detail-container {
-		grid-template-columns: 1fr;
-		row-gap: 32px;
-	}
-
 	.main-page {
 		margin-right: 0;
 		display: block;
@@ -262,7 +263,14 @@ textarea {
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
 	}
+}
 
+@media screen and (max-width: 1300px) {
+	#pet-detail-container {
+		grid-template-columns: 1fr;
+		row-gap: 32px;
+	}
+	
 	.sidebar-info {
 		position: static;
 		width: 100%;
