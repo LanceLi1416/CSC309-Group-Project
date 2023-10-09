@@ -57,9 +57,13 @@
                     </button>
                     <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu dropdown-menu-dark bg-success">
                         <li class="dropdown-item notif-shelter text-light">Savitha sent you a message</li>
-                        <li class="dropdown-item notif-shelter text-light">Your adoption request for Milo has been approved!</li>
+                        <li class="dropdown-item notif-shelter text-light">Your adoption request for Milo has been
+                            approved!
+                        </li>
                         <li class="dropdown-item notif-shelter text-light">New pet listing within your area!</li>
-                        <li class="dropdown-item notif-shelter text-light">Your application for Coco is waiting for you!</li>
+                        <li class="dropdown-item notif-shelter text-light">Your application for Coco is waiting for
+                            you!
+                        </li>
                         <li class="dropdown-item notif-shelter text-light">Nicholas sent you a message</li>
                         <div class="dropdown-divider"></div>
                         <li><a class="dropdown-item notif-shelter text-light" href="#">+45 more notifications</a></li>
@@ -88,16 +92,15 @@
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
 <main class="main-page mb-5">
-    <div class="row">
+    <div class="row align-content-center">
         <!-- TODO: navigation -->
-        <div class="col-lg-1"></div>
+        <div class="col-1"></div>
 
-        <div class="col-lg-8 mt-5 d-flex flex-column align-contents-center align-items-center">
-            <div class="d-flex flex-column align-content-center align-items-center">
+        <div class="col mt-5 d-flex flex-column align-contents-center align-items-center">
                 <!-- Heading -->
                 <div class="d-flex flex-column">
                     <div class="image-wrapper">
-                        <img alt="" class="wrapped-img" src="//placehold.co/200"> <!-- TODO: actual LOGO -->
+                        <img alt="" class="wrapped-img" src="../assets/svg/petpal.svg">
                     </div>
                     <div class="text-center my-3">
                         <h1>PetPal</h1>
@@ -106,7 +109,7 @@
                 <!-- Detail -->
                 <div class="d-flex flex-column align-items-center align-content-center text-start w-100">
                     <!-- Bio -->
-                    <div class="overflow-auto vh-25">
+                    <div class="overflow-auto">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Tincidunt praesent semper feugiat nibh sed pulvinar proin
@@ -132,9 +135,9 @@
                     </div>
 
                     <!-- Icons -->
-                    <div class="d-flex flex-row flex-fill align-content-around gap-5 mt-3">
+                    <div class="row mt-3 d-flex justify-content-center">
                         <!-- Address -->
-                        <div class="d-flex flex-column align-items-center align-content-center shelter-contact-box">
+                        <div class="col d-flex flex-column align-items-center align-content-center shelter-contact-box mx-5">
                             <div>
                                 <img alt="" src="//placeholder.co/64">
                             </div>
@@ -146,7 +149,7 @@
                             </div>
                         </div>
                         <!-- Phone -->
-                        <div class="d-flex flex-column align-items-center align-content-center shelter-contact-box">
+                        <div class="col d-flex flex-column align-items-center align-content-center shelter-contact-box mx-5">
                             <div>
                                 <img alt="" src="//placeholder.co/64">
                             </div>
@@ -158,7 +161,7 @@
                             </div>
                         </div>
                         <!-- Email -->
-                        <div class="d-flex flex-column align-items-center align-content-center shelter-contact-box">
+                        <div class="col d-flex flex-column align-items-center align-content-center shelter-contact-box mx-5">
                             <div>
                                 <img alt="" src="//placeholder.co/64">
                             </div>
@@ -170,13 +173,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <a href="account-update-shelter.html" class="btn btn-outline-success">Update Profile</a>
+                    <a class="btn btn-outline-success my-3" href="account-update-shelter.html">Update Profile</a>
+                </div>
         </div>
 
-        <div class="col-lg-3 h-75">
+        <div class="col-lg-3">
             <div class="d-flex flex-column container align-content-between gap-5 my-5 overflow-auto review-container">
                 <!-- Card 1 -->
                 <div class="d-flex flex-column align-content-between gap-3 rounded-5 bg-white p-3">
