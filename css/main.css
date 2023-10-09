@@ -51,6 +51,10 @@ p {
 	.form-left {
 		text-align: right !important;
 	}
+
+	#filter-toggle {
+		display: none;
+	}
 }
 
 .logo {
@@ -266,6 +270,22 @@ textarea {
 	.sidebar-info {
 		position: static;
 		width: 100%;
+	}
+
+	#filter {
+        display: none;
+    }
+
+	#filter-toggle-button {
+		display: block;
+	}
+
+	#filter-small {
+		display: none;
+	}
+
+	#filter-small.show {
+		display: block;
 	}
 }
 
