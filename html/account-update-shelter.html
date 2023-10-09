@@ -1,225 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 shrink-to-fit=no"
-			name="viewport"
-		/>
-		<meta content="ie=edge" http-equiv="X-UA-Compatible" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 shrink-to-fit=no"
+          name="viewport"/>
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
 
-		<!--  Bootstrap CSS  -->
-		<link
-			crossorigin="anonymous"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-			rel="stylesheet"
-		/>
-		<!--  Customized CSS  -->
-		<link href="../css/main.css" rel="stylesheet" />
-		<!-- TODO: Change title -->
-		<title>PetPal Template Page</title>
-	</head>
+    <!--  Bootstrap CSS  -->
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+    <!--  Customized CSS  -->
+    <link href="../css/main.css" rel="stylesheet"/>
+    <title>PetPal Account Update</title>
+</head>
 
-	<body>
-		<header>
-			<!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-			<nav class="navbar navbar-expand-lg bg-success fixed-top">
-				<div class="container-fluid">
-					<!-- Logo and Name -->
-					<a class="navbar-brand text-light" href="../index.html">
-						<!-- TODO: replace with actual Logo -->
-						<img
-							alt="PetPal Logo"
-							class="d-inline-block align-text-top me-2"
-							src="/assets/svg/bootstrap.svg"
-							width="30px"
-						/>
-						PetPal
-					</a>
-					<!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
-					<button
-						aria-controls="navbarSupportedContent"
-						aria-expanded="false"
-						aria-label="Toggle navigation"
-						class="navbar-toggler"
-						data-bs-target="#navbarSupportedContent"
-						data-bs-toggle="collapse"
-						type="button"
-					>
-						<span class="navbar-toggler-icon"></span>
-					</button>
+<body class="bg-light">
+<header>
+    <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg bg-success fixed-top">
+        <div class="container-fluid">
+            <!-- Logo and Name -->
+            <a class="navbar-brand text-light" href="../index.html">
+                <img alt="PetPal Logo"
+                     class="d-inline-block align-text-top me-2"
+                     src="/assets/svg/petpal.svg"
+                     width="30px"/>
+                PetPal
+            </a>
+            <!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
+            <button aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                    type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-					<!-- Major Contents -->
-					<div
-						class="collapse navbar-collapse"
-						id="navbarSupportedContent"
-					>
-						<!-- Left -->
-						<div class="me-auto mb-2 mb-lg-0">
-							<a class="nav-link" href="#">Browse</a>
-							<!-- TODO: Specify this link -->
-							<!-- TODO: more navigation links here -->
-						</div>
+            <!-- Major Contents -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <div class="me-auto mb-2 mb-lg-0">
+                    <!-- Add components later as needed -->
+                </div>
 
-						<!-- Right -->
-						<a class="nav-link m-1 p-1" href="shelter-detail-shelter.html"
-							>Profile</a
-						>
-						<a class="nav-link m-1 p-1" href="log-in.html"
-							>Log Out</a
-						>
-						<!-- Search Box -->
-						<form class="d-flex ps-2" role="search">
-							<input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search" id="search-input">
-                    		<a href="search.html" id="search-link" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
-						</form>
-					</div>
-				</div>
-			</nav>
-		</header>
+                <!-- Right -->
+                <div class="dropdown"> <!-- Notifications -->
+                    <button aria-expanded="false"
+                            class="btn btn-success dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            id="dropdownMenuButton1"
+                            type="button">
+                        Notifications
+                    </button>
+                    <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu dropdown-menu-dark bg-success">
+                        <li class="dropdown-item text-light">Savitha sent you a message</li>
+                        <li class="dropdown-item text-light">Your adoption request for Milo has been approved!</li>
+                        <li class="dropdown-item text-light">New pet listing within your area!</li>
+                        <li class="dropdown-item text-light">Your application for Coco is waiting for you!</li>
+                        <li class="dropdown-item text-light">Nicholas sent you a message</li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item text-light" href="#">+45 more notifications</a></li>
+                    </ul>
+                </div>
+                <a class="nav-link m-1 p-1" href="seeker-detail.html">Profile</a>
+                <a class="nav-link m-1 p-1" href="log-in.html">Log Out</a>
+                <!-- Search Box -->
+                <form class="d-flex ps-2" role="search">
+                    <input aria-label="Search"
+                           class="form-control mx-2"
+                           id="search-input"
+                           placeholder="Search"
+                           type="search">
+                    <a class="btn btn-outline-light mx-2"
+                       href="search.html"
+                       id="search-link"
+                       role="button"
+                       type="submit">Search</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
 
-		<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-		<!-- TODO: Add your content here -->
-		<div class="col mt-4 justify-content-center align-items-center">
-			<h1 class="text-center">Update your profile</h1>
-			<div class="d-flex justify-content-center mb-3">
-				<input
-					type="file"
-					name="picture"
-					id="picture"
-					accept="image/*"
-					class="d-none"
-				/>
-				<label
-					for="picture"
-					role="button"
-					class="bg-secondary edit-icon text-align-center"
-				>
-					<img
-						src="../assets/png/edit.png"
-						width="50px"
-						height="50px"
-						alt=""
-					/>
-				</label>
-			</div>
-			<form
-				class="w-50 col justify-content-center align-items-center mx-auto"
-				action="shelter-detail-shelter.html"
-			>
-				<div class="form-group">
-					<label for="input1">Shelter name</label>
-					<input
-						type="text"
-						class="form-control"
-						id="input1"
-						value="Existing shelter name"
-					/>
-				</div>
-				<div class="form-group">
-					<label for="input2">Mission statement</label>
-					<textarea type="textarea" class="form-control" id="input2">
-Existing mission statement. We are a very helpful and well-organized shelter!</textarea
-					>
-				</div>
-				<div class="form-group">
-					<label for="input3">Email</label>
-					<input
-						type="email"
-						class="form-control"
-						id="input3"
-						value="existing@email.com"
-					/>
-				</div>
-				<div class="form-group">
-					<label for="input4">Phone number</label>
-					<input
-						type="tel"
-						class="form-control"
-						id="input4"
-						value="1111111111"
-					/>
-				</div>
-				<div class="form-group">
-					<label for="input5">Address</label>
-					<input
-						type="text"
-						class="form-control"
-						id="input5"
-						value="Existing address"
-					/>
-				</div>
+<!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
+<div class="col mt-4 justify-content-center align-items-center">
+    <h1 class="text-center">Update your profile</h1>
 
-				<div class="row justify-content-center">
-					<button type="submit" class="btn btn-success w-50 mb-5">
-						Update
-					</button>
-				</div>
-			</form>
-		</div>
-		<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
+    <div class="d-flex justify-content-center mb-3">
+        <input accept="image/*" class="d-none" id="picture" name="picture" type="file"/>
+        <label class="bg-secondary edit-icon text-align-center" for="picture" role="button">
+            <!-- TODO: use css for width and height -->
+            <img alt="" height="50px" src="../assets/png/edit.png" width="50px"/>
+        </label>
+    </div>
 
-		<footer
-			class="bg-success d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom"
-		>
-			<div class="d-flex align-items-center">
-				<a
-					class="me-2 text-light text-decoration-none"
-					href="../index.html"
-				>
-					<!-- TODO: PetPal logo here -->
-					<i class="bi bi-bootstrap"></i>
-				</a>
-				<span class="text-light">
-					© 2023 <a class="text-light" href="../index.html">PetPal</a>
-				</span>
-			</div>
+    <form action="shelter-detail-shelter.html" class="w-50 col justify-content-center align-items-center mx-auto">
+        <div class="form-group">
+            <label for="input1">Shelter name</label>
+            <input class="form-control" id="input1" type="text" value="Existing shelter name"/>
+        </div>
+        <div class="form-group">
+            <label for="input2">Mission statement</label>
+            <textarea class="form-control" id="input2" type="textarea">Existing mission statement. We are a very helpful and well-organized shelter!</textarea>
+        </div>
+        <div class="form-group">
+            <label for="input3">Email</label>
+            <input class="form-control" id="input3" type="email" value="existing@email.com"/>
+        </div>
+        <div class="form-group">
+            <label for="input4">Phone number</label>
+            <input class="form-control" id="input4" type="tel" value="1111111111"/>
+        </div>
+        <div class="form-group">
+            <label for="input5">Address</label>
+            <input class="form-control" id="input5" type="text" value="Existing address"/>
+        </div>
+        <div class="row justify-content-center">
+            <button class="btn btn-success w-50 mb-5" type="submit">Update</button>
+        </div>
+    </form>
+</div>
+<!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
-			<ul class="nav justify-content-end list-unstyled d-flex">
-				<li class="ms-3">
-					<a class="text-light" href="#">
-						<!-- TODO: Twitter social media integration -->
-						<i class="bi bi-twitter"></i>
-					</a>
-				</li>
-				<li class="ms-3">
-					<a class="text-light" href="#">
-						<!-- TODO: Twitter social media integration -->
-						<i class="bi bi-instagram"></i>
-					</a>
-				</li>
-				<li class="ms-3">
-					<a class="text-light" href="#">
-						<!-- TODO: Twitter social media integration -->
-						<i class="bi bi-facebook"></i>
-					</a>
-				</li>
-				<li class="ms-3">
-					<a class="text-light" href="#">
-						<!-- TODO: Twitter social media integration -->
-						<i class="bi bi-linkedin"></i>
-					</a>
-				</li>
-				<li class="ms-3">
-					<a class="text-light" href="#">
-						<!-- TODO: Twitter social media integration -->
-						<i class="bi bi-github"></i>
-					</a>
-				</li>
-			</ul>
-		</footer>
-		<script src="update.js"></script>
-		<script src="../js/main.js"></script>
-		<!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
-		<script
-			crossorigin="anonymous"
-			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		></script>
-	</body>
+<footer class="bg-success d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
+    <div class="d-flex align-items-center">
+        <a class="me-2 text-light text-decoration-none" href="../index.html">
+            <img alt="Petpal Logo" class="logo" src="../assets/svg/petpal-white.svg">
+        </a>
+        <span class="text-light">
+            © 2023
+            <a class="text-light" href="../index.html">PetPal</a>
+        </span>
+    </div>
+
+    <!-- TODO: social media integration -->
+    <ul class="nav justify-content-end list-unstyled d-flex">
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-twitter"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-instagram"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-facebook"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-linkedin"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-github"></i></a></li>
+    </ul>
+</footer>
+<!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
+<script src="../assets/js/update.js"></script>
+<script src="../assets/js/main.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

@@ -16,16 +16,17 @@
     <title>PetPal Pet Adoption</title>
 </head>
 
-<body>
+<body class="bg-light">
 <header>
     <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg bg-primary fixed-top">
         <div class="container-fluid">
             <!-- Logo and Name -->
             <a class="navbar-brand text-light" href="../index.html">
-                <!-- TODO: replace with actual Logo -->
-                <img alt="PetPal Logo" class="d-inline-block align-text-top me-2"
-                     src="/assets/svg/bootstrap.svg" width=30px>
+                <img alt="PetPal Logo"
+                     class="d-inline-block align-text-top me-2"
+                     src="/assets/svg/petpal.svg"
+                     width="30px"/>
                 PetPal
             </a>
             <!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
@@ -43,14 +44,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left -->
                 <div class="me-auto mb-2 mb-lg-0">
-                    <a class="nav-link" href=#>Browse</a>  <!-- TODO: Specify this link -->
-                    <!-- TODO: more navigation links here -->
+                    <!-- Add components later as needed -->
                 </div>
 
                 <!-- Right -->
-                <div class="dropdown">
-                    <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                            id="dropdownMenuButton1" type="button">
+                <div class="dropdown"> <!-- Notifications -->
+                    <button aria-expanded="false"
+                            class="btn btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            id="dropdownMenuButton1"
+                            type="button">
                         Notifications
                     </button>
                     <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu dropdown-menu-dark bg-primary">
@@ -63,13 +66,19 @@
                         <li><a class="dropdown-item text-light" href="#">+45 more notifications</a></li>
                     </ul>
                 </div>
-                <a class="nav-link m-1 p-1" href="log-in.html">Log In</a>
-                <a class="nav-link m-1 p-1" href="sign-up.html">Sign Up</a>
+                <a class="nav-link m-1 p-1" href="seeker-detail.html">Profile</a>
+                <a class="nav-link m-1 p-1" href="log-in.html">Log Out</a>
                 <!-- Search Box -->
                 <form class="d-flex ps-2" role="search">
-                    <input aria-label="Search" class="form-control mx-2" id="search-input" placeholder="Search"
+                    <input aria-label="Search"
+                           class="form-control mx-2"
+                           id="search-input"
+                           placeholder="Search"
                            type="search">
-                    <a class="btn btn-outline-light mx-2" href="search.html" id="search-link" role="button"
+                    <a class="btn btn-outline-light mx-2"
+                       href="search.html"
+                       id="search-link"
+                       role="button"
                        type="submit">Search</a>
                 </form>
             </div>
@@ -79,15 +88,15 @@
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
 <main class="page-container row">
-    <div class="col-lg-1">
+    <div class="col-lg-2">
         <a class="fs-5" href="pet-detail.html"><i class="bi bi-arrow-left me-1"></i>Back</a>
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-8 d-flex flex-column align-content-center align-items-center w-100">
         <h1 class="display-1 mb-5 text-center">
             Adopt <span id="adopt-pet-name">Doggy</span> <!-- Actual pet name -->
         </h1>
 
-        <form class="mx-5">
+        <form class="mx-5" action="pet-detail.html">
             <!-- Name -->
             <div class="row mb-3 align-items-center">
                 <div class="col-lg-2 form-left">
@@ -350,35 +359,27 @@
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
     <div class="d-flex align-items-center">
         <a class="me-2 text-light text-decoration-none" href="../index.html">
-            <!-- TODO: PetPal logo here -->
-            <i class="bi bi-bootstrap"></i>
+            <img alt="Petpal Logo" class="logo" src="../assets/svg/petpal-white.svg">
         </a>
         <span class="text-light">
-            © 2023 <a class="text-light" href="../index.html">PetPal</a>
+            © 2023
+            <a class="text-light" href="../index.html">PetPal</a>
         </span>
     </div>
 
+    <!-- TODO: social media integration -->
     <ul class="nav justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-twitter"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-instagram"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-facebook"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-linkedin"></i>
-        </a></li>
-        <li class="ms-3"><a class="text-light" href=#> <!-- TODO: Twitter social media integration -->
-            <i class="bi bi-github"></i>
-        </a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-twitter"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-instagram"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-facebook"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-linkedin"></i></a></li>
+        <li class="ms-3"><a class="text-light" href="#"><i class="bi bi-github"></i></a></li>
     </ul>
 </footer>
 <script src="../assets/js/main.js"></script>
 <!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
-<script crossorigin="anonymous" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+<script crossorigin="anonymous"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -53,6 +53,11 @@ p {
 	}
 }
 
+.logo {
+	width: 16px;
+	height: 16px;
+}
+
 .image-wrapper {
 	max-width: 200px;
 	max-height: 200px;
