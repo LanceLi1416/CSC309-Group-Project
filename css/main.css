@@ -271,19 +271,7 @@ textarea {
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
 	}
-}
-
-@media screen and (max-width: 1300px) {
-	#pet-detail-container {
-		grid-template-columns: 1fr;
-		row-gap: 32px;
-	}
 	
-	.sidebar-info {
-		position: static;
-		width: 100%;
-	}
-
 	#filter {
         display: none;
     }
@@ -298,6 +286,18 @@ textarea {
 
 	#filter-small.show {
 		display: block;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	#pet-detail-container {
+		grid-template-columns: 1fr;
+		row-gap: 32px;
+	}
+	
+	.sidebar-info {
+		position: static;
+		width: 100%;
 	}
 }
 
