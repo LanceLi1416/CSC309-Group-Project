@@ -51,6 +51,15 @@ p {
 	.form-left {
 		text-align: right !important;
 	}
+
+	#filter-toggle {
+		display: none;
+	}
+}
+
+.logo {
+	width: 16px;
+	height: 16px;
 }
 
 .image-wrapper {
@@ -198,8 +207,12 @@ textarea {
 	z-index: 1000;
 }
 
-.dropdown-item:focus {
+.status-item:focus {
 	background-color: var(--bs-success);
+}
+
+.notif-shelter:active {
+    background-color: var(--bs-success);
 }
 
 /*****************/
@@ -238,16 +251,17 @@ textarea {
 	margin-top: 1rem;
 }
 
+.sidebar-button {
+	margin-left: 12px;
+	margin-right: 12px;
+	width: calc(100% - 24px);
+}
+
 #error-title-div {
 	margin-top: 16px;
 }
 
 @media screen and (max-width: 992px) {
-	#pet-detail-container {
-		grid-template-columns: 1fr;
-		row-gap: 32px;
-	}
-
 	.main-page {
 		margin-right: 0;
 		display: block;
@@ -257,7 +271,30 @@ textarea {
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
 	}
+	
+	#filter {
+        display: none;
+    }
 
+	#filter-toggle-button {
+		display: block;
+	}
+
+	#filter-small {
+		display: none;
+	}
+
+	#filter-small.show {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	#pet-detail-container {
+		grid-template-columns: 1fr;
+		row-gap: 32px;
+	}
+	
 	.sidebar-info {
 		position: static;
 		width: 100%;

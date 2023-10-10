@@ -89,26 +89,26 @@
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
 <main class="page-container row">
     <div class="col-lg-2">
-        <a class="fs-5" href="pet-detail.html"><i class="bi bi-arrow-left me-1"></i>Back</a>
+        <a class="fs-5" href="seeker-detail.html"><i class="bi bi-arrow-left me-1"></i>Back</a>
     </div>
     <div class="col-lg-8 d-flex flex-column align-content-center align-items-center w-100">
         <h1 class="display-1 mb-5 text-center">
             Adopt <span id="adopt-pet-name">Doggy</span> <!-- Actual pet name -->
         </h1>
 
-        <form class="mx-5" action="pet-detail.html">
+        <form action="seeker-detail.html" class="mx-5">
             <!-- Name -->
             <div class="row mb-3 align-items-center">
                 <div class="col-lg-2 form-left">
                     <label class="col-form-label" for="adopt-fctrl-first-name">Name</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-first-name" placeholder="First Name" required
-                           type="text"/>
+                    <input class="form-control" disabled id="adopt-fctrl-first-name" placeholder="First Name" required
+                           type="text" value="Lance">
                 </div>
                 <div class="col">
-                    <input class="form-control" name="adopt-fctrl-last-name" placeholder="Last Name" required
-                           type="text"/>
+                    <input class="form-control" disabled name="adopt-fctrl-last-name" placeholder="Last Name" required
+                           type="text" value="Li"/>
                 </div>
             </div>
             <!-- Age -->
@@ -117,7 +117,7 @@
                     <label class="col-form-label" for="adopt-fctrl-age">Birthday</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-age" required type="date"/>
+                    <input class="form-control" disabled id="adopt-fctrl-age" required type="date" value="2003-03-27"/>
                 </div>
             </div>
             <!-- City -->
@@ -126,7 +126,8 @@
                     <label class="col-form-label" for="adopt-fctrl-city">City</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-city" placeholder="Toronto" required type="text"/>
+                    <input class="form-control" disabled id="adopt-fctrl-city" placeholder="Toronto" required
+                           type="text" value="Toronto"/>
                 </div>
             </div>
             <!-- Street -->
@@ -135,10 +136,11 @@
                     <label class="col-form-label" id="adopt-fctrl-addr">Street</label>
                 </div>
                 <div class="col">
-                    <input aria-labelledby="adopt-fctrl-addr" class="form-control mb-3" id="adopt-fctrl-addr1"
-                           placeholder="Address" required type="text"/>
-                    <input aria-labelledby="adopt-fctrl-addr" class="form-control" id="adopt-fctrl-addr2"
-                           placeholder="Apartment, suite, etc. (optional)" type="text"/>
+                    <input aria-labelledby="adopt-fctrl-addr" class="form-control mb-3" disabled id="adopt-fctrl-addr1"
+                           placeholder="Address" required type="text" value="University of Toronto"/>
+                    <input aria-labelledby="adopt-fctrl-addr" class="form-control" disabled
+                           id="adopt-fctrl-addr2" placeholder="Apartment, suite, etc. (optional)" type="text"
+                           value="Department of Computer Science"/>
                 </div>
             </div>
             <!-- Postal Code -->
@@ -147,7 +149,8 @@
                     <label class="col-form-label" for="adopt-fctrl-postal">Postal Code</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-postal" placeholder="0A0 0A0" required type="text"/>
+                    <input class="form-control" disabled id="adopt-fctrl-postal" placeholder="0A0 0A0" required
+                           type="text" value="0A0 0A0"/>
                 </div>
             </div>
             <!-- Phone Number -->
@@ -156,8 +159,8 @@
                     <label class="col-form-label" for="adopt-fctrl-phone">Phone</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-phone" placeholder="000-000 (0000)" required
-                           type="tel"/>
+                    <input class="form-control" disabled id="adopt-fctrl-phone" placeholder="000-000 (0000)" required
+                           type="tel" value="000-000 (0000)"/>
                 </div>
             </div>
             <!-- Email -->
@@ -166,8 +169,8 @@
                     <label class="col-form-label" for="adopt-fctrl-email">Email</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-email" placeholder="example@domain.com" required
-                           type="email"/>
+                    <input class="form-control" disabled id="adopt-fctrl-email"
+                           placeholder="example@domain.com" required type="email" value="example@domain.com"/>
                 </div>
             </div>
             <!-- Household Annual Income -->
@@ -177,26 +180,26 @@
                 </div>
                 <div class="col">
                     <div class="form-check">
-                        <input class="form-check-input" id="adopt-rad-income-1" type="radio"/>
+                        <input checked class="form-check-input" disabled id="adopt-rad-income-1" type="radio"/>
                         <label class="form-check-label" for="adopt-rad-income-1">$0 - $10,000</label></div>
                     <div class="form-check">
-                        <input class="form-check-input" id="adopt-rad-income-2" type="radio"/>
+                        <input class="form-check-input" disabled id="adopt-rad-income-2" type="radio"/>
                         <label class="form-check-label" for="adopt-rad-income-2">$10,001 - $30,000</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" id="adopt-rad-income-3" type="radio"/>
+                        <input class="form-check-input" disabled id="adopt-rad-income-3" type="radio"/>
                         <label class="form-check-label" for="adopt-rad-income-3">$30,001 - 60,000</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" id="adopt-rad-income-4" type="radio"/>
+                        <input class="form-check-input" disabled id="adopt-rad-income-4" type="radio"/>
                         <label class="form-check-label" for="adopt-rad-income-4">$60,001 - $90,000</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" id="adopt-rad-income-5" type="radio"/>
+                        <input class="form-check-input" disabled id="adopt-rad-income-5" type="radio"/>
                         <label class="form-check-label" for="adopt-rad-income-5">$90,001 - $120,000</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" id="adopt-rad-income-6" required type="radio"/>
+                        <input class="form-check-input" disabled id="adopt-rad-income-6" required type="radio"/>
                         <label class="form-check-label" for="adopt-rad-income-6">$120,000+</label>
                     </div>
                 </div>
@@ -213,20 +216,23 @@
                             <fieldset>
                                 <legend>Dogs</legend>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-dog-1" name="dogs" type="radio"/>
+                                    <input checked class="form-check-input" disabled id="adopt-rad-exp-dog-1"
+                                           name="dogs" type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-dog-1">Never</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-dog-2" name="dogs" type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-dog-2" name="dogs"
+                                           type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-dog-2">Less then 2 years</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-dog-3" name="dogs" type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-dog-3" name="dogs"
+                                           type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-dog-3">2 - 5 years</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-dog-4" name="dogs" required
-                                           type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-dog-4" name="dogs"
+                                           required type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-dog-4">More than 6 years</label>
                                 </div>
                             </fieldset>
@@ -238,20 +244,23 @@
                             <fieldset>
                                 <legend>Cats</legend>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-cat-1" name="cats" type="radio"/>
+                                    <input checked class="form-check-input" disabled id="adopt-rad-exp-cat-1"
+                                           name="cats" type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-cat-1">Never</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-cat-2" name="cats" type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-cat-2" name="cats"
+                                           type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-cat-2">Less then 2 years</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-cat-3" name="cats" type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-cat-3" name="cats"
+                                           type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-cat-3">2 - 5 years</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-cat-4" name="cats" required
-                                           type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-cat-4" name="cats"
+                                           required type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-cat-4">More than 6 years</label>
                                 </div>
                             </fieldset>
@@ -263,24 +272,24 @@
                             <fieldset>
                                 <legend>Other</legend>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-other-1" name="other"
-                                           type="radio"/>
+                                    <input checked class="form-check-input" disabled
+                                           id="adopt-rad-exp-other-1" name="other" type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-other-1">Never</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-other-2" name="other"
-                                           type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-other-2"
+                                           name="other" type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-other-2">Less then 2
                                         years</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-other-3" name="other"
-                                           type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-other-3"
+                                           name="other" type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-other-3">2 - 5 years</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" id="adopt-rad-exp-other-4" name="other" required
-                                           type="radio"/>
+                                    <input class="form-check-input" disabled id="adopt-rad-exp-other-4" name="other"
+                                           required type="radio"/>
                                     <label class="form-check-label" for="adopt-rad-exp-other-4">More than 6
                                         years</label>
                                 </div>
@@ -300,8 +309,8 @@
                             <label class="col-form-label" for="adopt-fctrl-curr-dogs">Dogs</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" id="adopt-fctrl-curr-dogs" placeholder="0" required
-                                   type="number"/>
+                            <input class="form-control" disabled id="adopt-fctrl-curr-dogs" placeholder="0"
+                                   required type="number"/>
                         </div>
                     </div>
                     <div class="row">
@@ -309,8 +318,8 @@
                             <label class="col-form-label" for="adopt-fctrl-curr-cats">Cats</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" id="adopt-fctrl-curr-cats" placeholder="0" required
-                                   type="number"/>
+                            <input class="form-control" disabled id="adopt-fctrl-curr-cats" placeholder="0"
+                                   required type="number"/>
                         </div>
                     </div>
                     <div class="row">
@@ -318,8 +327,8 @@
                             <label class="col-form-label" for="adopt-fctrl-curr-other">Other</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" id="adopt-fctrl-curr-other" placeholder="0" required
-                                   type="number"/>
+                            <input class="form-control" disabled id="adopt-fctrl-curr-other" placeholder="0"
+                                   required type="number"/>
                         </div>
                     </div>
                 </div>
@@ -330,13 +339,13 @@
                     <label class="col-form-label" for="adopt-fctrl-date">Available Time</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="adopt-fctrl-date" required type="date"/>
+                    <input class="form-control" disabled id="adopt-fctrl-date" required type="date" value="1997-01-01"/>
                 </div>
             </div>
             <!-- Consent -->
             <div class="row mb-3 align-items-center">
                 <div class="col-lg-2 form-left">
-                    <input id="adopt-chkbx-consent" required type="checkbox"/>
+                    <input checked disabled id="adopt-chkbx-consent" required type="checkbox"/>
                 </div>
                 <div class="col">
                     <label class="col-form-label" for="adopt-chkbx-consent">
@@ -347,7 +356,7 @@
             <!-- Submit Button -->
             <div class="row">
                 <div class="col text-center">
-                    <input class="btn btn-outline-primary" type="submit"/>
+                    <a href="seeker-detail.html" class="btn btn-outline-primary">Go Back</a>
                 </div>
             </div>
         </form>

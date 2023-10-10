@@ -10,10 +10,12 @@
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!--  Customized CSS  -->
     <link href="../css/main.css" rel="stylesheet">
-    <!-- TODO: Change title -->
-    <title>PetPal Template Page</title>
+    <title>PetPal Pet Creation</title>
 </head>
 
 <body class="bg-light">
@@ -22,7 +24,7 @@
     <nav class="navbar navbar-expand-lg bg-primary fixed-top">
         <div class="container-fluid">
             <!-- Logo and Name -->
-            <a class="navbar-brand text-light" href="../index.html">
+            <a class="navbar-brand text-light" href="../index-in.html">
                 <img alt="PetPal Logo"
                      class="d-inline-block align-text-top me-2"
                      src="../assets/svg/petpal.svg"
@@ -87,17 +89,95 @@
 </header>
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
-<!-- TODO: Add your content here -->
+<div class="page-container" id="pet-detail-container">
+    <div class="main-page">
+        <div class="row mt-2 pb-3 border rounded">
+            <h1>Doggy Bob</h1>
+            <p>Golden Retriever | Richmond Hill, Ontario, Canada</p>
+            <p><strong>Status:</strong> Pending</p>
+        </div>
+
+        <h2 class="pet-detail-subtitles">Pictures</h2>
+        <div class="row mt-2 pb-3 border rounded">
+            <div class="carousel slide" data-ride="carousel" id="pet-pictures-indicators">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img alt="First Slide" class="d block w-50" src="../assets/jpg/sample_dog1.jpg">
+                    </div>
+                    <div class="carousel-item">
+                        <img alt="Second Slide" class="d block w-50" src="../assets/jpg/sample_dog2.jpeg">
+                    </div>
+                </div>
+                <a class="carousel-control-prev carousel-button-background"
+                   data-slide="prev"
+                   href="#pet-pictures-indicators"
+                   role="button">
+                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next carousel-button-background"
+                   data-slide="next"
+                   href="#pet-pictures-indicators"
+                   role="button">
+                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <h2 class="pet-detail-subtitles">About</h2>
+
+        <div class="row mt-2 pb-3 border rounded">
+            <p><strong>Age:</strong> 2</p>
+            <p><strong>Weight (kg):</strong> 50</p>
+            <p><strong>Vaccinated:</strong> Yes</p>
+            <p><strong>Colour:</strong> Brown</p>
+        </div>
+
+        <h2 class="pet-detail-subtitles">Additional Information</h2>
+        <div class="row mt-2 pb-3 border rounded">
+            <p class="no-additional-info"><i>No additional information available</i></p>
+        </div>
+    </div>
+
+    <div>
+        <div class="sidebar-info">
+            <div class="sidebar">
+                <h2>Contact Info</h2>
+                <div class="row mt-2 pb-3 border rounded">
+                    <p><strong>Name:</strong> Nicholas Poon</p>
+                    <p><strong>Email:</strong> example@utoronto.ca</p>
+                    <p><strong>Phone:</strong> 123-456-789</p>
+                    <button class="btn btn-outline-secondary sidebar-button" onclick="location.href='pet-adoption.html'" disabled>
+                        Adopt This Pet
+                    </button>
+                </div>
+                <h2>Shelter Info</h2>
+                <div class="row mt-2 pb-3 border rounded">
+                    <p><strong>Name:</strong> PetPal</p>
+                    <p><strong>Email:</strong> example@domain.com</p>
+                    <p><strong>Phone:</strong> (000) 000 - 0000</p>
+                    <button class="btn btn-outline-primary sidebar-button" onclick="location.href='shelter-detail.html'">
+                        View Detailed Shelter Info
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
     <div class="d-flex align-items-center">
-        <a class="me-2 text-light text-decoration-none" href="../index.html">
+        <a class="me-2 text-light text-decoration-none" href="../index-in.html">
             <img alt="Petpal Logo" class="logo" src="../assets/svg/petpal-white.svg">
         </a>
         <span class="text-light">
             © 2023
-            <a class="text-light" href="../index.html">PetPal</a>
+            <a class="text-light" href="../index-in.html">PetPal</a>
         </span>
     </div>
 
@@ -112,7 +192,8 @@
 </footer>
 <!-- JavaScript -- DO NOT ADD ANYTHING AFTER THIS -->
 <script src="../assets/js/main.js"></script>
-<script crossorigin="anonymous" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+<script crossorigin="anonymous"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

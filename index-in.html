@@ -22,52 +22,64 @@
     <nav class="navbar navbar-expand-lg bg-primary fixed-top">
         <div class="container-fluid">
             <!-- Logo and Name -->
-            <a class="navbar-brand text-light" href="../index.html">
-                <!-- TODO: replace with actual Logo -->
-                <img
-                    alt="PetPal Logo"
-                    class="d-inline-block align-text-top me-2"
-                    src="assets/svg/bootstrap.svg"
-                    width="30px"
-                />
+            <a class="navbar-brand text-light" href="index-in.html">
+                <img alt="PetPal Logo"
+                        class="d-inline-block align-text-top me-2"
+                        src="assets/svg/petpal.svg"
+                        width="30px"/>
                 PetPal
             </a>
             <!-- Expand Button For Smaller Screen -- DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING -->
-            <button
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                class="navbar-toggler"
-                data-bs-target="#navbarSupportedContent"
-                data-bs-toggle="collapse"
-                type="button"
-            >
+            <button aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                    type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- Major Contents -->
-            <div
-                class="collapse navbar-collapse"
-                id="navbarSupportedContent"
-            >
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left -->
                 <div class="me-auto mb-2 mb-lg-0">
-                    <a class="nav-link" href="#">Browse</a>
-                    <!-- TODO: Specify this link -->
-                    <!-- TODO: more navigation links here -->
+                    <!-- Add components later as needed -->
                 </div>
 
                 <!-- Right -->
-                <a class="nav-link m-1 p-1" href="html/profile.html"
-                    >Profile</a
-                >
-                <a class="nav-link m-1 p-1" href="html/log-in.html"
-                    >Log Out</a
-                >
+                <div class="dropdown"> <!-- Notifications -->
+                    <button aria-expanded="false"
+                            class="btn btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            id="dropdownMenuButton1"
+                            type="button">
+                        Notifications
+                    </button>
+                    <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu dropdown-menu-dark bg-primary">
+                        <li class="dropdown-item text-light">Savitha sent you a message</li>
+                        <li class="dropdown-item text-light">Your adoption request for Milo has been approved!</li>
+                        <li class="dropdown-item text-light">New pet listing within your area!</li>
+                        <li class="dropdown-item text-light">Your application for Coco is waiting for you!</li>
+                        <li class="dropdown-item text-light">Nicholas sent you a message</li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item text-light" href="#">+45 more notifications</a></li>
+                    </ul>
+                </div>
+                <a class="nav-link m-1 p-1" href="html/seeker-detail.html">Profile</a>
+                <a class="nav-link m-1 p-1" href="html/log-in.html">Log Out</a>
                 <!-- Search Box -->
                 <form class="d-flex ps-2" role="search">
-                    <input aria-label="Search" class="form-control mx-2" placeholder="Search" type="search" id="search-input">
-                    <a href="search.html" id="search-link" class="btn btn-outline-light mx-2" role="button" type="submit">Search</a>
+                    <input aria-label="Search"
+                            class="form-control mx-2"
+                            id="search-input"
+                            placeholder="Search"
+                            type="search">
+                    <a class="btn btn-outline-light mx-2"
+                        href="html/search.html"
+                        id="search-link"
+                        role="button"
+                        type="submit">Search</a>
                 </form>
             </div>
         </div>
@@ -76,29 +88,29 @@
 
 <!-- MAIN CONTENT BEGIN ----------------------------------------------------------------------------------------------->
 <main class="d-flex flex-column justify-content-center align-items-center">
-    <img src="assets/svg/bootstrap.svg" alt="PetPal Logo" class="img-fluid">
+    <!-- Logo Image -->
+    <div class="row mt-4 d-flex flex-column align-items-center">
+        <div class="col text-center image-wrapper">
+            <img alt="PetPal Logo" class="wrapped-img" src="assets/svg/petpal.svg">
+        </div>
+    </div>
     <h1 class="mt-4">We are PetPal!</h1>
     <p class="mt-2 w-50 text-center">
         We empower pet seekers to search for pets and apply for adoption and pet shelters to create listings for pets that are up for adoption.
     <p>
-    <p class="fw-bold w-50 text-center text-primary mb-4">
+    <p class="fw-bold w-50 text-center text-primary">
         Welcome to your one stop for helping more animals!
-    </p>
-    <p class="w-50 text-center">
-        Create an account or login to get started as a pet seeker or shelter.
-        Browse to see all pets or use the search below directly!
     </p>
 </main>
 <!-- MAIN CONTENT END ------------------------------------------------------------------------------------------------->
 
 <footer class="bg-primary d-flex flex-wrap justify-content-between align-items-center px-3 py-3 mt-4 fixed-bottom">
     <div class="d-flex align-items-center">
-        <a class="me-2 text-light text-decoration-none" href="index.html">
-            <!-- TODO: PetPal logo here -->
-            <i class="bi bi-bootstrap"></i>
+        <a class="me-2 text-light text-decoration-none" href="index-in.html">
+            <img alt="Petpal Logo" class="logo" src="assets/svg/petpal-white.svg">
         </a>
         <span class="text-light">
-            © 2023 <a class="text-light" href="index.html">PetPal</a>
+            © 2023 <a class="text-light" href="index-in.html">PetPal</a>
         </span>
     </div>
 

@@ -1,0 +1,30 @@
+.chat-box {
+    flex-grow: 1;
+    max-height: 60vh; /* Set the maximum height to 70% of viewport height */
+    overflow-y: auto;
+}
+
+.message-bubble {
+    padding: 10px;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.self-message {
+    background-color: #007BFF;
+    color: var(--bs-light);
+}
+
+.other-message {
+    background-color: var(--bs-success);
+    color: var(--bs-light);
+}
+
+.message-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message-wrapper.other {
+    justify-content: flex-start;
+}

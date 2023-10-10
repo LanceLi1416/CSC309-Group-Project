@@ -8,4 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const searchTermElement = document.getElementById("search-term");
         searchTermElement.textContent = searchQuery;
     }
+
+    const filterToggleButton = document.getElementById('filter-toggle-button');
+    const filterSmallDiv = document.getElementById('filter-small');
+
+    filterToggleButton.addEventListener('click', () => {
+        filterSmallDiv.classList.toggle('show');
+    });
 });
