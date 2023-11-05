@@ -289,6 +289,18 @@ textarea {
 	}
 }
 
+.info-cont {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pet-info {
+    width: 80%;
+}
+
 @media screen and (max-width: 1300px) {
 	#pet-detail-container {
 		grid-template-columns: 1fr;
@@ -301,4 +313,10 @@ textarea {
 	}
 }
 
+.dog-img {
+    margin-top: 16px;
+    width: 30%;
+    height: 30%;
+    object-fit: cover;
+}
 /*****************/
