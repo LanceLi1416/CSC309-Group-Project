@@ -6,7 +6,7 @@ from datetime import datetime
 class Pet(models.Model):
     name = models.CharField(max_length=50)
     birthday = models.DateField()
-    pet_weight = models.IntegerField(validators=MinValueValidator(0))
+    weight = models.IntegerField(validators=[MinValueValidator(0)])
     animal = models.CharField(max_length=50)
     breed = models.CharField(max_length=50)
     colour = models.CharField(max_length=50)
@@ -22,9 +22,21 @@ class Owner(models.Model):
     location = models.CharField(max_length=50)
     birthday = models.DateField()
 
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
-class PetAdoption(models.Model):
-    pet = models.ForeignKey(Pet, related_name='adoptions', null=True, on_delete=models.SETNULL)
+class User(AbstractUser):
+    username = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    is_seeker = models.BooleanField()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'is_seeker']
+
+
+class PetListing(models.Model):
+    pet = models.ForeignKey(Pet, related_name='adoptions', null=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(Owner, related_name='adoptions', null=True, on_delete=models.SET_NULL)
+    shelter = models.ForeignKey(User, related_name='adoptions', null=True, on_delete=models.SET_NULL)
     last_update = models.DateField(default=datetime.now())
     creation_date = models.DateField(default=datetime.now())

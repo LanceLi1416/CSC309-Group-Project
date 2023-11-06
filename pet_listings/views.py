@@ -1,45 +1,57 @@
-from rest_framework.decorators import api_view
-from datetime import datetime
+from rest_framework.views import APIView
+# from rest_framework.decorators import api_view
+from rest_framework.permissions import BasePermission
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.response import Response
+from rest_framework import status
 
-from .serializers import PetAdoptionSerializer
-from .models import Owner, Pet, PetAdoption
+from django.shortcuts import get_object_or_404
 
-@api_view(["POST"])
-def submit_pet_creation_form(request):
-    serializer = PetAdoptionSerializer(data=request.data)
+from .serializers import PetListingSerializer
+from .models import Owner, Pet, PetListing
 
-    if serializer.is_valid():
-        email = serializer.validated_data['email']
-        metric = serializer.validated_data['weight_metric']
-        if metric == 'lb':
-            weight = serializer.validated_data['pet_weight'] / 0.4536
-        else:
-            weight = serializer.validated_data['pet_weight']
+class PetListingPermissions(BasePermission):
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            raise PermissionDenied("Authenticated Required")
+        return True
+    
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_authenticated:
+            return request.user == obj.shelter
+        raise PermissionDenied("Authentication Required")
+
+class PetListingView(APIView):
+    serializer_class = PetListingSerializer
+    permission_classes = [PetListingPermissions]
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk):
+        pet_listing = get_object_or_404(PetListing, pk=pk)
+        serializer = self.serializer_class(pet_listing, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# @api_view(["POST"])
+# def submit_pet_listing(request):
+#     serializer = PetListingSerializer(data=request.data)
+
+#     if serializer.is_valid():
         
-        owner = Owner.objects.filter(email=email)
-        if not owner.exists:
-            owner = Owner(name = serializer.validated_data['owner_name'],
-                          email = serializer.validated_data['email'],
-                          phone = serializer.validated_data['phone_number'],
-                          location = serializer.validated_data['location'],
-                          birthday = serializer.validated_data['owner_birthday'])
-            owner.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        pet = Pet(name = serializer.validated_data['pet_name'],
-                  birthday = serializer.validated_data['pet_birthday'],
-                  pet_weight = weight,
-                  animal = serializer.validated_data['animal'],
-                  breed = serializer.validated_data['breed'],
-                  colour = serializer.validated_data['colour'],
-                  vaccinated = serializer.validated_data['vaccinated'],
-                  other_info = serializer.validated_data['other_info'],
-                  pictures = serializer.validated_data['pictures']) # TODO: Save pics in a directory or something
-        pet.save()
 
-        adoption = PetAdoption(pet = pet,
-                               owner = owner,
-                               last_update = datetime.now(),
-                               creation_date = datetime.now())
-        
-        adoption.save()
-
+# @api_view(["PUT"])
+# def edit_pet_listing(request):
+#     pass
