@@ -11,8 +11,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, password, first_name, last_name, is_seeker):
-        if not username or not password:
-            raise TypeError('Superusers must enter an email username and a password.')
+        if not username or not password or not first_name or not last_name or is_seeker is None:
+            raise ValueError('All fields must be set')    
         user = self.create_user(username, password, first_name, last_name, is_seeker)
         user.is_superuser = True
         user.is_staff = True
