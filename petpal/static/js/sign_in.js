@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (form.checkValidity()) {
             // If validation passes, redirect the user
             if (petSeekerType) {
-                window.location.href = "../index-in.html";
+                window.location.href = "../../../html/index-in.html";
             }
             else if (shelterType) {
-                window.location.href = "../index-in-shelter.html";
+                window.location.href = "../../../html/index-in-shelter.html";
             }
             else {
-                window.location.href = "../index-in.html";
+                window.location.href = "../../../html/index-in.html";
             }
         }
     });
