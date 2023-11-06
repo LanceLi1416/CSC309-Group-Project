@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Check if we're running on Ubuntu 22.04 LTS
+# Check if we're running on Ubuntu 20.04 LTS
 check_os_and_version() {
     # Check if we're running on Linux
     if [ "$(uname)" != "Linux" ]; then
@@ -16,12 +16,12 @@ check_os_and_version() {
         return 1 # false
     fi
 
-    # Check for Ubuntu 22.04 LTS
+    # Check for Ubuntu 20.04 LTS
     if [ "$NAME" != "Ubuntu" ]; then
         echo "This script is intended for the Ubuntu linux distribution. Detected \"$PRETTY_NAME\"."
         return 1 # false
         if [ "$VERSION_ID" != "20.04" ]; then
-            echo "This script is intended for Ubuntu 22.04 LTS. Detected \"$PRETTY_NAME\"."
+            echo "This script is intended for Ubuntu 20.04 LTS. Detected \"$PRETTY_NAME\"."
         fi
     fi
 
@@ -29,13 +29,13 @@ check_os_and_version() {
 }
 
 if check_os_and_version; then
-  echo "Installing dependencies for Ubuntu 22.04 LTS..."
+  echo "Installing dependencies for Ubuntu 20.04 LTS..."
 
   # Install dependencies
   sudo apt update
   sudo apt install -y python3.9 python3.9-venv python3.9-dev python3-pip
 else
-    echo "This script is intended for Ubuntu 22.04 LTS. You may need to install the dependencies manually."
+    echo "This script is intended for Ubuntu 20.04 LTS. You may need to install the dependencies manually."
 fi
 
 # Check if python3 exists
