@@ -31,7 +31,7 @@ class PetListingCreateView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
 
-        if serializer.is_valid():
+        if serializer.is_valid(): # TODO: Create user and test
             serializer.create(serializer.validated_data, request)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -44,8 +44,7 @@ class PetListingCreateView(APIView):
 class PetListingEditView(APIView):
     serializer_class = PetListingSerializer
     # permission_classes = [PetListingPermissions]
-    # lookup_field = 'pet_listing_id'
-
+    lookup_field = 'pet_listing_id'
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
@@ -63,17 +62,21 @@ class PetListingEditView(APIView):
             'phone': pet_listing.owner.phone,
             'location': pet_listing.owner.location,
             'owner-birthday': pet_listing.owner.birthday,
-
         }
         return Response(data, status=status.HTTP_200_OK)
 
-    def put(self, request, pk):
-        pet_listing = get_object_or_404(PetListing, pk=pk)
+    def put(self, request, pet_listing_id):
+        pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
         serializer = self.serializer_class(pet_listing, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pet_listing_id):
+        pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        pet_listing.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # @api_view(["POST"])
