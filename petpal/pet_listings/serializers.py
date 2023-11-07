@@ -35,7 +35,7 @@ class PetListingSerializer(serializers.Serializer):
         if len(pictures) > 5:
             raise serializers.ValidationError({'pictures': 'Only a maximum of 5 pictures can be uploaded'})
 
-    def create(self, validated_data):
+    def create(self, validated_data, request):
         email = validated_data['email']
         owner_query = Owner.objects.filter(email=email)
         if len(owner_query) == 0:
@@ -45,6 +45,8 @@ class PetListingSerializer(serializers.Serializer):
                           location = validated_data['location'],
                           birthday = validated_data['owner-birthday'])
             owner.save()
+        else:
+            owner = owner_query[0]
 
         pet = Pet(name = validated_data['pet-name'],
                   birthday = validated_data['pet-birthday'],
@@ -64,7 +66,7 @@ class PetListingSerializer(serializers.Serializer):
 
         adoption = PetListing(pet = pet,
                               owner = owner,
-                              shelter = self.request.user,
+                              shelter = request.user,
                               last_update = datetime.now(),
                               creation_date = datetime.now())
         adoption.save()
