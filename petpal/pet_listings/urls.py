@@ -6,5 +6,5 @@ app_name="pet_listings"
 urlpatterns = [
     path("", views.PetListingCreateView.as_view(), name='create_pet_listing'),
     path("<int:pet_listing_id>/", views.PetListingEditView.as_view(), name='edit_pet_listing'),
-    path("search/<str:filter>/<str:sort>/", views.SearchView.as_view(), name='search')
+    path("search_results/", views.SearchView.as_view(), name='search')
 ]

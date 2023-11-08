@@ -50,6 +50,7 @@ class PetListingEditView(APIView):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
         data = {
             'pet-name': pet_listing.pet.name,
+            'pet-gender': pet_listing.pet.gender,
             'pet-birthday': pet_listing.pet.birthday,
             'weight': pet_listing.pet.weight,
             'animal': pet_listing.pet.animal,
@@ -77,6 +78,61 @@ class PetListingEditView(APIView):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
         pet_listing.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SearchView(APIView):
+    def post(self, request):
+        pet_listings = PetListing.objects
+
+        shelter = request.POST.get('shelter')
+        status = request.POST.get('status', ['available'])
+        gender = request.POST.get('gender')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        pet_type = request.POST.get('pet-type')
+        sort = request.POST.get('sort', 'name')
+
+        if shelter:
+            pet_listings = pet_listings.filter(shelter__pk__in=shelter)
+        
+        pet_listings = pet_listings.filter(status__in=status)
+
+        if gender:
+            pet_listings = pet_listings.filter(pet__gender=gender)
+        
+        if start_date and end_date:
+            pet_listings = pet_listings.filter(creation_date__lt=end_date).filter(creation_date__gt=start_date)
+
+        if pet_type:
+            pet_listings = pet_listings.filter(pet__animal=pet_type)
+
+        if sort:
+            pet_listings = pet_listings.order_by(sort)
+
+        data = []
+
+        for p in pet_listings:
+            pet_entry = {
+                'name': p.name,
+                'gender': p.gender,
+                'birthday': p.gender,
+                'weight': p.weight,
+                'pet_type': p.animal,
+                'breed': p.breed,
+                'colour': p.colour,
+                'vaccinated': p.vaccinated,
+                'other_info': p.other_info,
+                'shelter': p.shelter.name,
+                'status': p.status,
+                'last_update': p.last_update,
+                'creation_date': p.creation_date
+            }
+            data.append(pet_entry)
+
+        return Response(data, status=status.HTTP_201_CREATED)
+    
+    def get(self, request):
+        return Response({}, status=status.HTTP_200_OK)
 
 
 # @api_view(["POST"])

@@ -5,8 +5,13 @@ from datetime import datetime
 from .models import Pet, Owner, PetListing, Picture
 
 class PetListingSerializer(serializers.Serializer):
+    GENDER = [
+        ('male', 'Male'),
+        ('female', 'Female')
+    ]
     # storage=FileSystemStorage(f'../static/pet_listing_pics')
     pet_name = serializers.CharField(source='pet-name', required=True)
+    gender = serializers.ChoiceField(choices=GENDER, source='pet-gender', required=True)
     pet_birthday = serializers.DateField(required=True, source='pet-birthday')
     pet_weight = serializers.IntegerField(source='weight', required=True)
     animal = serializers.CharField(required=True)
@@ -49,6 +54,7 @@ class PetListingSerializer(serializers.Serializer):
             owner = owner_query[0]
 
         pet = Pet(name = validated_data['pet-name'],
+                  gender = validated_data['pet-gender'],
                   birthday = validated_data['pet-birthday'],
                   weight = validated_data['weight'],
                   animal = validated_data['animal'],
@@ -67,14 +73,23 @@ class PetListingSerializer(serializers.Serializer):
         adoption = PetListing(pet = pet,
                               owner = owner,
                               shelter = request.user,
+                              status = 'Available',
                               last_update = datetime.now(),
                               creation_date = datetime.now())
         adoption.save()
         return adoption
 
     def update(self, instance, validated_data):
+        STATUS_CHOICES = [
+            ('available', 'Available'),
+            ('adopted', 'Adopted'),
+            ('pending', 'Pending'),
+            ('withdrawn', 'Withdrawn')
+        ]
+        status = serializers.ChoiceField(required=True, choices=STATUS_CHOICES)
         pet = instance.pet
         pet.name = validated_data.get('pet_name')
+        pet.gender = validated_data.get('pet_gender')
         pet.birthday = validated_data.get('pet_birthday')
         pet.weight = validated_data.get('pet_weight')
         pet.animal = validated_data.get('animal')
@@ -93,7 +108,10 @@ class PetListingSerializer(serializers.Serializer):
         owner.birthday = validated_data.get('owner_birthday')
         owner.save()
 
+        instance.status = validated_data.get('status')
         instance.last_update = datetime.now()
         instance.save()
 
         return instance
+
+

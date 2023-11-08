@@ -5,7 +5,12 @@ from datetime import datetime
 from accounts.models import User
 
 class Pet(models.Model):
+    GENDER = [
+        ('male', 'Male'),
+        ('female', 'Female')
+    ]
     name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=50, choices=GENDER)
     birthday = models.DateField()
     weight = models.IntegerField(validators=[MinValueValidator(0)])
     animal = models.CharField(max_length=50)
@@ -29,8 +34,17 @@ class Owner(models.Model):
 
 
 class PetListing(models.Model):
+    STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('adopted', 'Adopted'),
+        ('pending', 'Pending'),
+        ('withdrawn', 'Withdrawn')
+    ]
     pet = models.ForeignKey(Pet, related_name='adoptions', on_delete=models.CASCADE)
     owner = models.ForeignKey(Owner, related_name='adoptions', on_delete=models.CASCADE)
     shelter = models.ForeignKey(User, related_name='adoptions', on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     last_update = models.DateField()
     creation_date = models.DateField()
+
+
