@@ -1,15 +1,13 @@
 from rest_framework.views import APIView
-
-# from rest_framework.decorators import api_view
-
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 
 from django.shortcuts import get_object_or_404, render
 
-from .serializers import PetListingSerializer
+from .serializers import PetListingSerializer, SearchSerializer
 from .models import Owner, Pet, PetListing
 
 class PetListingPermissions(BasePermission):
@@ -81,6 +79,9 @@ class PetListingEditView(APIView):
 
 
 class SearchView(APIView):
+    serializer_class = SearchSerializer
+    pagination_class = PageNumberPagination
+
     def post(self, request):
         pet_listings = PetListing.objects
 
@@ -109,27 +110,14 @@ class SearchView(APIView):
         if sort:
             pet_listings = pet_listings.order_by(sort)
 
-        data = []
+        paginated_pet_listings = self.paginate_queryset(pet_listings)
 
-        for p in pet_listings:
-            pet_entry = {
-                'name': p.name,
-                'gender': p.gender,
-                'birthday': p.gender,
-                'weight': p.weight,
-                'pet_type': p.animal,
-                'breed': p.breed,
-                'colour': p.colour,
-                'vaccinated': p.vaccinated,
-                'other_info': p.other_info,
-                'shelter': p.shelter.name,
-                'status': p.status,
-                'last_update': p.last_update,
-                'creation_date': p.creation_date
-            }
-            data.append(pet_entry)
+        if not paginated_pet_listings:
+            serializer = self.serializer_class(paginated_pet_listings, many=True)
+            return self.get_paginated_response(serializer.data)
 
-        return Response(data, status=status.HTTP_201_CREATED)
+        serializer = self.serializer_class(pet_listings, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     def get(self, request):
         return Response({}, status=status.HTTP_200_OK)

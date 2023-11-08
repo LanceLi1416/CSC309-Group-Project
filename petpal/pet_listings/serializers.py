@@ -115,3 +115,39 @@ class PetListingSerializer(serializers.Serializer):
         return instance
 
 
+class SearchSerializer(serializers.Serializer):
+    GENDER = [
+        ('male', 'Male'),
+        ('female', 'Female')
+    ]
+    name = serializers.CharField(required=True)
+    gender = serializers.ChoiceField(choices=GENDER, required=True)
+    birthday = serializers.DateField(required=True)
+    weight = serializers.IntegerField(required=True)
+    pet_type = serializers.CharField(required=True)
+    breed = serializers.CharField(required=True)
+    colour = serializers.CharField(required=True)
+    vaccinated = serializers.BooleanField(required=True)
+    other_info = serializers.CharField(required=True)
+    status = serializers.CharField(required=True)
+    last_update = serializers.DateField(required=True)
+    creation_date = serializers.DateField(required=True)
+    # data = []
+
+    # for p in pet_listings:
+    #     pet_entry = {
+    #         'name': p.name,
+    #         'gender': p.gender,
+    #         'birthday': p.gender,
+    #         'weight': p.weight,
+    #         'pet_type': p.animal,
+    #         'breed': p.breed,
+    #         'colour': p.colour,
+    #         'vaccinated': p.vaccinated,
+    #         'other_info': p.other_info,
+    #         'shelter': p.shelter.name,
+    #         'status': p.status,
+    #         'last_update': p.last_update,
+    #         'creation_date': p.creation_date
+    #     }
+    #     data.append(pet_entry)
