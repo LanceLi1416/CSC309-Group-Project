@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
 
-from .models import Pet, Owner, PetListing, Picture
+from .models import Pet, Owner, PetListing, Picture, User
 
 class PetListingSerializer(serializers.Serializer):
     GENDER = [
@@ -120,18 +120,31 @@ class SearchSerializer(serializers.Serializer):
         ('male', 'Male'),
         ('female', 'Female')
     ]
-    name = serializers.CharField(required=True)
-    gender = serializers.ChoiceField(choices=GENDER, required=True)
-    birthday = serializers.DateField(required=True)
-    weight = serializers.IntegerField(required=True)
-    pet_type = serializers.CharField(required=True)
-    breed = serializers.CharField(required=True)
-    colour = serializers.CharField(required=True)
-    vaccinated = serializers.BooleanField(required=True)
-    other_info = serializers.CharField(required=True)
-    status = serializers.CharField(required=True)
-    last_update = serializers.DateField(required=True)
-    creation_date = serializers.DateField(required=True)
+    SORT = [
+        ('pet__name', 'Name'),
+        ('pet__weight', 'Size')
+    ]
+    STATUS = [
+        ('available', 'Available'),
+        ('adopted', 'Adopted'),
+        ('pending', 'Pending'),
+        ('withdrawn', 'Withdrawn')
+    ]
+    PET_TYPE = [
+        ('dog', 'Dog'),
+        ('cat', 'Cat'),
+        ('bird', 'Bird'),
+        ('other', 'Other')
+    ]
+    shelter_query = User.objects.values('username').all()
+    
+    name = serializers.CharField()
+    gender = serializers.ChoiceField(choices=GENDER)
+    shelter = serializers.ChoiceField(choices=shelter_query)
+    status = serializers.ChoiceField(choices=STATUS)
+    pet_type = serializers.ChoiceField(choices=PET_TYPE)
+    creation_date = serializers.DateField()
+    sort = serializers.ChoiceField(choices=SORT)
     # data = []
 
     # for p in pet_listings:

@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+from django.urls import reverse
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import PermissionDenied
@@ -80,18 +82,17 @@ class PetListingEditView(APIView):
 
 class SearchView(APIView):
     serializer_class = SearchSerializer
-    pagination_class = PageNumberPagination
 
-    def post(self, request):
+    def get(self, request):
         pet_listings = PetListing.objects
 
-        shelter = request.POST.get('shelter')
-        status = request.POST.get('status', ['available'])
-        gender = request.POST.get('gender')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        pet_type = request.POST.get('pet-type')
-        sort = request.POST.get('sort', 'name')
+        shelter = request.query_params.get('shelter')
+        status = request.query_params.get('status', ['available'])
+        gender = request.query_params.get('gender')
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+        pet_type = request.query_params.get('pet_type')
+        sort = request.query_params.get('sort', 'pet__name')
 
         if shelter:
             pet_listings = pet_listings.filter(shelter__pk__in=shelter)
@@ -99,28 +100,78 @@ class SearchView(APIView):
         pet_listings = pet_listings.filter(status__in=status)
 
         if gender:
-            pet_listings = pet_listings.filter(pet__gender=gender)
+            pet_listings = pet_listings.filter(pet__gender__in=gender)
         
         if start_date and end_date:
             pet_listings = pet_listings.filter(creation_date__lt=end_date).filter(creation_date__gt=start_date)
 
         if pet_type:
-            pet_listings = pet_listings.filter(pet__animal=pet_type)
+            pet_listings = pet_listings.filter(pet__animal__in=pet_type)
 
         if sort:
             pet_listings = pet_listings.order_by(sort)
 
-        paginated_pet_listings = self.paginate_queryset(pet_listings)
+        paginator = PageNumberPagination()
+        paginated_pet_listings = paginator.paginate_queryset(pet_listings, request)
 
         if not paginated_pet_listings:
             serializer = self.serializer_class(paginated_pet_listings, many=True)
-            return self.get_paginated_response(serializer.data)
+            return paginator.get_paginated_response(serializer.data)
 
         serializer = self.serializer_class(pet_listings, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def get(self, request):
-        return Response({}, status=status.HTTP_200_OK)
+    def post(self, request):
+        query_param_url = reverse('pet_listings:search')
+        query_param_url += '?'
+
+        pet_listings = PetListing.objects
+
+        shelter = request.POST.get('shelter')
+        status = request.POST.get('status', ['available'])
+        gender = request.POST.get('gender')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        pet_type = request.POST.get('pet_type')
+        sort = request.POST.get('sort', 'pet__name')
+
+        if shelter:
+            query_param_url += f'shelter={shelter}&'
+            pet_listings = pet_listings.filter(shelter__pk__in=shelter)
+        
+        query_param_url += f'status={status}&'
+        pet_listings = pet_listings.filter(status__in=status)
+
+        if gender:
+            query_param_url += f'gender={gender}&'
+            pet_listings = pet_listings.filter(pet__gender__in=gender)
+        
+        if start_date:
+            query_param_url += f'start_date={start_date}&'
+            pet_listings = pet_listings.filter(creation_date__gt=start_date)
+
+        if end_date:
+            query_param_url += f'end_date={end_date}&'
+            pet_listings = pet_listings.filter(creation_date__lt=end_date)
+
+        if pet_type:
+            query_param_url += f'pet_type={pet_type}&'
+            pet_listings = pet_listings.filter(pet__animal__in=pet_type)
+
+        if sort:
+            query_param_url += f'sort={sort}&'
+            pet_listings = pet_listings.order_by(sort)
+
+        return redirect(query_param_url)
+        # paginator = PageNumberPagination()
+        # paginated_pet_listings = paginator.paginate_queryset(pet_listings, request)
+
+        # if not paginated_pet_listings:
+        #     serializer = self.serializer_class(paginated_pet_listings, many=True)
+        #     return paginator.get_paginated_response(serializer.data)
+
+        # serializer = self.serializer_class(pet_listings, many=True)
+        # return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # @api_view(["POST"])
