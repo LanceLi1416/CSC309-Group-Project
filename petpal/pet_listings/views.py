@@ -84,7 +84,7 @@ class SearchView(APIView):
     serializer_class = SearchSerializer
 
     def get(self, request):
-        pet_listings = PetListing.objects
+        pet_listings = PetListing.objects.all()
 
         shelter = request.query_params.get('shelter')
         status = request.query_params.get('status', ['available'])
@@ -94,22 +94,47 @@ class SearchView(APIView):
         pet_type = request.query_params.get('pet_type')
         sort = request.query_params.get('sort', 'pet__name')
 
+        print(shelter)
+        print(status)
+        print(gender)
+        print(start_date)
+        print(end_date)
+        print(pet_type)
+        print(sort)
+
         if shelter:
             pet_listings = pet_listings.filter(shelter__pk__in=shelter)
         
+        print(f'shelter: {pet_listings}')
+        
         pet_listings = pet_listings.filter(status__in=status)
+
+        print(f'status: {pet_listings}')
 
         if gender:
             pet_listings = pet_listings.filter(pet__gender__in=gender)
-        
-        if start_date and end_date:
-            pet_listings = pet_listings.filter(creation_date__lt=end_date).filter(creation_date__gt=start_date)
+
+        print(f'gender: {pet_listings}')
+
+        if start_date:
+            pet_listings = pet_listings.filter(creation_date__gt=start_date)
+
+        print(f'start: {pet_listings}')
+
+        if end_date:
+            pet_listings = pet_listings.filter(creation_date__lt=end_date)
+
+        print(f'end: {pet_listings}')
 
         if pet_type:
             pet_listings = pet_listings.filter(pet__animal__in=pet_type)
 
+        print(f'type: {pet_listings}')
+
         if sort:
             pet_listings = pet_listings.order_by(sort)
+
+        print(f'sort: {pet_listings}')
 
         paginator = PageNumberPagination()
         paginated_pet_listings = paginator.paginate_queryset(pet_listings, request)
@@ -119,6 +144,7 @@ class SearchView(APIView):
             return paginator.get_paginated_response(serializer.data)
 
         serializer = self.serializer_class(pet_listings, many=True)
+        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):

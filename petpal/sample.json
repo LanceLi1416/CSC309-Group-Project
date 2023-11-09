@@ -171,7 +171,7 @@
     },
     {
         "model": "pet_listings.petlisting",
-        "pk": 3,
+        "pk": 4,
         "fields": {
             "status": "withdrawn",
             "last_update": "2024-02-19T05:23:39.789Z",
@@ -179,6 +179,18 @@
             "owner_id": 1,
             "pet_id": 4,
             "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 5,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-23T05:23:39.789Z",
+            "owner_id": 1,
+            "pet_id": 5,
+            "shelter_id": 3
         }
     },
     {

@@ -109,7 +109,7 @@ class PetListingSerializer(serializers.Serializer):
         owner.birthday = validated_data.get('owner_birthday')
         owner.save()
 
-        instance.status = validated_data.get('status')
+        instance.status = validated_data.get('status') # TODO: Fix
         instance.last_update = datetime.now()
         instance.save()
 
@@ -146,12 +146,13 @@ class SearchSerializer(serializers.Serializer):
     
     name = serializers.CharField(source="pet.name")
     gender = serializers.MultipleChoiceField(choices=GENDER, source="pet.gender") # TODO: multi select and query params
-    shelter = serializers.MultipleChoiceField(choices=User.objects.filter(is_seeker=False).values_list('id', 'username'))
+    shelter = serializers.MultipleChoiceField(choices=shelter_choices)#User.objects.filter(is_seeker=False).values_list('id', 'username'))
     status = serializers.MultipleChoiceField(choices=STATUS)
     pet_type = serializers.MultipleChoiceField(choices=PET_TYPE)
-    creation_date = serializers.DateField()
+    start_date = serializers.DateField()
+    end_date = serializers.DateField()
     sort = serializers.ChoiceField(choices=SORT)
-        
+
     # data = []
 
     # for p in pet_listings:
