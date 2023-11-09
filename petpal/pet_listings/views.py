@@ -128,7 +128,7 @@ class SearchView(APIView):
         pet_listings = PetListing.objects
 
         shelter = request.POST.get('shelter')
-        status = request.POST.get('status', ['available'])
+        status = request.POST.get('status')
         gender = request.POST.get('gender')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
@@ -139,8 +139,9 @@ class SearchView(APIView):
             query_param_url += f'shelter={shelter}&'
             pet_listings = pet_listings.filter(shelter__pk__in=shelter)
         
-        query_param_url += f'status={status}&'
-        pet_listings = pet_listings.filter(status__in=status)
+        if status:
+            query_param_url += f'status={status}&'
+            pet_listings = pet_listings.filter(status__in=status)
 
         if gender:
             query_param_url += f'gender={gender}&'

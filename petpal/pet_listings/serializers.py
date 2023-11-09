@@ -65,6 +65,7 @@ class PetListingSerializer(serializers.Serializer):
                 #   pictures = validated_data['pictures']) # TODO: Save pics in a directory or something
         pet.save()
 
+        # TODO: does this actually save the pics
         # for i in range(1, len(validated_data['pictures'])+1):
         #     new_pic = Picture(pet=pet,
         #                       path=f'{pet.pk}_{i}')
@@ -136,15 +137,21 @@ class SearchSerializer(serializers.Serializer):
         ('bird', 'Bird'),
         ('other', 'Other')
     ]
-    shelter_query = User.objects.values('username').all()
+    shelter_query = User.objects.filter(is_seeker=False).all()
+    shelter_choices = []
+    for shelter in shelter_query:
+        shelter_choices.append((shelter.id, shelter.username))
+    # print(shelter_choices)
     
-    name = serializers.CharField()
-    gender = serializers.ChoiceField(choices=GENDER)
-    shelter = serializers.ChoiceField(choices=shelter_query)
-    status = serializers.ChoiceField(choices=STATUS)
-    pet_type = serializers.ChoiceField(choices=PET_TYPE)
+    
+    name = serializers.CharField(source="pet.name")
+    gender = serializers.MultipleChoiceField(choices=GENDER, source="pet.gender") # TODO: multi select and query params
+    shelter = serializers.MultipleChoiceField(choices=User.objects.filter(is_seeker=False).values_list('id', 'username'))
+    status = serializers.MultipleChoiceField(choices=STATUS)
+    pet_type = serializers.MultipleChoiceField(choices=PET_TYPE)
     creation_date = serializers.DateField()
     sort = serializers.ChoiceField(choices=SORT)
+        
     # data = []
 
     # for p in pet_listings:
