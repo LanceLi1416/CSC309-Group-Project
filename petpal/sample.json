@@ -1,5 +1,53 @@
 [
     {
+        "model": "pet_listings.picture",
+        "pk": 1,
+        "fields": {
+            "path": "1_1.jpg",
+            "pet_id": 1
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 2,
+        "fields": {
+            "path": "1_2.jpg",
+            "pet_id": 1
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 3,
+        "fields": {
+            "path": "2_1.jpg",
+            "pet_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 4,
+        "fields": {
+            "path": "3_1.jpg",
+            "pet_id": 3
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 5,
+        "fields": {
+            "path": "4_1.jpg",
+            "pet_id": 4
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 6,
+        "fields": {
+            "path": "5_1.jpeg",
+            "pet_id": 5
+        }
+    },
+    {
         "model": "pet_listings.owner",
         "pk": 1,
         "fields": {
@@ -14,11 +62,11 @@
         "model": "pet_listings.pet",
         "pk": 1,
         "fields": {
-            "name": "Nick's available dog",
+            "name": "Nick's available cat",
             "gender": "male",
             "birthday": "2023-01-01",
             "weight": 12,
-            "animal": "dog",
+            "animal": "cat",
             "breed": "idk",
             "colour": "brown",
             "vaccinated": true,
@@ -29,11 +77,11 @@
         "model": "pet_listings.pet",
         "pk": 2,
         "fields": {
-            "name": "Nick's adopted dog",
+            "name": "Nick's adopted cat",
             "gender": "male",
             "birthday": "2023-01-02",
             "weight": 13,
-            "animal": "dog",
+            "animal": "cat",
             "breed": "idk2",
             "colour": "brown",
             "vaccinated": true,
@@ -44,11 +92,11 @@
         "model": "pet_listings.pet",
         "pk": 3,
         "fields": {
-            "name": "Nick's pending dog",
+            "name": "Nick's pending cat",
             "gender": "male",
             "birthday": "2023-01-03",
             "weight": 14,
-            "animal": "dog",
+            "animal": "cat",
             "breed": "idk3",
             "colour": "brown",
             "vaccinated": true,
@@ -59,11 +107,11 @@
         "model": "pet_listings.pet",
         "pk": 4,
         "fields": {
-            "name": "Nick's withdrawn dog",
+            "name": "Nick's withdrawn cat",
             "gender": "male",
             "birthday": "2023-01-04",
             "weight": 15,
-            "animal": "dog",
+            "animal": "cat",
             "breed": "idk4",
             "colour": "brown",
             "vaccinated": true,
@@ -74,11 +122,11 @@
         "model": "pet_listings.pet",
         "pk": 5,
         "fields": {
-            "name": "Nick's available cat",
+            "name": "Nick's available dog",
             "gender": "female",
             "birthday": "2023-01-05",
             "weight": 16,
-            "animal": "cat",
+            "animal": "dog",
             "breed": "idk5",
             "colour": "black",
             "vaccinated": true,
@@ -251,22 +299,6 @@
         }
     },
     {
-        "model": "contenttypes.contenttype",
-        "pk": 7,
-        "fields": {
-            "app_label": "stores",
-            "model": "store"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 8,
-        "fields": {
-            "app_label": "stores",
-            "model": "product"
-        }
-    },
-    {
         "model": "sessions.session",
         "pk": "vr4zh1w2win0rtlkiwdvykz45yl9livp",
         "fields": {
@@ -274,73 +306,4 @@
             "expire_date": "2023-03-05T05:23:39.811Z"
         }
     },
-    {
-        "model": "stores.store",
-        "pk": 1,
-        "fields": {
-            "name": "Local Grocer",
-            "address": "569 Spadina Cres",
-            "owner": 1
-        }
-    },
-    {
-        "model": "stores.product",
-        "pk": 1,
-        "fields": {
-            "name": "Apple",
-            "store": 1,
-            "quantity": 5,
-            "expiry": "2023-02-19"
-        }
-    },
-    {
-        "model": "stores.product",
-        "pk": 2,
-        "fields": {
-            "name": "Kiwi",
-            "store": 1,
-            "quantity": 3,
-            "expiry": "2023-02-20"
-        }
-    },
-    {
-        "model": "stores.product",
-        "pk": 3,
-        "fields": {
-            "name": "Orange",
-            "store": 1,
-            "quantity": 3,
-            "expiry": "2023-02-28"
-        }
-    },
-    {
-        "model": "stores.product",
-        "pk": 4,
-        "fields": {
-            "name": "Grape",
-            "store": 1,
-            "quantity": 2,
-            "expiry": "2023-02-21"
-        }
-    },
-    {
-        "model": "stores.product",
-        "pk": 5,
-        "fields": {
-            "name": "Melon",
-            "store": 1,
-            "quantity": 3,
-            "expiry": "2023-02-07"
-        }
-    },
-    {
-        "model": "stores.product",
-        "pk": 6,
-        "fields": {
-            "name": "Banana",
-            "store": 1,
-            "quantity": 19,
-            "expiry": "2023-02-21"
-        }
-    }
 ]
