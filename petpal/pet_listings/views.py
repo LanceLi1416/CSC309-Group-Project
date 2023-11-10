@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
+from rest_framework.parsers import MultiPartParser
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import PermissionDenied
@@ -9,7 +10,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from django.shortcuts import get_object_or_404, render
 
-from .serializers import PetListingSerializer, SearchSerializer, SearchModelSerializer
+from .serializers import PetListingSerializer, SearchSerializer, SearchModelSerializer, PetListingModelSerializer
 from .models import Owner, Pet, PetListing
 
 class PetListingPermissions(BasePermission):
@@ -27,8 +28,12 @@ class PetListingPermissions(BasePermission):
 class PetListingCreateView(APIView):
     serializer_class = PetListingSerializer
     # permission_classes = [PetListingPermissions]
+    # parser_classes = [MultiPartParser]
 
     def post(self, request):
+        print(request.data)
+        # for image in request.FILES:
+        #     a = json.loads(request.data)
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid(): # TODO: Create user and test

@@ -22,7 +22,7 @@ class Pet(models.Model):
 
 class Picture(models.Model):
     pet = models.ForeignKey(Pet, related_name='pictures', on_delete=models.CASCADE)
-    path = models.CharField(max_length=50)
+    path = models.ImageField(upload_to='../static/pet_listing_pics', max_length=50)
 
 
 class Owner(models.Model):

@@ -4,6 +4,20 @@ from datetime import datetime
 
 from .models import Pet, Owner, PetListing, Picture, User
 
+class PetListingModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PetListing
+        fields = ['pet', 'owner', 'status', 'shelter', 'last_update', 'creation_date']
+
+    def validate_vaccinated(self, vaccinated):
+        if not vaccinated:
+            raise serializers.ValidationError("The pet must be vaccinated.")
+        return vaccinated
+    
+    def validate_pictures(self, pictures):
+        if len(pictures) > 5:
+            raise serializers.ValidationError({'pictures': 'Only a maximum of 5 pictures can be uploaded'})
+
 class PetListingSerializer(serializers.Serializer):
     GENDER = [
         ('male', 'Male'),
@@ -25,13 +39,18 @@ class PetListingSerializer(serializers.Serializer):
     colour = serializers.CharField(source='pet.colour', required=True)
     vaccinated = serializers.BooleanField(source='pet.vaccinated', required=True)
     other_info = serializers.CharField(source='pet.other_info', required=False)
-    # pictures = serializers.ListField(child=serializers.ImageField(), source='attachment', required=True)
+    pictures = serializers.ImageField(source='pet.pictures', required=True)
+    # pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures', required=True)
     owner_name = serializers.CharField(source='owner.name', required=True)
     email = serializers.EmailField(source='owner.email', required=True)
     phone_number = serializers.CharField(source='owner.phone', required=True)
     location = serializers.CharField(source='owner.location', required=True)
     owner_birthday = serializers.DateField(required=True, source='owner.birthday')
-    status = serializers.ChoiceField(required=True, choices=STATUS_CHOICES, write_only=True)
+    status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES)
+
+    def get_pictures(self, pet_listing):
+        return pet_listing.pet.pictures.path.all()
+
 
     def validate_vaccinated(self, vaccinated):
         if not vaccinated:
@@ -43,9 +62,10 @@ class PetListingSerializer(serializers.Serializer):
     #         data['image'].name = f'{self.context["request"].user.pk}_1' # TODO: Loop through all images
     #     return data
     
-    def validate_pictures(self, pictures):
-        if len(pictures) > 5:
-            raise serializers.ValidationError({'pictures': 'Only a maximum of 5 pictures can be uploaded'})
+    # def validate_pictures(self, pictures):
+    #     # print(pictures)
+    #     if len(pictures) > 5:
+    #         raise serializers.ValidationError({'pictures': f'{pictures}Only a maximum of 5 pictures can be uploaded'})
 
     def create(self, validated_data, request):
         email = validated_data['owner']['email']
@@ -73,10 +93,10 @@ class PetListingSerializer(serializers.Serializer):
         pet.save()
 
         # TODO: does this actually save the pics
-        # for i in range(1, len(validated_data['pictures'])+1):
-        #     new_pic = Picture(pet=pet,
-        #                       path=f'{pet.pk}_{i}')
-        #     new_pic.save()
+        for i in range(1, len(validated_data.get('pictures'))+1):
+            new_pic = Picture(pet=pet,
+                              path=f'{pet.pk}_{i}')
+            new_pic.save()
 
         adoption = PetListing(pet = pet,
                               owner = owner,
