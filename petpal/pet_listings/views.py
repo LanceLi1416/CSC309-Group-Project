@@ -1,6 +1,3 @@
-from django.shortcuts import redirect
-from django.urls import reverse
-from rest_framework.parsers import MultiPartParser
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import PermissionDenied
@@ -8,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 
-from .serializers import PetListingSerializer, SearchSerializer, SearchModelSerializer, PetListingModelSerializer
+from .serializers import PetListingSerializer, SearchModelSerializer
 from .models import Owner, Pet, PetListing
 
 class PetListingPermissions(BasePermission):
@@ -27,16 +24,12 @@ class PetListingPermissions(BasePermission):
 
 class PetListingCreateView(APIView):
     serializer_class = PetListingSerializer
-    permission_classes = [PetListingPermissions]
-    # parser_classes = [MultiPartParser]
+    # permission_classes = [PetListingPermissions]
 
     def post(self, request):
-        print(request.data)
-        # for image in request.FILES:
-        #     a = json.loads(request.data)
         serializer = self.serializer_class(data=request.data)
 
-        if serializer.is_valid(): # TODO: Create user and test
+        if serializer.is_valid():
             serializer.create(serializer.validated_data, request)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -45,10 +38,11 @@ class PetListingCreateView(APIView):
         pet_listings = PetListing.objects.all()
         data = []
         for listing in pet_listings:
+            # print(listing)
             serializer = self.serializer_class(listing)
+            # print(serializer)
             data.append(serializer.data)
         return Response(data, status=status.HTTP_200_OK)
-        # return render(request, 'pet-creation.html')
     
 
 class PetListingEditView(APIView):
@@ -109,20 +103,12 @@ class SearchView(APIView):
             sort = request.data['sort']
             pet_listings = pet_listings.order_by(sort)
 
+        paginator = PageNumberPagination()
+        paginator.page_size = 4
+        paginated_pet_listings = paginator.paginate_queryset(pet_listings, request)
+
+        if paginated_pet_listings is not None:
+            serializer = self.serializer_class(paginated_pet_listings, many=True)
+            return paginator.get_paginated_response(serializer.data)
         serializer = self.serializer_class(pet_listings, many=True)
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-# @api_view(["POST"])
-# def submit_pet_listing(request):
-#     serializer = PetListingSerializer(data=request.data)
-
-#     if serializer.is_valid():
-        
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# @api_view(["PUT"])
-# def edit_pet_listing(request):
-#     pass
