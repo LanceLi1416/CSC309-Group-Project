@@ -51,16 +51,20 @@ class PetListingCreateView(APIView):
 
 class PetListingEditView(APIView):
     serializer_class = PetListingSerializer
-    permission_classes = [PetListingPermissions]
     lookup_field = 'pet_listing_id'
+    permission_classes = [PetListingPermissions]
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        permission = PetListingPermissions()
+        permission.has_object_permission(request, self, pet_listing)
         serializer = self.serializer_class(pet_listing)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        permission = PetListingPermissions()
+        permission.has_object_permission(request, self, pet_listing)
         serializer = self.serializer_class(pet_listing, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -69,9 +73,10 @@ class PetListingEditView(APIView):
     
     def delete(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
-
-        pics = pet_listing.pet.pictures.all()
+        permission = PetListingPermissions()
+        permission.has_object_permission(request, self, pet_listing)
         
+        pics = pet_listing.pet.pictures.all()
         for i in range(len(pics)):
             try:
                 os.remove(f'./static/pet_listing_pics/{str(pics[i].path)}')
