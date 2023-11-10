@@ -8,3 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
 		defaultValue = inputElement.value;
 	});
 });
+
+function previewImage(event) {
+    var input = event.target;
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var imagePreview = document.getElementById('profile-image');
+                    imagePreview.src = e.target.result;
+
+                    imagePreview.style.height = "100px";
+                    imagePreview.style.width = "100px";
+                    imagePreview.style.objectFit = "cover";
+                    imagePreview.style.borderRadius = "50%";
+                    
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+}

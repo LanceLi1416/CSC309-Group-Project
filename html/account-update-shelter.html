@@ -93,10 +93,10 @@
     <h1 class="text-center">Update your profile</h1>
 
     <div class="d-flex justify-content-center mb-3">
-        <input accept="image/*" class="d-none" id="picture" name="picture" type="file"/>
+        <input accept="image/*" class="d-none" id="picture" name="picture" type="file" onchange="previewImage(event)"/>
         <label class="bg-secondary edit-icon text-align-center" for="picture" role="button">
             <!-- TODO: use css for width and height -->
-            <img alt="" height="50px" src="../petpal/static/media/images/edit.png" width="50px"/>
+            <img alt="" src="../petpal/static/media/images/edit.png" id="profile-image"/>
         </label>
     </div>
 
