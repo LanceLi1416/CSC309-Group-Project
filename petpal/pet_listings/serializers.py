@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from django.core.files.storage import FileSystemStorage
+from PIL import Image
+from io import BytesIO
+import imghdr
 from datetime import datetime
 
 from .models import Pet, Owner, PetListing, Picture, User
@@ -39,8 +42,8 @@ class PetListingSerializer(serializers.Serializer):
     colour = serializers.CharField(source='pet.colour', required=True)
     vaccinated = serializers.BooleanField(source='pet.vaccinated', required=True)
     other_info = serializers.CharField(source='pet.other_info', required=False)
-    pictures = serializers.ImageField(source='pet.pictures', required=True)
-    # pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures', required=True)
+    # pictures = serializers.ImageField(source='pet.pictures', required=True)
+    pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures', required=True)
     owner_name = serializers.CharField(source='owner.name', required=True)
     email = serializers.EmailField(source='owner.email', required=True)
     phone_number = serializers.CharField(source='owner.phone', required=True)
@@ -93,9 +96,13 @@ class PetListingSerializer(serializers.Serializer):
         pet.save()
 
         # TODO: does this actually save the pics
-        for i in range(1, len(validated_data.get('pictures'))+1):
+        for i in range(1, len(validated_data['pet'].get('pictures'))+1):
+            extension = validated_data['pet']['pictures'][i-1].split('.')[-1].lower()
+            image = validated_data['pet']['pictures'][i-1].read()
+            image = Image.open(BytesIO(image))
+            image.save(f'../static/pet_listing_pics/{pet.pk}_{i}.{extension}')
             new_pic = Picture(pet=pet,
-                              path=f'{pet.pk}_{i}')
+                              path=f'{pet.pk}_{i}.{extension}')
             new_pic.save()
 
         adoption = PetListing(pet = pet,

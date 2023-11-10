@@ -27,7 +27,7 @@ class PetListingPermissions(BasePermission):
 
 class PetListingCreateView(APIView):
     serializer_class = PetListingSerializer
-    # permission_classes = [PetListingPermissions]
+    permission_classes = [PetListingPermissions]
     # parser_classes = [MultiPartParser]
 
     def post(self, request):
@@ -53,7 +53,7 @@ class PetListingCreateView(APIView):
 
 class PetListingEditView(APIView):
     serializer_class = PetListingSerializer
-    # permission_classes = [PetListingPermissions]
+    permission_classes = [PetListingPermissions]
     lookup_field = 'pet_listing_id'
 
     def get(self, request, pet_listing_id):
