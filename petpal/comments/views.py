@@ -53,7 +53,6 @@ class ApplicationMessageView(ListCreateAPIView):
 class ShelterReplyView(CreateAPIView):
     serializer_class = ShelterCommentSerializer
     permission_classes = [IsAuthenticated]
-    pagination_class = CommentPagination
 
     def perform_create(self, serializer):
         parent = get_object_or_404(ShelterComment, pk=self.kwargs['comment_id'])
@@ -66,7 +65,6 @@ class ShelterReplyView(CreateAPIView):
 class ApplicationReplyView(CreateAPIView):
     serializer_class = ApplicationMessageSerializer
     permission_classes = [ApplicationMessageAuthPermission]
-    pagination_class = CommentPagination
 
     def perform_create(self, serializer):
         parent = get_object_or_404(ShelterComment, pk=self.kwargs['comment_id'])
