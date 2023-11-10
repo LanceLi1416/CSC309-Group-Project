@@ -1,11 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 from django.shortcuts import get_object_or_404
+
+import os
 
 from .serializers import PetListingSerializer, SearchModelSerializer
 from .models import Owner, Pet, PetListing
@@ -13,18 +15,22 @@ from .models import Owner, Pet, PetListing
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
-            raise PermissionDenied("Authenticated Required")
+            raise AuthenticationFailed("Authenticated Required")
+        if request.user.is_seeker:
+            raise PermissionDenied("Only shelters have access to view this")
         return True
     
     def has_object_permission(self, request, view, obj):
         if request.user.is_authenticated:
-            return request.user == obj.shelter
-        raise PermissionDenied("Authentication Required")
+            if request.user != obj.shelter:
+                raise PermissionDenied("Only the shelter that posted this pet listing has access")
+            return True
+        raise AuthenticationFailed("Authentication Required")
 
 
 class PetListingCreateView(APIView):
     serializer_class = PetListingSerializer
-    # permission_classes = [PetListingPermissions]
+    permission_classes = [PetListingPermissions]
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -38,9 +44,7 @@ class PetListingCreateView(APIView):
         pet_listings = PetListing.objects.all()
         data = []
         for listing in pet_listings:
-            # print(listing)
             serializer = self.serializer_class(listing)
-            # print(serializer)
             data.append(serializer.data)
         return Response(data, status=status.HTTP_200_OK)
     
@@ -65,7 +69,17 @@ class PetListingEditView(APIView):
     
     def delete(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+
+        pics = pet_listing.pet.pictures.all()
+        
+        for i in range(len(pics)):
+            try:
+                os.remove(f'./static/pet_listing_pics/{str(pics[i].path)}')
+            except OSError:
+                break
+
         pet_listing.delete()
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

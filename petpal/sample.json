@@ -3,7 +3,7 @@
         "model": "pet_listings.picture",
         "pk": 1,
         "fields": {
-            "path": "1_1.jpg",
+            "path": "1_0.jpg",
             "pet_id": 1
         }
     },
@@ -11,7 +11,7 @@
         "model": "pet_listings.picture",
         "pk": 2,
         "fields": {
-            "path": "1_2.jpg",
+            "path": "1_1.jpg",
             "pet_id": 1
         }
     },
@@ -19,7 +19,7 @@
         "model": "pet_listings.picture",
         "pk": 3,
         "fields": {
-            "path": "2_1.jpg",
+            "path": "2_0.jpg",
             "pet_id": 2
         }
     },
@@ -27,7 +27,7 @@
         "model": "pet_listings.picture",
         "pk": 4,
         "fields": {
-            "path": "3_1.jpg",
+            "path": "3_0.jpg",
             "pet_id": 3
         }
     },
@@ -35,7 +35,7 @@
         "model": "pet_listings.picture",
         "pk": 5,
         "fields": {
-            "path": "4_1.jpg",
+            "path": "4_0.jpg",
             "pet_id": 4
         }
     },
@@ -43,7 +43,7 @@
         "model": "pet_listings.picture",
         "pk": 6,
         "fields": {
-            "path": "5_1.jpeg",
+            "path": "5_0.jpeg",
             "pet_id": 5
         }
     },

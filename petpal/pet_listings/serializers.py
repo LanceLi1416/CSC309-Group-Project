@@ -58,14 +58,12 @@ class PetListingSerializer(serializers.Serializer):
         return vaccinated
     
     def to_representation(self, instance):
-        print(instance)
         data = super().to_representation(instance)
         pictures_data = data.get('pictures')
         if type(instance) == PetListing and pictures_data is not None:
             pictures_data = PictureSerializer(instance.pet.pictures.all(), many=True).data
             # pictures_data = [PictureSerializer(pic).data for pic in pictures_data]
             data['pictures'] = pictures_data
-            print(data)
             return data
         else:
             pic_names = []
@@ -108,11 +106,10 @@ class PetListingSerializer(serializers.Serializer):
                   other_info = validated_data['pet'].get('other_info', ''))
         pet.save()
 
-        print(validated_data)
-        for i in range(1, len(validated_data['pet']['pictures']['all'])+1):
-            original_name = validated_data['pet']['pictures']['all'][i-1].name
+        for i in range(len(validated_data['pet']['pictures']['all'])):
+            original_name = validated_data['pet']['pictures']['all'][i].name
             _, extension = os.path.splitext(original_name)
-            image = validated_data['pet']['pictures']['all'][i-1].read()
+            image = validated_data['pet']['pictures']['all'][i].read()
             image = Image.open(BytesIO(image))
             image.save(f'./static/pet_listing_pics/{pet.pk}_{i}{extension.lower()}')
             new_pic = Picture(pet=pet,
@@ -130,27 +127,81 @@ class PetListingSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         pet = instance.pet
-        pet.name = validated_data['pet'].get('name')
-        pet.gender = validated_data['pet'].get('gender')
-        pet.birthday = validated_data['pet'].get('birthday')
-        pet.weight = validated_data['pet'].get('weight')
-        pet.animal = validated_data['pet'].get('animal')
-        pet.breed = validated_data['pet'].get('breed')
-        pet.colour = validated_data['pet'].get('colour')
-        pet.vaccinated = validated_data['pet'].get('vaccinated')
-        pet.other_info = validated_data['pet'].get('other_info', '')
-        # pet.pictures = validated_data.get('pictures')
-        pet.save()
+
+        if validated_data.get('pet'):
+            if validated_data.get('pet').get('name'):
+                pet.name = validated_data['pet'].get('name')
+
+            if validated_data.get('pet').get('gender'):
+                pet.gender = validated_data['pet'].get('gender')
+
+            if validated_data.get('pet').get('birthday'):
+                pet.birthday = validated_data['pet'].get('birthday')
+
+            if validated_data.get('pet').get('weight'):
+                pet.weight = validated_data['pet'].get('weight')
+
+            if validated_data.get('pet').get('animal'):
+                pet.animal = validated_data['pet'].get('animal')
+
+            if validated_data.get('pet').get('breed'):
+                pet.breed = validated_data['pet'].get('breed')
+
+            if validated_data.get('pet').get('colour'):
+                pet.colour = validated_data['pet'].get('colour')
+
+            if validated_data.get('pet').get('vaccinated'):
+                pet.vaccinated = validated_data['pet'].get('vaccinated')
+
+            if validated_data.get('pet').get('other_info'):
+                pet.other_info = validated_data['pet'].get('other_info')
+            pet.save()
+
+            if validated_data['pet'].get('pictures'):
+                print(instance)
+                print(validated_data)
+                index = (instance.pet.pictures.count()) % 5
+                for i in range(len(validated_data['pet']['pictures']['all'])):
+                    # Check whether to delete pic
+                    pic = Picture.objects.filter(path__contains=f'{pet.pk}_{index}')
+                    if len(pic) > 0:
+                        os.remove(f'./static/pet_listing_pics/{str(pic.first().path)}')
+                        pic.first().delete()
+
+                    # Upload new pic
+                    original_name = validated_data['pet']['pictures']['all'][i].name
+                    _, extension = os.path.splitext(original_name)
+                    image = validated_data['pet']['pictures']['all'][i].read()
+                    image = Image.open(BytesIO(image))
+                    image.save(f'./static/pet_listing_pics/{pet.pk}_{index}{extension.lower()}')
+
+                    # Upload new pic to db
+                    new_pic = Picture(pet=pet,
+                                    path=f'{pet.pk}_{index}{extension.lower()}')
+                    new_pic.save()
+                    index = (index + 1) % 5
 
         owner = instance.owner
-        owner.name = validated_data['owner'].get('name')
-        owner.email = validated_data['owner'].get('email')
-        owner.phone = validated_data['owner'].get('phone')
-        owner.location = validated_data['owner'].get('location')
-        owner.birthday = validated_data['owner'].get('birthday')
-        owner.save()
 
-        instance.status = validated_data.get('status') # TODO: Fix
+        if validated_data.get('owner'):
+            if validated_data.get('owner').get('name'):
+                owner.name = validated_data['owner'].get('name')
+
+            if validated_data.get('owner').get('email'):
+                owner.email = validated_data['owner'].get('email')
+
+            if validated_data.get('owner').get('phone'):
+                owner.phone = validated_data['owner'].get('phone')
+
+            if validated_data.get('owner').get('location'):
+                owner.location = validated_data['owner'].get('location')
+
+            if validated_data.get('owner').get('birthday'):
+                owner.birthday = validated_data['owner'].get('birthday')
+            owner.save()
+
+        if validated_data.get('status'):
+            instance.status = validated_data.get('status') # TODO: Fix
         instance.last_update = datetime.now()
         instance.save()
 
@@ -183,15 +234,15 @@ class SearchSerializer(serializers.Serializer):
         ('bird', 'Bird'),
         ('other', 'Other')
     ]
-    shelter_query = User.objects.filter(is_seeker=False).all()
-    shelter_choices = []
-    for shelter in shelter_query:
-        shelter_choices.append((shelter.id, shelter.username))
+    # shelter_query = User.objects.filter(is_seeker=False).all()
+    # shelter_choices = []
+    # for shelter in shelter_query:
+    #     shelter_choices.append((shelter.id, shelter.username))
     # TODO: For some reason this needs to be commented to makemigrations
 
     name = serializers.CharField(source="pet.name")
     gender = serializers.MultipleChoiceField(choices=GENDER, source="pet.gender") 
-    shelter = serializers.MultipleChoiceField(choices=shelter_choices)
+    # shelter = serializers.MultipleChoiceField(choices=shelter_choices)
     status = serializers.MultipleChoiceField(choices=STATUS)
     pet_type = serializers.MultipleChoiceField(choices=PET_TYPE)
     start_date = serializers.DateField()

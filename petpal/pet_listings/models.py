@@ -22,7 +22,7 @@ class Pet(models.Model):
 
 class Picture(models.Model):
     pet = models.ForeignKey(Pet, related_name='pictures', on_delete=models.CASCADE)
-    path = models.ImageField(max_length=50)
+    path = models.ImageField(max_length=50, unique=True)
 
 
 class Owner(models.Model):
@@ -40,7 +40,7 @@ class PetListing(models.Model):
         ('pending', 'Pending'),
         ('withdrawn', 'Withdrawn')
     ]
-    pet = models.ForeignKey(Pet, related_name='adoptions', on_delete=models.CASCADE)
+    pet = models.OneToOneField(Pet, related_name='adoptions', on_delete=models.CASCADE)
     owner = models.ForeignKey(Owner, related_name='adoptions', on_delete=models.CASCADE)
     shelter = models.ForeignKey(User, related_name='adoptions', on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
