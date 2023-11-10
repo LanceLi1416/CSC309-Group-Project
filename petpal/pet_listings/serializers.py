@@ -116,6 +116,11 @@ class PetListingSerializer(serializers.Serializer):
         return instance
 
 
+class SearchModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PetListing
+        fields = ['pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+
 class SearchSerializer(serializers.Serializer):
     GENDER = [
         ('male', 'Male'),
@@ -142,7 +147,6 @@ class SearchSerializer(serializers.Serializer):
     for shelter in shelter_query:
         shelter_choices.append((shelter.id, shelter.username))
     # print(shelter_choices)
-    
     
     name = serializers.CharField(source="pet.name")
     gender = serializers.MultipleChoiceField(choices=GENDER, source="pet.gender") # TODO: multi select and query params
