@@ -9,22 +9,29 @@ class PetListingSerializer(serializers.Serializer):
         ('male', 'Male'),
         ('female', 'Female')
     ]
+    STATUS_CHOICES = [
+            ('available', 'Available'),
+            ('adopted', 'Adopted'),
+            ('pending', 'Pending'),
+            ('withdrawn', 'Withdrawn')
+    ]
     # storage=FileSystemStorage(f'../static/pet_listing_pics')
-    pet_name = serializers.CharField(source='pet-name', required=True)
-    gender = serializers.ChoiceField(choices=GENDER, source='pet-gender', required=True)
-    pet_birthday = serializers.DateField(required=True, source='pet-birthday')
-    pet_weight = serializers.IntegerField(source='weight', required=True)
-    animal = serializers.CharField(required=True)
-    breed = serializers.CharField(required=True)
-    colour = serializers.CharField(required=True)
-    vaccinated = serializers.BooleanField(required=True)
-    other_info = serializers.CharField(source='other-info', required=False)
+    pet_name = serializers.CharField(source='pet.name', required=True)
+    gender = serializers.ChoiceField(choices=GENDER, source='pet.gender', required=True)
+    pet_birthday = serializers.DateField(required=True, source='pet.birthday')
+    pet_weight = serializers.IntegerField(source='pet.weight', required=True)
+    animal = serializers.CharField(source='pet.animal', required=True)
+    breed = serializers.CharField(source='pet.breed', required=True)
+    colour = serializers.CharField(source='pet.colour', required=True)
+    vaccinated = serializers.BooleanField(source='pet.vaccinated', required=True)
+    other_info = serializers.CharField(source='pet.other_info', required=False)
     # pictures = serializers.ListField(child=serializers.ImageField(), source='attachment', required=True)
-    owner_name = serializers.CharField(source='owner', required=True)
-    email = serializers.EmailField(required=True)
-    phone_number = serializers.CharField(source='phone', required=True)
-    location = serializers.CharField(required=True)
-    owner_birthday = serializers.DateField(required=True, source='owner-birthday')
+    owner_name = serializers.CharField(source='owner.name', required=True)
+    email = serializers.EmailField(source='owner.email', required=True)
+    phone_number = serializers.CharField(source='owner.phone', required=True)
+    location = serializers.CharField(source='owner.location', required=True)
+    owner_birthday = serializers.DateField(required=True, source='owner.birthday')
+    status = serializers.ChoiceField(required=True, choices=STATUS_CHOICES, write_only=True)
 
     def validate_vaccinated(self, vaccinated):
         if not vaccinated:
@@ -41,27 +48,27 @@ class PetListingSerializer(serializers.Serializer):
             raise serializers.ValidationError({'pictures': 'Only a maximum of 5 pictures can be uploaded'})
 
     def create(self, validated_data, request):
-        email = validated_data['email']
+        email = validated_data['owner']['email']
         owner_query = Owner.objects.filter(email=email)
         if len(owner_query) == 0:
-            owner = Owner(name = validated_data['owner'],
-                          email = validated_data['email'],
-                          phone = validated_data['phone'],
-                          location = validated_data['location'],
-                          birthday = validated_data['owner-birthday'])
+            owner = Owner(name = validated_data['owner']['name'],
+                          email = validated_data['owner']['email'],
+                          phone = validated_data['owner']['phone'],
+                          location = validated_data['owner']['location'],
+                          birthday = validated_data['owner']['birthday'])
             owner.save()
         else:
             owner = owner_query[0]
 
-        pet = Pet(name = validated_data['pet-name'],
-                  gender = validated_data['pet-gender'],
-                  birthday = validated_data['pet-birthday'],
-                  weight = validated_data['weight'],
-                  animal = validated_data['animal'],
-                  breed = validated_data['breed'],
-                  colour = validated_data['colour'],
-                  vaccinated = validated_data.get('vaccinated', 'False'),
-                  other_info = validated_data['other-info'])
+        pet = Pet(name = validated_data['pet']['name'],
+                  gender = validated_data['pet']['gender'],
+                  birthday = validated_data['pet']['birthday'],
+                  weight = validated_data['pet']['weight'],
+                  animal = validated_data['pet']['animal'],
+                  breed = validated_data['pet']['breed'],
+                  colour = validated_data['pet']['colour'],
+                  vaccinated = validated_data['pet'].get('vaccinated', 'False'),
+                  other_info = validated_data['pet'].get('other_info', ''))
                 #   pictures = validated_data['pictures']) # TODO: Save pics in a directory or something
         pet.save()
 
@@ -81,32 +88,25 @@ class PetListingSerializer(serializers.Serializer):
         return adoption
 
     def update(self, instance, validated_data):
-        STATUS_CHOICES = [
-            ('available', 'Available'),
-            ('adopted', 'Adopted'),
-            ('pending', 'Pending'),
-            ('withdrawn', 'Withdrawn')
-        ]
-        status = serializers.ChoiceField(required=True, choices=STATUS_CHOICES)
         pet = instance.pet
-        pet.name = validated_data.get('pet_name')
-        pet.gender = validated_data.get('pet_gender')
-        pet.birthday = validated_data.get('pet_birthday')
-        pet.weight = validated_data.get('pet_weight')
-        pet.animal = validated_data.get('animal')
-        pet.breed = validated_data.get('breed')
-        pet.colour = validated_data.get('colour')
-        pet.vaccinated = validated_data.get('vaccinated')
-        pet.other_info = validated_data.get('other_info')
-        pet.pictures = validated_data.get('pictures')
+        pet.name = validated_data['pet'].get('name')
+        pet.gender = validated_data['pet'].get('gender')
+        pet.birthday = validated_data['pet'].get('birthday')
+        pet.weight = validated_data['pet'].get('weight')
+        pet.animal = validated_data['pet'].get('animal')
+        pet.breed = validated_data['pet'].get('breed')
+        pet.colour = validated_data['pet'].get('colour')
+        pet.vaccinated = validated_data['pet'].get('vaccinated')
+        pet.other_info = validated_data['pet'].get('other_info', '')
+        # pet.pictures = validated_data.get('pictures')
         pet.save()
 
         owner = instance.owner
-        owner.name = validated_data.get('owner_name')
-        owner.email = validated_data.get('email')
-        owner.phone = validated_data.get('phone_number')
-        owner.location = validated_data.get('location')
-        owner.birthday = validated_data.get('owner_birthday')
+        owner.name = validated_data['owner'].get('name')
+        owner.email = validated_data['owner'].get('email')
+        owner.phone = validated_data['owner'].get('phone')
+        owner.location = validated_data['owner'].get('location')
+        owner.birthday = validated_data['owner'].get('birthday')
         owner.save()
 
         instance.status = validated_data.get('status') # TODO: Fix

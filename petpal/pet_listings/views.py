@@ -37,7 +37,12 @@ class PetListingCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request):
-        return Response({}, status=status.HTTP_200_OK)
+        pet_listings = PetListing.objects.all()
+        data = []
+        for listing in pet_listings:
+            serializer = self.serializer_class(listing)
+            data.append(serializer.data)
+        return Response(data, status=status.HTTP_200_OK)
         # return render(request, 'pet-creation.html')
     
 
@@ -48,23 +53,8 @@ class PetListingEditView(APIView):
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
-        data = {
-            'pet-name': pet_listing.pet.name,
-            'pet-gender': pet_listing.pet.gender,
-            'pet-birthday': pet_listing.pet.birthday,
-            'weight': pet_listing.pet.weight,
-            'animal': pet_listing.pet.animal,
-            'breed': pet_listing.pet.breed,
-            'colour': pet_listing.pet.colour,
-            'vaccinated': pet_listing.pet.vaccinated,
-            'other-info': pet_listing.pet.other_info,
-            'owner-name': pet_listing.owner.name,
-            'email': pet_listing.owner.email,
-            'phone': pet_listing.owner.phone,
-            'location': pet_listing.owner.location,
-            'owner-birthday': pet_listing.owner.birthday,
-        }
-        return Response(data, status=status.HTTP_200_OK)
+        serializer = self.serializer_class(pet_listing)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
