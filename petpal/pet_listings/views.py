@@ -41,7 +41,7 @@ class PetListingCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request):
-        pet_listings = PetListing.objects.all()
+        pet_listings = PetListing.objects.filter(shelter=request.user).all()
         data = []
         for listing in pet_listings:
             serializer = self.serializer_class(listing)
