@@ -23,7 +23,6 @@ class PetListingSerializer(serializers.Serializer):
             ('pending', 'Pending'),
             ('withdrawn', 'Withdrawn')
     ]
-    # storage=FileSystemStorage(f'../static/pet_listing_pics')
     pet_name = serializers.CharField(source='pet.name', required=True)
     gender = serializers.ChoiceField(choices=GENDER, source='pet.gender', required=True)
     pet_birthday = serializers.DateField(required=True, source='pet.birthday')
@@ -33,7 +32,7 @@ class PetListingSerializer(serializers.Serializer):
     colour = serializers.CharField(source='pet.colour', required=True)
     vaccinated = serializers.BooleanField(source='pet.vaccinated', required=True)
     other_info = serializers.CharField(source='pet.other_info', required=False)
-    pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', required=True) # TODO: works for creation
+    pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', required=True)
     owner_name = serializers.CharField(source='owner.name', required=True)
     email = serializers.EmailField(source='owner.email', required=True)
     phone_number = serializers.CharField(source='owner.phone', required=True)
@@ -97,7 +96,8 @@ class PetListingSerializer(serializers.Serializer):
             image = Image.open(BytesIO(image))
             image.save(f'./static/pet_listing_pics/{pet.pk}_{i}{extension.lower()}')
             new_pic = Picture(pet=pet,
-                              path=f'{pet.pk}_{i}{extension.lower()}')
+                              path=f'{pet.pk}_{i}{extension.lower()}',
+                              creation_time=datetime.now())
             new_pic.save()
 
         adoption = PetListing(pet = pet,
@@ -142,9 +142,11 @@ class PetListingSerializer(serializers.Serializer):
             pet.save()
 
             if validated_data['pet'].get('pictures'):
-                print(instance)
-                print(validated_data)
-                index = (instance.pet.pictures.count()) % 5
+                index = instance.pet.pictures.count()
+                if index == 5:
+                    pics = Picture.objects.filter(pet__pk=pet.pk).order_by('creation_time').first().path
+                    str_pics = str(pics)
+                    index = int(str_pics[str_pics.find('_')+1])
                 for i in range(len(validated_data['pet']['pictures']['all'])):
                     # Check whether to delete pic
                     pic = Picture.objects.filter(path__contains=f'{pet.pk}_{index}')
@@ -161,7 +163,8 @@ class PetListingSerializer(serializers.Serializer):
 
                     # Upload new pic to db
                     new_pic = Picture(pet=pet,
-                                    path=f'{pet.pk}_{index}{extension.lower()}')
+                                      path=f'{pet.pk}_{index}{extension.lower()}',
+                                      creation_time=datetime.now())
                     new_pic.save()
                     index = (index + 1) % 5
 
@@ -185,7 +188,7 @@ class PetListingSerializer(serializers.Serializer):
             owner.save()
 
         if validated_data.get('status'):
-            instance.status = validated_data.get('status') # TODO: Fix
+            instance.status = validated_data.get('status')
         instance.last_update = datetime.now()
         instance.save()
 

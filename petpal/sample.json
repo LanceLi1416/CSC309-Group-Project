@@ -4,7 +4,8 @@
         "pk": 1,
         "fields": {
             "path": "1_0.jpg",
-            "pet_id": 1
+            "pet_id": 1,
+            "creation_time": "2023-02-19T05:23:39.789Z"
         }
     },
     {
@@ -12,7 +13,8 @@
         "pk": 2,
         "fields": {
             "path": "1_1.jpg",
-            "pet_id": 1
+            "pet_id": 1,
+            "creation_time": "2023-02-20T05:23:39.789Z"
         }
     },
     {
@@ -20,7 +22,8 @@
         "pk": 3,
         "fields": {
             "path": "2_0.jpg",
-            "pet_id": 2
+            "pet_id": 2,
+            "creation_time": "2023-02-19T05:23:39.789Z"
         }
     },
     {
@@ -28,7 +31,8 @@
         "pk": 4,
         "fields": {
             "path": "3_0.jpg",
-            "pet_id": 3
+            "pet_id": 3,
+            "creation_time": "2023-02-19T05:23:39.789Z"
         }
     },
     {
@@ -36,7 +40,8 @@
         "pk": 5,
         "fields": {
             "path": "4_0.jpg",
-            "pet_id": 4
+            "pet_id": 4,
+            "creation_time": "2023-02-19T05:23:39.789Z"
         }
     },
     {
@@ -44,7 +49,8 @@
         "pk": 6,
         "fields": {
             "path": "5_0.jpeg",
-            "pet_id": 5
+            "pet_id": 5,
+            "creation_time": "2023-02-19T05:23:39.789Z"
         }
     },
     {

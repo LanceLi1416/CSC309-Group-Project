@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 import os
 
 from .serializers import PetListingSerializer, SearchModelSerializer
-from .models import Owner, Pet, PetListing
+from .models import PetListing
 
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
@@ -123,16 +123,9 @@ class SearchView(APIView):
             pet_type = request.data['pet_type']
             all_types = ['dog', 'cat', 'bird']
             if 'other' in pet_type:
-                # exclude whatever not in pet_type
                 for type in all_types:
-                    # print(type)
-                    # print(all_types)
                     if type not in pet_type:
-                        print(type)
-                        print(pet_listings)
-                        print(pet_listings.exclude(pet__animal=type))
-                        pet_listings = pet_listings.exclude(pet__animal=type) # TODO: Fix
-                        # print(pet_listings)
+                        pet_listings = pet_listings.exclude(pet__animal=type)
             else:
                 pet_listings = pet_listings.filter(pet__animal__in=pet_type)
 
