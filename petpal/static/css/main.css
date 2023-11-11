@@ -319,4 +319,9 @@ textarea {
     height: 30%;
     object-fit: cover;
 }
+
+#profile-image {
+    width: 50px;
+    height: 50px;
+}
 /*****************/
