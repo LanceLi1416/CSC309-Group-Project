@@ -12,6 +12,7 @@ class PictureSerializer(serializers.ModelSerializer):
         model = Picture
         fields = ['path']
 
+
 class PetListingSerializer(serializers.Serializer):
     GENDER = [
         ('male', 'Male'),
@@ -144,6 +145,7 @@ class PetListingSerializer(serializers.Serializer):
             if validated_data['pet'].get('pictures'):
                 index = instance.pet.pictures.count()
                 if index == 5:
+                    # find oldest pic and start to replace with that pic
                     pics = Picture.objects.filter(pet__pk=pet.pk).order_by('creation_time').first().path
                     str_pics = str(pics)
                     index = int(str_pics[str_pics.find('_')+1])
