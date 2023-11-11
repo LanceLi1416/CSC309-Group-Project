@@ -4,6 +4,7 @@
         "pk": 1,
         "fields": {
             "username": "testuser",
+            "password": "pbkdf2_sha256$600000$Wqax0yKO5VXlfm0kwzsBvZ$568mW87cMuIAye3/4KVCnS8Q5mfOnTWc3x63rel/vlI=",
             "first_name": "Test",
             "last_name": "User",
             "is_seeker": true
@@ -47,6 +48,29 @@
             "first_name": "Different",
             "last_name": "Shelter",
             "is_seeker": false
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 1,
+        "fields": {
+            "seeker": 1,
+            "shelter": 4,
+            "pet_listing": "Jimmy the Cat",
+            "status": "in progress",
+            "creation_date": "2021-04-01 00:00",
+            "last_modified": "2021-04-01 00:00"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 1,
+        "fields": {
+            "application": 1,
+            "commenter": 1,
+            "comment": "This is a comment by the seeker",
+            "parent": null,
+            "date": "2019-04-01 00:00"
         }
     },
     {

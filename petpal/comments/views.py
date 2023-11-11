@@ -72,8 +72,8 @@ class ApplicationReplyView(CreateAPIView):
     permission_classes = [ApplicationCommentAuthPermission]
 
     def perform_create(self, serializer):
-        parent = get_object_or_404(ShelterComment, pk=self.kwargs['comment_id'])
+        parent = get_object_or_404(ApplicationComment, pk=self.kwargs['comment_id'])
         # make sure parent is not a reply
         if parent.parent is not None:
             parent = parent.parent
-        serializer.save(commenter=self.request.user, shelter=parent.shelter, parent=parent)
+        serializer.save(commenter=self.request.user, application=parent.application, parent=parent)
