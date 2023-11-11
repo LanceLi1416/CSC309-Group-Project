@@ -39,5 +39,5 @@ class Application(models.Model):
     seeker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
     shelter = models.ForeignKey(User, on_delete=models.CASCADE)
 
-class Notification(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+# class Notification(models.Model):
+#     owner = models.ForeignKey(User, on_delete=models.CASCADE)
