@@ -1,0 +1,261 @@
+[
+    {
+        "model": "pet_listings.picture",
+        "pk": 1,
+        "fields": {
+            "path": "1_0.jpg",
+            "pet_id": 1,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 2,
+        "fields": {
+            "path": "1_1.jpg",
+            "pet_id": 1,
+            "creation_time": "2023-02-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 3,
+        "fields": {
+            "path": "2_0.jpg",
+            "pet_id": 2,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 4,
+        "fields": {
+            "path": "3_0.jpg",
+            "pet_id": 3,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 5,
+        "fields": {
+            "path": "4_0.jpg",
+            "pet_id": 4,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 6,
+        "fields": {
+            "path": "5_0.jpeg",
+            "pet_id": 5,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.owner",
+        "pk": 1,
+        "fields": {
+            "name": "Nicholas",
+            "email": "npoon@gmail.com",
+            "phone": 123,
+            "location": "1",
+            "birthday": "2022-01-01"
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 1,
+        "fields": {
+            "name": "Nick's available cat",
+            "gender": "male",
+            "birthday": "2023-01-01",
+            "weight": 12,
+            "animal": "cat",
+            "breed": "idk",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": ""
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 2,
+        "fields": {
+            "name": "Nick's adopted cat",
+            "gender": "male",
+            "birthday": "2023-01-02",
+            "weight": 13,
+            "animal": "cat",
+            "breed": "idk2",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": ""
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 3,
+        "fields": {
+            "name": "Nick's pending cat",
+            "gender": "male",
+            "birthday": "2023-01-03",
+            "weight": 14,
+            "animal": "cat",
+            "breed": "idk3",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": ""
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 4,
+        "fields": {
+            "name": "Nick's withdrawn cat",
+            "gender": "male",
+            "birthday": "2023-01-04",
+            "weight": 15,
+            "animal": "cat",
+            "breed": "idk4",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": ""
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 5,
+        "fields": {
+            "name": "Nick's available dog",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 16,
+            "animal": "dog",
+            "breed": "idk5",
+            "colour": "black",
+            "vaccinated": true,
+            "other_info": ""
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 1,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-19",
+            "owner_id": 1,
+            "pet_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 2,
+        "fields": {
+            "status": "adopted",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-20",
+            "owner_id": 1,
+            "pet_id": 2,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 3,
+        "fields": {
+            "status": "pending",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-21",
+            "owner_id": 1,
+            "pet_id": 3,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 4,
+        "fields": {
+            "status": "withdrawn",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-22",
+            "owner_id": 1,
+            "pet_id": 4,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 5,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-23",
+            "owner_id": 1,
+            "pet_id": 5,
+            "shelter_id": 3
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 1,
+        "fields": {
+            "username": "jack",
+            "first_name": "jack",
+            "last_name": "sun",
+            "is_seeker": true,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "email": "jacksun@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 2,
+        "fields": {
+            "username": "ooga booga shelter",
+            "first_name": "LN",
+            "last_name": "X",
+            "is_seeker": false,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "email": "uoftinder@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 3,
+        "fields": {
+            "username": "shelter 2",
+            "first_name": "John",
+            "last_name": "Smith",
+            "is_seeker": false,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "email": "johnsmith@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vr4zh1w2win0rtlkiwdvykz45yl9livp",
+        "fields": {
+            "session_data": ".eJxVjDsOwjAQBe_iGlk28W8p6XMGa-314gBypDipEHeHSCmgfTPzXiLitta49bLEicRFaHH63RLmR2k7oDu22yzz3NZlSnJX5EG7HGcqz-vh_h1U7PVb-2BgQPBOOwTNjlQ2rJINxvpkFQNz0B6dPStHxmTlXQrIAwCRsRrE-wO_CzcE:1pTcAl:9J6E0qxnvTDjOB8utuemu3hi4gg19nVm-J0_zNyjBLg",
+            "expire_date": "2023-03-05T05:23:39.811Z"
+        }
+    }
+]
