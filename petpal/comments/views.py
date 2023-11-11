@@ -34,7 +34,7 @@ class ShelterCommentView(ListCreateAPIView):
         if shelter.is_seeker:
             # return 404 error if shelter is a seeker
             raise Http404
-        return ShelterComment.objects.filter(shelter=shelter).order_by('-date')
+        return ShelterComment.objects.filter(shelter=shelter).filter(parent=None).order_by('-date')
     
     def perform_create(self, serializer):
         shelter = get_object_or_404(User, pk=self.kwargs['shelter_id'])
@@ -48,7 +48,7 @@ class ApplicationCommentView(ListCreateAPIView):
 
     def get_queryset(self):
         application = get_object_or_404(Application, pk=self.kwargs['app_id'])
-        return ApplicationComment.objects.filter(application=application).order_by('-date')
+        return ApplicationComment.objects.filter(application=application).filter(parent=None).order_by('-date')
 
     def perform_create(self, serializer):
         application = get_object_or_404(Application, pk=self.kwargs['app_id'])

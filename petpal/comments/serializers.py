@@ -13,7 +13,7 @@ class ShelterCommentSerializer(ModelSerializer):
         }
 
     def get_replies(self, obj):
-        replies = Comment.objects.filter(parent=obj)
+        replies = ShelterComment.objects.filter(parent=obj)
         serializer = ShelterCommentSerializer(replies, many=True)
         return serializer.data
 
