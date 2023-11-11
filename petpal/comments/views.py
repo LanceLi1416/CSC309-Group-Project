@@ -1,13 +1,14 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission, IsAuthenticated
-from .serializers import ShelterCommentSerializer, ApplicationMessageSerializer
+from .serializers import ShelterCommentSerializer, ApplicationCommentSerializer
 from accounts.models import User
-from .models import ShelterComment, ApplicationMessage
+from .models import ShelterComment, ApplicationComment
 from applications.models import Application
 from rest_framework.generics import ListCreateAPIView, CreateAPIView
+from rest_framework.pagination import PageNumberPagination
 
-class ApplicationMessageAuthPermission(BasePermission):        
+class ApplicationCommentAuthPermission(BasePermission):        
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             return False
@@ -36,14 +37,14 @@ class ShelterCommentView(ListCreateAPIView):
         serializer.save(commenter=self.request.user, shelter=shelter)
 
 
-class ApplicationMessageView(ListCreateAPIView):
-    serializer_class = ApplicationMessageSerializer
-    permission_classes = [ApplicationMessageAuthPermission]
+class ApplicationCommentView(ListCreateAPIView):
+    serializer_class = ApplicationCommentSerializer
+    permission_classes = [ApplicationCommentAuthPermission]
     pagination_class = CommentPagination
 
     def get_queryset(self):
         application = get_object_or_404(Application, pk=self.kwargs['app_id'])
-        return ApplicationMessage.objects.filter(application=application).order_by('-date')
+        return ApplicationComment.objects.filter(application=application).order_by('-date')
 
     def perform_create(self, serializer):
         application = get_object_or_404(Application, pk=self.kwargs['app_id'])
@@ -63,8 +64,8 @@ class ShelterReplyView(CreateAPIView):
 
 
 class ApplicationReplyView(CreateAPIView):
-    serializer_class = ApplicationMessageSerializer
-    permission_classes = [ApplicationMessageAuthPermission]
+    serializer_class = ApplicationCommentSerializer
+    permission_classes = [ApplicationCommentAuthPermission]
 
     def perform_create(self, serializer):
         parent = get_object_or_404(ShelterComment, pk=self.kwargs['comment_id'])

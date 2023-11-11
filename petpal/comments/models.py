@@ -3,7 +3,7 @@ from accounts.models import User
 from applications.models import Application
 
 class ShelterComment(models.Model):
-    shelter = models.ForeignKey(User, on_delete=models.CASCADE)
+    shelter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shelter_comments')
     commenter = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField()
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name="replies")

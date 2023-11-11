@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
-from .models import ShelterComment, ApplicationMessage
+from .models import ShelterComment, ApplicationComment
+from rest_framework.fields import SerializerMethodField
 
 class ShelterCommentSerializer(ModelSerializer):
     replies = SerializerMethodField()
@@ -16,17 +17,17 @@ class ShelterCommentSerializer(ModelSerializer):
         serializer = ShelterCommentSerializer(replies, many=True)
         return serializer.data
 
-class ApplicationMessageSerializer(ModelSerializer):
+class ApplicationCommentSerializer(ModelSerializer):
     replies = SerializerMethodField()
 
     class Meta:
-        model = ApplicationMessage
+        model = ApplicationComment
         fields = ['id', 'commenter', 'application', 'comment', 'date', 'replies']
         extra_kwargs = {
             'date': {'read_only': True},
         }
     
     def get_replies(self, obj):
-        replies = ApplicationMessage.objects.filter(parent=obj)
-        serializer = ApplicationMessageSerializer(replies, many=True)
+        replies = ApplicationComment.objects.filter(parent=obj)
+        serializer = ApplicationCommentSerializer(replies, many=True)
         return serializer.data
