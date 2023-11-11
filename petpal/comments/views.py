@@ -7,6 +7,7 @@ from .models import ShelterComment, ApplicationComment
 from applications.models import Application
 from rest_framework.generics import ListCreateAPIView, CreateAPIView
 from rest_framework.pagination import PageNumberPagination
+from django.http import Http404
 
 class ApplicationCommentAuthPermission(BasePermission):        
     def has_permission(self, request, view):
@@ -30,6 +31,9 @@ class ShelterCommentView(ListCreateAPIView):
 
     def get_queryset(self):
         shelter = get_object_or_404(User, pk=self.kwargs['shelter_id'])
+        if shelter.is_seeker:
+            # return 404 error if shelter is a seeker
+            raise Http404
         return ShelterComment.objects.filter(shelter=shelter).order_by('-date')
     
     def perform_create(self, serializer):
