@@ -45,6 +45,6 @@ class PetListing(models.Model):
     shelter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='adoptions')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     last_update = models.DateTimeField()
-    creation_date = models.DateTimeField()
+    creation_date = models.DateField()
 
 

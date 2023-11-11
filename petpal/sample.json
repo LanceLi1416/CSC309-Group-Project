@@ -139,7 +139,7 @@
         "fields": {
             "status": "available",
             "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-19",
             "owner_id": 1,
             "pet_id": 1,
             "shelter_id": 2
@@ -151,7 +151,7 @@
         "fields": {
             "status": "adopted",
             "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-20T05:23:39.789Z",
+            "creation_date": "2023-02-20",
             "owner_id": 1,
             "pet_id": 2,
             "shelter_id": 2
@@ -163,7 +163,7 @@
         "fields": {
             "status": "pending",
             "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-21T05:23:39.789Z",
+            "creation_date": "2023-02-21",
             "owner_id": 1,
             "pet_id": 3,
             "shelter_id": 2
@@ -175,7 +175,7 @@
         "fields": {
             "status": "withdrawn",
             "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-22T05:23:39.789Z",
+            "creation_date": "2023-02-22",
             "owner_id": 1,
             "pet_id": 4,
             "shelter_id": 2
@@ -187,7 +187,7 @@
         "fields": {
             "status": "available",
             "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-23T05:23:39.789Z",
+            "creation_date": "2023-02-23",
             "owner_id": 1,
             "pet_id": 5,
             "shelter_id": 3

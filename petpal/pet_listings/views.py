@@ -102,7 +102,10 @@ class SearchView(APIView):
         
         if 'status' in request.data:
             pet_status = request.data['status']
-            pet_listings = pet_listings.filter(status__in=pet_status)
+        else:
+            pet_status = ['available']
+
+        pet_listings = pet_listings.filter(status__in=pet_status)
 
         if 'gender' in request.data:
             gender = request.data['gender']
@@ -110,19 +113,35 @@ class SearchView(APIView):
         
         if 'start_date' in request.data:
             start_date = request.data['start_date']
-            pet_listings = pet_listings.filter(creation_date__gt=start_date)
+            pet_listings = pet_listings.filter(creation_date__gte=start_date)
 
         if 'end_date' in request.data:
             end_date = request.data['end_date']
-            pet_listings = pet_listings.filter(creation_date__lt=end_date)
+            pet_listings = pet_listings.filter(creation_date__lte=end_date)
 
         if 'pet_type' in request.data:
             pet_type = request.data['pet_type']
-            pet_listings = pet_listings.filter(pet__animal__in=pet_type)
+            all_types = ['dog', 'cat', 'bird']
+            if 'other' in pet_type:
+                # exclude whatever not in pet_type
+                for type in all_types:
+                    # print(type)
+                    # print(all_types)
+                    if type not in pet_type:
+                        print(type)
+                        print(pet_listings)
+                        print(pet_listings.exclude(pet__animal=type))
+                        pet_listings = pet_listings.exclude(pet__animal=type) # TODO: Fix
+                        # print(pet_listings)
+            else:
+                pet_listings = pet_listings.filter(pet__animal__in=pet_type)
 
         if 'sort' in request.data:
             sort = request.data['sort']
-            pet_listings = pet_listings.order_by(sort)
+            if sort == "weight":
+                pet_listings = pet_listings.order_by('pet__weight')
+        else:
+            pet_listings = pet_listings.order_by('pet__name')
 
         paginator = PageNumberPagination()
         paginator.page_size = 4
