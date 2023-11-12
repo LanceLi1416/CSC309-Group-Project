@@ -53,4 +53,9 @@ pip install -r packages.txt
 
 # Run migrations
 python3 manage.py makemigrations accounts
+python3 manage.py makemigrations pet_listings
+python3 manage.py makemigrations applications
 python3 manage.py migrate
+
+# Load sample data
+python3 manage.py loaddata sample.json
