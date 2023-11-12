@@ -1,9 +1,8 @@
 from django.core.paginator import Paginator
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.views import AccountAuthPermission
 from .models import Notification
 from .serializers import NotificationSerializer, NotificationUpdateSerializer
 
@@ -14,7 +13,7 @@ class NotificationCreateListView(APIView):
     A view for creating notifications.
     """
     # Only authenticated users can access this view
-    permission_classes = [AccountAuthPermission]
+    permission_classes = [permissions.IsAuthenticated]
     # Pagination
     paginator_class = Paginator
 
@@ -26,7 +25,9 @@ class NotificationCreateListView(APIView):
         :return:        201 if the notification was created successfully,
                         400 otherwise.
         """
-        serializer = NotificationSerializer(data=request.data)
+        data = request.data.copy()
+        data['receiver'] = request.user.id
+        serializer = NotificationSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -48,6 +49,9 @@ class NotificationCreateListView(APIView):
         if is_read is not None:
             notifications = notifications.filter(is_read=is_read)
 
+        # Sort notifications by creation time
+        notifications = notifications.order_by('-c_time')
+
         # Pagination
         paginator = self.paginator_class(notifications, 10)  # 10 notifications per page
         page_number = request.query_params.get('page', 1)
@@ -62,7 +66,7 @@ class NotificationDetailUpdateDeleteView(APIView):
     A view for listing, updating, and deleting notifications.
     """
     # Only authenticated users can access this view
-    permission_classes = [AccountAuthPermission]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk, user):
         """
@@ -94,7 +98,7 @@ class NotificationDetailUpdateDeleteView(APIView):
 
     def put(self, request, pk):
         """
-        Update a notification.
+        Update a notification. Change the is_read field to True.
 
         :param request: The request object.
         :param pk:      The primary key of the notification.
@@ -105,7 +109,10 @@ class NotificationDetailUpdateDeleteView(APIView):
         notification = self.get_object(pk, request.user)
         if notification is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = NotificationUpdateSerializer(data=request.data)
+        # Change the is_read field to True
+        serializer = NotificationUpdateSerializer(notification,
+                                                  data={'is_read': True},
+                                                  partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

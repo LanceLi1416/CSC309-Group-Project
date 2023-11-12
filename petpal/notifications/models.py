@@ -14,13 +14,13 @@ class Notification(models.Model):
         sender (User):   The user sending the notification.
         receiver (User): The user receiving the notification.
         message (str):   The message of the notification.
-        date (datetime): The date and time the notification was sent.
+        c_time (datetime): The date and time the notification was created.
         is_read (bool):  Whether the notification has been read.
     """
     receiver = models.ForeignKey(User,
                                  related_name='receiver_notifications',
                                  on_delete=models.CASCADE)
     message = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    c_time = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     related_link = models.URLField()
