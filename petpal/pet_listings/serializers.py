@@ -96,6 +96,7 @@ class PetListingSerializer(serializers.Serializer):
             image = validated_data['pet']['pictures']['all'][i].read()
             image = Image.open(BytesIO(image))
             image.save(f'./static/pet_listing_pics/{pet.pk}_{i}{extension.lower()}')
+            image.close()
             new_pic = Picture(pet=pet,
                               path=f'{pet.pk}_{i}{extension.lower()}',
                               creation_time=datetime.now())
@@ -162,6 +163,7 @@ class PetListingSerializer(serializers.Serializer):
                     image = validated_data['pet']['pictures']['all'][i].read()
                     image = Image.open(BytesIO(image))
                     image.save(f'./static/pet_listing_pics/{pet.pk}_{index}{extension.lower()}')
+                    image.close()
 
                     # Upload new pic to db
                     new_pic = Picture(pet=pet,
@@ -200,4 +202,4 @@ class PetListingSerializer(serializers.Serializer):
 class SearchModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PetListing
-        fields = ['pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+        fields = ['id', 'pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']

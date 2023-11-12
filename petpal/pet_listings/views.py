@@ -145,3 +145,14 @@ class SearchView(APIView):
             return paginator.get_paginated_response(serializer.data)
         serializer = self.serializer_class(pet_listings, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SearchDetailView(APIView):
+    serializer_class = PetListingSerializer
+    lookup_field = 'pet_listing_id'
+
+    def get(self, request, pet_listing_id):
+        pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        serializer = self.serializer_class(pet_listing)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
