@@ -202,4 +202,4 @@ class PetListingSerializer(serializers.Serializer):
 class SearchModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PetListing
-        fields = ['pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+        fields = ['id', 'pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
