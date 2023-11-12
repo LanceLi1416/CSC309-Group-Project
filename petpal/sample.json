@@ -1,5 +1,38 @@
 [
     {
+        "model": "notifications.Notification",
+        "pk": 1,
+        "fields": {
+            "receiver": 1,
+            "message": "Your pet listing for Nick's available cat has been approved!",
+            "is_read": false,
+            "c_time": "2023-02-19T05:23:39.789Z",
+            "related_link": "/pet_listings/1"
+        }
+    },
+    {
+        "model": "notifications.Notification",
+        "pk": 2,
+        "fields": {
+            "receiver": 1,
+            "message": "Your pet listing for Lance's unavailable XXX has been disapproved!",
+            "is_read": true,
+            "c_time": "2023-02-19T05:23:40.962Z",
+            "related_link": "/pet_listings/2"
+        }
+    },
+    {
+        "model": "notifications.Notification",
+        "pk": 3,
+        "fields": {
+            "receiver": 2,
+            "message": "Your pet listing for Nick's cat has been declined!",
+            "is_read": false,
+            "c_time": "2023-02-19T05:20:39.789Z",
+            "related_link": "/pet_listings/1"
+        }
+    },
+    {
         "model": "pet_listings.picture",
         "pk": 1,
         "fields": {
