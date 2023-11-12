@@ -58,7 +58,7 @@ class GetAccountView(RetrieveAPIView):
         all_shelters = User.objects.filter(is_seeker=False)
         if self.request.user.is_seeker:
             # seekers can see the profile of any shelter and their own profile
-            return all_shelters | User.objects.filter(username=self.request.user.username)
+            return all_shelters | User.objects.filter(id=self.request.user.id)
         else:
             # shelters can see seeker profiles who have an active application with the shelter
             all_seekers = User.objects.filter(is_seeker=True)

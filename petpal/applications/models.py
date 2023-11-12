@@ -6,7 +6,6 @@ from pet_listings.models import PetListing
 class Application(models.Model):
     seeker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
     shelter = models.ForeignKey(User, on_delete=models.CASCADE)
-    pet_listing = models.CharField(max_length=100)
     pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, default='pending')
     creation_date = models.DateTimeField(auto_now_add=True)

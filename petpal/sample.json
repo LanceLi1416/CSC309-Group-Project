@@ -203,14 +203,13 @@
         "model": "accounts.user",
         "pk": 1,
         "fields": {
-            "username": "jack",
+            "username": "jack@seeker.com",
             "first_name": "jack",
             "last_name": "sun",
             "is_seeker": true,
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "last_login": "2023-02-19T05:23:39.789Z",
             "is_superuser": false,
-            "email": "jacksun@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z"
@@ -220,14 +219,13 @@
         "model": "accounts.user",
         "pk": 2,
         "fields": {
-            "username": "ooga booga shelter",
+            "username": "oogabooga@shelter.com",
             "first_name": "LN",
             "last_name": "X",
             "is_seeker": false,
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "last_login": "2023-02-19T05:23:39.789Z",
             "is_superuser": false,
-            "email": "uoftinder@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z"
@@ -237,17 +235,84 @@
         "model": "accounts.user",
         "pk": 3,
         "fields": {
-            "username": "shelter 2",
+            "username": "shelter2@shelter.com",
             "first_name": "John",
             "last_name": "Smith",
             "is_seeker": false,
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "last_login": "2023-02-19T05:23:39.789Z",
             "is_superuser": false,
-            "email": "johnsmith@gmail.com",
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 4,
+        "fields": {
+            "username": "helen@seeker.com",
+            "first_name": "helen",
+            "last_name": "li",
+            "is_seeker": true,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-08-19T05:23:39.789Z",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-08-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 5,
+        "fields": {
+            "username": "admin@admin.com",
+            "first_name": "admin",
+            "last_name": "admin",
+            "is_seeker": true,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-10-19T05:23:39.789Z",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2023-10-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 1,
+        "fields": {
+            "seeker": 1, 
+            "shelter": 2,
+            "pet_listing": 1,
+            "status": "pending",
+            "creation_date": "2023-02-19T05:23:39.789Z",
+            "last_modified": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 2,
+        "fields": {
+            "seeker": 1, 
+            "shelter": 3,
+            "pet_listing": 5,
+            "status": "denied",
+            "creation_date": "2023-02-20T05:23:39.789Z",
+            "last_modified": "2023-02-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 3,
+        "fields": {
+            "seeker": 4, 
+            "shelter": 3,
+            "pet_listing": 5,
+            "status": "pending",
+            "creation_date": "2023-02-22T05:23:39.789Z",
+            "last_modified": "2023-02-22T05:23:39.789Z"
         }
     },
     {
