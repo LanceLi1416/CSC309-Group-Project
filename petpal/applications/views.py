@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import BasePermission, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 
 from .serializers import ApplicationSerializer
 from .models import Application
@@ -14,14 +14,9 @@ class ApplicationsView(APIView):
     serializer_class = ApplicationSerializer
     permission_classes = [IsAuthenticated]
 
-    # TODO: only authenticated users is the seeker can create an application
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=request.data, context={'request': request})
         if serializer.is_valid():
-            # TODO: uncomment when pet listing foreign key is working
-            # pet_listing = serializer.validated_data['pet_listing']
-            # if pet_listing.status != 'available':
-            #     return Response(status=status.HTTP_400_BAD_REQUEST, data={'error': 'pet listing is not available'})
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -58,7 +53,6 @@ class ApplicationsView(APIView):
             # shelters can only view their own applications, not that of other shelters
             applications = Application.objects.filter(shelter=request.user)
         
-        response_data = []
         if 'filters' in request.data:
             filters = request.data['filters']
             # must be a list
@@ -72,18 +66,35 @@ class ApplicationsView(APIView):
             
             applications = applications.filter(status__in=filters)
 
-        # sort by creation date and last modified date
-        applications = applications.order_by('-creation_date', '-last_modified')
+        # sort by creation date or last modified date
+        if 'sort' in request.data:
+            sort = request.data['sort']
+            if sort == 'creation_date':
+                applications = applications.order_by('-creation_date')
+            elif sort == 'last_modified':
+                applications = applications.order_by('-last_modified')
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST, data={'error': 'sort must be either creation_date or last_modified'})
 
-        # TODO: pagination support
-        
-        for application in applications:
-            serializer = self.serializer_class(application)
-            response_data.append(serializer.data)
-        return Response(response_data, status=status.HTTP_200_OK)
+        # pagination support
+        paginator = PageNumberPagination()
+        paginator.page_size = 3
+        paginated_applications = paginator.paginate_queryset(applications, request)
+
+        if paginated_applications is not None:
+            serializer = self.serializer_class(paginated_applications, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(applications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
 class GetApplicationView(RetrieveAPIView):
     serializer_class = ApplicationSerializer
     action = 'retrieve'
-    queryset = Application.objects.all()
-    # TODO: anyone can view any application?
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # seeker and shelter can only view their own applications
+        if self.request.user.is_seeker:
+            return Application.objects.filter(seeker=self.request.user)
+        else: 
+            return Application.objects.filter(shelter=self.request.user)

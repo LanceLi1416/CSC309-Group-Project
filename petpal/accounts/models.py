@@ -32,8 +32,5 @@ class User(AbstractUser):
 
 
 # TODO: move these into their corresponding app models.py files once they are created
-class PetListing(models.Model):
-    shelter = models.ForeignKey(User, on_delete=models.CASCADE)
-
 class Notification(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

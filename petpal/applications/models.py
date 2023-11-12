@@ -1,14 +1,13 @@
 from django.db import models
 from accounts.models import User
-# from pet_listings.models import PetListing
+from pet_listings.models import PetListing
 
 # Create your models here.
 class Application(models.Model):
     seeker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
     shelter = models.ForeignKey(User, on_delete=models.CASCADE)
     pet_listing = models.CharField(max_length=100)
-    # TODO: making this pet listing foreign key work
-    # pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE)
+    pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, default='pending')
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
