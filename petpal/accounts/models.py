@@ -23,6 +23,7 @@ class User(AbstractUser):
     username = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    avatar = models.ImageField(default='default.jpg')
     is_seeker = models.BooleanField()
 
     USERNAME_FIELD = 'username'
