@@ -28,8 +28,6 @@ class AccountsView(APIView):
 
     def put(self, request):
         user = request.user
-        if user.username != request.data['username']:
-            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = self.serializer_class(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
