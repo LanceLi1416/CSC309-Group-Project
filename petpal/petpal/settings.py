@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'pet_listings',
     'accounts',
+    'applications',
 ]
 
 MIDDLEWARE = [
