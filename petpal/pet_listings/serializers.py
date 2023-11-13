@@ -78,6 +78,13 @@ class PetListingSerializer(serializers.Serializer):
             owner.save()
         else:
             owner = owner_query[0]
+        
+        adoption = PetListing(owner = owner,
+                              shelter = request.user,
+                              status = 'available',
+                              last_update = datetime.now(),
+                              creation_date = datetime.now())
+        adoption.save()
 
         pet = Pet(name = validated_data['pet']['name'],
                   gender = validated_data['pet']['gender'],
@@ -87,7 +94,8 @@ class PetListingSerializer(serializers.Serializer):
                   breed = validated_data['pet']['breed'],
                   colour = validated_data['pet']['colour'],
                   vaccinated = validated_data['pet'].get('vaccinated', 'False'),
-                  other_info = validated_data['pet'].get('other_info', ''))
+                  other_info = validated_data['pet'].get('other_info', ''),
+                  pet_listing = adoption)
         pet.save()
 
         for i in range(len(validated_data['pet']['pictures']['all'])):
@@ -102,13 +110,6 @@ class PetListingSerializer(serializers.Serializer):
                               creation_time=datetime.now())
             new_pic.save()
 
-        adoption = PetListing(pet = pet,
-                              owner = owner,
-                              shelter = request.user,
-                              status = 'available',
-                              last_update = datetime.now(),
-                              creation_date = datetime.now())
-        adoption.save()
         return adoption
 
     def update(self, instance, validated_data):
