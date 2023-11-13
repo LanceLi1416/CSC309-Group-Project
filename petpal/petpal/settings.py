@@ -141,4 +141,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 4,
 }
 
+BASE_URL = "http://localhost:8000"
+
 AUTH_USER_MODEL = 'accounts.User'
