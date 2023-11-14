@@ -152,6 +152,7 @@ class PetListingSerializer(serializers.Serializer):
                     pics = Picture.objects.filter(pet__pk=pet.pk).order_by('creation_time').first().path
                     str_pics = str(pics)
                     index = int(str_pics[str_pics.find('_')+1])
+                
                 for i in range(len(validated_data['pet']['pictures']['all'])):
                     # Check whether to delete pic
                     pic = Picture.objects.filter(path__contains=f'{pet.pk}_{index}')

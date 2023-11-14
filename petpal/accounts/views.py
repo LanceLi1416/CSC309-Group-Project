@@ -5,6 +5,9 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import BasePermission, IsAuthenticated
+
+import os
+
 from .serializers import AccountSerializer
 from .models import User
 
@@ -38,6 +41,8 @@ class AccountsView(APIView):
     
     def delete(self, request):
         user = request.user
+        if user.avatar != 'default.jpg':
+            os.remove(f'./static/avatars/{user.id}')
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     

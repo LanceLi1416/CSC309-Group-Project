@@ -1,5 +1,9 @@
 from rest_framework.serializers import ModelSerializer
+from PIL import Image
+from io import BytesIO
 from .models import User
+
+import os
 
 class AccountSerializer(ModelSerializer):
     class Meta:
@@ -19,6 +23,18 @@ class AccountSerializer(ModelSerializer):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.is_seeker = validated_data.get('is_seeker', instance.is_seeker)
-        instance.avatar = validated_data.get('avatar', instance.avatar)
-        instance.save()
+
+        original_name = validated_data.get('avatar')
+        if original_name is not None:
+            file_name = original_name.name
+            if instance.avatar != 'default.jpg':
+                os.remove(f'./static/avatars/{instance.avatar}')
+
+            _, extension = os.path.splitext(file_name)
+            image = original_name.read()
+            image = Image.open(BytesIO(image))
+            image.save(f'./static/avatars/{instance.id}{extension.lower()}')
+            instance.avatar = f'{instance.id}{extension.lower()}'
+            instance.save()
+
         return instance
