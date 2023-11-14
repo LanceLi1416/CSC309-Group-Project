@@ -52,6 +52,8 @@ class ApplicationCommentView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         application = get_object_or_404(Application, pk=self.kwargs['app_id'])
+        # saving application to update last_modified field
+        application.save()
         serializer.save(commenter=self.request.user, application=application)
 
 
@@ -76,4 +78,7 @@ class ApplicationReplyView(CreateAPIView):
         # make sure parent is not a reply
         if parent.parent is not None:
             parent = parent.parent
-        serializer.save(commenter=self.request.user, application=parent.application, parent=parent)
+        # saving application to update last_modified field
+        application = parent.application
+        application.save()
+        serializer.save(commenter=self.request.user, application=application, parent=parent)
