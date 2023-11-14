@@ -106,10 +106,10 @@
         <!-- Sorting -->
         <div class="d-flex flex-row justify-content-center align-items-center">
             <p class="m-0">Sort</p>
-            <select aria-label="sort by select dropdown" class="form-select mx-2">
-                <option value="relevance">Name</option>
-                <option value="newest">Age</option>
-                <option value="oldest">Size</option>
+            <select aria-label="sort by select dropdown" class="form-select mx-2" id="sort">
+                <option value="relevance" value="name">Name</option>
+                <option value="newest" value="age">Age</option>
+                <option value="oldest" value="size">Size</option>
             </select>
         </div>
     </div>
@@ -134,13 +134,13 @@
             <div class="mb-4">
                 <h5>Pet Type</h5>
                 <div class="form-check">
-                    <input class="form-check-input" id="dog" name="dog" type="checkbox" value="dog">
+                    <input class="form-check-input" id="dog" name="pet-type" type="checkbox" value="dog">
                     <label for="dog">Dog</label><br>
-                    <input class="form-check-input" id="cat" name="cat" type="checkbox" value="cat">
+                    <input class="form-check-input" id="cat" name="pet-type" type="checkbox" value="cat">
                     <label for="cat">Cat</label><br>
-                    <input class="form-check-input" id="bird" name="bird" type="checkbox" value="bird">
+                    <input class="form-check-input" id="bird" name="pet-type" type="checkbox" value="bird">
                     <label for="bird">Bird</label><br>
-                    <input class="form-check-input" id="other" name="other" type="checkbox" value="other">
+                    <input class="form-check-input" id="other" name="pet-type" type="checkbox" value="other">
                     <label for="other">Other</label>
                 </div>
             </div>
@@ -148,10 +148,34 @@
             <div class="mb-4">
                 <h5>Gender</h5>
                 <div class="form-check">
-                    <input class="form-check-input" id="female" name="female" type="checkbox" value="female">
+                    <input class="form-check-input" id="female" name="gender" type="checkbox" value="female">
                     <label for="female">Female</label><br>
-                    <input class="form-check-input" id="male" name="male" type="checkbox" value="male">
+                    <input class="form-check-input" id="male" name="gender" type="checkbox" value="male">
                     <label for="male">Male</label><br>
+                </div>
+            </div>
+            <!-- Filter By Shelter -->
+            <div class="mb-4">
+                <h5>Shelter</h5>
+                <div class="form-check">
+                    <input class="form-check-input" id="shelter-a" name="shelter" type="checkbox" value="shelter-a">
+                    <label for="shelter-a">Shelter A</label><br>
+                    <input class="form-check-input" id="shelter-b" name="shelter" type="checkbox" value="shelter-b">
+                    <label for="shelter-b">Shelter B</label><br>
+                </div>
+            </div>
+            <!-- Filter By Status -->
+            <div class="mb-4">
+                <h5>Status</h5>
+                <div class="form-check">
+                    <input class="form-check-input" id="available" name="status" type="checkbox" value="available">
+                    <label for="available">Available</label><br>
+                    <input class="form-check-input" id="adopted" name="status" type="checkbox" value="adopted">
+                    <label for="adopted">Adopted</label><br>
+                    <input class="form-check-input" id="pending" name="status" type="checkbox" value="pending">
+                    <label for="pending">Pending</label><br>
+                    <input class="form-check-input" id="withdrawn" name="status" type="checkbox" value="withdrawn">
+                    <label for="withdrawn">Withdrawn</label><br>
                 </div>
             </div>
             <!-- Save Search -->
@@ -181,13 +205,13 @@
             <div class="mb-4">
                 <h5>Pet Type</h5>
                 <div class="form-check">
-                    <input class="form-check-input" id="dog" name="dog" type="checkbox" value="dog">
+                    <input class="form-check-input" id="dog" name="pet-type" type="checkbox" value="dog">
                     <label for="dog">Dog</label><br>
-                    <input class="form-check-input" id="cat" name="cat" type="checkbox" value="cat">
+                    <input class="form-check-input" id="cat" name="pet-type" type="checkbox" value="cat">
                     <label for="cat">Cat</label><br>
-                    <input class="form-check-input" id="bird" name="bird" type="checkbox" value="bird">
+                    <input class="form-check-input" id="bird" name="pet-type" type="checkbox" value="bird">
                     <label for="bird">Bird</label><br>
-                    <input class="form-check-input" id="other" name="other" type="checkbox" value="other">
+                    <input class="form-check-input" id="other" name="pet-type" type="checkbox" value="other">
                     <label for="other">Other</label>
                 </div>
             </div>
@@ -195,10 +219,34 @@
             <div class="mb-4">
                 <h5>Gender</h5>
                 <div class="form-check">
-                    <input class="form-check-input" id="female" name="female" type="checkbox" value="female">
+                    <input class="form-check-input" id="female" name="gender" type="checkbox" value="female">
                     <label for="female">Female</label><br>
-                    <input class="form-check-input" id="male" name="male" type="checkbox" value="male">
+                    <input class="form-check-input" id="male" name="gender" type="checkbox" value="male">
                     <label for="male">Male</label><br>
+                </div>
+            </div>
+            <!-- Filter By Shelter -->
+            <div class="mb-4">
+                <h5>Shelter</h5>
+                <div class="form-check">
+                    <input class="form-check-input" id="shelter-a" name="shelter" type="checkbox" value="1">
+                    <label for="shelter-a">Shelter A</label><br>
+                    <input class="form-check-input" id="shelter-b" name="shelter" type="checkbox" value="2">
+                    <label for="shelter-b">Shelter B</label><br>
+                </div>
+            </div>
+            <!-- Filter By Status -->
+            <div class="mb-4">
+                <h5>Status</h5>
+                <div class="form-check">
+                    <input class="form-check-input" id="available" name="status" type="checkbox" value="available">
+                    <label for="available">Available</label><br>
+                    <input class="form-check-input" id="adopted" name="status" type="checkbox" value="adopted">
+                    <label for="adopted">Adopted</label><br>
+                    <input class="form-check-input" id="pending" name="status" type="checkbox" value="pending">
+                    <label for="pending">Pending</label><br>
+                    <input class="form-check-input" id="withdrawn" name="status" type="checkbox" value="withdrawn">
+                    <label for="withdrawn">Withdrawn</label><br>
                 </div>
             </div>
             <!-- Save Search -->
