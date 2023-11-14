@@ -34,6 +34,7 @@ class AccountSerializer(ModelSerializer):
             image = original_name.read()
             image = Image.open(BytesIO(image))
             image.save(f'./static/avatars/{instance.id}{extension.lower()}')
+            image.close()
             instance.avatar = f'{instance.id}{extension.lower()}'
             instance.save()
 
