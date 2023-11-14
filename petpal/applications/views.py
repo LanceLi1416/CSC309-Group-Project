@@ -23,6 +23,8 @@ class ApplicationsView(APIView):
 
     def put(self, request):
         old_app = get_object_or_404(Application, pk=request.data['id'])
+        if old_app.seeker != request.user and old_app.shelter != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you are not authorized to update this application'})
         serializer = self.serializer_class(old_app, data=request.data, partial=True)
         if serializer.is_valid():
             # status is the only field that can be updated
