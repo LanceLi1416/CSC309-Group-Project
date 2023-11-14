@@ -42,7 +42,7 @@ class AccountsView(APIView):
     def delete(self, request):
         user = request.user
         if user.avatar != 'default.jpg':
-            os.remove(f'./static/avatars/{user.id}')
+            os.remove(f'./static/avatars/{user.avatar}')
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
