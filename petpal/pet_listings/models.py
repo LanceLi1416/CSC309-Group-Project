@@ -19,7 +19,6 @@ class PetListing(models.Model):
         ('pending', 'Pending'),
         ('withdrawn', 'Withdrawn')
     ]
-    # pet = models.OneToOneField(Pet, on_delete=models.CASCADE, related_name='adoptions')
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name='adoptions')
     shelter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='adoptions')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
