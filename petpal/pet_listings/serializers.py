@@ -2,6 +2,7 @@ from rest_framework import serializers
 from PIL import Image
 from io import BytesIO
 from datetime import datetime
+from django.core.validators import MinValueValidator
 
 import os
 
@@ -27,7 +28,7 @@ class PetListingSerializer(serializers.Serializer):
     pet_name = serializers.CharField(source='pet.name', required=True)
     gender = serializers.ChoiceField(choices=GENDER, source='pet.gender', required=True)
     pet_birthday = serializers.DateField(required=True, source='pet.birthday')
-    pet_weight = serializers.IntegerField(source='pet.weight', required=True)
+    pet_weight = serializers.IntegerField(source='pet.weight', required=True, validators=[MinValueValidator(0)])
     animal = serializers.CharField(source='pet.animal', required=True)
     breed = serializers.CharField(source='pet.breed', required=True)
     colour = serializers.CharField(source='pet.colour', required=True)
@@ -63,7 +64,7 @@ class PetListingSerializer(serializers.Serializer):
         
     def validate_pictures(self, pictures):
         if len(pictures) > 5:
-            raise serializers.ValidationError({'pictures': f'{pictures}Only a maximum of 5 pictures can be uploaded'})
+            raise serializers.ValidationError({'pictures': 'Only a maximum of 5 pictures can be uploaded'})
         return pictures
 
     def create(self, validated_data, request):
