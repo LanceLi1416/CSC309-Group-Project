@@ -1,5 +1,35 @@
 [
     {
+        "model": "chatroom.ChatMessage",
+        "pk": 1,
+        "fields": {
+            "sender": 2,
+            "receiver": 3,
+            "message": "Message from 2 to 3",
+            "timestamp": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "chatroom.ChatMessage",
+        "pk": 2,
+        "fields": {
+            "sender": 2,
+            "receiver": 1,
+            "message": "Message from 2 to 1",
+            "timestamp": "2021-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "chatroom.ChatMessage",
+        "pk": 3,
+        "fields": {
+            "sender": 1,
+            "receiver": 2,
+            "message": "Message from 1 to 2",
+            "timestamp": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
         "model": "notifications.Notification",
         "pk": 1,
         "fields": {
