@@ -320,7 +320,7 @@
         "model": "accounts.user",
         "pk": 6,
         "fields": {
-            "username": "testuser",
+            "username": "testuser@me.com",
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Test",
             "last_name": "User",
@@ -331,7 +331,7 @@
         "model": "accounts.user",
         "pk": 7,
         "fields": {
-            "username": "diffuser",
+            "username": "diffuser@me.com",
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Different",
             "last_name": "User",
@@ -342,7 +342,7 @@
         "model": "accounts.user",
         "pk": 8,
         "fields": {
-            "username": "thirduser",
+            "username": "thirduser@me.com",
             "first_name": "Third",
             "last_name": "User",
             "is_seeker": true
@@ -352,7 +352,7 @@
         "model": "accounts.user",
         "pk": 9,
         "fields": {
-            "username": "shelter1",
+            "username": "shelter1@me.com",
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Some",
             "last_name": "Shelter",
@@ -363,7 +363,7 @@
         "model": "accounts.user",
         "pk": 10,
         "fields": {
-            "username": "shelter2",
+            "username": "shelter2@me.com",
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Different",
             "last_name": "Shelter",
@@ -651,8 +651,8 @@
         "pk": 5,
         "fields": {
             "shelter": 10,
-            "commenter": 8,
-            "comment": "New comment",
+            "commenter": 10,
+            "comment": "New comment by the shelter!",
             "parent": null,
             "date": "2022-05-01T05:23:39.789Z"
         }
