@@ -57,7 +57,7 @@ class ApplicationsView(APIView):
                 old_app.save()
                 # Send request to notification API
                 data = {
-                    'receiver': old_app.seeker,
+                    'receiver': old_app.seeker.id,
                     'message': f'Your application for {old_app.pet_listing} is now {new_status}',
                     'related_link': f'/applications/{old_app.id}'
                 }

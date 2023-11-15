@@ -47,7 +47,7 @@ class ShelterCommentView(ListCreateAPIView):
 
         # Send request to notification API
         data = {
-            'receiver': shelter,
+            'receiver': shelter.id,
             'message': f'You have a new comment from {self.request.user.username}',
             'related_link': f'/shelters/{shelter.id}'
         }
@@ -71,7 +71,7 @@ class ApplicationCommentView(ListCreateAPIView):
 
         # Send request to notification API
         data = {
-            'receiver': application.seeker,
+            'receiver': application.seeker.id,
             'message': f'You have a new comment from {self.request.user.username}',
             'related_link': f'/applications/{application.id}'
         }
@@ -91,7 +91,7 @@ class ShelterReplyView(CreateAPIView):
 
         # Send request to notification API
         data = {
-            'receiver': parent.commenter,
+            'receiver': parent.commenter.id,
             'message': f'You have a new reply from {self.request.user.username}',
             'related_link': f'/shelters/{parent.shelter.id}'
         }
@@ -114,7 +114,7 @@ class ApplicationReplyView(CreateAPIView):
 
         # Send request to notification API
         data = {
-            'receiver': parent.commenter,
+            'receiver': parent.commenter.id,
             'message': f'You have a new reply from {self.request.user.username}',
             'related_link': f'/applications/{application.id}'
         }
