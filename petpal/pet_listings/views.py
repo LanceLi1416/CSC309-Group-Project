@@ -26,6 +26,13 @@ class PetListingPermissions(BasePermission):
                 raise PermissionDenied("Only the shelter that posted this pet listing has access")
             return True
         raise AuthenticationFailed("Authentication Required")
+    
+
+class SearchPermission(BasePermission):
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")
+        return True
 
 
 class PetListingCreateView(APIView):
@@ -89,6 +96,7 @@ class PetListingEditView(APIView):
 
 class SearchView(APIView):
     serializer_class = SearchModelSerializer
+    permission_classes = [SearchPermission]
 
     def post(self, request):
         pet_listings = PetListing.objects.all()
