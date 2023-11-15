@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ValidationError
 from PIL import Image
 from io import BytesIO
 from .models import User
@@ -18,6 +18,9 @@ class AccountSerializer(ModelSerializer):
         return user
     
     def update(self, instance, validated_data):
+        if 'is_seeker' in validated_data and instance.is_seeker != validated_data['is_seeker']:
+            raise ValidationError({'is_seeker': 'cannot change is_seeker field'})
+
         instance.username = validated_data.get('username', instance.username)
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
