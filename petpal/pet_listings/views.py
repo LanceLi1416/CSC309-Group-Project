@@ -33,6 +33,11 @@ class SearchPermission(BasePermission):
         if not request.user.is_authenticated:
             raise AuthenticationFailed("Authentication Required")
         return True
+    
+    def has_object_permission(self, request, view, obj):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")
+        return True
 
 
 class PetListingCreateView(APIView):
