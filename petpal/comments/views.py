@@ -70,11 +70,19 @@ class ApplicationCommentView(ListCreateAPIView):
         serializer.save(commenter=self.request.user, application=application)
 
         # Send request to notification API
-        data = {
-            'receiver': application.seeker.id,
-            'message': f'You have a new comment from {self.request.user.username}',
-            'related_link': f'/applications/{application.id}'
-        }
+        # if logged in as shelter, send notification to seeker
+        if not self.request.user.is_seeker:
+            data = {
+                'receiver': application.seeker.id,
+                'message': f'You have a new comment from {self.request.user.username}',
+                'related_link': f'/applications/{application.id}'
+            }
+        else:  # send notification to shelter
+            data = {
+                'receiver': application.shelter.id,
+                'message': f'You have a new comment from {self.request.user.username}',
+                'related_link': f'/applications/{application.id}'
+            }
         requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
 
 
