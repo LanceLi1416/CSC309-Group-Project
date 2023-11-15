@@ -14,7 +14,7 @@ from .models import User
 # Create your views here.
 class AccountAuthPermission(BasePermission):
     def has_permission(self, request, view):
-        if request.method in {'POST', 'GET'}:
+        if request.method == 'POST':
             return True
         return request.user.is_authenticated
 
