@@ -109,7 +109,8 @@
             "breed": "idk",
             "colour": "brown",
             "vaccinated": true,
-            "other_info": ""
+            "other_info": "",
+            "pet_listing_id": 1
         }
     },
     {
@@ -124,7 +125,8 @@
             "breed": "idk2",
             "colour": "brown",
             "vaccinated": true,
-            "other_info": ""
+            "other_info": "",
+            "pet_listing_id": 2
         }
     },
     {
@@ -139,7 +141,8 @@
             "breed": "idk3",
             "colour": "brown",
             "vaccinated": true,
-            "other_info": ""
+            "other_info": "",
+            "pet_listing_id": 3
         }
     },
     {
@@ -154,7 +157,8 @@
             "breed": "idk4",
             "colour": "brown",
             "vaccinated": true,
-            "other_info": ""
+            "other_info": "",
+            "pet_listing_id": 4
         }
     },
     {
@@ -169,7 +173,8 @@
             "breed": "idk5",
             "colour": "black",
             "vaccinated": true,
-            "other_info": ""
+            "other_info": "",
+            "pet_listing_id": 5
         }
     },
     {
@@ -180,7 +185,6 @@
             "last_update": "2024-02-19T05:23:39.789Z",
             "creation_date": "2023-02-19",
             "owner_id": 1,
-            "pet_id": 1,
             "shelter_id": 2
         }
     },
@@ -192,7 +196,6 @@
             "last_update": "2024-02-19T05:23:39.789Z",
             "creation_date": "2023-02-20",
             "owner_id": 1,
-            "pet_id": 2,
             "shelter_id": 2
         }
     },
@@ -204,7 +207,6 @@
             "last_update": "2024-02-19T05:23:39.789Z",
             "creation_date": "2023-02-21",
             "owner_id": 1,
-            "pet_id": 3,
             "shelter_id": 2
         }
     },
@@ -216,7 +218,6 @@
             "last_update": "2024-02-19T05:23:39.789Z",
             "creation_date": "2023-02-22",
             "owner_id": 1,
-            "pet_id": 4,
             "shelter_id": 2
         }
     },
@@ -228,7 +229,6 @@
             "last_update": "2024-02-19T05:23:39.789Z",
             "creation_date": "2023-02-23",
             "owner_id": 1,
-            "pet_id": 5,
             "shelter_id": 3
         }
     },
@@ -245,7 +245,8 @@
             "is_superuser": false,
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2023-02-18T19:09:04.505Z"
+            "date_joined": "2023-02-18T19:09:04.505Z",
+            "avatar": "1.jpg"
         }
     },
     {
@@ -261,7 +262,8 @@
             "is_superuser": false,
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2023-02-18T19:09:04.505Z"
+            "date_joined": "2023-02-18T19:09:04.505Z",
+            "avatar": "2.jpg"
         }
     },
     {
@@ -277,7 +279,8 @@
             "is_superuser": false,
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2023-02-18T19:09:04.505Z"
+            "date_joined": "2023-02-18T19:09:04.505Z",
+            "avatar": "3.jpg"
         }
     },
     {
@@ -293,7 +296,8 @@
             "is_superuser": false,
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2023-08-18T19:09:04.505Z"
+            "date_joined": "2023-08-18T19:09:04.505Z",
+            "avatar": "4.jpg"
         }
     },
     {

@@ -1,10 +1,14 @@
 from rest_framework.serializers import ModelSerializer
+from PIL import Image
+from io import BytesIO
 from .models import User
+
+import os
 
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar']
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -18,8 +22,23 @@ class AccountSerializer(ModelSerializer):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.is_seeker = validated_data.get('is_seeker', instance.is_seeker)
+
         if 'password' in validated_data:
             # passwords must be hashed before saving
             instance.set_password(validated_data['password'])
+
+        original_name = validated_data.get('avatar')
+        if original_name is not None:
+            file_name = original_name.name
+            if instance.avatar != 'default.jpg':
+                os.remove(f'./static/avatars/{instance.avatar}')
+
+            _, extension = os.path.splitext(file_name)
+            image = original_name.read()
+            image = Image.open(BytesIO(image))
+            image.save(f'./static/avatars/{instance.id}{extension.lower()}')
+            image.close()
+            instance.avatar = f'{instance.id}{extension.lower()}'
+        
         instance.save()
         return instance
