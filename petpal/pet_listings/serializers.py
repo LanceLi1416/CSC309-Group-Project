@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from PIL import Image
 from io import BytesIO
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxLengthValidator
 
 import os
 
@@ -24,22 +24,22 @@ class PetListingSerializer(serializers.Serializer):
             ('pending', 'Pending'),
             ('withdrawn', 'Withdrawn')
     ]
-    pet_name = serializers.CharField(source='pet.name', required=True)
-    gender = serializers.ChoiceField(choices=GENDER, source='pet.gender', required=True)
+    pet_name = serializers.CharField(source='pet.name', required=True, validators=[MaxLengthValidator(50)])
+    gender = serializers.ChoiceField(choices=GENDER, source='pet.gender', required=True, validators=[MaxLengthValidator(50)])
     pet_birthday = serializers.DateField(required=True, source='pet.birthday')
     pet_weight = serializers.IntegerField(source='pet.weight', required=True, validators=[MinValueValidator(0)])
-    animal = serializers.CharField(source='pet.animal', required=True)
-    breed = serializers.CharField(source='pet.breed', required=True)
-    colour = serializers.CharField(source='pet.colour', required=True)
+    animal = serializers.CharField(source='pet.animal', required=True, validators=[MaxLengthValidator(50)])
+    breed = serializers.CharField(source='pet.breed', required=True, validators=[MaxLengthValidator(50)])
+    colour = serializers.CharField(source='pet.colour', required=True, validators=[MaxLengthValidator(50)])
     vaccinated = serializers.BooleanField(source='pet.vaccinated', required=True)
-    other_info = serializers.CharField(source='pet.other_info', required=False)
+    other_info = serializers.CharField(source='pet.other_info', required=False, validators=[MaxLengthValidator(50)])
     pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', required=True)
-    owner_name = serializers.CharField(source='owner.name', required=True)
-    email = serializers.EmailField(source='owner.email', required=True)
-    phone_number = serializers.CharField(source='owner.phone', required=True)
-    location = serializers.CharField(source='owner.location', required=True)
+    owner_name = serializers.CharField(source='owner.name', required=True, validators=[MaxLengthValidator(50)])
+    email = serializers.EmailField(source='owner.email', required=True, validators=[MaxLengthValidator(50)])
+    phone_number = serializers.CharField(source='owner.phone', required=True, validators=[MaxLengthValidator(50)])
+    location = serializers.CharField(source='owner.location', required=True, validators=[MaxLengthValidator(50)])
     owner_birthday = serializers.DateField(required=True, source='owner.birthday')
-    status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES)
+    status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES, validators=[MaxLengthValidator(50)])
 
 
     def validate_vaccinated(self, vaccinated):

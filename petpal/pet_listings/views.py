@@ -93,6 +93,8 @@ class SearchView(APIView):
     def post(self, request):
         pet_listings = PetListing.objects.all()
 
+        # TODO: TESST EMPTY STRING
+
         if 'shelter' in request.data:
             shelter = request.data['shelter']
             if shelter != []:
