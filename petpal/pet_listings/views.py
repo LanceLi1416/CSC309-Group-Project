@@ -56,7 +56,6 @@ class PetListingCreateView(APIView):
             for user in notif_users:
                 request.data['receiver'] = user.id
                 request.data['message'] = f'New pet listing from {request.user.username}'
-                print(serializer.validated_data)
                 request.data['related_link'] = f'/pet_listings/{serializer.validated_data["id"]}'
                 NotificationCreateListView.post(self, request)
 
