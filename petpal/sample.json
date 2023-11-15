@@ -29,7 +29,7 @@
             "message": "Your pet listing for Nick's cat has been declined!",
             "is_read": false,
             "c_time": "2023-02-19T05:20:39.789Z",
-            "related_link": "/pet_listings/1"
+            "related_link": "http://localhost:8000/pet_listings/1"
         }
     },
     {
