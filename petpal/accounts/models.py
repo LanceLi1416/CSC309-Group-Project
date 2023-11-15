@@ -6,10 +6,10 @@ from io import BytesIO
 import os
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, password, first_name, last_name, is_seeker, avatar=None):
-        if not username or not password or not first_name or not last_name or is_seeker is None:
+    def create_user(self, username, password, first_name, last_name, is_seeker, notif_preference, avatar=None):
+        if not username or not password or not first_name or not last_name or is_seeker is None or notif_preference is None:
             raise ValueError('All fields must be set')    
-        user = self.model(username=self.normalize_email(username), first_name=first_name, last_name=last_name, is_seeker=is_seeker)
+        user = self.model(username=self.normalize_email(username), first_name=first_name, last_name=last_name, is_seeker=is_seeker, notif_preference=notif_preference)
         user.set_password(password)
         user.save(using=self._db)
 
@@ -26,10 +26,10 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, username, password, first_name, last_name, is_seeker):
-        if not username or not password or not first_name or not last_name or is_seeker is None:
+    def create_superuser(self, username, password, first_name, last_name, is_seeker, notif_preference):
+        if not username or not password or not first_name or not last_name or is_seeker is None or notif_preference is None:
             raise ValueError('All fields must be set')    
-        user = self.create_user(username, password, first_name, last_name, is_seeker)
+        user = self.create_user(username, password, first_name, last_name, is_seeker, notif_preference)
         user.is_superuser = True
         user.is_staff = True
         user.save()
@@ -41,6 +41,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=50)
     avatar = models.ImageField(default='default.jpg')
     is_seeker = models.BooleanField()
+    notif_preference = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'is_seeker']
