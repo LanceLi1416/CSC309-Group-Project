@@ -1,3 +1,6 @@
+from urllib.parse import urljoin
+
+import requests
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission, IsAuthenticated
@@ -8,8 +11,10 @@ from applications.models import Application
 from rest_framework.generics import ListCreateAPIView, CreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
+from django.conf import settings
 
-class ApplicationCommentAuthPermission(BasePermission):        
+
+class ApplicationCommentAuthPermission(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             return False
@@ -35,10 +40,18 @@ class ShelterCommentView(ListCreateAPIView):
             # return 404 error if shelter is a seeker
             raise Http404
         return ShelterComment.objects.filter(shelter=shelter).filter(parent=None).order_by('-date')
-    
+
     def perform_create(self, serializer):
         shelter = get_object_or_404(User, pk=self.kwargs['shelter_id'])
         serializer.save(commenter=self.request.user, shelter=shelter)
+
+        # Send request to notification API
+        data = {
+            'receiver': shelter.id,
+            'message': f'You have a new comment from {self.request.user.username}',
+            'related_link': f'/shelters/{shelter.id}'
+        }
+        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
 
 
 class ApplicationCommentView(ListCreateAPIView):
@@ -56,6 +69,22 @@ class ApplicationCommentView(ListCreateAPIView):
         application.save()
         serializer.save(commenter=self.request.user, application=application)
 
+        # Send request to notification API
+        # if logged in as shelter, send notification to seeker
+        if not self.request.user.is_seeker:
+            data = {
+                'receiver': application.seeker.id,
+                'message': f'You have a new comment from {self.request.user.username}',
+                'related_link': f'/applications/{application.id}'
+            }
+        else:  # send notification to shelter
+            data = {
+                'receiver': application.shelter.id,
+                'message': f'You have a new comment from {self.request.user.username}',
+                'related_link': f'/applications/{application.id}'
+            }
+        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+
 
 class ShelterReplyView(CreateAPIView):
     serializer_class = ShelterCommentSerializer
@@ -67,6 +96,14 @@ class ShelterReplyView(CreateAPIView):
         if parent.parent is not None:
             parent = parent.parent
         serializer.save(commenter=self.request.user, shelter=parent.shelter, parent=parent)
+
+        # Send request to notification API
+        data = {
+            'receiver': parent.commenter.id,
+            'message': f'You have a new reply from {self.request.user.username}',
+            'related_link': f'/shelters/{parent.shelter.id}'
+        }
+        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
 
 
 class ApplicationReplyView(CreateAPIView):
@@ -82,3 +119,11 @@ class ApplicationReplyView(CreateAPIView):
         application = parent.application
         application.save()
         serializer.save(commenter=self.request.user, application=application, parent=parent)
+
+        # Send request to notification API
+        data = {
+            'receiver': parent.commenter.id,
+            'message': f'You have a new reply from {self.request.user.username}',
+            'related_link': f'/applications/{application.id}'
+        }
+        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
