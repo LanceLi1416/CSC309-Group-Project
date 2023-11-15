@@ -165,6 +165,7 @@ class SearchView(APIView):
 class SearchDetailView(APIView):
     serializer_class = PetListingSerializer
     lookup_field = 'pet_listing_id'
+    permission_classes = [SearchPermission]
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
