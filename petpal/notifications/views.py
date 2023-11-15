@@ -1,7 +1,7 @@
 from rest_framework import status, permissions
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
 
 from .models import Notification
 from .serializers import NotificationSerializer, NotificationUpdateSerializer
@@ -25,14 +25,33 @@ class NotificationCreateListView(APIView):
         :return:        201 if the notification was created successfully,
                         400 otherwise.
         """
-        data = request.data.copy()
-        serializer = NotificationSerializer(data=data)
+        serializer = NotificationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print(serializer.errors)
-        print(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @staticmethod
+    def create_notification(sender, receiver, message, related_link):
+        """
+        Create a notification.
+
+        :param sender:          The user sending the notification.
+        :param receiver:        The user receiving the notification.
+        :param message:         The message of the notification.
+        :param related_link:    The related link of the notification.
+        :return:                The created notification.
+        """
+        serializer = NotificationSerializer(data={
+            'sender': sender,
+            'receiver': receiver,
+            'message': message,
+            'related_link': related_link,
+        })
+        if serializer.is_valid():
+            serializer.save()
+            return serializer.data
+        return None
 
     def get(self, request):
         """
