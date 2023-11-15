@@ -95,10 +95,13 @@ class SearchView(APIView):
 
         if 'shelter' in request.data:
             shelter = request.data['shelter']
-            pet_listings = pet_listings.filter(shelter__pk__in=shelter)
+            if shelter != []:
+                pet_listings = pet_listings.filter(shelter__pk__in=shelter)
         
         if 'status' in request.data:
             pet_status = request.data['status']
+            if pet_status == []:
+                pet_status = ['available']
         else:
             pet_status = ['available']
 
@@ -106,7 +109,8 @@ class SearchView(APIView):
 
         if 'gender' in request.data:
             gender = request.data['gender']
-            pet_listings = pet_listings.filter(pet__gender__in=gender)
+            if gender != []:
+                pet_listings = pet_listings.filter(pet__gender__in=gender)
         
         if 'start_date' in request.data:
             start_date = request.data['start_date']
@@ -124,7 +128,8 @@ class SearchView(APIView):
                     if type not in pet_type:
                         pet_listings = pet_listings.exclude(pet__animal=type)
             else:
-                pet_listings = pet_listings.filter(pet__animal__in=pet_type)
+                if pet_type != []:
+                    pet_listings = pet_listings.filter(pet__animal__in=pet_type)
 
         if 'sort' in request.data:
             sort = request.data['sort']
