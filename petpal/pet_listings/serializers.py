@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from PIL import Image
 from io import BytesIO
-from datetime import datetime
 from django.core.validators import MinValueValidator
 
 import os
@@ -82,9 +81,7 @@ class PetListingSerializer(serializers.Serializer):
         
         adoption = PetListing(owner = owner,
                               shelter = request.user,
-                              status = 'available',
-                              last_update = datetime.now(),
-                              creation_date = datetime.now())
+                              status = 'available')
         adoption.save()
 
         pet = Pet(name = validated_data['pet']['name'],
@@ -107,8 +104,7 @@ class PetListingSerializer(serializers.Serializer):
             image.save(f'./static/pet_listing_pics/{pet.pk}_{i}{extension.lower()}')
             image.close()
             new_pic = Picture(pet=pet,
-                              path=f'{pet.pk}_{i}{extension.lower()}',
-                              creation_time=datetime.now())
+                              path=f'{pet.pk}_{i}{extension.lower()}')
             new_pic.save()
 
         return adoption
@@ -170,8 +166,7 @@ class PetListingSerializer(serializers.Serializer):
 
                     # Upload new pic to db
                     new_pic = Picture(pet=pet,
-                                      path=f'{pet.pk}_{index}{extension.lower()}',
-                                      creation_time=datetime.now())
+                                      path=f'{pet.pk}_{index}{extension.lower()}')
                     new_pic.save()
                     index = (index + 1) % 5
 
@@ -196,7 +191,6 @@ class PetListingSerializer(serializers.Serializer):
 
         if validated_data.get('status'):
             instance.status = validated_data.get('status')
-        instance.last_update = datetime.now()
         instance.save()
 
         return instance
