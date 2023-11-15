@@ -44,6 +44,9 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
+# Change directory to petpal
+cd petpal
+
 # Create virtual environment
 python3 -m venv venv
 source venv/bin/activate
