@@ -49,7 +49,7 @@ python3 -m venv venv
 source venv/bin/activate
 
 # Install dependencies
-pip install -r packages.txt
+pip install -r requirements.txt
 
 # Run migrations
 python3 manage.py makemigrations accounts
