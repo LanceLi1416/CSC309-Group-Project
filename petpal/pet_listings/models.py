@@ -46,4 +46,4 @@ class Pet(models.Model):
 class Picture(models.Model):
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='pictures')
     path = models.ImageField(max_length=50, unique=True)
-    creation_time = models.DateTimeField(auto_now=True)
+    creation_time = models.DateTimeField(auto_now_add=True)
