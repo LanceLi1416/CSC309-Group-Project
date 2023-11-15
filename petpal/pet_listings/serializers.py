@@ -40,6 +40,7 @@ class PetListingSerializer(serializers.Serializer):
     location = serializers.CharField(source='owner.location', required=True, validators=[MaxLengthValidator(50)])
     owner_birthday = serializers.DateField(required=True, source='owner.birthday')
     status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES, validators=[MaxLengthValidator(50)])
+    notif_preference = serializers.BooleanField()
 
 
     def validate_vaccinated(self, vaccinated):
@@ -81,7 +82,8 @@ class PetListingSerializer(serializers.Serializer):
         
         adoption = PetListing(owner = owner,
                               shelter = request.user,
-                              status = 'available')
+                              status = 'available',
+                              notif_preference = validated_data.get('notif_preference', False))
         adoption.save()
 
         pet = Pet(name = validated_data['pet']['name'],
@@ -191,6 +193,8 @@ class PetListingSerializer(serializers.Serializer):
 
         if validated_data.get('status'):
             instance.status = validated_data.get('status')
+        if validated_data.get('notif_preference'):
+            instance.notif_preference = validated_data['notif_preference']
         instance.save()
 
         return instance

@@ -20,6 +20,7 @@ class PetListing(models.Model):
         ('withdrawn', 'Withdrawn')
     ]
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name='adoptions')
+    notif_preference = models.BooleanField(default=False)
     shelter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='adoptions')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     last_update = models.DateTimeField(auto_now=True)
