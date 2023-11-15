@@ -98,6 +98,61 @@
         }
     },
     {
+        "model": "pet_listings.petlisting",
+        "pk": 1,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-19",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 2,
+        "fields": {
+            "status": "adopted",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-20",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 3,
+        "fields": {
+            "status": "pending",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-21",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 4,
+        "fields": {
+            "status": "withdrawn",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-22",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 5,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-23",
+            "owner_id": 1,
+            "shelter_id": 3
+        }
+    },
+    {
         "model": "pet_listings.pet",
         "pk": 1,
         "fields": {
@@ -175,61 +230,6 @@
             "vaccinated": true,
             "other_info": "",
             "pet_listing_id": 5
-        }
-    },
-    {
-        "model": "pet_listings.petlisting",
-        "pk": 1,
-        "fields": {
-            "status": "available",
-            "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-19",
-            "owner_id": 1,
-            "shelter_id": 2
-        }
-    },
-    {
-        "model": "pet_listings.petlisting",
-        "pk": 2,
-        "fields": {
-            "status": "adopted",
-            "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-20",
-            "owner_id": 1,
-            "shelter_id": 2
-        }
-    },
-    {
-        "model": "pet_listings.petlisting",
-        "pk": 3,
-        "fields": {
-            "status": "pending",
-            "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-21",
-            "owner_id": 1,
-            "shelter_id": 2
-        }
-    },
-    {
-        "model": "pet_listings.petlisting",
-        "pk": 4,
-        "fields": {
-            "status": "withdrawn",
-            "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-22",
-            "owner_id": 1,
-            "shelter_id": 2
-        }
-    },
-    {
-        "model": "pet_listings.petlisting",
-        "pk": 5,
-        "fields": {
-            "status": "available",
-            "last_update": "2024-02-19T05:23:39.789Z",
-            "creation_date": "2023-02-23",
-            "owner_id": 1,
-            "shelter_id": 3
         }
     },
     {
