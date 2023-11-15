@@ -1,13 +1,17 @@
+import requests
+from urllib.parse import urljoin
 from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .serializers import ApplicationSerializer
 from .models import Application
+from .serializers import ApplicationSerializer
+from django.conf import settings
+
 
 # Create your views here.
 class ApplicationsView(APIView):
@@ -18,6 +22,13 @@ class ApplicationsView(APIView):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
+            # Send request to notification API
+            data = {
+                'receiver': request.data['shelter'],
+                'message': f'You have a new application from {request.user.username}',
+                'link': f'/applications/{serializer.data["id"]}'
+            }
+            requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -42,6 +53,13 @@ class ApplicationsView(APIView):
                 
                 old_app.status = new_status
                 old_app.save()
+                # Send request to notification API
+                data = {
+                    'receiver': old_app.seeker,
+                    'message': f'Your application for {old_app.pet_listing} is now {new_status}',
+                    'link': f'/applications/{old_app.id}'
+                }
+                requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else: 
                 return Response(status=status.HTTP_400_BAD_REQUEST, data={'error': 'you can only update status field'})
@@ -98,5 +116,5 @@ class GetApplicationView(RetrieveAPIView):
         # seeker and shelter can only view their own applications
         if self.request.user.is_seeker:
             return Application.objects.filter(seeker=self.request.user)
-        else: 
+        else:
             return Application.objects.filter(shelter=self.request.user)

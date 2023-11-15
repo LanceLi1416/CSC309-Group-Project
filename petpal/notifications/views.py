@@ -26,7 +26,6 @@ class NotificationCreateListView(APIView):
                         400 otherwise.
         """
         data = request.data.copy()
-        data['receiver'] = request.user.id
         serializer = NotificationSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
