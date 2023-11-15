@@ -1,0 +1,770 @@
+[
+    {
+        "model": "notifications.Notification",
+        "pk": 1,
+        "fields": {
+            "receiver": 4,
+            "message": "Your application for Nick's available dog has been approved!",
+            "is_read": false,
+            "c_time": "2023-02-19T05:23:39.789Z",
+            "related_link": "http://localhost:8000/applications/3"
+        }
+    },
+    {
+        "model": "notifications.Notification",
+        "pk": 2,
+        "fields": {
+            "receiver": 1,
+            "message": "Your application for Nick's available dog has been approved!",
+            "is_read": true,
+            "c_time": "2023-02-19T05:23:40.962Z",
+            "related_link": "http://localhost:8000/applications/3"
+        }
+    },
+    {
+        "model": "notifications.Notification",
+        "pk": 3,
+        "fields": {
+            "receiver": 2,
+            "message": "Your pet listing for Nick's cat has been declined!",
+            "is_read": false,
+            "c_time": "2023-02-19T05:20:39.789Z",
+            "related_link": "/pet_listings/1"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 1,
+        "fields": {
+            "path": "1_0.jpg",
+            "pet_id": 1,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 2,
+        "fields": {
+            "path": "1_1.jpg",
+            "pet_id": 1,
+            "creation_time": "2023-02-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 3,
+        "fields": {
+            "path": "2_0.jpg",
+            "pet_id": 2,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 4,
+        "fields": {
+            "path": "3_0.jpg",
+            "pet_id": 3,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 5,
+        "fields": {
+            "path": "4_0.jpg",
+            "pet_id": 4,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 6,
+        "fields": {
+            "path": "5_0.jpeg",
+            "pet_id": 5,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.owner",
+        "pk": 1,
+        "fields": {
+            "name": "Nicholas",
+            "email": "npoon@gmail.com",
+            "phone": 123,
+            "location": "1",
+            "birthday": "2022-01-01"
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 1,
+        "fields": {
+            "name": "Nick's available cat",
+            "gender": "male",
+            "birthday": "2023-01-01",
+            "weight": 12,
+            "animal": "cat",
+            "breed": "idk",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 1
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 2,
+        "fields": {
+            "name": "Nick's adopted cat",
+            "gender": "male",
+            "birthday": "2023-01-02",
+            "weight": 13,
+            "animal": "cat",
+            "breed": "idk2",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 3,
+        "fields": {
+            "name": "Nick's pending cat",
+            "gender": "male",
+            "birthday": "2023-01-03",
+            "weight": 14,
+            "animal": "cat",
+            "breed": "idk3",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 3
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 4,
+        "fields": {
+            "name": "Nick's withdrawn cat",
+            "gender": "male",
+            "birthday": "2023-01-04",
+            "weight": 15,
+            "animal": "cat",
+            "breed": "idk4",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 4
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 5,
+        "fields": {
+            "name": "Nick's available dog",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 16,
+            "animal": "dog",
+            "breed": "idk5",
+            "colour": "black",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 5
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 1,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-19",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 2,
+        "fields": {
+            "status": "adopted",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-20",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 3,
+        "fields": {
+            "status": "pending",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-21",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 4,
+        "fields": {
+            "status": "withdrawn",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-22",
+            "owner_id": 1,
+            "shelter_id": 2
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 5,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-23",
+            "owner_id": 1,
+            "shelter_id": 3
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 1,
+        "fields": {
+            "username": "jack@seeker.com",
+            "first_name": "jack",
+            "last_name": "sun",
+            "is_seeker": true,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-18T19:09:04.505Z",
+            "avatar": "1.jpg"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 2,
+        "fields": {
+            "username": "oogabooga@shelter.com",
+            "first_name": "LN",
+            "last_name": "X",
+            "is_seeker": false,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-18T19:09:04.505Z",
+            "avatar": "2.jpg"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 3,
+        "fields": {
+            "username": "shelter2@shelter.com",
+            "first_name": "John",
+            "last_name": "Smith",
+            "is_seeker": false,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-02-18T19:09:04.505Z",
+            "avatar": "3.jpg"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 4,
+        "fields": {
+            "username": "helen@seeker.com",
+            "first_name": "helen",
+            "last_name": "li",
+            "is_seeker": true,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-08-19T05:23:39.789Z",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-08-18T19:09:04.505Z",
+            "avatar": "4.jpg"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 5,
+        "fields": {
+            "username": "admin@admin.com",
+            "first_name": "admin",
+            "last_name": "admin",
+            "is_seeker": true,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-10-19T05:23:39.789Z",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2023-10-18T19:09:04.505Z"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 6,
+        "fields": {
+            "username": "testuser",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "first_name": "Test",
+            "last_name": "User",
+            "is_seeker": true
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 7,
+        "fields": {
+            "username": "diffuser",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "first_name": "Different",
+            "last_name": "User",
+            "is_seeker": true
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 8,
+        "fields": {
+            "username": "thirduser",
+            "first_name": "Third",
+            "last_name": "User",
+            "is_seeker": true
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 9,
+        "fields": {
+            "username": "shelter1",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "first_name": "Some",
+            "last_name": "Shelter",
+            "is_seeker": false
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 10,
+        "fields": {
+            "username": "shelter2",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "first_name": "Different",
+            "last_name": "Shelter",
+            "is_seeker": false
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 1,
+        "fields": {
+            "seeker": 1, 
+            "shelter": 2,
+            "pet_listing": 1,
+            "status": "pending",
+            "creation_date": "2023-02-19T05:23:39.789Z",
+            "last_modified": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 2,
+        "fields": {
+            "seeker": 1, 
+            "shelter": 3,
+            "pet_listing": 5,
+            "status": "denied",
+            "creation_date": "2023-02-20T05:23:39.789Z",
+            "last_modified": "2023-02-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 3,
+        "fields": {
+            "seeker": 4, 
+            "shelter": 3,
+            "pet_listing": 5,
+            "status": "pending",
+            "creation_date": "2023-02-22T05:23:39.789Z",
+            "last_modified": "2023-02-22T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vr4zh1w2win0rtlkiwdvykz45yl9livp",
+        "fields": {
+            "session_data": ".eJxVjDsOwjAQBe_iGlk28W8p6XMGa-314gBypDipEHeHSCmgfTPzXiLitta49bLEicRFaHH63RLmR2k7oDu22yzz3NZlSnJX5EG7HGcqz-vh_h1U7PVb-2BgQPBOOwTNjlQ2rJINxvpkFQNz0B6dPStHxmTlXQrIAwCRsRrE-wO_CzcE:1pTcAl:9J6E0qxnvTDjOB8utuemu3hi4gg19nVm-J0_zNyjBLg",
+            "expire_date": "2023-03-05T05:23:39.811Z"
+        }
+    },
+    {
+        "model": "applications.application",
+        "pk": 4,
+        "fields": {
+            "seeker": 6,
+            "shelter": 9,
+            "pet_listing": 1,
+            "status": "in progress",
+            "creation_date": "2021-04-01T05:23:39.789Z",
+            "last_modified": "2021-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 1,
+        "fields": {
+            "application": 4,
+            "commenter": 6,
+            "comment": "This is a comment by the seeker",
+            "parent": null,
+            "date": "2019-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 1,
+        "fields": {
+            "application": 4,
+            "commenter": 6,
+            "comment": "This is a comment",
+            "parent": null,
+            "date": "2019-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 2,
+        "fields": {
+            "application": 4,
+            "commenter": 7,
+            "comment": "This is a different comment",
+            "parent": null,
+            "date": "2021-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 3,
+        "fields": {
+            "application": 4,
+            "commenter": 7,
+            "comment": "This is a reply to the first comment",
+            "parent": 1,
+            "date": "2022-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 4,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "This is also a reply to the first comment",
+            "parent": 1,
+            "date": "2022-05-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 5,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-05-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 6,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-06-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 7,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-07-13T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 8,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-08-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 9,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-07-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 10,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-07-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 11,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-08-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 12,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-09-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 13,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-10-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 14,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-11-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.applicationcomment",
+        "pk": 15,
+        "fields": {
+            "application": 4,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-12-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 1,
+        "fields": {
+            "shelter": 10,
+            "commenter": 6,
+            "comment": "This is a comment",
+            "parent": null,
+            "date": "2019-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 2,
+        "fields": {
+            "shelter": 10,
+            "commenter": 7,
+            "comment": "This is a different comment",
+            "parent": null,
+            "date": "2021-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 3,
+        "fields": {
+            "shelter": 10,
+            "commenter": 7,
+            "comment": "This is a reply to the first comment",
+            "parent": 1,
+            "date": "2022-04-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 4,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "This is also a reply to the first comment",
+            "parent": 1,
+            "date": "2022-05-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 5,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-05-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 6,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-06-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 7,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-07-13T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 8,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-08-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 9,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-07-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 10,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-07-20T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 11,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-08-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 12,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-09-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 13,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-10-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 14,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-11-01T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "comments.sheltercomment",
+        "pk": 15,
+        "fields": {
+            "shelter": 10,
+            "commenter": 8,
+            "comment": "New comment",
+            "parent": null,
+            "date": "2022-12-01T05:23:39.789Z"
+        }
+    }
+]

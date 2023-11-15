@@ -5,13 +5,16 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import BasePermission, IsAuthenticated
+
+import os
+
 from .serializers import AccountSerializer
 from .models import User
 
 # Create your views here.
 class AccountAuthPermission(BasePermission):
     def has_permission(self, request, view):
-        if request.method == 'POST' or 'GET':
+        if request.method == 'POST' or request.method == 'GET':
             return True
         return request.user.is_authenticated
 
@@ -28,8 +31,6 @@ class AccountsView(APIView):
 
     def put(self, request):
         user = request.user
-        if user.username != request.data['username']:
-            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = self.serializer_class(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -38,6 +39,8 @@ class AccountsView(APIView):
     
     def delete(self, request):
         user = request.user
+        if user.avatar != 'default.jpg':
+            os.remove(f'./static/avatars/{user.avatar}')
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
@@ -45,27 +48,22 @@ class AccountsView(APIView):
         # get all users with is_seeker = False based on the requirement below 
         # requirement: can view a list of shelters, cannot view a list of pet seekers
         users = User.objects.filter(is_seeker=False)
-        response_data = []
-        for user in users:
-            serializer = self.serializer_class(user)
-            response_data.append(serializer.data)
-        return Response(response_data, status=status.HTTP_200_OK)
+        serializer = self.serializer_class(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GetAccountView(RetrieveAPIView):
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field='username'
     action = 'retrieve'
 
     def get_queryset(self):
+        # any user (shelter or seeker) can see the profile of a shelter
+        all_shelters = User.objects.filter(is_seeker=False)
         if self.request.user.is_seeker:
-            # TODO can seekers see other seeker profiles?
-            return User.objects.all()
+            # seekers can see the profile of any shelter and their own profile
+            return all_shelters | User.objects.filter(id=self.request.user.id)
         else:
-            # shelters can only see seeker profiles who have an active application with the shelter
+            # shelters can see seeker profiles who have an active application with the shelter
             all_seekers = User.objects.filter(is_seeker=True)
-            seekers = []
-            for seeker in all_seekers:
-                if seeker.applications.all().filter(shelter=self.request.user):
-                    seekers.append(seeker)
-            return seekers
+            validated_seekers = all_seekers.filter(applications__shelter=self.request.user, applications__status='pending')
+            return all_shelters | validated_seekers
