@@ -7,13 +7,19 @@ from .models import Notification
 from .serializers import NotificationSerializer, NotificationUpdateSerializer
 
 
+class NotificationPermissions(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            return True
+        return request.user.is_authenticated
+
 # Create your views here.
 class NotificationCreateListView(APIView):
     """
     A view for creating notifications.
     """
     # Only authenticated users can access this view
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [NotificationPermissions]
     # Pagination
     paginator_class = PageNumberPagination
 
@@ -30,6 +36,8 @@ class NotificationCreateListView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
+        print(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):

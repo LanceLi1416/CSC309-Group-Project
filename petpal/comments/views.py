@@ -49,7 +49,7 @@ class ShelterCommentView(ListCreateAPIView):
         data = {
             'receiver': shelter,
             'message': f'You have a new comment from {self.request.user.username}',
-            'link': f'/shelters/{shelter.id}'
+            'related_link': f'/shelters/{shelter.id}'
         }
         requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
 
@@ -73,7 +73,7 @@ class ApplicationCommentView(ListCreateAPIView):
         data = {
             'receiver': application.seeker,
             'message': f'You have a new comment from {self.request.user.username}',
-            'link': f'/applications/{application.id}'
+            'related_link': f'/applications/{application.id}'
         }
         requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
 
@@ -93,7 +93,7 @@ class ShelterReplyView(CreateAPIView):
         data = {
             'receiver': parent.commenter,
             'message': f'You have a new reply from {self.request.user.username}',
-            'link': f'/shelters/{parent.shelter.id}'
+            'related_link': f'/shelters/{parent.shelter.id}'
         }
         requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
 
@@ -116,6 +116,6 @@ class ApplicationReplyView(CreateAPIView):
         data = {
             'receiver': parent.commenter,
             'message': f'You have a new reply from {self.request.user.username}',
-            'link': f'/applications/{application.id}'
+            'related_link': f'/applications/{application.id}'
         }
         requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)

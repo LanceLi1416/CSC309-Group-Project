@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Application
+from pet_listings.models import PetListing
 from .serializers import ApplicationSerializer
 from django.conf import settings
 
@@ -23,10 +24,11 @@ class ApplicationsView(APIView):
         if serializer.is_valid():
             serializer.save()
             # Send request to notification API
+            pet_listing = get_object_or_404(PetListing, id=serializer.data['pet_listing'])
             data = {
-                'receiver': request.data['shelter'],
+                'receiver': pet_listing.shelter.id,
                 'message': f'You have a new application from {request.user.username}',
-                'link': f'/applications/{serializer.data["id"]}'
+                'related_link': f'/applications/{serializer.data["id"]}'
             }
             requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -57,7 +59,7 @@ class ApplicationsView(APIView):
                 data = {
                     'receiver': old_app.seeker,
                     'message': f'Your application for {old_app.pet_listing} is now {new_status}',
-                    'link': f'/applications/{old_app.id}'
+                    'related_link': f'/applications/{old_app.id}'
                 }
                 requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
                 return Response(serializer.data, status=status.HTTP_200_OK)
