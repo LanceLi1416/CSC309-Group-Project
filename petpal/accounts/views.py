@@ -23,6 +23,10 @@ class AccountsView(APIView):
     permission_classes = [AccountAuthPermission]
 
     def post(self, request):
+        if 'reenter_password' not in request.data or 'password' not in request.data:
+            return Response({'error': 'password and reenter_password must be set'}, status=status.HTTP_400_BAD_REQUEST)
+        if request.data['password'] != request.data['reenter_password']:
+            return Response({'error': 'password and reenter_password must match'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
