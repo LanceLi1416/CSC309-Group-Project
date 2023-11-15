@@ -26,6 +26,18 @@ class PetListingPermissions(BasePermission):
                 raise PermissionDenied("Only the shelter that posted this pet listing has access")
             return True
         raise AuthenticationFailed("Authentication Required")
+    
+
+class SearchPermission(BasePermission):
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")
+        return True
+    
+    def has_object_permission(self, request, view, obj):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")
+        return True
 
 
 class PetListingCreateView(APIView):
@@ -89,16 +101,20 @@ class PetListingEditView(APIView):
 
 class SearchView(APIView):
     serializer_class = SearchModelSerializer
+    permission_classes = [SearchPermission]
 
     def post(self, request):
         pet_listings = PetListing.objects.all()
 
         if 'shelter' in request.data:
             shelter = request.data['shelter']
-            pet_listings = pet_listings.filter(shelter__pk__in=shelter)
+            if shelter != [] and shelter != '':
+                pet_listings = pet_listings.filter(shelter__pk__in=shelter)
         
         if 'status' in request.data:
             pet_status = request.data['status']
+            if pet_status == [] or pet_status == '':
+                pet_status = ['available']
         else:
             pet_status = ['available']
 
@@ -106,7 +122,8 @@ class SearchView(APIView):
 
         if 'gender' in request.data:
             gender = request.data['gender']
-            pet_listings = pet_listings.filter(pet__gender__in=gender)
+            if gender != [] and gender != "":
+                pet_listings = pet_listings.filter(pet__gender__in=gender)
         
         if 'start_date' in request.data:
             start_date = request.data['start_date']
@@ -124,7 +141,8 @@ class SearchView(APIView):
                     if type not in pet_type:
                         pet_listings = pet_listings.exclude(pet__animal=type)
             else:
-                pet_listings = pet_listings.filter(pet__animal__in=pet_type)
+                if pet_type != [] and pet_type != '':
+                    pet_listings = pet_listings.filter(pet__animal__in=pet_type)
 
         if 'sort' in request.data:
             sort = request.data['sort']
@@ -147,6 +165,7 @@ class SearchView(APIView):
 class SearchDetailView(APIView):
     serializer_class = PetListingSerializer
     lookup_field = 'pet_listing_id'
+    permission_classes = [SearchPermission]
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
