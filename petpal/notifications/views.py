@@ -1,7 +1,7 @@
-from django.core.paginator import Paginator
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Notification
 from .serializers import NotificationSerializer, NotificationUpdateSerializer
@@ -15,7 +15,7 @@ class NotificationCreateListView(APIView):
     # Only authenticated users can access this view
     permission_classes = [permissions.IsAuthenticated]
     # Pagination
-    paginator_class = Paginator
+    paginator_class = PageNumberPagination
 
     def post(self, request):
         """
@@ -53,12 +53,12 @@ class NotificationCreateListView(APIView):
         notifications = notifications.order_by('-c_time')
 
         # Pagination
-        paginator = self.paginator_class(notifications, 10)  # 10 notifications per page
-        page_number = request.query_params.get('page', 1)
-        notifications = paginator.page(page_number)
+        paginator = self.paginator_class()
+        paginator.page_size = 3
+        notifications = paginator.paginate_queryset(notifications, request)
 
         serializer = NotificationSerializer(notifications, many=True)
-        return Response(serializer.data)
+        return paginator.get_paginated_response(serializer.data)
 
 
 class NotificationDetailUpdateDeleteView(APIView):
