@@ -20,6 +20,3 @@ class ChatMessage(models.Model):
                                  related_name='received_messages')
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.message

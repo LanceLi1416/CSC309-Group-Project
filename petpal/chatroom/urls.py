@@ -4,7 +4,7 @@ from .views import ChatMessageViewSet
 app_name = 'chatroom'
 
 urlpatterns = [
-    path("",
+    path("<int:pk>/",
          ChatMessageViewSet.as_view({'get': 'list', 'post': 'create'}),
          name='chatroom'),
 ]
