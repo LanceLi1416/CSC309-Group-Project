@@ -13,7 +13,7 @@ class ShelterCommentSerializer(ModelSerializer):
         }
 
     def get_replies(self, obj):
-        replies = ShelterComment.objects.filter(parent=obj)
+        replies = ShelterComment.objects.filter(parent=obj).order_by('-date')
         serializer = ShelterCommentSerializer(replies, many=True)
         return serializer.data
 
@@ -28,6 +28,6 @@ class ApplicationCommentSerializer(ModelSerializer):
         }
     
     def get_replies(self, obj):
-        replies = ApplicationComment.objects.filter(parent=obj)
+        replies = ApplicationComment.objects.filter(parent=obj).order_by('-date')
         serializer = ApplicationCommentSerializer(replies, many=True)
         return serializer.data
