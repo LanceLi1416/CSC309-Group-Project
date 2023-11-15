@@ -119,6 +119,22 @@
 
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
+                    <div><label for="pet-gender">Gender</label></div>
+                    <div>
+                        <select class="form-select" id="pet-gender" required>
+                            <option value="">Choose...</option>
+                            <option value="female">Female</option>
+                            <option value="male" selected>Male</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please indicate the pet's gender.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row mt-3">
+                <div class="col form-group">
                     <div><label for="pet-birthday">Birthday</label></div>
                     <div>
                         <input class="form-control"
@@ -135,7 +151,7 @@
             </div>
 
             <div class="d-flex flex-row mt-3">
-                <div class="row form-group">
+                <div class="col form-group">
                     <div><label for="weight">Weight (kg)</label></div>
                     <div class="col-auto">
                         <div>
@@ -150,16 +166,6 @@
                             <div class="invalid-feedback">
                                 The pet's weight must be provided.
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <select class="form-select" id="autoSizingSelect" required>
-                            <option value="">Choose...</option>
-                            <option value="kg" selected>kg</option>
-                            <option value="lb">lb</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            The metric must be indicated.
                         </div>
                     </div>
                 </div>
@@ -227,12 +233,12 @@
 
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
-                    <div><label for="other-info">Pictures</label></div>
+                    <div><label for="attachment">Pictures</label></div>
                 </div>
             </div>
             <div class="d-flex flex-row mt-3">
                 <div class="col form-group">
-                    <div><label class="form-label" for="formFileMultiple">Upload Pictures</label></div>
+                    <div><label class="form-label" for="attachment">Upload Pictures</label></div>
                     <div>
                         <input accept=".jpg, .png, .jpeg"
                                class="form-control"
@@ -265,7 +271,7 @@
                 <div class="col form-group">
                     <div><label for="owner-name">Name</label></div>
                     <div>
-                        <input class="form-control" id="owner" name="owner" required type="text" value="Nicholas Poon"/>
+                        <input class="form-control" id="owner-name" name="owner" required type="text" value="Nicholas Poon"/>
                         <div class="invalid-feedback">
                             The owner's name must be provided.
                         </div>
@@ -338,12 +344,31 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="row mt-4">
-                <button class="btn btn-outline-success" data-target="#update-modal" data-toggle="modal" type="button">
-                    Update
-                </button>
+        <div class="d-flex flex-row mt-3">
+            <div class="col form-group">
+                <div>
+                    <label for="owner-birthday">Status</label>
+                </div>
+                <div>
+                    <select class="form-select" name="status" id="status" required>
+                        <option value="available" selected>Available</option>
+                        <option value="adopted">Adopted</option>
+                        <option value="pending">Pending</option>
+                        <option value="withdrawn">Withdrawn</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please indicate the pet listing's status.
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="row mt-4">
+            <button class="btn btn-outline-success" data-target="#update-modal" data-toggle="modal" type="button">
+                Update
+            </button>
         </div>
 
         <div class="modal" id="update-modal" role="dialog" tabindex="-1">

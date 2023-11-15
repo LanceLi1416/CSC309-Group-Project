@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import datetime
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework',
+    'pet_listings',
     'accounts',
+    'applications',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +139,15 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 4,
 }
 
+BASE_URL = "http://localhost:8000"
+
 AUTH_USER_MODEL = 'accounts.User'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=10000),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=10000),
+}
