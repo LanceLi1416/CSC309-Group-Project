@@ -28,4 +28,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("pet_listings/", include("pet_listings.urls"), name="pet_listings"),
     path("notifications/", include("notifications.urls", namespace="notifications")),
+    path("chatroom/", include("chatroom.urls", namespace="chatroom")),
 ]
