@@ -1,5 +1,38 @@
 [
     {
+        "model": "notifications.Notification",
+        "pk": 1,
+        "fields": {
+            "receiver": 4,
+            "message": "Your application for Nick's available dog has been approved!",
+            "is_read": false,
+            "c_time": "2023-02-19T05:23:39.789Z",
+            "related_link": "http://localhost:8000/applications/3"
+        }
+    },
+    {
+        "model": "notifications.Notification",
+        "pk": 2,
+        "fields": {
+            "receiver": 1,
+            "message": "Your application for Nick's available dog has been approved!",
+            "is_read": true,
+            "c_time": "2023-02-19T05:23:40.962Z",
+            "related_link": "http://localhost:8000/applications/3"
+        }
+    },
+    {
+        "model": "notifications.Notification",
+        "pk": 3,
+        "fields": {
+            "receiver": 2,
+            "message": "Your pet listing for Nick's cat has been declined!",
+            "is_read": false,
+            "c_time": "2023-02-19T05:20:39.789Z",
+            "related_link": "/pet_listings/1"
+        }
+    },
+    {
         "model": "pet_listings.picture",
         "pk": 1,
         "fields": {

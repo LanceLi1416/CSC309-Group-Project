@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pet_listings',
     'accounts',
     'applications',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -141,6 +142,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 4,
 }
+
+BASE_URL = "http://localhost:8000"
 
 AUTH_USER_MODEL = 'accounts.User'
 

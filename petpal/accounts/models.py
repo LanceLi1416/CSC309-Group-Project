@@ -29,8 +29,3 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['first_name', 'last_name', 'is_seeker']
 
     objects = UserManager()
-
-
-# TODO: move these into their corresponding app models.py files once they are created
-class Notification(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
