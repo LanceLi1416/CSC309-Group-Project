@@ -1,4 +1,3 @@
-import requests
 from urllib.parse import urljoin
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -10,8 +9,9 @@ from rest_framework.views import APIView
 
 from .models import Application
 from pet_listings.models import PetListing
+from notifications.views import NotificationCreateListView
 from .serializers import ApplicationSerializer
-from django.conf import settings
+
 
 
 # Create your views here.
@@ -25,12 +25,10 @@ class ApplicationsView(APIView):
             serializer.save()
             # Send request to notification API
             pet_listing = get_object_or_404(PetListing, id=serializer.data['pet_listing'])
-            data = {
-                'receiver': pet_listing.shelter.id,
-                'message': f'You have a new application from {request.user.username}',
-                'related_link': f'/applications/{serializer.data["id"]}'
-            }
-            requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+            request.data['receiver'] = pet_listing.shelter.id
+            request.data['message'] = f'You have a new application from {request.user.username}'
+            request.data['related_link'] = f'/applications/{serializer.data["id"]}'
+            NotificationCreateListView.post(NotificationCreateListView(), request)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -52,19 +50,18 @@ class ApplicationsView(APIView):
                         return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you can only accept or deny pending applications'})
                 else:
                     return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you are not authorized to update this application'})
-                
+
                 old_app.status = new_status
                 old_app.save()
                 # Send request to notification API
-                data = {
-                    'receiver': old_app.seeker.id,
-                    'message': f'Your application for {old_app.pet_listing} is now {new_status}',
-                    'related_link': f'/applications/{old_app.id}'
-                }
-                requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+                request.data['receiver'] = old_app.seeker.id
+                request.data['message'] = f'Your application for {old_app.pet_listing} is now {new_status}'
+                request.data['related_link'] = f'/applications/{old_app.id}'
+                NotificationCreateListView.post(NotificationCreateListView(), request)
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            else: 
-                return Response(status=status.HTTP_400_BAD_REQUEST, data={'error': 'you can only update status field'})
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST,
+                                data={'error': 'you can only update status field'})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):

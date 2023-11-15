@@ -1,6 +1,5 @@
 from urllib.parse import urljoin
 
-import requests
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.permissions import BasePermission, IsAuthenticated
@@ -12,6 +11,7 @@ from rest_framework.generics import ListCreateAPIView, CreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
 from django.conf import settings
+from notifications.views import NotificationCreateListView
 
 
 class ApplicationCommentAuthPermission(BasePermission):
@@ -46,12 +46,12 @@ class ShelterCommentView(ListCreateAPIView):
         serializer.save(commenter=self.request.user, shelter=shelter)
 
         # Send request to notification API
-        data = {
-            'receiver': shelter.id,
-            'message': f'You have a new comment from {self.request.user.username}',
-            'related_link': f'/shelters/{shelter.id}'
-        }
-        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+        NotificationCreateListView.create_notification(
+            sender=self.request.user.id,
+            receiver=shelter.id,
+            message=f'You have a new comment from {self.request.user.username}',
+            related_link=f'/shelters/{shelter.id}'
+        )
 
 
 class ApplicationCommentView(ListCreateAPIView):
@@ -72,18 +72,15 @@ class ApplicationCommentView(ListCreateAPIView):
         # Send request to notification API
         # if logged in as shelter, send notification to seeker
         if not self.request.user.is_seeker:
-            data = {
-                'receiver': application.seeker.id,
-                'message': f'You have a new comment from {self.request.user.username}',
-                'related_link': f'/applications/{application.id}'
-            }
+            receiver = application.seeker.id
         else:  # send notification to shelter
-            data = {
-                'receiver': application.shelter.id,
-                'message': f'You have a new comment from {self.request.user.username}',
-                'related_link': f'/applications/{application.id}'
-            }
-        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+            receiver = application.shelter.id
+        NotificationCreateListView.create_notification(
+            sender=self.request.user.id,
+            receiver=receiver,
+            message=f'You have a new comment from {self.request.user.username}',
+            related_link=f'/applications/{application.id}'
+        )
 
 
 class ShelterReplyView(CreateAPIView):
@@ -98,12 +95,12 @@ class ShelterReplyView(CreateAPIView):
         serializer.save(commenter=self.request.user, shelter=parent.shelter, parent=parent)
 
         # Send request to notification API
-        data = {
-            'receiver': parent.commenter.id,
-            'message': f'You have a new reply from {self.request.user.username}',
-            'related_link': f'/shelters/{parent.shelter.id}'
-        }
-        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+        NotificationCreateListView.create_notification(
+            sender=self.request.user.id,
+            receiver=parent.commenter.id,
+            message=f'You have a new reply from {self.request.user.username}',
+            related_link=f'/shelters/{parent.shelter.id}'
+        )
 
 
 class ApplicationReplyView(CreateAPIView):
@@ -121,9 +118,9 @@ class ApplicationReplyView(CreateAPIView):
         serializer.save(commenter=self.request.user, application=application, parent=parent)
 
         # Send request to notification API
-        data = {
-            'receiver': parent.commenter.id,
-            'message': f'You have a new reply from {self.request.user.username}',
-            'related_link': f'/applications/{application.id}'
-        }
-        requests.post(urljoin(settings.BASE_URL, 'notifications/'), data=data)
+        NotificationCreateListView.create_notification(
+            sender=self.request.user.id,
+            receiver=parent.commenter.id,
+            message=f'You have a new reply from {self.request.user.username}',
+            related_link=f'/applications/{application.id}'
+        )
