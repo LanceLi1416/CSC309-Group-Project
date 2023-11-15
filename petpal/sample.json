@@ -247,7 +247,7 @@
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z",
             "avatar": "1.jpg",
-            "notif_preference": false
+            "notif_preference": true
         }
     },
     {
@@ -265,7 +265,7 @@
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z",
             "avatar": "2.jpg",
-            "notif_preference": false
+            "notif_preference": true
         }
     },
     {
@@ -317,7 +317,8 @@
             "is_superuser": true,
             "is_staff": true,
             "is_active": true,
-            "date_joined": "2023-10-18T19:09:04.505Z"
+            "date_joined": "2023-10-18T19:09:04.505Z",
+            "notif_preference": true
         }
     },
     {
@@ -328,7 +329,8 @@
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Test",
             "last_name": "User",
-            "is_seeker": true
+            "is_seeker": true,
+            "notif_preference": true
         }
     },
     {
@@ -339,7 +341,8 @@
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Different",
             "last_name": "User",
-            "is_seeker": true
+            "is_seeker": true,
+            "notif_preference": true
         }
     },
     {
@@ -349,7 +352,8 @@
             "username": "thirduser@me.com",
             "first_name": "Third",
             "last_name": "User",
-            "is_seeker": true
+            "is_seeker": true,
+            "notif_preference": true
         }
     },
     {
@@ -360,7 +364,8 @@
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Some",
             "last_name": "Shelter",
-            "is_seeker": false
+            "is_seeker": false,
+            "notif_preference": true
         }
     },
     {
@@ -371,7 +376,32 @@
             "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Different",
             "last_name": "Shelter",
-            "is_seeker": false
+            "is_seeker": false,
+            "notif_preference": true
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 11,
+        "fields": {
+            "username": "nonotif@shelter.com",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "first_name": "No Notif",
+            "last_name": "Shelter",
+            "is_seeker": false,
+            "notif_preference": false
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 12,
+        "fields": {
+            "username": "nonotif@me.com",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "first_name": "No Notif",
+            "last_name": "Seeker",
+            "is_seeker": true,
+            "notif_preference": false
         }
     },
     {
