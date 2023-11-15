@@ -7,19 +7,13 @@ from .models import Notification
 from .serializers import NotificationSerializer, NotificationUpdateSerializer
 
 
-class NotificationPermissions(permissions.BasePermission):
-    def has_permission(self, request, view):
-        if request.method == 'POST':
-            return True
-        return request.user.is_authenticated
-
 # Create your views here.
 class NotificationCreateListView(APIView):
     """
     A view for creating notifications.
     """
     # Only authenticated users can access this view
-    permission_classes = [NotificationPermissions]
+    permission_classes = [permissions.IsAuthenticated]
     # Pagination
     paginator_class = PageNumberPagination
 
