@@ -10,7 +10,8 @@ from django.shortcuts import get_object_or_404
 import os
 
 from .serializers import PetListingSerializer, SearchModelSerializer
-from .models import PetListing
+from .models import PetListing, User
+from notifications.views import NotificationCreateListView
 
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
@@ -49,6 +50,15 @@ class PetListingCreateView(APIView):
 
         if serializer.is_valid():
             serializer.create(serializer.validated_data, request)
+
+            # send notification to all seekers with notif_preference = True
+            notif_users = User.objects.filter(is_seeker=True).filter(notif_preference=True)
+            for user in notif_users:
+                request.data['receiver'] = user.id
+                request.data['message'] = f'New pet listing from {request.user.username}'
+                request.data['related_link'] = f'/pet_listings/{serializer.validated_data["id"]}'
+                NotificationCreateListView.post(self, request)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

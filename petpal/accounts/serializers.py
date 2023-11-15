@@ -8,7 +8,7 @@ import os
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar', 'notif_preference']
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -25,6 +25,7 @@ class AccountSerializer(ModelSerializer):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.is_seeker = validated_data.get('is_seeker', instance.is_seeker)
+        instance.notif_preference = validated_data.get('notif_preference', instance.notif_preference)
 
         if 'password' in validated_data:
             # passwords must be hashed before saving
