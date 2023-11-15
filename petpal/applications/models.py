@@ -16,7 +16,3 @@ class Application(models.Model):
     status = models.CharField(max_length=20, default='pending', choices=STATUS_CHOICES)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-
-# TODO: move these into their corresponding app models.py files once they are created
-class Comment(models.Model):
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)

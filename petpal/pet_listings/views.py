@@ -82,9 +82,6 @@ class PetListingEditView(APIView):
                 os.remove(f'./static/pet_listing_pics/{str(pics[i].path)}')
             except OSError:
                 break
-            pics[i].delete()
-        
-        pet_listing.pet.delete()
         pet_listing.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
