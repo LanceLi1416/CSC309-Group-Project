@@ -1,59 +1,70 @@
 import PetForm from "./PetForm";
 import OwnerForm from "../../components/OwnerForm";
 
+import { Link, useNavigate } from 'react-router-dom';
 import * as formik from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 
-function petListingFormToSerializer(form) {
-    return {
-        pet_name: ,
-        gender: ,
-        pet_birthday: ,
-        pet_weight: ,
-        animal: ,
-        breed: ,
-        colour: ,
-        vaccinated: ,
-        pictures: ,
-        owner_name: ,
-        email: ,
-        phone_number: ,
-        location: ,
-        owner_birthday: ,
-        status: 
-    }
-}
+// function petListingFormToSerializer(form) {
+//     return {
+//         pet_name: ,
+//         gender: ,
+//         pet_birthday: ,
+//         pet_weight: ,
+//         animal: ,
+//         breed: ,
+//         colour: ,
+//         vaccinated: ,
+//         pictures: ,
+//         owner_name: ,
+//         email: ,
+//         phone_number: ,
+//         location: ,
+//         owner_birthday: ,
+//         status: 
+//     }
+// }
 
 function CreatePetListing() {
-    const [ newPetListingError, setNewPetListingError ] = useState(null);
+    const [ createListingError, setCreateListingError ] = useState(null);
     const [ postData, setPostData ] = useState(false);
+    const navigate = useNavigate();
+    const { listingID } = useParams();
 
-    const submitHandler = (values) => {
+    const submitHandler = (values, method) => {
+        let data = {
+            "pet_name": values.pet_name,
+            "gender": values.gender,
+            "pet_birthday": values.pet_birthday,
+            "pet_weight": values.pet_weight,
+            "animal": values.pet_animal,
+            "breed": values.pet_breed,
+            "colour": values.colour,
+            "vaccinated": values.vaccinated,
+            "other_info": values.other_info,
+            "pictures": values.pictures,
+            "owner_name": values.owner_name,
+            "email": values.email,
+            "phone_number": values.phone_number,
+            "location": values.location,
+            "owner_birthday": values.owner_birthday,
+        }
+        let url = "http://localhost:8000/pet_listings/" // TODO
+
+        if (method == "PUT") {
+            data["status"] = values.status;
+            url += `${listingID}/`;
+        }
+
         axios({
-            method: "POST",
-            url: "http://localhost:8000/", // TODO:
-            data: {
-                "pet_name": values.pet_name,
-                "gender": values.gender,
-                "pet_birthday": values.pet_birthday,
-                "pet_weight": values.pet_weight,
-                "animal": values.pet_animal,
-                "breed": values.pet_breed,
-                "colour": values.colour,
-                "vaccinated": values.vaccinated,
-                "other_info": values.other_info,
-                "pictures": values.pictures,
-                "owner_name": values.owner_name,
-                "email": values.email,
-                "phone_number": values.phone_number,
-                "location": values.location,
-                "owner_birthday": values.owner_birthday,
-            }
-        }).then((response) => {
-            // TODO:
+            method: method,
+            url: url,
+            data: data
+        }).then((response) => { // maybe just stay on page
+            navigate(`/pet_listings/${response.data.id}`); // TODO
         }).catch((error) => {
-            setNewPetListingError(""); // TODO
+            setCreateListingError(error.response.data.detail); // TODO
         })
     }
 
@@ -74,7 +85,7 @@ function CreatePetListing() {
                                   .matches(/^\d{3}-\d{3}-\d{4}$/, "Invalid phone number"),
         location: yup.string().required("Please enter the owner's location"),
         owner_birthday: yup.string().required("Please enter the owner's birthday")
-    })
+    });
 
     // useEffect(() => {
     //     const fetchData = async () => {
