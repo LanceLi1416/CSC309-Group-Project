@@ -29,4 +29,5 @@ urlpatterns = [
     path('comments/', include('comments.urls', namespace='comments')),
     path("pet_listings/", include("pet_listings.urls"), name="pet_listings"),
     path("notifications/", include("notifications.urls", namespace="notifications")),
+    path("chatroom/", include("chatroom.urls", namespace="chatroom")),
 ]
