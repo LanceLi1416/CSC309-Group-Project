@@ -11,3 +11,342 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+	/* Bootstrap Re-Definition ****************************************************************************************/
+	/* Navbar */
+	--bs-nav-link-font-size: 18px;
+	--bs-nav-link-font-weight: 600;
+	--bs-nav-link-color: var(--bs-gray-400);
+	--bs-nav-link-hover-font-weight: 800;
+	--bs-nav-link-hover-color: var(--bs-light);
+
+	/* Colour *********************************************************************************************************/
+
+	/* Typography *****************************************************************************************************/
+	font-family: var(--bs-font-sans-serif);
+	font-size: 16px;
+}
+
+/* Bootstrap Re-Definition ********************************************************************************************/
+.nav-link:hover,
+.nav-link:focus {
+	color: var(--bs-nav-link-hover-color);
+	font-weight: var(--bs-nav-link-hover-font-weight);
+}
+
+hr {
+	margin: 0;
+	color: inherit;
+	border: 0;
+	border-top: var(--bs-border-width) solid;
+	opacity: 0.5;
+}
+
+.vh-25 {
+	height: 25vh !important;
+}
+
+/* HTML Classes *******************************************************************************************************/
+body {
+	padding: 60px 110px 3rem 110px;
+}
+
+p {
+	word-wrap: break-word;
+}
+
+/* Self-Defined Classes ***********************************************************************************************/
+.form-left {
+	text-align: left;
+}
+
+@media (min-width: 992px) {
+	.form-left {
+		text-align: right !important;
+	}
+
+	#filter-toggle {
+		display: none;
+	}
+}
+
+.logo {
+	width: 16px;
+	height: 16px;
+}
+
+.image-wrapper {
+	max-width: 200px;
+	max-height: 200px;
+	border-radius: 50px;
+	overflow: hidden;
+}
+
+.application-card {
+	width: 100%;
+	height: 100%;
+}
+
+.application-card:hover {
+	transform: scale(0.99);
+	cursor: pointer;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.wrapped-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.avatar-wrapper {
+	width: 100px;
+	height: 100px;
+	max-width: 100px;
+	max-height: 100px;
+	border-radius: 100px;
+	overflow: hidden;
+}
+
+.logo-image-wrapper {
+	width: 250px;
+	height: 250px;
+	max-width: 250px;
+	max-height: 250px;
+	border-radius: 50px;
+	overflow: hidden;
+}
+
+.review-container {
+	height: 75vh;
+}
+.shelter-contact-box {
+	max-width: 150px;
+}
+
+.page-title {
+	padding-top: 25px;
+}
+
+.page-container {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#pet-detail-container {
+	display: grid;
+	grid-gap: 50px;
+	grid-template-columns: 7fr 1fr;
+}
+
+.main-page {
+	/* margin-right: 25%; */
+	grid-column: 1 / 2;
+}
+
+.sidebar {
+	grid-column: 2 / 2;
+}
+
+.sidebar-info {
+	position: fixed;
+	display: block;
+	width: 14%;
+	top: 12%;
+}
+
+.full-img {
+	width: 100%;
+	height: 100%;
+}
+
+.subtitle {
+	color: var(--bs-secondary);
+}
+
+.full-height {
+	height: 100%;
+}
+
+.large-font {
+	font-size: 26px;
+}
+
+/* Account update */
+
+.edit-icon {
+	width: 100px;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
+textarea {
+	resize: none;
+}
+
+.plus-sign {
+	width: 70%;
+	height: 70%;
+}
+
+.plus-sign:hover {
+	transform: scale(1.1);
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.status {
+	position: absolute;
+	top: 5%;
+	right: 10%;
+}
+
+.new-wrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.dropdown {
+	z-index: 1000;
+}
+
+.status-item:focus {
+	background-color: var(--bs-success);
+}
+
+.notif-shelter:active {
+    background-color: var(--bs-success);
+}
+
+/*****************/
+
+.carousel {
+	text-align: center;
+	width: 100%;
+	/* justify-content: center; */
+}
+
+.carousel-button-background {
+	background-color: black;
+}
+
+#pet-summary-title {
+	padding-bottom: 8px;
+}
+
+.pet-detail-subtitles {
+	margin-top: 32px;
+}
+
+.error-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+.pet-update-pics-checkbox {
+	margin-right: 1rem;
+}
+
+.pet-update-pics-div {
+	margin-top: 1rem;
+}
+
+.sidebar-button {
+	margin-left: 12px;
+	margin-right: 12px;
+	width: calc(100% - 24px);
+}
+
+#error-title-div {
+	margin-top: 16px;
+}
+
+@media screen and (max-width: 992px) {
+	.main-page {
+		margin-right: 0;
+		display: block;
+	}
+
+	body {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+	
+	#filter {
+        display: none;
+    }
+
+	#filter-toggle-button {
+		display: block;
+	}
+
+	#filter-small {
+		display: none;
+	}
+
+	#filter-small.show {
+		display: block;
+	}
+}
+
+.info-cont {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pet-info {
+    width: 80%;
+}
+
+.centered-form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.error-text {
+  color: red;
+}
+
+@media screen and (max-width: 1300px) {
+	#pet-detail-container {
+		grid-template-columns: 1fr;
+		row-gap: 32px;
+	}
+	
+	.sidebar-info {
+		position: static;
+		width: 100%;
+	}
+}
+
+.dog-img {
+    margin-top: 16px;
+    width: 30%;
+    height: 30%;
+    object-fit: cover;
+}
+
+#profile-image {
+    width: 50px;
+    height: 50px;
+}
+/*****************/
