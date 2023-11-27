@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from PIL import Image
 from io import BytesIO
@@ -42,6 +43,7 @@ class User(AbstractUser):
     avatar = models.ImageField(default='default.jpg')
     is_seeker = models.BooleanField()
     notif_preference = models.BooleanField(default=True)
+    score = models.IntegerField(default=0, validators=[MinValueValidator(0)]) # For behaviour related purposes
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'is_seeker']
