@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 
-app_name='admin'
+app_name='moderation'
 
 urlpatterns = [
     path('reports/shelter_comments/', ShelterCommentsReportView.as_view(), name='shelter_comments_reports'),

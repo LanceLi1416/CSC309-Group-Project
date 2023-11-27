@@ -1,7 +1,7 @@
 from django.db import models
 
-from ..comments.models import *
-from ..pet_listings.models import * # TODO May get circular import error
+from comments.models import *
+from pet_listings.models import PetListing # TODO May get circular import error
 
 COMMENT_CATEGORIES = [
     ("spam", "Spam"),
@@ -17,7 +17,7 @@ COMMENT_CATEGORIES = [
 PET_LISTING_CATEGORIES = [
     ("spam", "Spam"),
     ("sexually_explicit", "Sexually Explicit Material"),
-    ("misinformation", "Misinformation")
+    ("misinformation", "Misinformation"),
     ("other", "Other")
 ]
 
@@ -29,7 +29,7 @@ STATUSES = [
 
 class ReportShelterComment(models.Model):
     reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_shelter_comments")
-    comment = models.ForeignKey(ShelterComment, on_delete=models.CASCADE, related_name="reports")
+    comment = models.ForeignKey(ShelterComment, on_delete=models.CASCADE, related_name="s_comment_reports")
     category = models.CharField(max_length=50, choices=COMMENT_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
@@ -40,7 +40,7 @@ class ReportShelterComment(models.Model):
 
 class ReportApplicationComment(models.Model):
     reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_application_comments")
-    comment = models.ForeignKey(ApplicationComment, on_delete=models.CASCADE, related_name="reports")
+    comment = models.ForeignKey(ApplicationComment, on_delete=models.CASCADE, related_name="a_comment_reports")
     category = models.CharField(max_length=50, choices=COMMENT_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
@@ -50,8 +50,8 @@ class ReportApplicationComment(models.Model):
 
 
 class ReportPetListing(models.Model):
-    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_application_comments")
-    pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE, related_name="reports")
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_pet_listing")
+    pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE, related_name="pet_listing_reports")
     category = models.CharField(max_length=50, choices=PET_LISTING_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(default="pending", max_length=50, choices=STATUSES)

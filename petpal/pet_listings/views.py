@@ -14,6 +14,20 @@ from .serializers import PetListingSerializer, SearchModelSerializer, \
 from .models import PetListing, User
 from notifications.views import NotificationCreateListView
 
+class ReportPermissions(BasePermission):
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")    
+        return True
+    
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_authenticated:
+            if obj.shelter == request.user:
+                raise PermissionDenied("You cannot report your own pet listing")
+            return True
+        raise AuthenticationFailed("Authentication Required")
+    
+
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
@@ -187,16 +201,16 @@ class SearchDetailView(APIView):
 class ReportPetListingView(APIView):
     serializer_class = ReportPetListingSerializer
     lookup_field = 'pet_listing_id'
-    permission_classes = [AuthenPermission]
+    permission_classes = [ReportPermissions]
 
-    def get(self, request, pet_listing_id):
-        pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
-        serializer = self.serializer_class(pet_listing)
-        
     def post(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        permission = ReportPermissions()
+        permission.has_object_permission(request, self, pet_listing)
+        print(1)
+        print(request)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.create(serializer.validated_data, pet_listing, request)
+            serializer.create(serializer.validated_data, request, pet_listing)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
