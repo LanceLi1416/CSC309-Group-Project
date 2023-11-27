@@ -15,6 +15,7 @@ function Login() {
     const navigate = useNavigate();
 
     const submitHandler = (values) => {
+        // TODO: endpoint url
         axios({
             method: "POST",
             url: "http://localhost:8000/api/token/",

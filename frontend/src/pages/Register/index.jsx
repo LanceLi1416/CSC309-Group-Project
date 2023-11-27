@@ -12,6 +12,7 @@ import * as yup from 'yup';
 import axios from 'axios'
 
 function Register() {
+    // TODO: test avatar upload
     const [registerError, setRegisterError] = useState([]);
     const navigate = useNavigate();
 
@@ -37,6 +38,7 @@ function Register() {
         if (values.avatar !== '') {
             formData.avatar = values.avatar;
         }
+        // TODO: endpoint url
         axios({
             method: "POST",
             url: "http://localhost:8000/accounts/",
