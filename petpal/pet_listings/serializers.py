@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator, MaxLengthValidator
 import os
 
 from .models import Pet, Owner, PetListing, Picture
+from admin.models import ReportPetListing
 
 class PictureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -201,3 +202,17 @@ class SearchModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PetListing
         fields = ['id', 'pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+
+
+class ReportPetListingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportPetListing
+        fields = ["reporter", "pet_listing", "category", "other_info"]
+        
+    def create(self, validated_data, pet_listing, request):
+        report = ReportPetListing(reporter = request.user,
+                                  pet_listing = pet_listing,
+                                  category = validated_data["category"],
+                                  other_info = validated_data.get("other_info", ""))
+        report.save()
+        return report

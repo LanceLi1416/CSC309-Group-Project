@@ -54,7 +54,7 @@ class ReportPetListing(models.Model):
     pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE, related_name="reports")
     category = models.CharField(max_length=50, choices=PET_LISTING_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
-    status = models.CharField(max_length=50, choices=STATUSES)
+    status = models.CharField(default="pending", max_length=50, choices=STATUSES)
     action_taken = models.CharField(max_length=100, null=True)
     action_time = models.DateTimeField(auto_now=True)
     creation_date = models.DateField(auto_now_add=True)

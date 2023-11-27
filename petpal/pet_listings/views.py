@@ -9,7 +9,8 @@ from django.shortcuts import get_object_or_404
 
 import os
 
-from .serializers import PetListingSerializer, SearchModelSerializer
+from .serializers import PetListingSerializer, SearchModelSerializer, \
+                         ReportPetListingSerializer
 from .models import PetListing, User
 from notifications.views import NotificationCreateListView
 
@@ -29,7 +30,7 @@ class PetListingPermissions(BasePermission):
         raise AuthenticationFailed("Authentication Required")
     
 
-class SearchPermission(BasePermission):
+class AuthenPermission(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             raise AuthenticationFailed("Authentication Required")
@@ -111,7 +112,7 @@ class PetListingEditView(APIView):
 
 class SearchView(APIView):
     serializer_class = SearchModelSerializer
-    permission_classes = [SearchPermission]
+    permission_classes = [AuthenPermission]
 
     def post(self, request):
         pet_listings = PetListing.objects.all()
@@ -175,10 +176,27 @@ class SearchView(APIView):
 class SearchDetailView(APIView):
     serializer_class = PetListingSerializer
     lookup_field = 'pet_listing_id'
-    permission_classes = [SearchPermission]
+    permission_classes = [AuthenPermission]
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
         serializer = self.serializer_class(pet_listing)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
+
+class ReportPetListingView(APIView):
+    serializer_class = ReportPetListingSerializer
+    lookup_field = 'pet_listing_id'
+    permission_classes = [AuthenPermission]
+
+    def get(self, request, pet_listing_id):
+        pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        serializer = self.serializer_class(pet_listing)
+        
+    def post(self, request, pet_listing_id):
+        pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.create(serializer.validated_data, pet_listing, request)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
