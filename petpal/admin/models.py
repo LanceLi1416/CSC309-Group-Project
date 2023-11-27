@@ -34,6 +34,9 @@ class ReportShelterComment(models.Model):
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
     action_taken = models.CharField(max_length=100, null=True)
+    action_time = models.DateTimeField(auto_now=True)
+    creation_date = models.DateField(auto_now_add=True)
+
 
 class ReportApplicationComment(models.Model):
     reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_application_comments")
@@ -42,6 +45,9 @@ class ReportApplicationComment(models.Model):
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
     action_taken = models.CharField(max_length=100, null=True)
+    action_time = models.DateTimeField(auto_now=True)
+    creation_date = models.DateField(auto_now_add=True)
+
 
 class ReportPetListing(models.Model):
     reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_application_comments")
@@ -50,3 +56,5 @@ class ReportPetListing(models.Model):
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
     action_taken = models.CharField(max_length=100, null=True)
+    action_time = models.DateTimeField(auto_now=True)
+    creation_date = models.DateField(auto_now_add=True)

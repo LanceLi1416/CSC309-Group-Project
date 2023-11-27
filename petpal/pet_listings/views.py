@@ -16,7 +16,7 @@ from notifications.views import NotificationCreateListView
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
-            raise AuthenticationFailed("Authenticated Required")
+            raise AuthenticationFailed("Authentication Required")
         if request.user.is_seeker:
             raise PermissionDenied("Only shelters have access to view this")
         return True

@@ -19,10 +19,10 @@ class PetListingSerializer(serializers.Serializer):
         ('female', 'Female')
     ]
     STATUS_CHOICES = [
-            ('available', 'Available'),
-            ('adopted', 'Adopted'),
-            ('pending', 'Pending'),
-            ('withdrawn', 'Withdrawn')
+        ('available', 'Available'),
+        ('adopted', 'Adopted'),
+        ('pending', 'Pending'),
+        ('withdrawn', 'Withdrawn')
     ]
     id = serializers.IntegerField(required=False)
     pet_name = serializers.CharField(source='pet.name', required=True, validators=[MaxLengthValidator(50)])
