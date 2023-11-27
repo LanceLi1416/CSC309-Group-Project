@@ -70,7 +70,7 @@ class ApplicationCommentsReportView(APIView):
         if 'most_recent' in request.data:
             reports = reports.order_by('-creation_date') # TODO: Check that this is correct order
         else:
-            reports = reports.order_by('creation+date')
+            reports = reports.order_by('creation_date')
 
         paginator = PageNumberPagination()
         paginator.page_size = 10
