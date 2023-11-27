@@ -209,8 +209,7 @@ class ReportPetListingSerializer(serializers.ModelSerializer):
         model = ReportPetListing
         fields = ["category", "other_info"]
         
-    def create(self, validated_data, pet_listing, request):
-        print(request)
+    def create(self, validated_data, request, pet_listing):
         report = ReportPetListing(reporter = request.user,
                                   pet_listing = pet_listing,
                                   category = validated_data["category"],

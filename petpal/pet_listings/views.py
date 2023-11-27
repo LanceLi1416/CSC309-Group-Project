@@ -207,8 +207,6 @@ class ReportPetListingView(APIView):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
         permission = ReportPermissions()
         permission.has_object_permission(request, self, pet_listing)
-        print(1)
-        print(request)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.create(serializer.validated_data, request, pet_listing)
