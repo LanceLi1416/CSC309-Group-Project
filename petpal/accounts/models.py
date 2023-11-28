@@ -43,7 +43,9 @@ class User(AbstractUser):
     avatar = models.ImageField(default='default.jpg')
     is_seeker = models.BooleanField()
     notif_preference = models.BooleanField(default=True)
-    score = models.IntegerField(default=0, validators=[MinValueValidator(0)]) # For behaviour related purposes
+    
+    # For behaviour related purposes; ban when 3 points reached
+    score = models.IntegerField(default=0, validators=[MinValueValidator(0)])
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'is_seeker']

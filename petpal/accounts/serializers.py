@@ -55,7 +55,12 @@ class ReportShelterCommentSerializer(ModelSerializer):
         model = ReportShelterComment
         fields = ["reporter", "comment", "category", "other_info", "status",
                   "action_taken", "creation_date"]
-
+        
+class ReportShelterCommentDetailSerializer(ModelSerializer):
+    class Meta:
+        model = ReportShelterComment
+        fields = ["reporter", "comment", "category", "other_info", "status",
+                  "action_taken", "adm_other_info", "creation_date"]
 
 class ReportAppCommentSerializer(ModelSerializer):
     class Meta:
@@ -63,9 +68,20 @@ class ReportAppCommentSerializer(ModelSerializer):
         fields = ["reporter", "comment", "category", "other_info", "status",
                   "action_taken", "creation_date"]
         
+class ReportAppCommentDetailSerializer(ModelSerializer):
+    class Meta:
+        model = ReportApplicationComment
+        fields = ["reporter", "comment", "category", "other_info", "status",
+                  "action_taken", "adm_other_info", "creation_date"]
 
 class ReportPetListingSerializer(ModelSerializer):
     class Meta:
         model = ReportPetListing
         fields = ["reporter", "pet_listing", "category", "other_info", "status",
                   "action_taken", "creation_date"]
+
+class ReportPetListingDetailSerializer(ModelSerializer):
+    class Meta:
+        model = ReportPetListing
+        fields = ["reporter", "pet_listing", "category", "other_info", "status",
+                  "action_taken", "adm_other_info", "creation_date"]

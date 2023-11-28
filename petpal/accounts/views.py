@@ -11,7 +11,8 @@ from rest_framework.pagination import PageNumberPagination
 import os
 
 from .serializers import AccountSerializer, ReportShelterCommentSerializer, \
-    ReportAppCommentSerializer, ReportPetListingSerializer
+    ReportAppCommentSerializer, ReportPetListingSerializer, ReportShelterCommentDetailSerializer, \
+    ReportAppCommentDetailSerializer, ReportPetListingDetailSerializer
 from .models import User
 from moderation.models import ReportApplicationComment, \
     ReportShelterComment, ReportPetListing
@@ -30,7 +31,7 @@ class ReportAccessPermission(BasePermission):
         return True
     
     def has_object_permission(self, request, view, obj):
-        if not request.user.is_authenticated:
+        if request.user.is_authenticated:
             if obj.reporter != request.user:
                 raise PermissionDenied("Only the account that made this report has access")
             return True
@@ -95,7 +96,7 @@ class AppCommentReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        reports = ReportApplicationComment.filter(commenter=request.user).all()
+        reports = ReportApplicationComment.objects.filter(comment__id=request.user.id).all()
 
         if 'category' in request.data:
             category = request.data['category']
@@ -123,7 +124,7 @@ class AppCommentReportView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class AppCommentReportDetailView(APIView):
-    serializer_class = ReportAppCommentSerializer
+    serializer_class = ReportAppCommentDetailSerializer
     lookup_field = 'report_id'
     permission_classes = [ReportAccessPermission]
 
@@ -139,7 +140,7 @@ class ShelterCommentReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        reports = ReportShelterComment.filter(commenter=request.user).all()
+        reports = ReportShelterComment.objects.filter(comment__id=request.user.id).all()
 
         if 'category' in request.data:
             category = request.data['category']
@@ -167,7 +168,7 @@ class ShelterCommentReportView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ShelterCommentReportDetailView(APIView):
-    serializer_clsas = ReportShelterCommentSerializer
+    serializer_class = ReportShelterCommentDetailSerializer
     lookup_field = 'report_id'
     permission_classes = [ReportAccessPermission]
 
@@ -183,7 +184,7 @@ class PetListingReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        reports = ReportPetListing.filter(commenter=request.user).all()
+        reports = ReportPetListing.objects.filter(pet_listing__id=request.user.id).all()
 
         if 'category' in request.data:
             category = request.data['category']
@@ -211,7 +212,7 @@ class PetListingReportView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PetListingReportDetailView(APIView):
-    serializer_class = ReportPetListingSerializer
+    serializer_class = ReportPetListingDetailSerializer
     lookup_field = 'report_id'
     permission_classes = [ReportAccessPermission]
 

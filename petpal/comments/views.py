@@ -30,10 +30,10 @@ class ReportPermissions(BasePermission):
         if request.user.is_authenticated:
             if obj.commenter == request.user:
                 raise PermissionDenied("You cannot report your own comment")
-            if isinstance(obj, ReportShelterComment):
+            if isinstance(obj, ShelterComment):
                 if len(request.user.report_shelter_comments.filter(comment_id=obj.id)) != 0:
                     raise PermissionDenied("You have already reported this comment")
-            elif isinstance(obj, ReportApplicationComment):
+            elif isinstance(obj, ApplicationComment):
                 if len(request.user.report_application_comments.filter(comment_id=obj.id)) != 0:
                     raise PermissionDenied("You have already reported this comment")
             return True

@@ -23,9 +23,15 @@ PET_LISTING_CATEGORIES = [
 ]
 
 STATUSES = [
-    ("action_taken", "Action Taken"),
+    ("processed", "Processed"),
     ("pending", "Pending"),
-    ("no_action_taken", "No Action Taken")
+]
+
+ACTIONS = [
+    ("null", "Null"),
+    ("no_action_taken", "No Action Taken"),
+    ("warning_issued", "Warning Issued"),
+    ("banned", "Banned")
 ]
 
 class ReportShelterComment(models.Model):
@@ -34,7 +40,8 @@ class ReportShelterComment(models.Model):
     category = models.CharField(max_length=50, choices=COMMENT_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
-    action_taken = models.CharField(max_length=100, null=True)
+    action_taken = models.CharField(max_length=50, default="null", choices=ACTIONS)
+    adm_other_info = models.CharField(max_length=200, blank=True, null=True)
     action_time = models.DateTimeField(auto_now=True)
     creation_date = models.DateField(auto_now_add=True)
 
@@ -45,7 +52,8 @@ class ReportApplicationComment(models.Model):
     category = models.CharField(max_length=50, choices=COMMENT_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
-    action_taken = models.CharField(max_length=100, null=True)
+    action_taken = models.CharField(max_length=50, default="null", choices=ACTIONS)
+    adm_other_info = models.CharField(max_length=200, blank=True, null=True)
     action_time = models.DateTimeField(auto_now=True)
     creation_date = models.DateField(auto_now_add=True)
 
@@ -56,6 +64,7 @@ class ReportPetListing(models.Model):
     category = models.CharField(max_length=50, choices=PET_LISTING_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)
     status = models.CharField(default="pending", max_length=50, choices=STATUSES)
-    action_taken = models.CharField(max_length=100, null=True)
+    action_taken = models.CharField(max_length=50, default="null", choices=ACTIONS)
+    adm_other_info = models.CharField(max_length=200, blank=True)
     action_time = models.DateTimeField(auto_now=True)
     creation_date = models.DateField(auto_now_add=True)
