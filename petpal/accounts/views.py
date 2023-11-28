@@ -90,7 +90,7 @@ class GetAccountView(RetrieveAPIView):
             validated_seekers = all_seekers.filter(applications__shelter=self.request.user, applications__status='pending')
             return all_shelters | validated_seekers
 
-class ApplicationCommentReportView(APIView):
+class AppCommentReportView(APIView):
     serializer_class = ReportAppCommentSerializer
     permission_classes = [IsAuthenticated]
 
@@ -122,7 +122,7 @@ class ApplicationCommentReportView(APIView):
         serializer = self.serializer_class(reports, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-class ApplicationCommentReportDetailView(APIView):
+class AppCommentReportDetailView(APIView):
     serializer_class = ReportAppCommentSerializer
     lookup_field = 'report_id'
     permission_classes = [ReportAccessPermission]

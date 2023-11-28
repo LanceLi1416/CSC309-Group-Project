@@ -18,7 +18,7 @@ class AdmReportShelterCommentSerializer(serializers.Serializer):
         return instance
 
 
-class AdmReportApplicationCommentSerializer(serializers.ModelSerializer):
+class AdmReportAppCommentSerializer(serializers.ModelSerializer):
     read_only_fields = ["reporter", "comment", "category", "creation_date"]
 
     class Meta:

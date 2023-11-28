@@ -7,7 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from django.shortcuts import get_object_or_404
 
-from .serializers import AdmReportApplicationCommentSerializer, \
+from .serializers import AdmReportAppCommentSerializer, \
     AdmReportShelterCommentSerializer, AdmReportPetListingSerializer
 
 from moderation.models import ReportShelterComment, \
@@ -85,8 +85,8 @@ class AdmShelterCommentsReportDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AdmApplicationCommentsReportView(APIView):
-    serializer_class = AdmReportApplicationCommentSerializer
+class AdmAppCommentsReportView(APIView):
+    serializer_class = AdmReportAppCommentSerializer
     permission_classes = [AdminPermission]
 
     def post(self, request):
@@ -118,8 +118,8 @@ class AdmApplicationCommentsReportView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class AdmApplicationCommentsReportDetailView(APIView):
-    serializer_class = AdmReportApplicationCommentSerializer
+class AdmAppCommentsReportDetailView(APIView):
+    serializer_class = AdmReportAppCommentSerializer
     lookup_field = 'report_id'
     permission_classes = [AdminPermission]
 
