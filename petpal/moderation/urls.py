@@ -16,5 +16,5 @@ urlpatterns = [
     path('reports/application_comments/<int:report_id>/',
          AdmAppCommentsReportDetailView.as_view(),name='application_comments_reports'),
     path('reports/pet_listings/<int:report_id>/',
-         AdmPetListingReportView.as_view(), name='pet_listings_reports')
+         AdmPetListingReportDetailView.as_view(), name='pet_listings_reports')
 ]

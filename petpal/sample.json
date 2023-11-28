@@ -485,6 +485,7 @@
         "pk": 8,
         "fields": {
             "username": "thirduser@me.com",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Third",
             "last_name": "User",
             "is_seeker": true,
