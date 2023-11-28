@@ -60,6 +60,7 @@ python3 manage.py makemigrations pet_listings
 python3 manage.py makemigrations applications
 python3 manage.py makemigrations comments
 python3 manage.py makemigrations notifications
+python3 manage.py makemigrations moderation
 python3 manage.py migrate
 
 # Load sample data
