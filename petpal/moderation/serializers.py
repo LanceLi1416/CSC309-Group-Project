@@ -122,6 +122,11 @@ class AdmReportPetListingDetailSerializer(serializers.ModelSerializer):
             if shelter.score >= 3:
                 shelter.is_active = False
                 shelter.save()
+                shelter.pet_listings.update(status="removed_by_admin")
+                shelter.pet_listings.applications.update(status="removed_by_admin") # TODO: Ensure that save doesn't need to be called
+                # Need to ensure that applications cannot be submitted to this pet listing
+                # Ensure that neither pet listing or application can be deleted past this
+                # TODO: Do things for related pet listings / applications, ensure that they cannot be edited
         elif action_taken == "banned":
             shelter_id = instance.pet_listing.shelter.id
             shelter = User.objects.get(id=shelter_id)

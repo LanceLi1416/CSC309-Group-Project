@@ -112,6 +112,12 @@ class PetListingSerializer(serializers.Serializer):
         return adoption
 
     def update(self, instance, validated_data):
+        status = validated_data.get('status')
+        if status == 'removed_by_admin':
+            raise serializers.ValidationError({"status": "This status cannot be set by the pet shelter"})
+        elif status is not None:
+            instance.status = validated_data.get('status')
+
         pet = instance.pet
 
         if validated_data.get('pet'):
@@ -191,8 +197,6 @@ class PetListingSerializer(serializers.Serializer):
                 owner.birthday = validated_data['owner'].get('birthday')
             owner.save()
 
-        if validated_data.get('status'):
-            instance.status = validated_data.get('status')
         instance.save()
 
         return instance

@@ -36,11 +36,15 @@ class ApplicationsView(APIView):
         old_app = get_object_or_404(Application, pk=request.data['id'])
         if old_app.seeker != request.user and old_app.shelter != request.user:
             return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you are not authorized to update this application'})
+        elif old_app.status == 'removed_by_admin':
+            return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you are not authorized to update this application'})
         serializer = self.serializer_class(old_app, data=request.data, partial=True)
         if serializer.is_valid():
             # status is the only field that can be updated, everything else is read-only
             if 'status' in serializer.validated_data:
                 new_status = serializer.validated_data['status']
+                if new_status == 'removed_by_admin':
+                    return Response(status=status.HTTP_403_FORBIDDEN, data={'error': })
                 user = request.user
                 if user.username == old_app.seeker.username:
                     if not (old_app.status in {'pending', 'accepted'} and new_status == 'withdrawn'):

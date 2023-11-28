@@ -24,7 +24,7 @@ class ApplicationSerializer(ModelSerializer):
         validated_data['seeker'] = seeker
 
         pet_listing = validated_data['pet_listing']
-        if pet_listing.status != 'available':
+        if pet_listing.status != 'available' or pet_listing.status == 'removed_by_admin':
             raise ValidationError({'pet_listing': 'pet listing is not available'})
 
         shelter = pet_listing.shelter
