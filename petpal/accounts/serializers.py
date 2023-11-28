@@ -2,6 +2,8 @@ from rest_framework.serializers import ModelSerializer, ValidationError
 from PIL import Image
 from io import BytesIO
 from .models import User
+from moderation.models import ReportShelterComment, \
+    ReportApplicationComment, ReportPetListing
 
 import os
 
@@ -46,3 +48,24 @@ class AccountSerializer(ModelSerializer):
         
         instance.save()
         return instance
+    
+
+class ReportShelterCommentSerializer(ModelSerializer):
+    class Meta:
+        model = ReportShelterComment
+        fields = ["reporter", "comment", "category", "other_info", "status",
+                  "action_taken", "creation_date"]
+
+
+class ReportAppCommentSerializer(ModelSerializer):
+    class Meta:
+        model = ReportApplicationComment
+        fields = ["reporter", "comment", "category", "other_info", "status",
+                  "action_taken", "creation_date"]
+        
+
+class ReportPetListingSerializer(ModelSerializer):
+    class Meta:
+        model = ReportPetListing
+        fields = ["reporter", "pet_listing", "category", "other_info", "status",
+                  "action_taken", "creation_date"]

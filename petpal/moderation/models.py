@@ -1,6 +1,7 @@
 from django.db import models
 
-from comments.models import *
+from comments.models import ShelterComment, \
+    ApplicationComment, User
 from pet_listings.models import PetListing # TODO May get circular import error
 
 COMMENT_CATEGORIES = [
@@ -50,7 +51,7 @@ class ReportApplicationComment(models.Model):
 
 
 class ReportPetListing(models.Model):
-    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_pet_listing")
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="report_pet_listings")
     pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE, related_name="pet_listing_reports")
     category = models.CharField(max_length=50, choices=PET_LISTING_CATEGORIES)
     other_info = models.CharField(max_length=200, blank=True)

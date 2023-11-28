@@ -11,6 +11,7 @@ from .serializers import ShelterCommentSerializer, ApplicationCommentSerializer,
 from accounts.models import User
 from .models import ShelterComment, ApplicationComment
 from applications.models import Application
+from moderation.models import ReportApplicationComment, ReportShelterComment
 from rest_framework.generics import ListCreateAPIView, CreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
@@ -29,6 +30,12 @@ class ReportPermissions(BasePermission):
         if request.user.is_authenticated:
             if obj.commenter == request.user:
                 raise PermissionDenied("You cannot report your own comment")
+            if isinstance(obj, ReportShelterComment):
+                if len(request.user.report_shelter_comments.filter(comment_id=obj.id)) != 0:
+                    raise PermissionDenied("You have already reported this comment")
+            elif isinstance(obj, ReportApplicationComment):
+                if len(request.user.report_application_comments.filter(comment_id=obj.id)) != 0:
+                    raise PermissionDenied("You have already reported this comment")
             return True
         raise AuthenticationFailed("Authentication Required")
 

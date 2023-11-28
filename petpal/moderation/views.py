@@ -7,7 +7,11 @@ from rest_framework.pagination import PageNumberPagination
 
 from django.shortcuts import get_object_or_404
 
-from .serializers import *
+from .serializers import AdmReportApplicationCommentSerializer, \
+    AdmReportShelterCommentSerializer, AdmReportPetListingSerializer
+
+from moderation.models import ReportShelterComment, \
+    ReportApplicationComment, ReportPetListing
 
 
 class AdminPermission(BasePermission):
@@ -27,11 +31,40 @@ class AdminPermission(BasePermission):
     #     raise AuthenticationFailed("Authentication Required")
     
 
-class ShelterCommentsReportView(APIView):
-    pass
+class AdmShelterCommentsReportView(APIView):
+    serializer_class = AdmReportShelterCommentSerializer
+    permission_classes = [AdminPermission]
+
+    def post(self, request):
+        reports = ReportShelterComment.objects.all()
+
+        if 'category' in request.data:
+            category = request.data['category']
+            if category != [] and category != "":
+                reports = reports.filter(reports__category__in=category)
+        
+        if 'status' in request.data:
+            status = request.data['status']
+            if status != [] and status != "":
+                reports = reports.filter(reports__status__in=status)
+
+        if 'most_recent' in request.data:
+            reports = reports.order_by('-creation-date')
+        else:
+            reports = reports.order_by('creation_date')
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        paginated_reports = paginator.paginate_queryset(reports, request)
+
+        if paginated_reports is not None:
+            serializer = self.serializer_class(paginated_reports, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(reports, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class ShelterCommentsReportDetailView(APIView):
+class AdmShelterCommentsReportDetailView(APIView):
     serializer_class = AdmReportShelterCommentSerializer
     lookup_field = 'report_id'
     permission_classes = [AdminPermission]
@@ -43,6 +76,8 @@ class ShelterCommentsReportDetailView(APIView):
     
     def put(self, request, report_id):
         report = get_object_or_404(ReportShelterComment, id=report_id)
+        if report.action_taken != "pending":
+            raise PermissionDenied("This report has already been processed")
         serializer = self.serializer_class(report)
         if serializer.is_valid():
             serializer.save()
@@ -50,7 +85,7 @@ class ShelterCommentsReportDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ApplicationCommentsReportView(APIView):
+class AdmApplicationCommentsReportView(APIView):
     serializer_class = AdmReportApplicationCommentSerializer
     permission_classes = [AdminPermission]
 
@@ -83,7 +118,7 @@ class ApplicationCommentsReportView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class ApplicationCommentsReportDetailView(APIView):
+class AdmApplicationCommentsReportDetailView(APIView):
     serializer_class = AdmReportApplicationCommentSerializer
     lookup_field = 'report_id'
     permission_classes = [AdminPermission]
@@ -95,6 +130,8 @@ class ApplicationCommentsReportDetailView(APIView):
     
     def put(self, request, report_id):
         report = get_object_or_404(ReportApplicationComment, id=report_id)
+        if report.action_taken != "pending":
+            raise PermissionDenied("This report has already been processed")
         serializer = self.serializer_class(report)
         if serializer.is_valid():
             serializer.save()
@@ -102,11 +139,40 @@ class ApplicationCommentsReportDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class PetListingReportView(APIView):
-    pass
+class AdmPetListingReportView(APIView):
+    serializer_class = AdmReportPetListingSerializer
+    permission_classes = [AdminPermission]
+
+    def post(self, request):
+        reports = ReportPetListing.objects.all()
+
+        if 'category' in request.data:
+            category = request.data['category']
+            if category != [] and category != "":
+                reports = reports.filter(reports__category__in=category)
+        
+        if 'status' in request.data:
+            status = request.data['status']
+            if status != [] and status != "":
+                reports = reports.filter(reports__status__in=status)
+        
+        if 'most_recent' in request.data:
+            reports = reports.order_by('-creation_date')
+        else:
+            reports = reports.order_by('creation_date')
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        paginated_reports = paginator.paginate_queryset(reports, request)
+
+        if paginated_reports is not None:
+            serializer = self.serializer_class(paginated_reports, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(reports, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class PetListingReportDetailView(APIView):
+class AdmPetListingReportDetailView(APIView):
     serializer_class = AdmReportPetListingSerializer
     lookup_field = 'report_id'
     permission_classes = [AdminPermission]
@@ -118,6 +184,8 @@ class PetListingReportDetailView(APIView):
     
     def put(self, request, report_id):
         report = get_object_or_404(ReportPetListing, id=report_id)
+        if report.action_taken != "pending":
+            raise PermissionDenied("This report has already been processed")
         serializer = self.serializer_class(report)
         if serializer.is_valid():
             serializer.save()

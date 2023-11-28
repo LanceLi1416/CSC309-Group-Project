@@ -21,11 +21,10 @@ class ReportPermissions(BasePermission):
         return True
     
     def has_object_permission(self, request, view, obj):
-        # TODO: Cannot report the same listing more than once
         if request.user.is_authenticated:
             if obj.shelter == request.user:
                 raise PermissionDenied("You cannot report your own pet listing")
-            elif len(request.user.report_pet_listing.filter(pet_listing_id=obj.id)) != 0:
+            elif len(request.user.report_pet_listings.filter(pet_listing_id=obj.id)) != 0:
                 raise PermissionDenied("You have already reported this pet listing")
             return True
         raise AuthenticationFailed("Authentication Required")
@@ -207,7 +206,6 @@ class ReportPetListingView(APIView):
     permission_classes = [ReportPermissions]
 
     def post(self, request, pet_listing_id):
-        print(request.user.report_pet_listing.all())
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
         permission = ReportPermissions()
         permission.has_object_permission(request, self, pet_listing)

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from .models import *
+from .models import ReportApplicationComment, \
+    ReportShelterComment, ReportPetListing
 
 class AdmReportShelterCommentSerializer(serializers.Serializer):
     read_only_fields = ["reporter", "comment", "category", "creation_date"]
