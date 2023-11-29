@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import generateNavigationLink from "../../utils/generateNavigationLink";
 import formatDateTimeString from "../../utils/formatDateTimeString";
-import {useNotificationContext} from "../../contexts/NotificationContext";
+import {useNotificationContext} from "../../context/NotificationContext";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 

@@ -10,7 +10,7 @@ import Register from './pages/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Notifications from "./pages/Notifications";
-import {NotificationProvider} from "./contexts/NotificationContext";
+import {NotificationProvider} from "./context/NotificationContext";
 
 export default function App() {
     return (<NotificationProvider>

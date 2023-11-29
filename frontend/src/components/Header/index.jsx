@@ -7,7 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import generateNavigationLink from "../../utils/generateNavigationLink";
-import {useNotificationContext} from "../../contexts/NotificationContext";
+import {useNotificationContext} from "../../context/NotificationContext";
 import './style.css';
 
 export const Header = () => {
