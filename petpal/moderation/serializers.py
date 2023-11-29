@@ -26,8 +26,18 @@ class AdmReportShelterCommentDetailSerializer(serializers.ModelSerializer):
         instance.action_taken = action_taken
         instance.save()
 
+        # TODO: Remove all these comments lol
+        # Need to ensure that applications cannot be submitted to this pet listing
+        # pet listing should not appear in search and should not be viewable
+        # Ensure that neither pet listing or application can be deleted past this or edited
+        # Shouldn't be able to report deleted pet listings / comments
+        # TODO: Don't send notifs to banned user for comments
+        # Update applications if seeker and update pet listings and corresponding apps if shelter
+
         # TODO: SEND NOTIFICATION TO BOTH USERS INVOLVED
         if action_taken == "warning_issued":
+            instance.comment = "[Comment Deleted]"
+            instance.admin_deleted = True
             commenter_id = instance.comment.commenter.id
             commenter = User.objects.get(id=commenter_id)
             commenter.score = commenter.score + 1
@@ -35,11 +45,23 @@ class AdmReportShelterCommentDetailSerializer(serializers.ModelSerializer):
             if commenter.score >= 3:
                 commenter.is_active = False
                 commenter.save()
+                if commenter.is_seeker:
+                    commenter.applications.update(status="removed_by_admin")
+                else:
+                    commenter.pet_listings.update(status="removed_by_admin")
+                    commenter.pet_listings.applications.update(status="removed_by_admin")
         elif action_taken == "banned":
+            instance.comment = "[Comment Deleted]"
+            instance.admin_deleted = True
             commenter_id = instance.comment.commenter.id
             commenter = User.objects.get(id=commenter_id)
             commenter.is_active = False
             commenter.save()
+            if commenter.is_seeker:
+                commenter.applications.update(status="removed_by_admin")
+            else:
+                commenter.pet_listings.update(status="removed_by_admin")
+                commenter.pet_listings.applications.update(status="removed_by_admin")
 
         return instance
 
@@ -71,14 +93,10 @@ class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
         instance.action_taken = action_taken
         instance.save()
 
-        # Need to ensure that applications cannot be submitted to this pet listing
-        # pet listing should not appear in search and should not be viewable
-        # Ensure that neither pet listing or application can be deleted past this or edited
-        # TODO: Do things for related pet listings / applications, ensure that they cannot be edited
-
         # TODO: SEND NOTIFICATION TO BOTH USERS INVOLVED
         if action_taken == "warning_issued":
             instance.comment = "[Comment Deleted]"
+            instance.admin_deleted = True
             commenter_id = instance.comment.commenter.id
             commenter = User.objects.get(id=commenter_id)
             commenter.score = commenter.score + 1
@@ -86,12 +104,23 @@ class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
             if commenter.score >= 3:
                 commenter.is_active = False
                 commenter.save()
-                # Update applications if seeker and update pet listings and corresponding apps if shelter
+                if commenter.is_seeker:
+                    commenter.applications.update(status="removed_by_admin")
+                else:
+                    commenter.pet_listings.update(status="removed_by_admin")
+                    commenter.pet_listings.applications.update(status="removed_by_admin")
         elif action_taken == "banned":
+            instance.comment = "[Comment Deleted]"
+            instance.admin_deleted = True
             commenter_id = instance.comment.commenter.id
             commenter = User.objects.get(id=commenter_id)
             commenter.is_active = False
             commenter.save()
+            if commenter.is_seeker:
+                commenter.applications.update(status="removed_by_admin")
+            else:
+                commenter.pet_listings.update(status="removed_by_admin")
+                commenter.pet_listings.applications.update(status="removed_by_admin")
 
         return instance
 

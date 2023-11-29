@@ -24,6 +24,8 @@ class ReportPermissions(BasePermission):
         if request.user.is_authenticated:
             if obj.shelter == request.user:
                 raise PermissionDenied("You cannot report your own pet listing")
+            elif obj.status == "removed_by_admin":
+                raise PermissionDenied("This pet listing has already been removed and cannot be reported")
             elif len(request.user.report_pet_listings.filter(pet_listing_id=obj.id)) != 0:
                 raise PermissionDenied("You have already reported this pet listing")
             return True

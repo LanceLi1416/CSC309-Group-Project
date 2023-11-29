@@ -30,6 +30,8 @@ class ReportPermissions(BasePermission):
         if request.user.is_authenticated:
             if obj.commenter == request.user:
                 raise PermissionDenied("You cannot report your own comment")
+            elif obj.status == "removed_by_admin":
+                raise PermissionDenied("This comment has already been removed and cannot be reported")
             if isinstance(obj, ShelterComment):
                 if len(request.user.report_shelter_comments.filter(comment_id=obj.id)) != 0:
                     raise PermissionDenied("You have already reported this comment")
