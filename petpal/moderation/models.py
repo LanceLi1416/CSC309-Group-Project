@@ -10,7 +10,7 @@ COMMENT_CATEGORIES = [
     ("child_abuse", "Child Abuse"),
     ("violence", "Violence"),
     ("hate_speech", "Hate Speech"),
-    ("harrassment", "Harrassment"),
+    ("harassment", "Harassment"),
     ("misinformation", "Misinformation"),
     ("other", "Other")
 ]

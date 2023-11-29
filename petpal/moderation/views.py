@@ -51,7 +51,8 @@ class AdmShelterCommentsReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
 
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation_date')
+            if request.data['most_recent']:
+                reports = reports.order_by('-creation_date')
         else:
             reports = reports.order_by('creation_date')
 
@@ -105,7 +106,8 @@ class AdmAppCommentsReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
 
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation_date') # TODO: Check that this is correct order
+            if request.data['most_recent']:
+                reports = reports.order_by('-creation_date') # TODO: Check that this is correct order
         else:
             reports = reports.order_by('creation_date')
 
@@ -159,7 +161,8 @@ class AdmPetListingReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
         
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation_date')
+            if request.data['most_recent']:
+                reports = reports.order_by('-creation_date')
         else:
             reports = reports.order_by('creation_date')
 
