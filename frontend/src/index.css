@@ -29,12 +29,6 @@ code {
 }
 
 /* Bootstrap Re-Definition ********************************************************************************************/
-.nav-link:hover,
-.nav-link:focus {
-	color: var(--bs-nav-link-hover-color);
-	font-weight: var(--bs-nav-link-hover-font-weight);
-}
-
 hr {
 	margin: 0;
 	color: inherit;

@@ -15,7 +15,11 @@ const Footer = () => {
     if (isLoggedIn) {
         // Check if the user is a pet shelter
         const user = JSON.parse(localStorage.getItem('user'));
-        if (user.is_seeker === false) bgClass = "bg-success";
+        try {
+            if (user.is_seeker === false) bgClass = "bg-success";
+        } catch (e) {
+            // Do nothing
+        }
     }
 
     return (<footer

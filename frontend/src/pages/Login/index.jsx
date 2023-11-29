@@ -41,9 +41,10 @@ function Login() {
                 }
             }).then((response) => {
                 localStorage.setItem('user', JSON.stringify(response.data));
-            })
-
-            window.location.href = "/"; // TODO: navigate('/'); with forced refresh?
+                window.location.href = "/"; // TODO: navigate('/'); with forced refresh?
+            }).catch((error) => {
+                console.log(error);
+            });
         }).catch((error) => {
             // console.log(error.response.data.detail);
             setLoginError('Login failed: ' + error.response.data.detail);
