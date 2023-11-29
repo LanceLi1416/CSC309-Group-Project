@@ -4,7 +4,25 @@ from .models import Application
 class ApplicationSerializer(ModelSerializer):
     class Meta:
         model = Application
-        fields = ['id', 'seeker', 'shelter', 'pet_listing', 'status', 'creation_date', 'last_modified']
+        fields = [
+            'id', 
+            'seeker', 
+            'shelter', 
+            'pet_listing', 
+            'status', 
+            'creation_date', 
+            'last_modified',
+            'email',
+            'first_name',
+            'last_name',
+            'birthday',
+            'address',
+            'phone',
+            'income',
+            'experience',
+            'current_pets',
+            'availability'
+        ]
         extra_kwargs = {
             'seeker': {'read_only': True},
             'shelter': {'read_only': True},
