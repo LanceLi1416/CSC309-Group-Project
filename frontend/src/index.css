@@ -76,6 +76,10 @@ p {
 	height: 16px;
 }
 
+.invert {
+	filter: invert(100%);
+}
+
 .image-wrapper {
 	max-width: 200px;
 	max-height: 200px;
@@ -285,7 +289,7 @@ textarea {
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
 	}
-	
+
 	#filter {
         display: none;
     }
@@ -331,7 +335,7 @@ textarea {
 		grid-template-columns: 1fr;
 		row-gap: 32px;
 	}
-	
+
 	.sidebar-info {
 		position: static;
 		width: 100%;
