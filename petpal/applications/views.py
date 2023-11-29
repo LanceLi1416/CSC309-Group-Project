@@ -75,7 +75,7 @@ class ApplicationsView(APIView):
             applications = Application.objects.filter(seeker=request.user)
         else: 
             # shelters can only view their own applications, not that of other shelters
-            applications = Application.objects.filter(shelter=request.user)
+            applications = Application.objects.filter(shelter=request.user).exclude(status="removed_by_admin")
         
         if 'filters' in request.data:
             filters = request.data['filters']
@@ -122,4 +122,4 @@ class GetApplicationView(RetrieveAPIView):
         if self.request.user.is_seeker:
             return Application.objects.filter(seeker=self.request.user)
         else:
-            return Application.objects.filter(shelter=self.request.user)
+            return Application.objects.filter(shelter=self.request.user).exclude("removed_by_admin")
