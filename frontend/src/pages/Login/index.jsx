@@ -13,7 +13,7 @@ import {jwtDecode} from "jwt-decode";
 
 function Login() {
     const [loginError, setLoginError] = useState(null);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
     const submitHandler = (values) => {
@@ -41,10 +41,9 @@ function Login() {
                 }
             }).then((response) => {
                 localStorage.setItem('user', JSON.stringify(response.data));
-            }).catch((error) => {
-                // console.log(error.response.data.detail);
-            });
-            navigate("/");
+            })
+
+            window.location.href = "/"; // TODO: navigate('/'); with forced refresh?
         }).catch((error) => {
             // console.log(error.response.data.detail);
             setLoginError('Login failed: ' + error.response.data.detail);
