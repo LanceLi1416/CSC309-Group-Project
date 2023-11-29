@@ -47,6 +47,9 @@ class AdmReportShelterCommentDetailSerializer(serializers.ModelSerializer):
             comment.save()
 
             commenter = User.objects.get(id=instance.comment.commenter_id)
+            if not commenter.is_active:
+                return instance
+            
             if action_taken == "warning_issued":
                 commenter.score = commenter.score + 1
                 commenter.save()
@@ -131,6 +134,9 @@ class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
             comment.save()
 
             commenter = User.objects.get(id=instance.comment.commenter_id)
+            if not commenter.is_active:
+                return instance
+
             if action_taken == "warning_issued":
                 commenter.score = commenter.score + 1
                 commenter.save()
@@ -191,5 +197,9 @@ class AdmReportPetListingDetailSerializer(serializers.ModelSerializer):
             if action_taken == "banned" or shelter.score >= 3:
                 shelter.is_active = False
                 shelter.save()
+                pet_listings = PetListing.objects.filter(shelter_id=instance.pet_listing.shelter_id)
+                pet_listings.update(status="removed_by_admin")
+                Application.objects.filter(pet_listing_id__in=pet_listings)\
+                    .exclude(status="removed_by_admin").update(status="removed_by_admin")
 
         return instance
