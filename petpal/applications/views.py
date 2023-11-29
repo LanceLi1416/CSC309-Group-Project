@@ -44,7 +44,8 @@ class ApplicationsView(APIView):
             if 'status' in serializer.validated_data:
                 new_status = serializer.validated_data['status']
                 if new_status == 'removed_by_admin':
-                    return Response(status=status.HTTP_403_FORBIDDEN, data={'error': })
+                    return Response(status=status.HTTP_403_FORBIDDEN, 
+                                    data={'status': 'This status cannot be set by a pet seeker'})
                 user = request.user
                 if user.username == old_app.seeker.username:
                     if not (old_app.status in {'pending', 'accepted'} and new_status == 'withdrawn'):

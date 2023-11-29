@@ -71,8 +71,14 @@ class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
         instance.action_taken = action_taken
         instance.save()
 
+        # Need to ensure that applications cannot be submitted to this pet listing
+        # pet listing should not appear in search and should not be viewable
+        # Ensure that neither pet listing or application can be deleted past this or edited
+        # TODO: Do things for related pet listings / applications, ensure that they cannot be edited
+
         # TODO: SEND NOTIFICATION TO BOTH USERS INVOLVED
         if action_taken == "warning_issued":
+            instance.comment = "[Comment Deleted]"
             commenter_id = instance.comment.commenter.id
             commenter = User.objects.get(id=commenter_id)
             commenter.score = commenter.score + 1
@@ -80,6 +86,7 @@ class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
             if commenter.score >= 3:
                 commenter.is_active = False
                 commenter.save()
+                # Update applications if seeker and update pet listings and corresponding apps if shelter
         elif action_taken == "banned":
             commenter_id = instance.comment.commenter.id
             commenter = User.objects.get(id=commenter_id)
@@ -124,13 +131,12 @@ class AdmReportPetListingDetailSerializer(serializers.ModelSerializer):
                 shelter.save()
                 shelter.pet_listings.update(status="removed_by_admin")
                 shelter.pet_listings.applications.update(status="removed_by_admin") # TODO: Ensure that save doesn't need to be called
-                # Need to ensure that applications cannot be submitted to this pet listing
-                # Ensure that neither pet listing or application can be deleted past this
-                # TODO: Do things for related pet listings / applications, ensure that they cannot be edited
         elif action_taken == "banned":
             shelter_id = instance.pet_listing.shelter.id
             shelter = User.objects.get(id=shelter_id)
             shelter.is_active = False
             shelter.save()
+            shelter.pet_listings.update(status="removed_by_admin")
+            shelter.pet_listings.applications.update(status="removed_by_admin") # TODO: Ensure that save doesn't need to be called
 
         return instance

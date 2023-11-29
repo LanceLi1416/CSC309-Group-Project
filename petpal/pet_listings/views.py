@@ -104,6 +104,8 @@ class PetListingEditView(APIView):
 
     def put(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been removed by the admin and cannot be edited")
         permission = PetListingPermissions()
         permission.has_object_permission(request, self, pet_listing)
         serializer = self.serializer_class(pet_listing, data=request.data, partial=True)
@@ -114,6 +116,8 @@ class PetListingEditView(APIView):
     
     def delete(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been reported and cannot be deleted")
         permission = PetListingPermissions()
         permission.has_object_permission(request, self, pet_listing)
         
@@ -144,6 +148,8 @@ class SearchView(APIView):
             pet_status = request.data['status']
             if pet_status == [] or pet_status == '':
                 pet_status = ['available']
+            elif "removed_by_admin" in pet_status:
+                pet_status = [status for status in pet_status if status != "removed_by_admin"]
         else:
             pet_status = ['available']
 
@@ -198,6 +204,8 @@ class SearchDetailView(APIView):
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been removed by the admin and cannot be viewed")
         serializer = self.serializer_class(pet_listing)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
