@@ -26,7 +26,6 @@ class ReportPermissions(BasePermission):
         return True
     
     def has_object_permission(self, request, view, obj):
-        # TODO: Cannot report the same comment more than once
         if request.user.is_authenticated:
             if obj.commenter == request.user:
                 raise PermissionDenied("You cannot report your own comment")
