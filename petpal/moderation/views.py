@@ -51,7 +51,7 @@ class AdmShelterCommentsReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
 
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation-date')
+            reports = reports.order_by('-creation_date')
         else:
             reports = reports.order_by('creation_date')
 

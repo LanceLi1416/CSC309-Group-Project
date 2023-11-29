@@ -96,7 +96,7 @@ class AppCommentReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        reports = ReportApplicationComment.objects.filter(comment__id=request.user.id).all()
+        reports = ReportApplicationComment.objects.filter(reporter_id=request.user.id).all()
 
         if 'category' in request.data:
             category = request.data['category']
@@ -109,7 +109,7 @@ class AppCommentReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
 
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation-date')
+            reports = reports.order_by('-creation_date')
         else:
             reports = reports.order_by('creation_date')
 
@@ -140,7 +140,7 @@ class ShelterCommentReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        reports = ReportShelterComment.objects.filter(comment__id=request.user.id).all()
+        reports = ReportShelterComment.objects.filter(reporter_id=request.user.id).all()
 
         if 'category' in request.data:
             category = request.data['category']
@@ -153,7 +153,7 @@ class ShelterCommentReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
 
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation-date')
+            reports = reports.order_by('-creation_date')
         else:
             reports = reports.order_by('creation_date')
 
@@ -184,7 +184,7 @@ class PetListingReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        reports = ReportPetListing.objects.filter(pet_listing__id=request.user.id).all()
+        reports = ReportPetListing.objects.filter(reporter_id=request.user.id).all()
 
         if 'category' in request.data:
             category = request.data['category']
@@ -197,7 +197,7 @@ class PetListingReportView(APIView):
                 reports = reports.filter(reports__status__in=status)
 
         if 'most_recent' in request.data:
-            reports = reports.order_by('-creation-date')
+            reports = reports.order_by('-creation_date')
         else:
             reports = reports.order_by('creation_date')
 

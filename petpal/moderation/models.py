@@ -18,6 +18,7 @@ COMMENT_CATEGORIES = [
 PET_LISTING_CATEGORIES = [
     ("spam", "Spam"),
     ("sexually_explicit", "Sexually Explicit Material"),
+    ("violence", "Violence"),
     ("misinformation", "Misinformation"),
     ("other", "Other")
 ]

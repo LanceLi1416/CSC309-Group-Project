@@ -23,8 +23,14 @@ class AdmReportShelterCommentDetailSerializer(serializers.ModelSerializer):
         action_taken = validated_data.get("action_taken")
         if action_taken is None or action_taken == "null":
             raise serializers.ValidationError({"action_taken": "An action must be taken"})
-        instance.action_taken = action_taken
-        instance.save()
+        if instance.comment.admin_deleted:
+            instance.action_taken = instance.comment.a_comment_reports\
+                .exclude(reporter__id=instance.reporter.id).first().action_taken
+            instance.save()
+            return instance
+        else:
+            instance.action_taken = action_taken
+            instance.save()
 
         # TODO: Remove all these comments lol
         # Need to ensure that applications cannot be submitted to this pet listing
@@ -90,8 +96,14 @@ class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
         action_taken = validated_data.get("action_taken")
         if action_taken is None or action_taken == "null":
             raise serializers.ValidationError({"action_taken": "An action must be taken"})
-        instance.action_taken = action_taken
-        instance.save()
+        if instance.comment.admin_deleted:
+            instance.action_taken = instance.comment.a_comment_reports\
+                .exclude(reporter__id=instance.reporter.id).first().action_taken
+            instance.save()
+            return instance
+        else:
+            instance.action_taken = action_taken
+            instance.save()
 
         # TODO: SEND NOTIFICATION TO BOTH USERS INVOLVED
         if action_taken == "warning_issued":
@@ -146,11 +158,17 @@ class AdmReportPetListingDetailSerializer(serializers.ModelSerializer):
         action_taken = validated_data.get("action_taken")
         if action_taken is None or action_taken == "null":
             raise serializers.ValidationError({"action_taken": "An action must be taken"})
-        instance.action_taken = action_taken
-        instance.save()
+        if instance.pet_listing.status == "removed_by_admin":
+            instance.action_taken = instance.pet_listings.pet_listing_reports\
+                .exclude(reporter__id=instance.reporter.id).first().action_taken
+            instance.save()
+            return instance
+        else:
+            instance.action_taken = action_taken
+            instance.save()
 
         # TODO: SEND NOTIFICATION TO BOTH USERS INVOLVED
-        if action_taken == "issued_warning":
+        if action_taken == "warning_issued":
             shelter_id = instance.pet_listing.shelter.id
             shelter = User.objects.get(id=shelter_id)
             shelter.score = shelter.score + 1
