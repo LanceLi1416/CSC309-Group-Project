@@ -6,7 +6,10 @@ import Home from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ShelterCommentSection from './pages/Comments';
+import ReportForm from './pages/ReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'semantic-ui-css/semantic.min.css';
 
 export default function App() {
   return (
@@ -15,6 +18,8 @@ export default function App() {
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/shelter/:shelter_id" element={<ShelterCommentSection />} />
+        <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ReportForm />} />
       </Routes>
     </BrowserRouter>
   );

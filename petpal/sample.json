@@ -350,6 +350,7 @@
         "pk": 8,
         "fields": {
             "username": "thirduser@me.com",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Third",
             "last_name": "User",
             "is_seeker": true,
@@ -644,7 +645,8 @@
             "commenter": 6,
             "comment": "This is a comment",
             "parent": null,
-            "date": "2019-04-01T05:23:39.789Z"
+            "date": "2019-04-01T05:23:39.789Z",
+            "stars": 4
         }
     },
     {
@@ -655,7 +657,8 @@
             "commenter": 7,
             "comment": "This is a different comment",
             "parent": null,
-            "date": "2021-04-01T05:23:39.789Z"
+            "date": "2021-04-01T05:23:39.789Z",
+            "stars": 3
         }
     },
     {
@@ -666,7 +669,8 @@
             "commenter": 7,
             "comment": "This is a reply to the first comment",
             "parent": 1,
-            "date": "2022-04-01T05:23:39.789Z"
+            "date": "2022-04-01T05:23:39.789Z",
+            "stars": 3
         }
     },
     {
@@ -677,7 +681,8 @@
             "commenter": 8,
             "comment": "This is also a reply to the first comment",
             "parent": 1,
-            "date": "2022-05-01T05:23:39.789Z"
+            "date": "2022-05-01T05:23:39.789Z",
+            "stars": 2
         }
     },
     {
@@ -688,7 +693,8 @@
             "commenter": 10,
             "comment": "New comment by the shelter!",
             "parent": null,
-            "date": "2022-05-01T05:23:39.789Z"
+            "date": "2022-05-01T05:23:39.789Z",
+            "stars": 5
         }
     },
     {
@@ -699,7 +705,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-06-01T05:23:39.789Z"
+            "date": "2022-06-01T05:23:39.789Z",
+            "stars": 4
         }
     },
     {
@@ -710,7 +717,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-07-13T05:23:39.789Z"
+            "date": "2022-07-13T05:23:39.789Z",
+            "stars": 1
         }
     },
     {
@@ -721,7 +729,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-08-20T05:23:39.789Z"
+            "date": "2022-08-20T05:23:39.789Z",
+            "stars": 2
         }
     },
     {
@@ -732,7 +741,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-07-19T05:23:39.789Z"
+            "date": "2022-07-19T05:23:39.789Z",
+            "stars": 4
         }
     },
     {
@@ -743,7 +753,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-07-20T05:23:39.789Z"
+            "date": "2022-07-20T05:23:39.789Z",
+            "stars": 3
         }
     },
     {
@@ -754,7 +765,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-08-01T05:23:39.789Z"
+            "date": "2022-08-01T05:23:39.789Z",
+            "stars": 3
         }
     },
     {
@@ -765,7 +777,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-09-01T05:23:39.789Z"
+            "date": "2022-09-01T05:23:39.789Z",
+            "stars": 2
         }
     },
     {
@@ -776,7 +789,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-10-01T05:23:39.789Z"
+            "date": "2022-10-01T05:23:39.789Z",
+            "stars": 3
         }
     },
     {
@@ -787,7 +801,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-11-01T05:23:39.789Z"
+            "date": "2022-11-01T05:23:39.789Z",
+            "stars": 3
         }
     },
     {
@@ -798,7 +813,8 @@
             "commenter": 8,
             "comment": "New comment",
             "parent": null,
-            "date": "2022-12-01T05:23:39.789Z"
+            "date": "2022-12-01T05:23:39.789Z",
+            "stars": 3
         }
     }
 ]

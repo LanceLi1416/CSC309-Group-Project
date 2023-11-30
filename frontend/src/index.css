@@ -350,3 +350,85 @@ textarea {
     height: 50px;
 }
 /*****************/
+/* Comments */
+
+#comment-box {
+    resize: none;
+    height: 100px;
+}
+
+#comment-section {
+    margin-top: 32px;
+    margin-left: 32px;
+    margin-right: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-group {
+    width: 100vw;
+}
+
+.comment-stars {
+    margin-top: 8px;
+}
+
+.reply-container {
+    display: inline-flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+    background-color: aquamarine;
+    padding: 6px;
+    padding-left: 12px;
+    border-radius: 4px;
+}
+
+.close-icon {
+    margin-left: 8px;
+}
+
+.submit-container {
+    display: inline-flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.review-text {
+    margin-top: 20px;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.no-hover {
+    pointer-events: none;
+}
+
+/*****************/
+/* Report */
+
+.report-icon {
+    color: grey;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.report-container {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rep-form-cont {
+    width: 80%;
+}
+
+#other-info {
+    resize: none;
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    
+}

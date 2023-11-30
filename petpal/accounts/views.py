@@ -71,3 +71,11 @@ class GetAccountView(RetrieveAPIView):
             all_seekers = User.objects.filter(is_seeker=True)
             validated_seekers = all_seekers.filter(applications__shelter=self.request.user, applications__status='pending')
             return all_shelters | validated_seekers
+
+class GetAccountForCommentsView(RetrieveAPIView):
+    serializer_class = AccountSerializer
+    permission_classes = [IsAuthenticated]
+    action = 'retrieve'
+
+    def get_queryset(self):
+        return User.objects

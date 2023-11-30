@@ -7,7 +7,7 @@ class ShelterCommentSerializer(ModelSerializer):
 
     class Meta:
         model = ShelterComment
-        fields = ['id', 'commenter', 'shelter', 'comment', 'date', 'replies']
+        fields = ['id', 'commenter', 'shelter', 'comment', 'date', 'replies', 'stars']
         extra_kwargs = {
             'date': {'read_only': True},
         }
