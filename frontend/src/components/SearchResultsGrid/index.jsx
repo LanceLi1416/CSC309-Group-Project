@@ -1,4 +1,4 @@
-function SearchResultsGrid(pet_listings) {
+function SearchResultsGrid(petListings, totalPages, setFilterParams, query) {
     // TODO: fill pet listings into the grid
 
     return <>
@@ -43,12 +43,22 @@ function SearchResultsGrid(pet_listings) {
 
         {/* Previous and Next Page */}
         <div class="d-flex justify-content-between mb-4">
-            <a class="btn btn-primary btn-md" href="">
+            { query.page < totalPages
+              ? <button onClick={() => setFilterParams({...query, page: query.page + 1})}>Next</button>
+              : <></> }
+
+            { query.page > 1
+              ? <button onClick={() => setFilterParams({...query, page: query.page - 1})}>Previous</button>
+              : <></> }
+
+
+            <p>Page {query.page} out of {totalPages}</p>
+            {/* <a class="btn btn-primary btn-md" href="">
                 <i class="bi bi-arrow-left"></i>
             </a>
             <a class="btn btn-primary btn-md" href="">
                 <i class="bi bi-arrow-right"></i>
-            </a>
+            </a> */}
         </div>
     </div>
     </>
