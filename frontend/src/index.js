@@ -12,6 +12,9 @@ import './index.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
 
+import Unauthorized from "./pages/401_Unauthorized";
+import {Forbidden} from "./pages/403_Forbidden";
+
 import Admin from "./pages/Admin";
 
 export default function App() {
@@ -24,6 +27,9 @@ export default function App() {
                 <Route exact path="/register" element={<Register/>}/>
                 <Route exact path="/notifications" element={<Notifications/>}/>
                 <Route exact path="/admin" element={<Admin/>}/>
+
+                <Route exact path="/401" element={<Unauthorized/>}/>
+                <Route exact path="/403" element={<Forbidden/>}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

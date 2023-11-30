@@ -10,9 +10,12 @@ import os
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar', 'notif_preference']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar',
+                  'notif_preference', 'is_staff', 'is_superuser']
         extra_kwargs = {
             'password': {'write_only': True},
+            'is_staff': {'read_only': True},
+            'is_superuser': {'read_only': True},
         }
 
     def create(self, validated_data):

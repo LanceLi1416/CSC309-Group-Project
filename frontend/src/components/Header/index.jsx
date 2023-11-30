@@ -184,18 +184,20 @@ export const Header = () => {
                             </button>
                             <ul className={`dropdown-menu dropdown-menu-dark bg-${bgColour}`}>
                                 <li><Link to="/profile" className="dropdown-item">View Profile</Link></li>
-                                <li><Link to="/manage-properties" className="dropdown-item">Manage
-                                    Properties</Link>
-                                </li>
+                                {/*<li><Link to="/manage-properties" className="dropdown-item">Manage Properties</Link></li>*/}
+                                {/*TODO: get is_superuser*/}
+                                {(JSON.parse(localStorage.getItem('user')).is_superuser === true) ?
+                                    <li><Link to="/admin" className="dropdown-item">Admin</Link></li> : ""}
                                 <li>
                                     <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                                 </li>
                             </ul>
                         </div>
                     </>) : (<>
-                        <Link to={"/login"} className="nav-link m-1 p-1">Log In</Link>
-                        <Link to={"/register"} className="nav-link m-1 p-1">Register</Link>
-                    </>)}
+                            <Link to={"/login"} className="nav-link m-1 p-1">Log In
+                            </Link>
+                            <Link to={"/register"} className="nav-link m-1 p-1">Register</Link>
+                        </>)}
 
                     {/* Search Box */}
                     <Form className="d-flex ps-2" role="search">
@@ -212,7 +214,8 @@ export const Header = () => {
                 </div>
             </div>
         </nav>
-    </header>);
+    </header>)
+
 }
 
 export default Header;

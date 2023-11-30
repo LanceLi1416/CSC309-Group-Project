@@ -43,12 +43,12 @@ class AdmShelterCommentsReportView(APIView):
         if 'category' in request.data:
             category = request.data['category']
             if category != [] and category != "":
-                reports = reports.filter(reports__category__in=category)
+                reports = reports.filter(category__in=category)
         
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
-                reports = reports.filter(reports__status__in=status)
+                reports = reports.filter(status__in=status)
 
         if 'most_recent' in request.data:
             if request.data['most_recent']:
@@ -98,12 +98,12 @@ class AdmAppCommentsReportView(APIView):
         if 'category' in request.data:
             category = request.data['category']
             if category != [] and category != "":
-                reports = reports.filter(reports__category__in=category)
+                reports = reports.filter(category__in=category)
 
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
-                reports = reports.filter(reports__status__in=status)
+                reports = reports.filter(status__in=status)
 
         if 'most_recent' in request.data:
             if request.data['most_recent']:
@@ -153,12 +153,12 @@ class AdmPetListingReportView(APIView):
         if 'category' in request.data:
             category = request.data['category']
             if category != [] and category != "":
-                reports = reports.filter(reports__category__in=category)
+                reports = reports.filter(category__in=category)
         
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
-                reports = reports.filter(reports__status__in=status)
+                reports = reports.filter(status__in=status)
         
         if 'most_recent' in request.data:
             if request.data['most_recent']:
