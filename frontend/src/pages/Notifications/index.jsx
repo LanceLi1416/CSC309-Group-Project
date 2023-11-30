@@ -101,30 +101,31 @@ const NotificationsPage = () => {
         </ul>
 
         {/* Pagination Controls */}
-        <div className="pagination-controls my-3 d-flex justify-content-center">
-            {/* Previous Page */}
-            <button onClick={() => setQuery({...query, page: query.page - 1})} disabled={query.page === 1}
-                    className="btn btn-secondary m-1">
-                <i className="bi bi-chevron-left"></i>
-            </button>
-            {/* Page Number */}
-            <div className="m-1">
-                Page
-                <input onChange={(e) => {
-                    if (e.target.value > 0 && e.target.value <= Math.ceil(count / 15)) {
-                        setQuery({...query, page: parseInt(e.target.value)})
-                    } else {
-                        e.target.value = query.page.toString()
-                    }
-                }} type="number" min="1" max={Math.ceil(count / 15)} value={query.page} className="m-1 rounded"/>
-                of {Math.ceil(count / 15)}
-            </div>
-            {/* Next Page */}
-            <button onClick={() => setQuery({...query, page: query.page + 1})} disabled={!hasMore}
-                    className="btn btn-secondary m-1">
-                <i className="bi bi-chevron-right"></i>
-            </button>
-        </div>
+        {count === 0 ? <div className="alert alert-info">There are no notifications to display.</div> :
+            <div className="pagination-controls my-3 d-flex justify-content-center">
+                {/* Previous Page */}
+                <button onClick={() => setQuery({...query, page: query.page - 1})} disabled={query.page === 1}
+                        className="btn btn-secondary m-1">
+                    <i className="bi bi-chevron-left"></i>
+                </button>
+                {/* Page Number */}
+                <div className="m-1">
+                    Page
+                    <input onChange={(e) => {
+                        if (e.target.value > 0 && e.target.value <= Math.ceil(count / 15)) {
+                            setQuery({...query, page: parseInt(e.target.value)})
+                        } else {
+                            e.target.value = query.page.toString()
+                        }
+                    }} type="number" min="1" max={Math.ceil(count / 15)} value={query.page} className="m-1 rounded"/>
+                    of {Math.ceil(count / 15)}
+                </div>
+                {/* Next Page */}
+                <button onClick={() => setQuery({...query, page: query.page + 1})} disabled={!hasMore}
+                        className="btn btn-secondary m-1">
+                    <i className="bi bi-chevron-right"></i>
+                </button>
+            </div>}
     </div>);
 }
 
