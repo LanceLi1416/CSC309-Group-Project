@@ -19,7 +19,6 @@ function Login() {
     const API_URL = process.env.REACT_APP_API_URL;
 
     const submitHandler = (values) => {
-        // TODO: endpoint url
         axios({
             method: "POST",
             url: API_URL + "api/token/",

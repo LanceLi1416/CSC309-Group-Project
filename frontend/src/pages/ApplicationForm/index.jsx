@@ -3,15 +3,13 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Heading from '../../components/Heading';
 import FormField from '../../components/FormField';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as formik from 'formik';
 import * as yup from 'yup';
 import axios from 'axios'
 
-function ApplicationForm() {
-    const { id } = useParams();
+function ApplicationForm({ id }) {
     const token = localStorage.getItem('access_token');
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
@@ -64,36 +62,36 @@ function ApplicationForm() {
                 }
             });
         }
-    }, [id]);
+    }, [id, token, navigate, API_URL]);
 
     // TODO: need to get the corresponding pet listing id from navigate
-    const submitHandler = (values) => {
-        const formData = {
-            "email": values.email,
-            "first_name": values.firstName,
-            "last_name": values.lastName,
-            "birthday": values.birthday,
-            "address": values.address,
-            "phone": values.phone,
-            "income": values.income,
-            "experience": values.experience,
-            "current_pets": values.current_pets,
-            "availability": values.availability,
-        }
-        axios({
-            method: "POST",
-            url: API_URL + "applications/",
-            data: formData,
-            headers: {
-                "Authorization": "Bearer " + token,
-            }
-        }).then((response) => {
-            console.log(response.data);
-            navigate("/");
-        }).catch((error) => {
-            console.log(error);
-        });
-    };
+    // const submitHandler = (values) => {
+    //     const formData = {
+    //         "email": values.email,
+    //         "first_name": values.firstName,
+    //         "last_name": values.lastName,
+    //         "birthday": values.birthday,
+    //         "address": values.address,
+    //         "phone": values.phone,
+    //         "income": values.income,
+    //         "experience": values.experience,
+    //         "current_pets": values.current_pets,
+    //         "availability": values.availability,
+    //     }
+    //     axios({
+    //         method: "POST",
+    //         url: API_URL + "applications/",
+    //         data: formData,
+    //         headers: {
+    //             "Authorization": "Bearer " + token,
+    //         }
+    //     }).then((response) => {
+    //         console.log(response.data);
+    //         navigate("/");
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     });
+    // };
 
     const { Formik } = formik;
     const phoneRegExp = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/
@@ -111,9 +109,8 @@ function ApplicationForm() {
         checkbox: yup.bool().oneOf([true], 'This must be checked'),
     });
 
-    // TODO: back button
     return (<>
-        <Heading header={id} subheader="" />
+        {/* <Heading header={id} subheader="" /> */}
         <Formik
             validationSchema={schema}
             onSubmit={console.log}
@@ -274,7 +271,7 @@ function ApplicationForm() {
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Row>
-                {id === "new" && (<Button type="submit" variant="outline-primary">Submit</Button>)}
+                {id === "new" && (<Button className="mb-4" type="submit" variant="outline-primary">Submit</Button>)}
             </Form>
         )}
         </Formik>

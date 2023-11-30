@@ -15,6 +15,7 @@ function Register() {
     // TODO: test avatar upload
     const [registerError, setRegisterError] = useState([]);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     let fieldToErrorField = {
         "username": "Email",
@@ -38,10 +39,9 @@ function Register() {
         if (values.avatar !== '') {
             formData.avatar = values.avatar;
         }
-        // TODO: endpoint url
         axios({
             method: "POST",
-            url: "http://localhost:8000/accounts/",
+            url: API_URL + "accounts/",
             data: formData
         }).then(() => {
             navigate("/login");

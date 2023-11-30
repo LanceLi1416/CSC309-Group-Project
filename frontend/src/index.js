@@ -13,6 +13,7 @@ import ApplicationForm from './pages/ApplicationForm';
 import './index.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
+import Profile from './pages/Profile';
 
 export default function App() {
   return (<NotificationProvider>
@@ -24,7 +25,8 @@ export default function App() {
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/notifications" element={<Notifications/>}/>
           <Route exact path="/applications" element={<Applications />} />
-          <Route exact path="/application/:id" element={<ApplicationForm />} />
+          <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
         <Footer/>
     </BrowserRouter>

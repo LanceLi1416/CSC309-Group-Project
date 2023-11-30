@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Row, Accordion, Dropdown, Button, Col } from 'react-bootstrap';
 import Heading from '../../components/Heading';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import formatDateTimeString from '../../utils/formatDateTimeString';
+import ApplicationForm from '../ApplicationForm';
 
 const STATUS_TO_COLOR = {
     "accepted": "success",
@@ -17,7 +19,6 @@ const TIME_OPTION_TO_DISPLAY = {
     "": ""
 };
 
-// TODO: reload page after reqBody change (in case you were on page 2 and then you filter)
 function Applications() {
     const token = localStorage.getItem('access_token');
     const navigate = useNavigate();
@@ -25,9 +26,9 @@ function Applications() {
 
     const [page, setPage] = useState(1);
     const [hasNext, setHasNext] = useState(false);
-    const [reqBody, setReqBody] = useState({});
     const [applications, setApplications] = useState([]);
-    const getApplications = (filters=[], sort="") => {
+
+    const getApplications = useCallback((filters=[], sort="", filtersUpdated=false) => {
         var newReqBody = {};
         if (filters.length > 0) {
             newReqBody.filters = filters;
@@ -36,10 +37,9 @@ function Applications() {
             newReqBody.sort = sort;
         }
         var reqUrl = API_URL + "applications/all/";
-        if (page !== 1) {
+        if (page !== 1 && !filtersUpdated) {
             reqUrl += "?page=" + page;
         }
-        setReqBody(newReqBody);
 
         axios({
             method: "POST",
@@ -54,7 +54,7 @@ function Applications() {
         }).catch((error) => {
             console.log(error);
         });
-    };
+    }, [API_URL, token, page]);
 
     useEffect(() => {
         if (token === null) {
@@ -63,23 +63,26 @@ function Applications() {
         else {
             getApplications();
         }
-    }, [token, page]);
+    }, [token, page, navigate, getApplications]);
 
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [selectedSort, setSelectedSort] = useState("");
     const handleFilterToggle = (filter) => {
         const updatedFilters = [...selectedFilters];
+        var filtersUpdated = false;
         if (updatedFilters.includes(filter)) {
-            // Filter is already selected, remove it
+            // filter is already selected, remove it
             const index = updatedFilters.indexOf(filter);
             updatedFilters.splice(index, 1);
         } else {
-            // Filter is not selected, add it
+            // filter is not selected, add it
             updatedFilters.push(filter);
+            setPage(1);
+            filtersUpdated = true;
         }
 
         setSelectedFilters(updatedFilters);
-        getApplications(updatedFilters, selectedSort);
+        getApplications(updatedFilters, selectedSort, filtersUpdated);
     };
     const handleSortChange = (sortOption) => {
         if(selectedSort === sortOption) {
@@ -93,11 +96,8 @@ function Applications() {
     };
 
     function Application({ application }) {
-        const last_modified = new Date(application.last_modified);
-        const [selectedStatus, setSelectedStatus] = useState("");
-    
+        const last_modified_string = formatDateTimeString(application.last_modified);    
         const handleStatusChange = (statusOption) => {
-            setSelectedStatus(statusOption);
             axios({
                 method: "PUT",
                 url: API_URL + "applications/",
@@ -124,13 +124,11 @@ function Applications() {
             });
         };
     
-        // TODO: fix individual application styling display
         return (
-            <Accordion.Item eventKey={application.id} className={"bg-" + STATUS_TO_COLOR[application.status]}>
-                <Accordion.Header>[{application.status.toUpperCase()}] Application last modified on {last_modified.toLocaleDateString() + " " + last_modified.toLocaleTimeString()}</Accordion.Header>
-                <Accordion.Body>
-                    <Dropdown className="mb-2 d-flex flex-row justify-content-end">
-                        <Dropdown.Toggle variant="primary" id="statusDropdown">
+            <Accordion.Item eventKey={application.id}>
+                <Accordion.Header>
+                    <Dropdown className="mx-2 d-flex flex-row justify-content-end">
+                        <Dropdown.Toggle variant={STATUS_TO_COLOR[application.status]} id="statusDropdown">
                             Status: {application.status.charAt(0).toUpperCase() + application.status.slice(1)}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -140,33 +138,20 @@ function Applications() {
                             <Dropdown.Item onClick={() => handleStatusChange('withdrawn')}>Withdrawn</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.
-                </Accordion.Body>
+                    Application last modified on {last_modified_string}
+                </Accordion.Header>
+                <Accordion.Body><ApplicationForm id={application.id}/></Accordion.Body>
             </Accordion.Item>
         );
     }
 
-    const handlePrevPage = () => {
-        if (page !== 1) {
-            setPage(page - 1);
-        }
-    }
-    const handleNextPage = () => {
-        if (hasNext) {
-            setPage(page + 1);
-        }
-    }
-
-    // TODO: fix disabled button display
     return (<>
-        <Row className="d-flex flex-row">
-            <Heading header="Applications" subheader="View your applications here." />
+        <button className="btn" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left"></i> Back
+        </button>
+
+        <Row className="mt-2 d-flex flex-row">
+            <Heading header="Applications" subheader="View your applications here!" />
             <Col className="d-flex flex-row justify-content-center justify-content-md-end">
                 <Dropdown className="mx-3">
                     <Dropdown.Toggle variant="primary" id="filterDropdown">
@@ -214,9 +199,13 @@ function Applications() {
             }
         </Accordion>
         
-        <div className="mt-4 d-flex flex-row justify-content-center">
-            <Button className="mx-2" as={Col} md="6" onClick={handlePrevPage} disabled={page === 1}>Previous Page</Button>
-            <Button className="ml-2" as={Col} md="6" onClick={handleNextPage} disabled={!hasNext}>Next Page</Button>
+        <div className="mt-3 mb-4 d-flex flex-row justify-content-center">
+            <Col md={6} className="mx-2 d-flex justify-content-end">
+                <Button onClick={() => {setPage(page - 1);}} disabled={page === 1}>{'<'}</Button>
+            </Col>
+            <Col md={6} className="mx-2 d-flex justify-content-start">
+                <Button onClick={() => {setPage(page + 1)}} disabled={!hasNext}>{'>'}</Button>
+            </Col>
         </div>
     </>);
 }
