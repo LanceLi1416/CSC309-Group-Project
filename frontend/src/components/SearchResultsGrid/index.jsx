@@ -2,6 +2,7 @@ import ResponsiveSearchFilters from "../../components/ResponsiveSearchFilters";
 import SearchFilters from "../../components/SearchFilters";
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
+import axios from 'axios';
 
 
 function to_url_params(object) {
@@ -34,23 +35,34 @@ function SearchResultsGrid() {
         shelter : filterParams.getAll("shelter") ?? [],
         status : filterParams.getAll("status") ?? [],
         gender : filterParams.getAll("gender") ?? [],
-        start_date : filterParams.get("start_date") ?? null,
-        end_date: filterParams.get("end_date") ?? null,
+        start_date : filterParams.get("start_date") ?? "",
+        end_date: filterParams.get("end_date") ?? "",
         pet_type: filterParams.getAll("pet_type") ?? [],
         sort: filterParams.get("sort") ?? "name" // TODO: Add search pet name option
     }), [ filterParams ]);
 
     console.log(query);
 
-    useEffect(() => {
-        const params = to_url_params(query);
-        fetch(`${API_URL}?${params}`)
-        .then(response => response.json())
-        .then(json => {
-            setPetListings(json.data);
-            setTotalPages(json.meta.total_pages);
-        });
-    }, [ query ]);
+    axios({
+        method: "POST",
+        url: `${API_URL}?/pet_listings/search_results/`,
+        data: query,
+    }).then(response => response.json()) // TODO
+      .then(json => {
+        setPetListings(json.data); // TODO
+        setTotalPages(json.meta.totalPages);
+    })
+
+    // useEffect(() => {
+    //     const params = to_url_params(query);
+    //     // need to post
+    //     fetch(`${API_URL}?${params}`)
+    //     .then(response => response.json())
+    //     .then(json => {
+    //         setPetListings(json.data);
+    //         setTotalPages(json.meta.total_pages);
+    //     });
+    // }, [ query ]);
 
     return <>
     <ResponsiveSearchFilters />

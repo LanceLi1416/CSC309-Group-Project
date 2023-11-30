@@ -6,35 +6,35 @@ function SearchFilters({ setFilterParams }) {
     const [ startDate, setStartDate ] = useState(null);
     const [ endDate, setEndDate ] = useState(null);
 
-    const [ petTypes, setPetTypes ] = useState([
+    const petTypes = [
         { id: "dog", value: "Dog", checked: true },
         { id: "cat", value: "Cat", checked: true },
         { id: "bird", value: "Bird", checked: true },
         { id: "other", value: "Other", checked: true }
 
-    ]);
+    ];
     // const [ dogCheckbox, setDogCheckbox ] = useState(false);
     // const [ catCheckbox, setCatCheckbox ] = useState(false);
     // const [ birdCheckbox, setBirdCheckbox ] = useState(false);
     // const [ otherCheckbox, setOtherCheckbox ] = useState(false);
     
-    const [ genders, setGenders ] = useState([
+    const genders = [
         { id: "male", value: "Male", checked: true },
         { id: "female", value: "Female", checked: true }
-    ]);
+    ];
     // const [ maleCheckbox, setMaleCheckbox ] = useState(false);
     // const [ femaleCheckbox, setFemaleCheckbox ] = useState(false);
     
     const [ shelters, setShelters ] = useState([]);
 
     
-    const [ statuses, setStatuses ] = useState([
+    const statuses = [
         { id: "available", value: "Available", checked: true },
         { id: "adopted", value: "Adopted", checked: true },
         { id: "pending", value: "Pending", checked: true },
         { id: "withdrawn", value: "Withdrawn", checked: true }
 
-    ]);
+    ];
     // const [ availableCheckbox, setAvailableCheckbox ] = useState(false);
     // const [ adoptedCheckbox, setAdoptedCheckbox ] = useState(false);
     // const [ pendingCheckbox, setPendingCheckbox ] = useState(false);
@@ -43,12 +43,46 @@ function SearchFilters({ setFilterParams }) {
     
     // const [ filterParams, setFilterParams ] = useSearchParams();
 
-    const handleSetCheckboxes = (id, lst) => {
-        for (let i = 0; i < lst.length; i++) {
-            if (lst[i].id === id) {
-                console.log(lst[i].checked);
-                lst[i].checked = !lst[i].checked;
-                console.log(lst[i].checked);
+    // const handleSetPetTypes = (id) => {
+    //     setPetTypes(petTypes.map((elem) =>
+    //                 elem.id === id ? {...elem, checked: !elem.checked} : elem));
+    // }
+
+    // const handleSetGenders = (id) => {
+    //     setGenders(genders.map((elem) =>
+    //                 elem.id === id ? {...elem, checked: !elem.checked} : elem));
+    // }
+
+    // const handleSetStatuses = (id) => {
+    //     setStatuses(genders.map((elem) =>
+    //                 elem.id === id ? {...elem, checked: !elem.checked} : elem));
+    // }
+
+    const handleSetPetTypes = (id) => {
+        for (let i = 0; i < petTypes.length; i++) {
+            if (petTypes[i].id === id) {
+                petTypes[i].checked = !petTypes[i].checked;
+
+                break;
+            }
+        }
+    }
+
+    const handleSetGenders = (id) => {
+        for (let i = 0; i < genders.length; i++) {
+            if (genders[i].id === id) {
+                console.log(genders[i]);
+                genders[i].checked = !genders[i].checked;
+                console.log(genders[i]);
+                break;
+            }
+        }
+    }
+
+    const handleSetStatuses = (id) => {
+        for (let i = 0; i < statuses.length; i++) {
+            if (statuses[i].id === id) {
+                statuses[i].checked = !statuses[i].checked;
                 break;
             }
         }
@@ -56,7 +90,6 @@ function SearchFilters({ setFilterParams }) {
 
     const toFilterParams = (lst) => {
         let filterLst = [];
-        console.log(lst);
         for (let i = 0; i < lst.length; i++) {
             if (lst[i].checked) {
                 filterLst.push(lst[i].id);
@@ -111,7 +144,7 @@ function SearchFilters({ setFilterParams }) {
                            id={type.id}
                            type="checkbox"
                            value={type.id}
-                           onChange={handleSetCheckboxes(type.id, petTypes)} />
+                           onClick={handleSetPetTypes(type.id)} />
                     <label htmlFor={type.id}>{type.value}</label><br />
                 </div>
             ))}
@@ -161,7 +194,7 @@ function SearchFilters({ setFilterParams }) {
                            id={gender.id}
                            type="checkbox"
                            value={gender.id}
-                           onChange={handleSetCheckboxes(gender.id, genders)} />
+                           onClick={handleSetGenders(gender.id)} />
                     <label htmlFor={gender.id}>{gender.value}</label>
                 </div>
                 ))}
@@ -207,7 +240,7 @@ function SearchFilters({ setFilterParams }) {
                                id={status.id}
                                type="checkbox"
                                value={status.id}
-                               onChange={handleSetCheckboxes(status.id, statuses)} />
+                               onClick={handleSetStatuses(status.id)} />
                         <label htmlFor={status.id}>{status.value}</label>
 
                     </div>
@@ -215,8 +248,8 @@ function SearchFilters({ setFilterParams }) {
 
             </div>
 
-            {/* <div className="form-check">
-                <input className="form-check-input"
+            {/* <div className="form-check"> */}
+                {/* <input className="form-check-input"
                        id="available" 
                        name="status"
                        type="checkbox" 
