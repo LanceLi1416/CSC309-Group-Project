@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Admin from "./pages/Admin";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -15,6 +17,7 @@ export default function App() {
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
