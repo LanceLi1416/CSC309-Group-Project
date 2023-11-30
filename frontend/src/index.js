@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Applications from './pages/Applications';
+import ApplicationForm from './pages/ApplicationForm';
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/applications" element={<Applications />} />
+        <Route exact path="/application/:id" element={<ApplicationForm />} />
       </Routes>
     </BrowserRouter>
   );

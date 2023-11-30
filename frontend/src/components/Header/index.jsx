@@ -1,8 +1,10 @@
+import { Col } from 'react-bootstrap';
+
 function Header({header, subheader}) {
-  return (<>
+  return (<Col>
     <h1>{header}</h1>
     <p>{subheader}</p>
-</>);
+  </Col>);
 }
 
 export default Header;
