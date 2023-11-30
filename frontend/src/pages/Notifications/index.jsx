@@ -61,9 +61,8 @@ const NotificationsPage = () => {
         }).catch((error) => {
             console.log(error);
         });
-    }, [query, notificationState]);
+    }, [query, notificationState, BASE_URL]);
 
-    const maxPage = Math.ceil(count / 15);
     return (<div>
         {/* Back Arrow */}
         <button className="btn" onClick={() => navigate(-1)}>

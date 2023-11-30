@@ -75,7 +75,7 @@ export const Header = () => {
         }).catch((error) => {
             console.log(error);
         });
-    }, [notificationState]);
+    }, [notificationState, BASE_URL, isLoggedIn]);
 
     let bgColour = "primary"
     if (isLoggedIn) {
@@ -205,7 +205,6 @@ export const Header = () => {
                                type="search"/>
                         <button onClick={handleSearch}
                                 className="btn btn-outline-light mx-2 d-flex align-items-center"
-                                role="button"
                                 type="button">
                             <i className="bi bi-search"></i>
                         </button>
