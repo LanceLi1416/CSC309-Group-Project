@@ -183,6 +183,7 @@ export const Header = () => {
                                 })()}
                             </button>
                             <ul className={`dropdown-menu dropdown-menu-dark bg-${bgColour}`}>
+                                {/* TODO: fix the profile link, need to pass in account id */}
                                 <li><Link to="/profile" className="dropdown-item">View Profile</Link></li>
                                 <li><Link to="/manage-properties" className="dropdown-item">Manage
                                     Properties</Link>

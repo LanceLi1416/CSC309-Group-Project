@@ -14,6 +14,7 @@ import './index.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
 import Profile from './pages/Profile';
+import AdoptionInfo from './pages/AdoptionInfo';
 
 export default function App() {
   return (<NotificationProvider>
@@ -26,7 +27,8 @@ export default function App() {
           <Route exact path="/notifications" element={<Notifications/>}/>
           <Route exact path="/applications" element={<Applications />} />
           <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/profile/:id" element={<Profile />} />
+          <Route exact path="/adopt" element={<AdoptionInfo />} />
         </Routes>
         <Footer/>
     </BrowserRouter>
