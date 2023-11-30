@@ -5,17 +5,14 @@ import Form from 'react-bootstrap/Form';
 import Logo from '../../components/Logo';
 import Heading from '../../components/Heading';
 import FormField from '../../components/FormField';
-// import {Link, useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
 import * as formik from 'formik';
 import * as yup from 'yup';
 import axios from 'axios'
 import {jwtDecode} from "jwt-decode";
 
-// TODO: view profile page
 function Login() {
     const [loginError, setLoginError] = useState(null);
-    // const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
     const submitHandler = (values) => {
@@ -29,7 +26,6 @@ function Login() {
         }).then((response) => {
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
-            // console.log(localStorage.getItem('access_token'));
 
             // Stores the user information in local storage
             const user_id = jwtDecode(response.data.access).user_id;
@@ -82,7 +78,7 @@ function Login() {
                 </Form>
             )}
         </Formik>
-        <div className="mt-2 text-center">
+        <div className="mt-2 mb-4 text-center">
             Don't have a PetPal account yet? <Link to="/register">Sign up</Link>.
             {loginError && <p className='error-text'>{loginError}</p>}
         </div>

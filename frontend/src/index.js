@@ -27,7 +27,7 @@ export default function App() {
           <Route exact path="/notifications" element={<Notifications/>}/>
           <Route exact path="/applications" element={<Applications />} />
           <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
-          <Route exact path="/profile/:id" element={<Profile />} />
+          <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/adopt" element={<AdoptionInfo />} />
         </Routes>
         <Footer/>
