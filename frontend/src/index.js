@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ShelterCommentSection from './pages/Comments';
+import ReportForm from './pages/ReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Applications from './pages/Applications';
 import ApplicationForm from './pages/ApplicationForm';
@@ -15,6 +17,7 @@ import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
 import Profile from './pages/Profile';
 import AdoptionInfo from './pages/AdoptionInfo';
+import 'semantic-ui-css/semantic.min.css';
 
 export default function App() {
   return (<NotificationProvider>
@@ -29,6 +32,8 @@ export default function App() {
           <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/adopt" element={<AdoptionInfo />} />
+          <Route exact path="/shelter/:shelter_id" element={<ShelterCommentSection />} />
+          <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ReportForm />} />
         </Routes>
         <Footer/>
     </BrowserRouter>
