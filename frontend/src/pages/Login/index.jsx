@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from '../../components/Logo';
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import FormField from '../../components/FormField';
 // import {Link, useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
@@ -61,7 +61,7 @@ function Login() {
 
     return (<>
         <Logo/>
-        <Header header="Welcome Back to PetPal!" subheader="Login with your email address and password."/>
+        <Heading header="Welcome Back to PetPal!" subheader="Login with your email address and password."/>
         <Formik
             validationSchema={schema}
             onSubmit={(values) => submitHandler(values)}

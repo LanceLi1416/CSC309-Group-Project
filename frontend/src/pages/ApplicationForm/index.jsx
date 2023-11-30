@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import FormField from '../../components/FormField';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as formik from 'formik';
@@ -113,7 +113,7 @@ function ApplicationForm() {
 
     // TODO: back button
     return (<>
-        <Header header={id} subheader="" />
+        <Heading header={id} subheader="" />
         <Formik
             validationSchema={schema}
             onSubmit={console.log}

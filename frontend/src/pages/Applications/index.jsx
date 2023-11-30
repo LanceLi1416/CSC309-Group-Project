@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Accordion, Dropdown, Button, Col } from 'react-bootstrap';
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
@@ -9,7 +9,13 @@ const STATUS_TO_COLOR = {
     "denied": "danger",
     "pending": "warning",
     "withdrawn": "secondary"
-}
+};
+
+const TIME_OPTION_TO_DISPLAY = {
+    "creation_date": "Creation",
+    "last_modified": "Last Modified",
+    "": ""
+};
 
 // TODO: reload page after reqBody change (in case you were on page 2 and then you filter)
 function Applications() {
@@ -76,7 +82,6 @@ function Applications() {
         getApplications(updatedFilters, selectedSort);
     };
     const handleSortChange = (sortOption) => {
-        // TODO: handle the nice display for creation_date and last_modified
         if(selectedSort === sortOption) {
             setSelectedSort("");
             getApplications(selectedFilters, "");
@@ -161,11 +166,11 @@ function Applications() {
     // TODO: fix disabled button display
     return (<>
         <Row className="d-flex flex-row">
-            <Header header="Applications" subheader="View your applications here." />
+            <Heading header="Applications" subheader="View your applications here." />
             <Col className="d-flex flex-row justify-content-center justify-content-md-end">
                 <Dropdown className="mx-3">
                     <Dropdown.Toggle variant="primary" id="filterDropdown">
-                        Time Sort: {selectedSort.charAt(0).toUpperCase() + selectedSort.slice(1)}
+                        Time Sort: {TIME_OPTION_TO_DISPLAY[selectedSort]}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => handleSortChange('creation_date')}>Creation</Dropdown.Item>

@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from '../../components/Logo';
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import FormField from '../../components/FormField';
 import { Link, useNavigate } from "react-router-dom";
 import * as formik from 'formik';
@@ -67,7 +67,7 @@ function Register() {
 
     return (<>
         <Logo />
-        <Header header="Welcome to PetPal!" subheader="Sign up below with your details." />
+        <Heading header="Welcome to PetPal!" subheader="Sign up below with your details." />
         <Formik
             validationSchema={schema}
             onSubmit={(values) => submitHandler(values)}
