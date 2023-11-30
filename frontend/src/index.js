@@ -6,6 +6,7 @@ import Home from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import SearchResults from './pages/Search'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
@@ -15,6 +16,8 @@ export default function App() {
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        {/* <Route exact path="/pet_listings" element={<PetListing />} /> */}
+        <Route exact path="/search" element={<SearchResults />} />
       </Routes>
     </BrowserRouter>
   );
