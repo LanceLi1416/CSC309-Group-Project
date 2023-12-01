@@ -44,7 +44,7 @@ class PetListingPermissions(BasePermission):
         if request.user.is_authenticated:
             if request.user != obj.shelter:
                 raise PermissionDenied("Only the shelter that posted this pet listing has access")
-            elif obj.shelter.status == "removed_by_admin":
+            elif obj.status == "removed_by_admin":
                 raise PermissionDenied("The pet listing has been removed by the admin and cannot be edited")
             return True
         raise AuthenticationFailed("Authentication Required")
