@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import SearchResults from './pages/Search';
 import PetListingDetail from './pages/PetListingDetail';
+import PetListingForm from './pages/PetListingForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Applications from './pages/Applications';
 import ApplicationForm from './pages/ApplicationForm';
@@ -31,8 +32,8 @@ export default function App() {
                     <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
                     <Route exact path="/profile" element={<Profile />} />
                     <Route exact path="/adopt" element={<AdoptionInfo />} />
-                    {/* <Route exact path="/pet_listings" element={<PetListing/>} /> */}
-                    <Route path="/pet_listings/:petListingID" element={<PetListingDetail/>}/>
+                    <Route exact path="/pet_listing/new" element={<PetListingForm id="new" />} />
+                    <Route path="/pet_listings/details/:petListingID" element={<PetListingDetail/>}/>
                     <Route exact path="/search" element={<SearchResults/>}/>
                 </Routes>
                 <Footer/>
