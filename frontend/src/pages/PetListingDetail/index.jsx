@@ -63,7 +63,7 @@ function PetListingDetail() {
             <p><strong>Gender:</strong> {petListing.gender}</p>
             <p><strong>Age:</strong> 2</p>
             <p><strong>Weight (kg):</strong> {petListing.pet_weight}</p>
-            <p><strong>Vaccinated:</strong> {petListing.vaccinated ? Yes : No}</p>
+            <p><strong>Vaccinated:</strong> {petListing.vaccinated ? "Yes" : "No"}</p>
             <p><strong>Colour:</strong> {petListing.colour}</p>
         </div>
 
