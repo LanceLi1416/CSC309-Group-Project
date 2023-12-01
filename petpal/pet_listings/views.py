@@ -162,7 +162,7 @@ class SearchView(APIView):
             pet_listings = pet_listings.order_by('pet__name')
 
         paginator = PageNumberPagination()
-        paginator.page_size = 4
+        paginator.page_size = 8
         paginated_pet_listings = paginator.paginate_queryset(pet_listings, request)
 
         if paginated_pet_listings is not None:

@@ -23,11 +23,12 @@ function to_url_params(object) {
 
 
 function SearchResultsGrid() {
+    const token = localStorage.getItem('access_token');
+    const API_URL = process.env.REACT_APP_API_URL;
     // TODO: fill pet listings into the grid
     const [ filterParams, setFilterParams ] = useSearchParams();
     const [ totalPages, setTotalPages ] = useState(1);
     const [ petListings, setPetListings ] = useState([]);
-    const API_URL = process.env.REACT_APP_API_URL;
 
 
     const query = useMemo(() => ({
@@ -43,15 +44,20 @@ function SearchResultsGrid() {
 
     console.log(query);
 
-    axios({
-        method: "POST",
-        url: `${API_URL}?/pet_listings/search_results/`,
-        data: query,
-    }).then(response => response.json()) // TODO
-      .then(json => {
-        setPetListings(json.data); // TODO
-        setTotalPages(json.meta.totalPages);
-    })
+    useEffect(() => {
+        axios({
+            method: "POST",
+            url: `${API_URL}pet_listings/search_results/`,
+            data: JSON.stringify(query),
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }).then((response) => {
+            setPetListings(response.data.results); // TODO
+            console.log(response);
+            setTotalPages(Math.ceil(response.data.count / 8));
+        })
+    }, [ filterParams ]);
 
     // useEffect(() => {
     //     const params = to_url_params(query);
@@ -70,7 +76,14 @@ function SearchResultsGrid() {
     {/* Results Grid */}
     <div className="col-md-10 mx-4">
         <div className="row mx-2">
-            <div className="col-md-3 d-flex align-items-center flex-column position-relative">
+            {petListings.map((listing) => (
+                <div className="col-md-3 d-flex align-items-center flex-column position-relative"
+                     key={listing.id}>
+                    <img className="img-fluid full-img px-2" src={listing.pictures} />
+                    <a className="stretched-link text-decoration-none" href="pet-detail.html"><h5>{listing.pet_name}</h5></a>
+                </div>
+            ))}
+            {/* <div className="col-md-3 d-flex align-items-center flex-column position-relative">
                 <img alt="Image 1" className="img-fluid full-img px-2" src="../petpal/static/media/svgs/petpal.svg" />
                 <a className="stretched-link text-decoration-none" href="pet-detail.html"><h5>Pet 1</h5></a>
             </div>
@@ -85,7 +98,7 @@ function SearchResultsGrid() {
             <div className="col-md-3 d-flex align-items-center flex-column position-relative">
                 <img alt="Image 4" className="img-fluid full-img p-2" src="../petpal/static/media/svgs/petpal.svg" />
                 <a className="stretched-link text-decoration-none" href="pet-detail.html"><h5>Pet 4</h5></a>
-            </div>
+            </div> */}
         </div>
         <div className="row mx-2">
             <div className="col-md-3 d-flex align-items-center flex-column position-relative">

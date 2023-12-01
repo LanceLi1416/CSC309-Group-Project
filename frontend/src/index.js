@@ -7,7 +7,8 @@ import Footer from "./components/Footer";
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import SearchResults from './pages/Search'
+import SearchResults from './pages/Search';
+import PetListingDetail from './pages/PetListingDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Notifications from "./pages/Notifications";
@@ -22,8 +23,9 @@ export default function App() {
                     <Route exact path="/login" element={<Login/>}/>
                     <Route exact path="/register" element={<Register/>}/>
                     <Route exact path="/notifications" element={<Notifications/>}/>
-                    {/* <Route exact path="/pet_listings" element={<PetListing />} /> */}
-                    <Route exact path="/search" element={<SearchResults />} />
+                    {/* <Route exact path="/pet_listings" element={<PetListing/>} /> */}
+                    <Route path="/pet_listings/:petListingID" element={<PetListingDetail/>}/>
+                    <Route exact path="/search" element={<SearchResults/>}/>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

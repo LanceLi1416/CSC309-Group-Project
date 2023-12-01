@@ -198,6 +198,7 @@ class PetListingSerializer(serializers.Serializer):
 
 
 class SearchModelSerializer(serializers.ModelSerializer):
+    pet_name = serializers.CharField(source="pet.name", read_only=True)
     class Meta:
         model = PetListing
-        fields = ['id', 'pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+        fields = ['id', 'pet', 'pet_name', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
