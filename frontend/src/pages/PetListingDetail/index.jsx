@@ -1,10 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from 'axios';
+
 
 function capitalize(str) {
+    console.log(4);
     return str[0].toUpperCase() + str.slice(1);
 }
+
 
 function PetListingDetail() {
     const token = localStorage.getItem('access_token');
@@ -12,7 +15,10 @@ function PetListingDetail() {
     const { petListingID } = useParams();
     const [ petListing, setPetListing ] = useState({});
 
+    console.log(3);
+
     useEffect(() => {
+        console.log(1);
         axios({
             method: "GET",
             url: `${API_URL}pet_listings/${petListingID}/`,
@@ -20,11 +26,12 @@ function PetListingDetail() {
                 "Authorization": "Bearer " + token
             }
         }).then((response) => {
+            console.log(response);
             setPetListing(response.data);
-        })
-    }, [])
+        });
+    }, []);
 
-    console.log(petListing);
+    console.log(2);
 
     // let today = new Date();
     // let birthday = petListing.pet_birthday;
