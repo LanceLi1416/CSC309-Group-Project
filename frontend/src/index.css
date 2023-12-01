@@ -29,12 +29,6 @@ code {
 }
 
 /* Bootstrap Re-Definition ********************************************************************************************/
-.nav-link:hover,
-.nav-link:focus {
-	color: var(--bs-nav-link-hover-color);
-	font-weight: var(--bs-nav-link-hover-font-weight);
-}
-
 hr {
 	margin: 0;
 	color: inherit;
@@ -74,6 +68,10 @@ p {
 .logo {
 	width: 16px;
 	height: 16px;
+}
+
+.invert {
+	filter: invert(100%);
 }
 
 .image-wrapper {
@@ -285,7 +283,7 @@ textarea {
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
 	}
-	
+
 	#filter {
         display: none;
     }
@@ -331,7 +329,7 @@ textarea {
 		grid-template-columns: 1fr;
 		row-gap: 32px;
 	}
-	
+
 	.sidebar-info {
 		position: static;
 		width: 100%;
