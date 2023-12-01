@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 
-function FormField({ id, width, type, placeholder, name, value, handleChange, error, label }) {
+function FormField({ id, width, type, placeholder, name, value, handleChange, error, label, disabled=false }) {
     return (
         <Form.Group as={Col} md={width} controlId={id}>
             {label && <Form.Label className="fw-bold">{label}</Form.Label>}
@@ -12,6 +12,7 @@ function FormField({ id, width, type, placeholder, name, value, handleChange, er
                 value={value}
                 onChange={handleChange}
                 isInvalid={!!error}
+                disabled={disabled}
             />
             <Form.Control.Feedback type="invalid">
                 {error}

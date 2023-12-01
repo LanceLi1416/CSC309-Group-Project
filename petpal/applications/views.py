@@ -64,7 +64,11 @@ class ApplicationsView(APIView):
                                 data={'error': 'you can only update status field'})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request):
+class AllApplicationsView(APIView):
+    serializer_class = ApplicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
         if request.user.is_seeker:
             # seekers can only view their own applications, not that of other seekers
             applications = Application.objects.filter(seeker=request.user)
@@ -98,7 +102,7 @@ class ApplicationsView(APIView):
 
         # pagination support
         paginator = PageNumberPagination()
-        paginator.page_size = 3
+        paginator.page_size = 10
         paginated_applications = paginator.paginate_queryset(applications, request)
 
         if paginated_applications is not None:

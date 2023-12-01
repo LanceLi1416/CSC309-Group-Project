@@ -413,7 +413,17 @@
             "pet_listing": 1,
             "status": "pending",
             "creation_date": "2023-02-19T05:23:39.789Z",
-            "last_modified": "2023-02-19T05:23:39.789Z"
+            "last_modified": "2023-02-19T05:23:39.789Z",
+            "email": "jack@seeker.com",
+            "first_name": "Jack",
+            "last_name": "Sun",
+            "birthday": "1990-02-20",
+            "address": "1 University Street, Toronto M60 0G6",
+            "phone": "000-000-0000",
+            "income": "$120,000+",
+            "experience": "Never",
+            "current_pets": "N/A",
+            "availability": "2023-12-20"
         }
     },
     {
@@ -425,7 +435,17 @@
             "pet_listing": 5,
             "status": "denied",
             "creation_date": "2023-02-20T05:23:39.789Z",
-            "last_modified": "2023-02-20T05:23:39.789Z"
+            "last_modified": "2023-02-20T05:23:39.789Z",
+            "email": "jack@seeker.com",
+            "first_name": "Jack",
+            "last_name": "Sun",
+            "birthday": "1990-02-20",
+            "address": "1 University Street, Toronto M60 0G6",
+            "phone": "000-000-0000",
+            "income": "$120,000+",
+            "experience": "Never",
+            "current_pets": "N/A",
+            "availability": "2023-12-20"
         }
     },
     {
@@ -437,7 +457,17 @@
             "pet_listing": 5,
             "status": "pending",
             "creation_date": "2023-02-22T05:23:39.789Z",
-            "last_modified": "2023-02-22T05:23:39.789Z"
+            "last_modified": "2023-02-22T05:23:39.789Z",
+            "email": "helen@seeker.com",
+            "first_name": "Helen",
+            "last_name": "Li",
+            "birthday": "2002-02-20",
+            "address": "1 University Street, Toronto M60 0G6",
+            "phone": "000-000-0000",
+            "income": "$120,000+",
+            "experience": "Never",
+            "current_pets": "N/A",
+            "availability": "2023-12-28"
         }
     },
     {
@@ -457,7 +487,17 @@
             "pet_listing": 1,
             "status": "in progress",
             "creation_date": "2021-04-01T05:23:39.789Z",
-            "last_modified": "2021-04-01T05:23:39.789Z"
+            "last_modified": "2021-04-01T05:23:39.789Z",
+            "email": "testuser@me.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "birthday": "2000-02-20",
+            "address": "1 University Street, Toronto M60 0G6",
+            "phone": "000-000-0000",
+            "income": "$120,000+",
+            "experience": "Never",
+            "current_pets": "N/A",
+            "availability": "2024-01-05"
         }
     },
     {
