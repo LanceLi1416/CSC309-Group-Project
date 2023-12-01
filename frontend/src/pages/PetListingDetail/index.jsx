@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function capitalize(str) {
     console.log(4);
+    if (str === "") return "";
     return str[0].toUpperCase() + str.slice(1);
 }
 
@@ -13,7 +14,25 @@ function PetListingDetail() {
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
     const { petListingID } = useParams();
-    const [ petListing, setPetListing ] = useState({});
+    const [ petListing, setPetListing ] = useState({
+        "id": 0,
+        "pet_name": "",
+        "gender": "",
+        "pet_birthday": "",
+        "pet_weight": 0,
+        "animal": "",
+        "breed": "",
+        "colour": "",
+        "vaccinated": true,
+        "other_info": "",
+        "pictures": [],
+        "owner_name": "",
+        "email": "",
+        "phone_number": "",
+        "location": "",
+        "owner_birthday": "",
+        "status": ""
+    });
 
     console.log(3);
 
@@ -28,6 +47,8 @@ function PetListingDetail() {
         }).then((response) => {
             console.log(response);
             setPetListing(response.data);
+        }).catch((error) => {
+            console.log(error);
         });
     }, []);
 
