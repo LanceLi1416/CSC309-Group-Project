@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+function capitalize(str) {
+    return str[0].toUpperCase() + str.slice(1);
+}
+
 function PetListingDetail() {
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
@@ -18,15 +22,29 @@ function PetListingDetail() {
         }).then((response) => {
             setPetListing(response.data);
         })
-    })
+    }, [])
+
+    console.log(petListing);
+
+    // let today = new Date();
+    // let birthday = petListing.pet_birthday;
+
+    // let age = today.getFullYear() - birthday.getFullYear();
+
+    // if (today.getMonth() > birthday.getMonth() || 
+    //     (today.getMonth() === birthday.getMonth() && today.getDay() > birthday.getDay())) {
+    //     age--;
+    // }
+
+    // console.log(age);
 
     return <>
     <div className="page-container" id="pet-detail-container">
     <div className="main-page">
         <div className="row mt-2 pb-3 border rounded">
             <h1>{petListing.pet_name}</h1>
-            <p>{petListing.animal} | {petListing.breed} | {petListing.location}</p>
-            <p><strong>Status:</strong> {petListing.status}</p>
+            <p>{capitalize(petListing.animal)} | {capitalize(petListing.breed)} | {petListing.location}</p>
+            <p><strong>Status:</strong> {capitalize(petListing.status)}</p>
         </div>
 
         <h2 className="pet-detail-subtitles">Pictures</h2>
@@ -60,7 +78,7 @@ function PetListingDetail() {
         <h2 className="pet-detail-subtitles">About</h2>
 
         <div className="row mt-2 pb-3 border rounded">
-            <p><strong>Gender:</strong> {petListing.gender}</p>
+            <p><strong>Gender:</strong> capitalize({petListing.gender})</p>
             <p><strong>Age:</strong> 2</p>
             <p><strong>Weight (kg):</strong> {petListing.pet_weight}</p>
             <p><strong>Vaccinated:</strong> {petListing.vaccinated ? "Yes" : "No"}</p>

@@ -24,7 +24,7 @@ class PetListingSerializer(serializers.Serializer):
             ('pending', 'Pending'),
             ('withdrawn', 'Withdrawn')
     ]
-    id = serializers.IntegerField(source="pet.pet_listing", required=False)
+    id = serializers.IntegerField(required=False)
     pet_name = serializers.CharField(source='pet.name', required=True, validators=[MaxLengthValidator(50)])
     gender = serializers.ChoiceField(choices=GENDER, source='pet.gender', required=True, validators=[MaxLengthValidator(50)])
     pet_birthday = serializers.DateField(required=True, source='pet.birthday')
