@@ -54,7 +54,6 @@ function SearchResultsGrid() {
             }
         }).then((response) => {
             setPetListings(response.data.results); // TODO
-            console.log(response);
             setTotalPages(Math.ceil(response.data.count / 8));
         })
     }, [ filterParams ]);

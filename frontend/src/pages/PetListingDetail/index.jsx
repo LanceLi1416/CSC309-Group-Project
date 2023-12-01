@@ -16,8 +16,7 @@ function PetListingDetail() {
                 "Authorization": "Bearer " + token
             }
         }).then((response) => {
-            console.log(response);
-            // setPetListing();
+            setPetListing(response.data);
         })
     })
 
@@ -25,9 +24,9 @@ function PetListingDetail() {
     <div className="page-container" id="pet-detail-container">
     <div className="main-page">
         <div className="row mt-2 pb-3 border rounded">
-            <h1>Doggy Bob</h1>
-            <p>Golden Retriever | Richmond Hill, Ontario, Canada</p>
-            <p><strong>Status:</strong> Available</p>
+            <h1>{petListing.pet_name}</h1>
+            <p>{petListing.animal} | {petListing.breed} | {petListing.location}</p>
+            <p><strong>Status:</strong> {petListing.status}</p>
         </div>
 
         <h2 className="pet-detail-subtitles">Pictures</h2>
@@ -61,11 +60,11 @@ function PetListingDetail() {
         <h2 className="pet-detail-subtitles">About</h2>
 
         <div className="row mt-2 pb-3 border rounded">
-            <p><strong>Gender:</strong> M</p>
+            <p><strong>Gender:</strong> {petListing.gender}</p>
             <p><strong>Age:</strong> 2</p>
-            <p><strong>Weight (kg):</strong> 50</p>
-            <p><strong>Vaccinated:</strong> Yes</p>
-            <p><strong>Colour:</strong> Brown</p>
+            <p><strong>Weight (kg):</strong> {petListing.pet_weight}</p>
+            <p><strong>Vaccinated:</strong> {petListing.vaccinated ? Yes : No}</p>
+            <p><strong>Colour:</strong> {petListing.colour}</p>
         </div>
 
         <h2 className="pet-detail-subtitles">Additional Information</h2>
@@ -79,9 +78,9 @@ function PetListingDetail() {
             <div className="sidebar">
                 <h2>Contact Info</h2>
                 <div className="row mt-2 pb-3 border rounded">
-                    <p><strong>Name:</strong> Nicholas Poon</p>
-                    <p><strong>Email:</strong> example@utoronto.ca</p>
-                    <p><strong>Phone:</strong> 123-456-789</p>
+                    <p><strong>Name:</strong> {petListing.owner_name}</p>
+                    <p><strong>Email:</strong> {petListing.email}</p>
+                    <p><strong>Phone:</strong> {petListing.phone_number}</p>
                     <button className="btn btn-outline-primary sidebar-button" onClick="location.href='pet-adoption.html'">
                         Adopt This Pet
                     </button>
