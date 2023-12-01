@@ -2,13 +2,14 @@ from rest_framework.serializers import ModelSerializer, ValidationError
 from PIL import Image
 from io import BytesIO
 from .models import User
+from django.conf import settings
 
 import os
 
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar', 'notif_preference']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar', 'notif_preference', 'bio', 'address', 'phone']
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -26,6 +27,9 @@ class AccountSerializer(ModelSerializer):
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.is_seeker = validated_data.get('is_seeker', instance.is_seeker)
         instance.notif_preference = validated_data.get('notif_preference', instance.notif_preference)
+        instance.bio = validated_data.get('bio', instance.bio)
+        instance.address = validated_data.get('address', instance.address)
+        instance.phone = validated_data.get('phone', instance.phone)
 
         if 'password' in validated_data:
             # passwords must be hashed before saving
@@ -34,15 +38,15 @@ class AccountSerializer(ModelSerializer):
         original_name = validated_data.get('avatar')
         if original_name is not None:
             file_name = original_name.name
-            if instance.avatar != 'default.jpg':
-                os.remove(f'./static/avatars/{instance.avatar}')
+            if instance.avatar.name != 'avatars/default.jpg':
+                os.remove(os.path.join(settings.MEDIA_ROOT, instance.avatar.name))
 
             _, extension = os.path.splitext(file_name)
             image = original_name.read()
             image = Image.open(BytesIO(image))
-            image.save(f'./static/avatars/{instance.id}{extension.lower()}')
+            image.save(os.path.join(settings.MEDIA_ROOT, 'avatars', f'{instance.id}{extension.lower()}'))
             image.close()
-            instance.avatar = f'{instance.id}{extension.lower()}'
+            instance.avatar = f'avatars/{instance.id}{extension.lower()}'
         
         instance.save()
         return instance

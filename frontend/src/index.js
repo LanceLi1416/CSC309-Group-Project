@@ -10,9 +10,13 @@ import Register from './pages/Register';
 import SearchResults from './pages/Search';
 import PetListingDetail from './pages/PetListingDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Applications from './pages/Applications';
+import ApplicationForm from './pages/ApplicationForm';
 import './index.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
+import Profile from './pages/Profile';
+import AdoptionInfo from './pages/AdoptionInfo';
 
 export default function App() {
     return (<NotificationProvider>
@@ -23,6 +27,10 @@ export default function App() {
                     <Route exact path="/login" element={<Login/>}/>
                     <Route exact path="/register" element={<Register/>}/>
                     <Route exact path="/notifications" element={<Notifications/>}/>
+                    <Route exact path="/applications" element={<Applications />} />
+                    <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
+                    <Route exact path="/profile" element={<Profile />} />
+                    <Route exact path="/adopt" element={<AdoptionInfo />} />
                     {/* <Route exact path="/pet_listings" element={<PetListing/>} /> */}
                     <Route path="/pet_listings/:petListingID" element={<PetListingDetail/>}/>
                     <Route exact path="/search" element={<SearchResults/>}/>
