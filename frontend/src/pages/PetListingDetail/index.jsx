@@ -4,7 +4,6 @@ import axios from 'axios';
 
 
 function capitalize(str) {
-    console.log(4);
     if (str === "") return "";
     return str[0].toUpperCase() + str.slice(1);
 }
@@ -31,13 +30,14 @@ function PetListingDetail() {
         "phone_number": "",
         "location": "",
         "owner_birthday": "",
-        "status": ""
+        "status": "",
+        "shelter_first_name": "",
+        "shelter_last_name": "",
+        "shelter_phone": "",
+        "shelter_email": ""
     });
 
-    console.log(3);
-
     useEffect(() => {
-        console.log(1);
         axios({
             method: "GET",
             url: `${API_URL}pet_listings/${petListingID}/`,
@@ -52,19 +52,15 @@ function PetListingDetail() {
         });
     }, []);
 
-    console.log(2);
+    let today = new Date();
+    let birthday = new Date(petListing.pet_birthday);
 
-    // let today = new Date();
-    // let birthday = petListing.pet_birthday;
+    let age = today.getFullYear() - birthday.getFullYear();
 
-    // let age = today.getFullYear() - birthday.getFullYear();
-
-    // if (today.getMonth() > birthday.getMonth() || 
-    //     (today.getMonth() === birthday.getMonth() && today.getDay() > birthday.getDay())) {
-    //     age--;
-    // }
-
-    // console.log(age);
+    if (today.getMonth() > birthday.getMonth() || 
+        (today.getMonth() === birthday.getMonth() && today.getDay() > birthday.getDay())) {
+        age--;
+    }
 
     return <>
     <div className="page-container" id="pet-detail-container">
@@ -106,16 +102,18 @@ function PetListingDetail() {
         <h2 className="pet-detail-subtitles">About</h2>
 
         <div className="row mt-2 pb-3 border rounded">
-            <p><strong>Gender:</strong> capitalize({petListing.gender})</p>
-            <p><strong>Age:</strong> 2</p>
+            <p><strong>Gender:</strong> {capitalize(petListing.gender)}</p>
+            <p><strong>Age:</strong> {age}</p>
             <p><strong>Weight (kg):</strong> {petListing.pet_weight}</p>
             <p><strong>Vaccinated:</strong> {petListing.vaccinated ? "Yes" : "No"}</p>
-            <p><strong>Colour:</strong> {petListing.colour}</p>
+            <p><strong>Colour:</strong> {capitalize(petListing.colour)}</p>
         </div>
 
         <h2 className="pet-detail-subtitles">Additional Information</h2>
         <div className="row mt-2 pb-3 border rounded">
-            <p className="no-additional-info"><i>No additional information available</i></p>
+            <p className="no-additional-info">
+                {petListing.other_info ? petListing.other_info : <i>No additional information available</i>}
+            </p>
         </div>
     </div>
 
@@ -126,16 +124,16 @@ function PetListingDetail() {
                 <div className="row mt-2 pb-3 border rounded">
                     <p><strong>Name:</strong> {petListing.owner_name}</p>
                     <p><strong>Email:</strong> {petListing.email}</p>
-                    <p><strong>Phone:</strong> {petListing.phone_number}</p>
+                    <p><strong>Phone:</strong> {petListing.owner_phone}</p>
                     <button className="btn btn-outline-primary sidebar-button" onClick="location.href='pet-adoption.html'">
                         Adopt This Pet
                     </button>
                 </div>
                 <h2>Shelter Info</h2>
                 <div className="row mt-2 pb-3 border rounded">
-                    <p><strong>Name:</strong> PetPal</p>
-                    <p><strong>Email:</strong> example@domain.com</p>
-                    <p><strong>Phone:</strong> (000) 000 - 0000</p>
+                    <p><strong>Name:</strong> {petListing.shelter_first_name + " " + petListing.shelter_last_name}</p>
+                    <p><strong>Email:</strong> {petListing.shelter_email}</p>
+                    <p><strong>Phone:</strong> {petListing.shelter_phone}</p>
                     <button className="btn btn-outline-primary sidebar-button" onClick="location.href='shelter-detail.html'">
                         View Detailed Shelter Info
                     </button>

@@ -37,10 +37,14 @@ class PetListingSerializer(serializers.Serializer):
     pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', required=True)
     owner_name = serializers.CharField(source='owner.name', required=True, validators=[MaxLengthValidator(50)])
     email = serializers.EmailField(source='owner.email', required=True, validators=[MaxLengthValidator(50)])
-    phone_number = serializers.CharField(source='owner.phone', required=True, validators=[MaxLengthValidator(50)])
+    owner_phone = serializers.CharField(source='owner.phone', required=True, validators=[MaxLengthValidator(50)])
     location = serializers.CharField(source='owner.location', required=True, validators=[MaxLengthValidator(50)])
     owner_birthday = serializers.DateField(required=True, source='owner.birthday')
     status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES, validators=[MaxLengthValidator(50)])
+    shelter_first_name = serializers.CharField(source='shelter.first_name', required=False)
+    shelter_last_name = serializers.CharField(source='shelter.last_name', required=False)
+    shelter_phone = serializers.CharField(source='shelter.phone', required=False)
+    shelter_email = serializers.CharField(source='shelter.username', required=False)
 
 
     def validate_vaccinated(self, vaccinated):
