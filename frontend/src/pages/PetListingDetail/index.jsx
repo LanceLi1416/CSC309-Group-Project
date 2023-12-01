@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ function capitalize(str) {
 
 
 function PetListingDetail() {
+    const navigate = useNavigate();
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
     const { petListingID } = useParams();
@@ -60,6 +61,11 @@ function PetListingDetail() {
     if (today.getMonth() > birthday.getMonth() || 
         (today.getMonth() === birthday.getMonth() && today.getDay() > birthday.getDay())) {
         age--;
+    }
+
+    const newApplication = () => {
+        const applicationURL = `${window.location.origin}/application/new`
+        window.location.href = applicationURL;
     }
 
     return <>
@@ -125,7 +131,7 @@ function PetListingDetail() {
                     <p><strong>Name:</strong> {petListing.owner_name}</p>
                     <p><strong>Email:</strong> {petListing.email}</p>
                     <p><strong>Phone:</strong> {petListing.owner_phone}</p>
-                    <button className="btn btn-outline-primary sidebar-button" onClick="location.href='pet-adoption.html'">
+                    <button className="btn btn-outline-primary sidebar-button" onClick={newApplication}>
                         Adopt This Pet
                     </button>
                 </div>

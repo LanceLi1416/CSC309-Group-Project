@@ -65,33 +65,33 @@ function ApplicationForm({ id }) {
     }, [id, token, navigate, API_URL]);
 
     // TODO: need to get the corresponding pet listing id from navigate
-    // const submitHandler = (values) => {
-    //     const formData = {
-    //         "email": values.email,
-    //         "first_name": values.firstName,
-    //         "last_name": values.lastName,
-    //         "birthday": values.birthday,
-    //         "address": values.address,
-    //         "phone": values.phone,
-    //         "income": values.income,
-    //         "experience": values.experience,
-    //         "current_pets": values.current_pets,
-    //         "availability": values.availability,
-    //     }
-    //     axios({
-    //         method: "POST",
-    //         url: API_URL + "applications/",
-    //         data: formData,
-    //         headers: {
-    //             "Authorization": "Bearer " + token,
-    //         }
-    //     }).then((response) => {
-    //         console.log(response.data);
-    //         navigate("/");
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    // };
+    const submitHandler = (values) => {
+        const formData = {
+            "email": values.email,
+            "first_name": values.firstName,
+            "last_name": values.lastName,
+            "birthday": values.birthday,
+            "address": values.address,
+            "phone": values.phone,
+            "income": values.income,
+            "experience": values.experience,
+            "current_pets": values.current_pets,
+            "availability": values.availability,
+        }
+        axios({
+            method: "POST",
+            url: API_URL + "applications/",
+            data: formData,
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        }).then((response) => {
+            console.log(response.data);
+            navigate("/");
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
 
     const { Formik } = formik;
     const phoneRegExp = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/
