@@ -11,9 +11,9 @@ import ShelterCommentSection from './pages/Comments';
 import ReportForm from './pages/ReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
-import 'semantic-ui-css/semantic.min.css';
 
 export default function App() {
   return (
@@ -22,6 +22,9 @@ export default function App() {
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/notifications" element={<Notifications/>}/>
+        <Route exact path="/shelter/:shelter_id" element={<ShelterCommentSection />} />
+        <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ReportForm />} />
       </Routes>
     </BrowserRouter>
   );
