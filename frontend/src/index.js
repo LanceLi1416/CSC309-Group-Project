@@ -32,7 +32,7 @@ export default function App() {
                     <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
                     <Route exact path="/profile" element={<Profile />} />
                     <Route exact path="/adopt" element={<AdoptionInfo />} />
-                    <Route exact path="/pet_listing/new" element={<PetListingForm id="new" />} />
+                    <Route exact path="/pet_listing/new" element={<PetListingForm />} />
                     <Route path="/pet_listings/details/:petListingID" element={<PetListingDetail/>}/>
                     <Route exact path="/search" element={<SearchResults/>}/>
                 </Routes>
