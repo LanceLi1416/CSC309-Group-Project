@@ -26,7 +26,7 @@ function PetListingForm() {
         colour: "",
         vaccinated: false,
         otherInfo: "",
-        pictures: "",
+        pictures: [],
         ownerName: "",
         email: "",
         ownerPhone: "",
@@ -79,9 +79,48 @@ function PetListingForm() {
     }, [ petListingID, token, API_URL, navigate ])
 
     const createHandler = (values) => {
+        const formData = new FormData();
+        formData.append("pet_name", values.petName);
+        formData.append("gender", values.gender);
+        formData.append("pet_birthday", values.petBirthday);
+        formData.append("pet_weight", values.petWeight);
+        formData.append("animal", values.animal);
+        formData.append("breed", values.breed);
+        formData.append("colour", values.colour);
+        formData.append("vaccinated", values.vaccinated);
+        formData.append("other_info", values.otherInfo);
+        formData.append("pictures", values.pictures);
+        formData.append("owner_name", values.ownerName);
+        formData.append("email", values.email);
+        formData.append("owner_phone", values.ownerPhone);
+        formData.append("location", values.location);
+        formData.append("owner_birthday", values.ownerBirthday);
+    
+        console.log(formData);
+
         axios({
             method: "POST",
             url: `${API_URL}pet_listings/`,
+            header: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "multipart/form-data"
+            },
+            data: formData
+        }).then((response) => {
+            console.log("created");
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 403) {
+                console.log(error.response.status); // TODO: redirect to 403
+            }
+        });
+    };
+
+    const updateHandler = (values) => {
+        axios({
+            method: "PUT",
+            url: `${API_URL}pet_listings/${petListingID}/`,
             header: {
                 "Authorization": "Bearer " + token
             }
@@ -98,10 +137,10 @@ function PetListingForm() {
 
     const { Formik } = formik;
     const phoneRegEx = /^\d{3}-\d{3}-\d{4}$/;
-    const locationRegEx = /^[a-zA-Z]+, [a-zA-z]+$/;
+    const locationRegEx = /^[a-zA-Z\s]+, [a-zA-z\s]+$/;
     let maxOwnerBirthday = new Date();
     maxOwnerBirthday.setFullYear(maxOwnerBirthday.getFullYear() - 18);
-    console.log(maxOwnerBirthday);
+
     const schema = yup.object().shape({
         petName: yup.string().required("Please enter the pet's name")
                     .max(50, "Pet name can only be a max of 50 characters"),
@@ -139,12 +178,13 @@ function PetListingForm() {
         <p>Please fill in the form below with the pet and owner's details.</p>
 
         <h2>Pet Information</h2>
-        <Formik validationSchema={schema} 
+        <Formik validationSchema={schema}
+                onSubmit={createHandler}
                 initialValues={curApplication}
                 enableReinitialize={true} 
         >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
-                <Form onSubmit={handleSubmit} novalidate>
+                <Form onSubmit={handleSubmit} noValidate>
                     <div className="row mt-2 pb-3 border rounded">
                         <Row className="d-flex flex-row mt-3">
                             <Col className="form-group">
@@ -154,7 +194,7 @@ function PetListingForm() {
                                            type="text"
                                            name="petName" 
                                            value={values.petName}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.petName && errors.petName} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -164,7 +204,7 @@ function PetListingForm() {
                             <Col className="form-group">
                                 <Form.Label htmlFor="gender">Gender</Form.Label>
                                 <Form.Select id="gender" 
-                                             handleChange={handleChange} 
+                                             onChange={handleChange} 
                                              error={touched.gender && errors.gender}>
                                     <option value="">Choose...</option>
                                     <option value="female">Female</option>
@@ -181,7 +221,7 @@ function PetListingForm() {
                                            type="date"
                                            name="petBirthday" 
                                            value={values.petBirthday}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.petBirthday && errors.petBirthday} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -197,7 +237,7 @@ function PetListingForm() {
                                            type="number"
                                            name="petWeight" 
                                            value={values.petWeight}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.petWeight && errors.petWeight} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -211,7 +251,7 @@ function PetListingForm() {
                                            type="text"
                                            name="animal" 
                                            value={values.animal}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.animal && errors.animal} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -225,7 +265,7 @@ function PetListingForm() {
                                            type="text"
                                            name="breed" 
                                            value={values.breed}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.breed && errors.breed} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -239,7 +279,7 @@ function PetListingForm() {
                                            type="text"
                                            name="colour" 
                                            value={values.colour}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.colour && errors.colour} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -251,8 +291,8 @@ function PetListingForm() {
                                 <Form.Check id="vaccinated"
                                             type="checkbox"
                                             name="vaccinated" 
-                                            value={values.vaccinated}
-                                            handleChange={handleChange} 
+                                            checked={!create ? values.vaccinated : null}
+                                            onChange={handleChange} 
                                             error={touched.vaccinated && errors.vaccinated} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -267,7 +307,7 @@ function PetListingForm() {
                                            name="otherInfo" 
                                            placeholder="No additional information available"
                                            value={values.otherInfo}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.otherInfo && errors.otherInfo} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -282,15 +322,14 @@ function PetListingForm() {
                                               accept="image/*"
                                               multiple
                                               name="pictures" 
-                                              value={values.pictures}
-                                              handleChange={handleChange} 
+                                              onChange={handleChange} 
                                               error={touched.pictures && errors.pictures} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
                         </Row>
                     </div>
 
-                    <h2 class="page-title">Owner Information</h2>
+                    <h2 className="page-title">Owner Information</h2>
                     <div className="row mt-2 pb-3 border rounded">
                         <Row className="d-flex flex-row mt-3">
                             <Col className="form-group">
@@ -300,7 +339,7 @@ function PetListingForm() {
                                            type="text"
                                            name="ownerName" 
                                            value={values.ownerName}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.ownerName && errors.ownerName} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -315,7 +354,7 @@ function PetListingForm() {
                                            name="email" 
                                            placeholder="example@domain.com"
                                            value={values.email}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.email && errors.email} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -330,7 +369,7 @@ function PetListingForm() {
                                            name="phoneNumber"
                                            placeholder="000-000-0000"
                                            value={values.phoneNumber}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.phoneNumber && errors.phoneNumber} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -345,7 +384,7 @@ function PetListingForm() {
                                            name="location"
                                            placeholder="City, Country"
                                            value={values.location}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.location && errors.location} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -359,7 +398,7 @@ function PetListingForm() {
                                            type="date"
                                            name="ownerBirthday" 
                                            value={values.ownerBirthday}
-                                           handleChange={handleChange} 
+                                           onChange={handleChange} 
                                            error={touched.ownerBirthday && errors.ownerBirthday} />
                                             {/* disabled={readOnly} /> */}
                             </Col>
@@ -367,11 +406,12 @@ function PetListingForm() {
 
 
                     </div>
-
+                    {/* onClick={create ? createHandler : } */}
                     <Row className="mt-4">
                         <Button className="mb-4"
                                 variant="outline-primary" 
-                                type="submit">Upload</Button>
+                                type="submit"
+                                >Upload</Button>
                     </Row>
                 </Form>
             )}
