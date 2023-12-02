@@ -7,7 +7,7 @@ import FormField from '../../components/FormField';
 import { useNavigate } from "react-router-dom";
 import * as formik from 'formik';
 import * as yup from 'yup';
-import axios from 'axios'
+import axios from 'axios';
 
 function ApplicationForm({ id }) {
     const token = localStorage.getItem('access_token');

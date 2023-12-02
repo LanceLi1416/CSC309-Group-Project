@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from 'axios';
 
 
 function PetListingForm() {
@@ -30,11 +31,31 @@ function PetListingForm() {
         if (token === null) {
             navigate("/login");
         }
-        if (id !== "new") {
+        if (petListingID !== "new") {
             axios({
-
-            }).then((response => {
-                
+                method: "GET",
+                url: `${API_URL}pet_listings/${petListingID}/`,
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }).then(((response) => {
+                setCurApplication({
+                    pet_name: response.data.pet_name,
+                    gender: response.data.gender,
+                    pet_birthday: response.data.pet_birthday,
+                    pet_weight: "",
+                    animal: "",
+                    breed: "",
+                    colour: "",
+                    vaccinated: false,
+                    other_info: "",
+                    pictures: "",
+                    owner_name: "",
+                    email: "",
+                    owner_phone: "",
+                    location: "",
+                    owner_birthday: ""
+                })
             }))
         }
     })

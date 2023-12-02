@@ -15,27 +15,26 @@ function PetListingDetail() {
     const API_URL = process.env.REACT_APP_API_URL;
     const { petListingID } = useParams();
     const [ petListing, setPetListing ] = useState({
-        "id": 0,
-        "pet_name": "",
+        "petName": "",
         "gender": "",
-        "pet_birthday": "",
-        "pet_weight": 0,
+        "petBirthday": "",
+        "petWeight": 0,
         "animal": "",
         "breed": "",
         "colour": "",
-        "vaccinated": true,
-        "other_info": "",
+        "vaccinated": false,
+        "otherInfo": "",
         "pictures": [],
-        "owner_name": "",
+        "ownerName": "",
         "email": "",
-        "phone_number": "",
+        "ownerPhone": "",
         "location": "",
-        "owner_birthday": "",
+        "ownerBirthday": "",
         "status": "",
-        "shelter_first_name": "",
-        "shelter_last_name": "",
-        "shelter_phone": "",
-        "shelter_email": ""
+        "shelterFirstName": "",
+        "shelterLastName": "",
+        "shelterPhone": "",
+        "shelterEmail": ""
     });
 
     useEffect(() => {
@@ -47,14 +46,44 @@ function PetListingDetail() {
             }
         }).then((response) => {
             console.log(response);
-            setPetListing(response.data);
+            setPetListing({
+                "petName": response.data.pet_name,
+                "gender": response.data.gender,
+                "petBirthday": response.data.pet_birthday,
+                "petWeight": response.data.pet_weight,
+                "animal": response.data.animal,
+                "breed": response.data.breed,
+                "colour": response.data.colour,
+                "vaccinated": response.data.vaccinated,
+                "otherInfo": response.data.other_info,
+                "pictures": response.data.pictures,
+                "ownerName": response.data.owner_name,
+                "email": response.data.email,
+                "ownerPhone": response.data.owner_phone,
+                "location": response.data.location,
+                "ownerBirthday": response.data.owner_birthday,
+                "status": response.data.status,
+                "shelterFirstName": response.data.shelter_first_name,
+                "shelterLastName": response.data.shelter_last_name,
+                "shelterPhone": response.data.shelter_phone,
+                "shelterEmail": response.data.shelter_email
+            });
         }).catch((error) => {
-            console.log(error);
+            if (error.response.status === 404) {
+                // TODO: Redirect to 404 page
+                console.log(error.response.status);
+            } else if (error.response.status === 401) {
+                // TODO: Check if this works
+                navigate('/login');
+            } else if (error.response.status === 403) {
+                // TODO: Redirect to 403 page
+                console.log(error.response.status);
+            }
         });
-    }, []);
+    }, [ petListingID, token, API_URL ]);
 
     let today = new Date();
-    let birthday = new Date(petListing.pet_birthday);
+    let birthday = new Date(petListing.petBirthday);
 
     let age = today.getFullYear() - birthday.getFullYear();
 
@@ -72,7 +101,7 @@ function PetListingDetail() {
     <div className="page-container" id="pet-detail-container">
     <div className="main-page">
         <div className="row mt-2 pb-3 border rounded">
-            <h1>{petListing.pet_name}</h1>
+            <h1>{petListing.petName}</h1>
             <p>{capitalize(petListing.animal)} | {capitalize(petListing.breed)} | {petListing.location}</p>
             <p><strong>Status:</strong> {capitalize(petListing.status)}</p>
         </div>
@@ -110,7 +139,7 @@ function PetListingDetail() {
         <div className="row mt-2 pb-3 border rounded">
             <p><strong>Gender:</strong> {capitalize(petListing.gender)}</p>
             <p><strong>Age:</strong> {age}</p>
-            <p><strong>Weight (kg):</strong> {petListing.pet_weight}</p>
+            <p><strong>Weight (kg):</strong> {petListing.petWeight}</p>
             <p><strong>Vaccinated:</strong> {petListing.vaccinated ? "Yes" : "No"}</p>
             <p><strong>Colour:</strong> {capitalize(petListing.colour)}</p>
         </div>
@@ -118,7 +147,7 @@ function PetListingDetail() {
         <h2 className="pet-detail-subtitles">Additional Information</h2>
         <div className="row mt-2 pb-3 border rounded">
             <p className="no-additional-info">
-                {petListing.other_info ? petListing.other_info : <i>No additional information available</i>}
+                {petListing.otherInfo ? petListing.otherInfo : <i>No additional information available</i>}
             </p>
         </div>
     </div>
@@ -128,18 +157,18 @@ function PetListingDetail() {
             <div className="sidebar">
                 <h2>Contact Info</h2>
                 <div className="row mt-2 pb-3 border rounded">
-                    <p><strong>Name:</strong> {petListing.owner_name}</p>
+                    <p><strong>Name:</strong> {petListing.ownerName}</p>
                     <p><strong>Email:</strong> {petListing.email}</p>
-                    <p><strong>Phone:</strong> {petListing.owner_phone}</p>
+                    <p><strong>Phone:</strong> {petListing.ownerPhone}</p>
                     <button className="btn btn-outline-primary sidebar-button" onClick={newApplication}>
                         Adopt This Pet
                     </button>
                 </div>
                 <h2>Shelter Info</h2>
                 <div className="row mt-2 pb-3 border rounded">
-                    <p><strong>Name:</strong> {petListing.shelter_first_name + " " + petListing.shelter_last_name}</p>
-                    <p><strong>Email:</strong> {petListing.shelter_email}</p>
-                    <p><strong>Phone:</strong> {petListing.shelter_phone}</p>
+                    <p><strong>Name:</strong> {petListing.shelterFirstName + " " + petListing.shelterLastName}</p>
+                    <p><strong>Email:</strong> {petListing.shelterEmail}</p>
+                    <p><strong>Phone:</strong> {petListing.shelterPhone}</p>
                     <button className="btn btn-outline-primary sidebar-button" onClick="location.href='shelter-detail.html'">
                         View Detailed Shelter Info
                     </button>
