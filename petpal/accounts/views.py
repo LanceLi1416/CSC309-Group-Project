@@ -80,6 +80,9 @@ class GetAccountView(RetrieveAPIView):
     action = 'retrieve'
 
     def get_queryset(self):
+        # superusers can see all accounts
+        if self.request.user.is_superuser:
+            return User.objects.all()
         # any user (shelter or seeker) can see the profile of a shelter
         all_shelters = User.objects.filter(is_seeker=False)
         if self.request.user.is_seeker:
