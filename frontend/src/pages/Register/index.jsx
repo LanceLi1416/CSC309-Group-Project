@@ -4,17 +4,18 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from '../../components/Logo';
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import FormField from '../../components/FormField';
 import { Link, useNavigate } from "react-router-dom";
 import * as formik from 'formik';
 import * as yup from 'yup';
 import axios from 'axios'
+import ImageUploadButton from '../../components/ImageUploadButton';
 
 function Register() {
-    // TODO: test avatar upload
     const [registerError, setRegisterError] = useState([]);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     let fieldToErrorField = {
         "username": "Email",
@@ -27,21 +28,22 @@ function Register() {
     }
 
     const submitHandler = (values) => {
-        const formData = {
-            "username": values.email,
-            "password": values.password,
-            "reenter_password": values.confirmPassword,
-            "first_name": values.firstName,
-            "last_name": values.lastName,
-            "is_seeker": values.radio === "petSeeker",
-        }
+        const formData = new FormData();
+        formData.append('username', values.email);
+        formData.append('password', values.password);
+        formData.append('reenter_password', values.confirmPassword);
+        formData.append('first_name', values.firstName);
+        formData.append('last_name', values.lastName);
+        formData.append('is_seeker', values.radio === 'petSeeker');
+        formData.append("notif_preference", true);
+
         if (values.avatar !== '') {
-            formData.avatar = values.avatar;
+            formData.append('avatar', values.avatar, values.avatar.name);
         }
-        // TODO: endpoint url
         axios({
             method: "POST",
-            url: "http://localhost:8000/accounts/",
+            url: API_URL + "accounts/",
+            headers: { "Content-Type": "multipart/form-data" },
             data: formData
         }).then(() => {
             navigate("/login");
@@ -62,12 +64,12 @@ function Register() {
         password: yup.string().required('Password is required'),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required('Confirm password is required'),
         radio: yup.string().required('Please select a user type'),
-        avatar: yup.mixed()
+        avatar: yup.mixed().notRequired(),
     });
 
     return (<>
         <Logo />
-        <Header header="Welcome to PetPal!" subheader="Sign up below with your details." />
+        <Heading header="Welcome to PetPal!" subheader="Sign up below with your details." />
         <Formik
             validationSchema={schema}
             onSubmit={(values) => submitHandler(values)}
@@ -109,13 +111,13 @@ function Register() {
                             {touched.radio && errors.radio}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <FormField id="avatar" width="6" type="file" label="Upload an optional profile picture" name="avatar" value={values.avatar} handleChange={handleChange} error={touched.avatar && errors.avatar} />
+                    <ImageUploadButton name="avatar" accept="image/*" placeholder="Upload an optional profile picture" />
                 </Row>
                 <Button type="submit">Sign Up</Button>
             </Form>
             )}
         </Formik>
-        <div className="text-center mt-2">
+        <div className="text-center mt-2 mb-4">
             Already have a PetPal account? <Link to="/login">Log in</Link>.
             {registerError.map((errorMessage) => (<>
                 <div className='error-text'>{errorMessage}</div>
