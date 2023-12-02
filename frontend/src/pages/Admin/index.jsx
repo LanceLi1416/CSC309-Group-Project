@@ -57,7 +57,7 @@ export const Admin = () => {
                 navigate('/403');
             }
         });
-    }, [type, filters, serializedFilters, page, token, API_URL]);
+    }, [type, filters, serializedFilters, page, token, API_URL, navigate]);
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleMultiSelectChange = (event, filterType) => {
