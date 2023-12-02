@@ -3,6 +3,13 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {ApplicationReportEntry, ShelterCommentReportEntry, PetListingReportEntry} from "./ReportEntry";
+
+const TYPE_TO_URI = {
+    "application": "moderation/reports/application_comments/",
+    "shelter_comment": "moderation/reports/shelter_comments/",
+    "pet_listing": "moderation/reports/pet_listings/",
+};
 
 export const Admin = () => {
     const API_URL = process.env.REACT_APP_API_URL;
@@ -16,28 +23,22 @@ export const Admin = () => {
     const [type, setType] = useState('application');
     const [reports, setReports] = useState({count: 0, next: null, previous: null, results: [],});
     const [filters, setFilters] = useState({category: [], status: [], most_recent: true,});
+    const [serializedFilters, setSerializedFilters] = useState("");
     const [page, setPage] = useState(1);
 
-    // Fetch reports for application reports
+    // Hooks -----------------------------------------------------------------------------------------------------------
+    useEffect(() => {
+        setSerializedFilters(JSON.stringify(filters));
+    }, [filters]);
+
     useEffect(() => {
         if (token === null) {
             navigate('/login');
             return;
         }
 
-        let uri = 'moderation/reports/';
-        if (type === 'application') {
-            uri += 'application_comments/';
-        } else if (type === 'shelter_comment') {
-            uri += 'shelter_comments/';
-        } else if (type === 'pet_listing') {
-            uri += 'pet_listings/';
-        } else {
-            // Invalid type
-            return;
-        }
-
-        axios.post(API_URL + uri, filters + `?page=${page}`, {
+        axios.post(API_URL + TYPE_TO_URI[type] + `?page=${page}`, serializedFilters, {
+            // filters + `?page=${page}`, {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${token}`,
             }
@@ -56,7 +57,7 @@ export const Admin = () => {
                 navigate('/403');
             }
         });
-    }, [type, filters, page, token, API_URL]);
+    }, [type, filters, serializedFilters, page, token, API_URL]);
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleMultiSelectChange = (event, filterType) => {
@@ -83,7 +84,7 @@ export const Admin = () => {
         {/* Drop down to select category */}
         <div className="d-flex flex-column my-3">
             <h4>Type</h4>
-            <select name="type" id="type" value={type} className="me-3 form-select"
+            <select name="type" id="type" value={type} className="me-3 form-select w-100"
                     onChange={(e) => setType(e.target.value)}>
                 <option value="application">Application Comment</option>
                 <option value="shelter_comment">Shelter Comment</option>
@@ -92,15 +93,15 @@ export const Admin = () => {
         </div>
 
         <div className="d-flex flex-row justify-content-between align-items-center w-100">
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column w-100">
                 {/* Filters Section */}
                 <div className="d-flex flex-column">
                     <h4>Filters</h4>
                     {/* Category Multi-Select Filter */}
                     <h5>Category</h5>
-                    <div className="d-flex flex-row align-items-center justify-content-start w-100">
+                    <div className="d-flex flex-row align-items-center justify-content-start flex-wrap w-100">
                         <button onClick={() => handleMultiSelectChange({target: {value: "selectAll"}}, 'category')}
-                                className="btn btn-primary me-1">
+                                className="btn btn-primary me-1 w-auto">
                             Select All
                         </button>
                         <button onClick={() => handleMultiSelectChange({target: {value: "deselectAll"}}, 'category')}
@@ -149,20 +150,10 @@ export const Admin = () => {
                     <h4>Reports</h4>
                     {reports.count === 0 ? <div className="alert alert-info">There are no reports to display.</div> :
                         <ul className="list-group">
-                            {reports.results.map((report) => (<li key={report.id} className="list-group-item">
-                                <div className="d-flex flex-row justify-content-between align-items-center">
-                                    {/* Report ID */}
-                                    <span>Report ID: {report.id}</span>
-                                    {/* Report Status */}
-                                    <span>Status: {report.status}</span>
-                                </div>
-                                {/* Report Category */}
-                                <span>Category: {report.category}</span>
-                                {/* Report Message */}
-                                <span>Message: {report.message}</span>
-                                {/* Report Time */}
-                                <span>Time: {report.c_time}</span>
-                            </li>))}
+                            {reports.results.map((report) => type === 'application' ?
+                                <ApplicationReportEntry key={report.id} report={report}/> : type === 'shelter_comment' ?
+                                    <ShelterCommentReportEntry key={report.id} report={report}/> :
+                                    <PetListingReportEntry key={report.id} report={report}/>)}
                         </ul>}
 
                     {/* Pagination Controls */}
@@ -175,8 +166,7 @@ export const Admin = () => {
                             </button>
                             {/* Page Number */}
                             <div className="m-1">
-                                Page {page}
-                                of {Math.ceil(reports.count / 10)}
+                                Page {page} of {Math.ceil(reports.count / 10)}
                             </div>
                             {/* Next Page */}
                             <button disabled={reports.next === null} className="btn btn-secondary m-1"

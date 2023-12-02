@@ -17,7 +17,8 @@ import Profile from './pages/Profile';
 import AdoptionInfo from './pages/AdoptionInfo';
 
 import Unauthorized from "./pages/401_Unauthorized";
-import {Forbidden} from "./pages/403_Forbidden";
+import Forbidden from "./pages/403_Forbidden";
+import NotFound from "./pages/404_NotFound";
 
 import Admin from "./pages/Admin";
 
@@ -38,6 +39,7 @@ export default function App() {
 
                 <Route exact path="/401" element={<Unauthorized/>}/>
                 <Route exact path="/403" element={<Forbidden/>}/>
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

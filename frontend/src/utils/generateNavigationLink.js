@@ -5,8 +5,11 @@
  * @returns {string} Navigation link
  */
 export default function generateNavigationLink(notification) {
+    if (notification === null) return '/'; // Should never happen
+    if (notification.related_link === null) return '/'; // Should never happen
+
     // TODO: generate navigation link
-    if (notification.related_link === null) return ''; // Should not happen
     console.log(notification.related_link);
+
     return notification.related_link;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 
-export const Forbidden = () => {
+export const NotFound = () => {
     const navigate = useNavigate();
 
     return (<div>
@@ -9,10 +9,10 @@ export const Forbidden = () => {
             <i className="bi bi-arrow-left"></i> Back
         </button>
 
-        <h1>Forbidden</h1>
-        <p>You don't have permission to view this page.</p>
+        <h1>404 Not Found</h1>
+        <p>The page you are looking for does not exist.</p>
         <button className="btn btn-primary" onClick={() => navigate('/')}>Return to Home</button>
     </div>)
 }
 
-export default Forbidden;
+export default NotFound;
