@@ -80,7 +80,7 @@ function PetListingDetail() {
                 console.log(error.response.status);
             }
         });
-    }, [ petListingID, token, API_URL ]);
+    }, [ petListingID, token, API_URL ]); // TODO: navigate?
 
     let today = new Date();
     let birthday = new Date(petListing.petBirthday);
@@ -93,7 +93,7 @@ function PetListingDetail() {
     }
 
     const newApplication = () => {
-        const applicationURL = `${window.location.origin}/application/new`
+        const applicationURL = `${window.location.origin}/application/new`; // TODO: try to use navigate?
         window.location.href = applicationURL;
     }
 

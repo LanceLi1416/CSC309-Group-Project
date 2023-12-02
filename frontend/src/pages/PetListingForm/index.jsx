@@ -10,21 +10,21 @@ function PetListingForm() {
     const { petListingID } = useParams();
 
     const [ curApplication, setCurApplication ] = useState({
-        pet_name: "",
+        petName: "",
         gender: "",
-        pet_birthday: "",
-        pet_weight: "",
+        petBirthday: "",
+        petWeight: "",
         animal: "",
         breed: "",
         colour: "",
         vaccinated: false,
-        other_info: "",
+        otherInfo: "",
         pictures: "",
-        owner_name: "",
+        ownerName: "",
         email: "",
-        owner_phone: "",
+        ownerPhone: "",
         location: "",
-        owner_birthday: ""
+        ownerBirthday: ""
     })
 
     useEffect(() => {
@@ -40,25 +40,34 @@ function PetListingForm() {
                 }
             }).then(((response) => {
                 setCurApplication({
-                    pet_name: response.data.pet_name,
+                    petName: response.data.pet_name,
                     gender: response.data.gender,
-                    pet_birthday: response.data.pet_birthday,
-                    pet_weight: "",
-                    animal: "",
-                    breed: "",
-                    colour: "",
-                    vaccinated: false,
-                    other_info: "",
-                    pictures: "",
-                    owner_name: "",
-                    email: "",
-                    owner_phone: "",
-                    location: "",
-                    owner_birthday: ""
+                    petBirthday: response.data.pet_birthday,
+                    petWeight: response.data.pet_weight,
+                    animal: response.data.animal,
+                    breed: response.data.breed,
+                    colour: response.data.colour,
+                    vaccinated: response.data.vaccinated,
+                    otherInfo: response.data.other_info,
+                    pictures: response.data.pictures,
+                    ownerName: response.data.owner_name,
+                    email: response.data.email,
+                    ownerPhone: response.data.owner_phone,
+                    location: response.data.location,
+                    ownerBirthday: response.data.owner_birthday
                 })
-            }))
+            })).catch((error) => {
+                if (error.response.status === 404) {
+                    // TODO: redirect to 404
+                    console.log(error.response.status);
+                } else if (error.response.status === 401) {
+                    navigate("/login"); // TODO: don't know if necessary
+                } else if (error.response.status === 403) {
+                    console.log(error.response.status);
+                }
+            })
         }
-    })
+    }, [ petListingID, token, API_URL, navigate ])
 
     return <>
 
