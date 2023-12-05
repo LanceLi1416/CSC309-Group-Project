@@ -3,12 +3,15 @@ import { Form, Header } from 'semantic-ui-react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
 
 function ReportForm() {
     const { shelter_id, comment_id } = useParams();
     const [category, setCategory] = React.useState("other");
     const [otherInfo, setOtherInfo] = React.useState(null);
     const url = "http://localhost:8000/";
+    const navigate = useNavigate();
 
     // if comment id exist, redirect to 404
     // if user is not authenticated to view page:
@@ -45,6 +48,7 @@ function ReportForm() {
         <div className="report-container">
             <div className="rep-form-cont">
                 <Header as='h3' dividing>
+                <ArrowBackIcon id="back-button" onClick={() => {navigate(`/shelter/${shelter_id}/comments`)}}/>
                 Report Form for Comment
                 </Header>
                 <Form>

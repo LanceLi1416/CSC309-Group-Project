@@ -6,7 +6,11 @@ import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import Rating from '@mui/material/Rating';
 import CloseIcon from '@mui/icons-material/Close';
 import ReportIcon from '@mui/icons-material/Report';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 function ShelterComment() {
     const { shelter_id } = useParams();
@@ -18,6 +22,10 @@ function ShelterComment() {
     const [reload, setReload] = useState(false);
     const url = "http://localhost:8000/";
     const navigate = useNavigate();
+    const page = useRef(1);
+    const nextPageExists = useRef("");
+    const prevDisabled = useRef(false);
+    const nextDisabled = useRef(false);
 
     useEffect(() => {
         async function loadData() {
@@ -27,6 +35,14 @@ function ShelterComment() {
                 const response = await axios.get(`${url}comments/shelter/` + shelter_id);
                 const response2 = await axios.get(`${url}accounts/` + shelter_id);
                 setShelter(response2.data);
+                nextPageExists.current = response.data.next;
+                
+                if (response.data.next === null) {
+                    nextDisabled.current = true;
+                }
+                if (page.current === 1) {
+                    prevDisabled.current = true;
+                }
 
                 let all_comments = response.data.results;
                 for (let i = 0; i < all_comments.length; i++) {
@@ -55,6 +71,10 @@ function ShelterComment() {
         const data = {
             "stars": starValue,
             "comment": comment
+        }
+        if (starValue === null || starValue === 0) {
+            setCommentError("Please select a star rating");
+            return;
         }
         if (replyTarget === null) {
             axios.post(`${url}comments/shelter/${shelter_id}/`, data)
@@ -87,11 +107,72 @@ function ShelterComment() {
         navigate(`/report/shelter/${shelter_id}/${comment_id}`);
     }
 
+    async function prevPage() {
+        nextDisabled.current = false;
+        if (page.current === 1) {
+            return;
+        }
+        page.current -= 1;
+        if (page.current === 1) {
+            prevDisabled.current = true;
+        }
+        try {
+            const response = await axios.get(`${url}comments/shelter/` + shelter_id + `/?page=${page.current}`);
+            nextPageExists.current = response.data.next;
+            let all_comments = response.data.results;
+            for (let i = 0; i < all_comments.length; i++) {
+                const response3 = await axios.get(`${url}accounts/comments/` + all_comments[i].commenter);
+                all_comments[i].commenter_info = response3.data;
+                if (all_comments[i].replies.length > 0) {
+                    for (let j = 0; j < all_comments[i].replies.length; j++) {
+                        const response4 = await axios.get(`${url}accounts/comments/` + all_comments[i].replies[j].commenter);
+                        all_comments[i].replies[j].commenter_info = response4.data;
+                    }
+                }
+            }
+            setComments(all_comments);
+        } catch (error) {
+            // TODO: If error code is 401, redirect to unauthorized page??
+            // TODO: If error code is 404, redirect to not found page??
+            // Not sure about how to handle these cases yet
+        }
+    }
+
+    async function nextPage() {
+        console.log(nextPageExists.current);
+        prevDisabled.current = false;
+        if (nextPageExists.current === null) {
+            return;
+        }
+        page.current += 1;
+        try {
+            const response = await axios.get(`${url}comments/shelter/` + shelter_id + `/?page=${page.current}`);
+            nextPageExists.current = response.data.next;
+            if (nextPageExists.current === null) {
+                nextDisabled.current = true;
+            }
+            let all_comments = response.data.results;
+            for (let i = 0; i < all_comments.length; i++) {
+                const response3 = await axios.get(`${url}accounts/comments/` + all_comments[i].commenter);
+                all_comments[i].commenter_info = response3.data;
+                if (all_comments[i].replies.length > 0) {
+                    for (let j = 0; j < all_comments[i].replies.length; j++) {
+                        const response4 = await axios.get(`${url}accounts/comments/` + all_comments[i].replies[j].commenter);
+                        all_comments[i].replies[j].commenter_info = response4.data;
+                    }
+                }
+            }
+            setComments(all_comments);
+        } catch (error) {
+
+        }
+    }
 
     return (
         <div id="comment-section">
             <Comment.Group className="comment-group">
-            <Header as='h3' dividing>
+            <Header className="heading-text" as='h3' dividing>
+                <ArrowBackIcon id="back-button" onClick={() => {navigate(`/shelter/${shelter_id}`)}}/>
                 Comments for Shelter - { shelter.first_name + " " + shelter.last_name}
             </Header>
 
@@ -152,7 +233,7 @@ function ShelterComment() {
                 }}
                 />}
                 <Form.TextArea id="comment-box"/>
-                <div className="submit-container">
+                <div id="submit-container">
                 {
                 replyTarget && (<div className="reply-container">
                     <div className="reply-text">Replying to {replyTarget.name}</div> 
@@ -164,6 +245,10 @@ function ShelterComment() {
                 <Button onClick={() => sendRequest()} content='Add Comment' labelPosition='left' icon='edit' primary />
                 </div>
                 </Form>
+                <div className="button-div">
+                    <Button disabled={prevDisabled.current} onClick={() => prevPage()}><ArrowCircleLeftIcon /></Button> 
+                    <Button disabled={nextDisabled.current} onClick={() => nextPage()}><ArrowCircleRightIcon /></Button>
+                </div>
             </Comment.Group>
         </div>
       );

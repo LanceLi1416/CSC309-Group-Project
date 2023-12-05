@@ -378,7 +378,8 @@
             "first_name": "Different",
             "last_name": "Shelter",
             "is_seeker": false,
-            "notif_preference": true
+            "notif_preference": true,
+            "bio": "Here at Different Shelter, we value our pets and our customers. We have a wide variety of pets available for adoption, and we are sure you will find one that you love! We are located in Toronto, Ontario. Come visit us today! We are open from 9am to 5pm every day, and we are closed on holidays. "
         }
     },
     {
