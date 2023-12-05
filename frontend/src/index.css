@@ -416,7 +416,6 @@ textarea {
     margin-bottom: 4px;
     cursor: pointer;
 }
-
 /*****************/
 /* Report */
 
@@ -444,7 +443,6 @@ textarea {
 .categories {
     display: flex;
     flex-direction: column;
-    
 }
 
 .rep-form-cont {

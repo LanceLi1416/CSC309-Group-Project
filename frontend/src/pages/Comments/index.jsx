@@ -35,6 +35,7 @@ function ShelterComment() {
                 const response = await axios.get(`${url}comments/shelter/` + shelter_id);
                 const response2 = await axios.get(`${url}accounts/` + shelter_id);
                 setShelter(response2.data);
+
                 nextPageExists.current = response.data.next;
                 
                 if (response.data.next === null) {
