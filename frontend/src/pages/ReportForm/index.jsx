@@ -10,7 +10,7 @@ function ReportForm() {
     const { shelter_id, comment_id } = useParams();
     const [category, setCategory] = React.useState("other");
     const [otherInfo, setOtherInfo] = React.useState(null);
-    const url = "http://localhost:8000/";
+    const url = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     // if comment id exist, redirect to 404

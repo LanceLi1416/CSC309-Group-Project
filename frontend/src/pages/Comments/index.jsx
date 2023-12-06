@@ -20,7 +20,7 @@ function ShelterComment() {
     const [starValue, setStarValue] = useState(5);
     const [replyTarget, setReplyTarget] = useState(null);
     const [reload, setReload] = useState(false);
-    const url = "http://localhost:8000/";
+    const url = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
     const page = useRef(1);
     const nextPageExists = useRef("");

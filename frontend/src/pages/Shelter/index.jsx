@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const ShelterProfile = () => {
     const { shelter_id } = useParams();
     const [shelter, setShelter] = React.useState(null);
-    const url = "http://localhost:8000/";
+    const url = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const ShelterProfile = () => {
             }
         }
         loadData();
-    }, [shelter_id]);
+    }, [shelter_id, url]);
 
     console.log(shelter);
 
@@ -40,7 +40,7 @@ const ShelterProfile = () => {
         <img
         alt=""
         className="wrapped-img"
-        src={shelter ? shelter.avatar : "http://localhost:8000/media/avatars/default.jpg"}
+        src={shelter ? shelter.avatar : `${url}media/avatars/default.jpg`}
         />
     </div>
     <div className="text-center my-3">
