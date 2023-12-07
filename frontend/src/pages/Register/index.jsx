@@ -111,7 +111,9 @@ function Register() {
                             {touched.radio && errors.radio}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <ImageUploadButton name="avatar" accept="image/*" placeholder="Upload an optional profile picture" />
+                    <Col md="6">
+                        <ImageUploadButton name="avatar" accept="image/*" placeholder="Upload an optional profile picture" />
+                    </Col>
                 </Row>
                 <Button type="submit">Sign Up</Button>
             </Form>

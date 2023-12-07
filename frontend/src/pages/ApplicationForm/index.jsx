@@ -158,7 +158,7 @@ function ApplicationForm({ id }) {
                             label="$30,000-$60,000"
                             name="income"
                             value="$30,000-$60,000"
-                            checked={values.income === "$30,001-$60,000"}
+                            checked={values.income === "$30,000-$60,000"}
                             onChange={handleChange}
                             isInvalid={!!(touched.income && errors.income)}
                             disabled={readOnly}

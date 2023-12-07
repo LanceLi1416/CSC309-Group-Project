@@ -31,7 +31,8 @@ class NotificationCreateListView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def create_notification(self, sender, receiver, message, related_link):
+    @staticmethod
+    def create_notification(sender, receiver, message, related_link):
         """
         Create a notification.
 
