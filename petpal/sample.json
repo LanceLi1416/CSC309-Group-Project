@@ -381,7 +381,7 @@
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z",
-            "avatar": "1.jpg",
+            "avatar": "/avatars/1.jpg",
             "notif_preference": true
         }
     },
@@ -399,7 +399,7 @@
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z",
-            "avatar": "2.jpg",
+            "avatar": "/avatars/2.jpg",
             "notif_preference": true
         }
     },
@@ -417,7 +417,7 @@
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-02-18T19:09:04.505Z",
-            "avatar": "3.jpg",
+            "avatar": "/avatars/3.jpg",
             "notif_preference": true
         }
     },
@@ -435,7 +435,7 @@
             "is_staff": false,
             "is_active": true,
             "date_joined": "2023-08-18T19:09:04.505Z",
-            "avatar": "4.jpg",
+            "avatar": "/avatars/4.jpg",
             "notif_preference": true
         }
     },

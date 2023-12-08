@@ -8,7 +8,7 @@ from django.conf import settings
 import os
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, password, first_name, last_name, is_seeker, notif_preference, avatar=None):
+    def create_user(self, username, password, first_name, last_name, is_seeker, notif_preference=True, avatar=None):
         if not username or not password or not first_name or not last_name or is_seeker is None:
             raise ValueError('All fields must be set')    
         user = self.model(username=self.normalize_email(username), first_name=first_name, last_name=last_name, is_seeker=is_seeker, notif_preference=notif_preference)
