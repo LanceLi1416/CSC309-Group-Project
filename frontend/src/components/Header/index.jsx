@@ -37,7 +37,7 @@ export const Header = () => {
     }
 
     function handleNotificationClick(notification) {
-        axios.put(`${BASE_URL}/notifications/${notification.id}/`, {}, {
+        axios.put(`${BASE_URL}notifications/${notification.id}/`, {}, {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
@@ -65,7 +65,7 @@ export const Header = () => {
         if (!isLoggedIn) return;
 
         // Fetch notifications
-        axios.get(`${BASE_URL}/notifications/?is_read=False`, {
+        axios.get(`${BASE_URL}notifications/?is_read=False`, {
             headers: {
                 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('access_token')}`
             }
