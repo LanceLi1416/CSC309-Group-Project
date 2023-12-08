@@ -33,10 +33,12 @@ function PetListingDetail() {
         "location": "",
         "ownerBirthday": "",
         "status": "",
+        "shelterID": 0,
         "shelterFirstName": "",
         "shelterLastName": "",
         "shelterPhone": "",
-        "shelterEmail": ""
+        "shelterEmail": "",
+        "creationDate": ""
     });
 
     useEffect(() => {
@@ -65,10 +67,12 @@ function PetListingDetail() {
                 "location": response.data.location,
                 "ownerBirthday": response.data.owner_birthday,
                 "status": response.data.status,
+                "shelterID": response.data.shelter_id,
                 "shelterFirstName": response.data.shelter_first_name,
                 "shelterLastName": response.data.shelter_last_name,
                 "shelterPhone": response.data.shelter_phone,
-                "shelterEmail": response.data.shelter_email
+                "shelterEmail": response.data.shelter_email,
+                "creationDate": response.data.creation_date
             });
         }).catch((error) => {
             if (error.response.status === 404) {
@@ -106,6 +110,7 @@ function PetListingDetail() {
             <h1>{petListing.petName}</h1>
             <p>{capitalize(petListing.animal)} | {capitalize(petListing.breed)} | {petListing.location}</p>
             <p><strong>Status:</strong> {capitalize(petListing.status)}</p>
+            <p><strong>Posting Date:</strong> {petListing.creationDate}</p>
         </div>
         <h2 className="pet-detail-subtitles">Pictures</h2>
         <div className="row mt-2 border rounded">
@@ -188,7 +193,7 @@ function PetListingDetail() {
                     <p><strong>Name:</strong> {petListing.shelterFirstName + " " + petListing.shelterLastName}</p>
                     <p><strong>Email:</strong> {petListing.shelterEmail}</p>
                     <p><strong>Phone:</strong> {petListing.shelterPhone}</p>
-                    <button className="btn btn-outline-primary sidebar-button" onClick={console.log}>
+                    <button className="btn btn-outline-primary sidebar-button" onClick={() => {navigate(`../shelter/${petListing.shelterID}`)}}>
                         View Detailed Shelter Info
                     </button>
                 </div>

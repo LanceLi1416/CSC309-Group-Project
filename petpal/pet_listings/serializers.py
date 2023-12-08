@@ -42,10 +42,12 @@ class PetListingSerializer(serializers.Serializer):
     location = serializers.CharField(source='owner.location', required=True, validators=[MaxLengthValidator(50)])
     owner_birthday = serializers.DateField(required=True, source='owner.birthday')
     status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES, validators=[MaxLengthValidator(50)])
+    shelter_id = serializers.IntegerField(source='shelter.id', required=False)
     shelter_first_name = serializers.CharField(source='shelter.first_name', required=False)
     shelter_last_name = serializers.CharField(source='shelter.last_name', required=False)
     shelter_phone = serializers.CharField(source='shelter.phone', required=False)
     shelter_email = serializers.CharField(source='shelter.username', required=False)
+    creation_date = serializers.DateField(required=False)
 
 
     def validate_vaccinated(self, vaccinated):
@@ -204,6 +206,31 @@ class PetListingSerializer(serializers.Serializer):
 
 class SearchModelSerializer(serializers.ModelSerializer):
     pet_name = serializers.CharField(source="pet.name", read_only=True)
+    pet_pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', read_only=True)
+
     class Meta:
         model = PetListing
-        fields = ['id', 'pet', 'pet_name', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+        fields = ['id', 'pet', 'pet_name', 'pet_pictures', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        pictures_data = data.get('pet_pictures')
+        if type(instance) == PetListing and pictures_data is not None:
+            # print(instance)
+            # print(instance.pet)
+            # print(instance.pet.pictures.all())
+            # print(type(instance) == PetListing)
+            # print(data)
+            # print(instance)
+            pictures_data = PictureSerializer(instance.pet.pictures.all(), many=True).data
+            # print(pictures_data)
+            data['pictures'] = pictures_data
+            # print(data)
+            return data
+        else:
+            pic_names = []
+            for i in range(len(instance['pet']['pictures']['all'])):
+                pic_names.append(instance['pet']['pictures']['all'][i].name)
+            data['pictures'] = pic_names
+            return data
+        
