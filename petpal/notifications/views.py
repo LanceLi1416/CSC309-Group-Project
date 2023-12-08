@@ -74,11 +74,35 @@ class NotificationCreateListView(APIView):
 
         # Pagination
         paginator = self.paginator_class()
-        paginator.page_size = 3
+        paginator.page_size = 15
         notifications = paginator.paginate_queryset(notifications, request)
 
         serializer = NotificationSerializer(notifications, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+    def put(self, request):
+        """
+        Mark all notifications as read.
+
+        :param request: The request object.
+        :return:        200 if the notifications were updated successfully,
+                        400 if the request data was invalid,
+        """
+        # Get notifications
+        notifications = Notification.objects.filter(receiver=request.user, is_read=False)
+
+        if notifications is None:  # Nothing to update
+            return Response(status=status.HTTP_200_OK)
+
+        for notification in notifications:
+            # Change the is_read field to True
+            serializer = NotificationUpdateSerializer(notification, data={'is_read': True},
+                                                      partial=True)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
 
 
 class NotificationDetailUpdateDeleteView(APIView):
