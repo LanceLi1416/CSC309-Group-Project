@@ -26,7 +26,7 @@ function SearchResultsGrid() {
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
-    const [ filterParams, setFilterParams ] = useSearchParams();
+    const [ filterParams, setFilterParams ] = useSearchParams([]);
     const [ totalPages, setTotalPages ] = useState(1);
     const [ petListings, setPetListings ] = useState([]);
 
@@ -51,6 +51,8 @@ function SearchResultsGrid() {
                 "Authorization": "Bearer " + token
             }
         }).then((response) => {
+            console.log(222);
+            console.log(response);
             setPetListings(response.data.results); // TODO
             setTotalPages(Math.ceil(response.data.count / 8));
         })
@@ -60,12 +62,14 @@ function SearchResultsGrid() {
         navigate(`/pet_listings/details/${id}`);
     }
 
+    console.log(petListings);
+
     const renderItem = (listing) => (
         <div className="col-md-3 d-flex align-items-center
                         flex-column position-relative"
             key={`Listing: ${listing.id}`}>
             <img className="img-fluid full-img px-2"
-                 src={`${API_URL}${listing.pictures[0].path.replace('/media/', 'media/pet_listing_pics/')}`}
+                 src={`${API_URL}${listing.pet_pictures[0].path.replace('/media/', 'media/pet_listing_pics/')}`}
             />
             <a className="stretched-link text-decoration-none"
                onClick={() => loadListingDetail(listing.id)}>

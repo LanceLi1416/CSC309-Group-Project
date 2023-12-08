@@ -87,6 +87,51 @@
         }
     },
     {
+        "model": "pet_listings.picture",
+        "pk": 7,
+        "fields": {
+            "path": "6_0.jpeg",
+            "pet_id": 6,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 8,
+        "fields": {
+            "path": "7_0.jpeg",
+            "pet_id": 7,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 9,
+        "fields": {
+            "path": "8_0.jpeg",
+            "pet_id": 8,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 10,
+        "fields": {
+            "path": "9_0.jpeg",
+            "pet_id": 9,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
+        "model": "pet_listings.picture",
+        "pk": 11,
+        "fields": {
+            "path": "10_0.jpeg",
+            "pet_id": 10,
+            "creation_time": "2023-02-19T05:23:39.789Z"
+        }
+    },
+    {
         "model": "pet_listings.owner",
         "pk": 1,
         "fields": {

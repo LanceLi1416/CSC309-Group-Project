@@ -229,8 +229,8 @@ class SearchModelSerializer(serializers.ModelSerializer):
             # print(instance)
             pictures_data = PictureSerializer(instance.pet.pictures.all(), many=True).data
             # print(pictures_data)
-            data['pictures'] = pictures_data
-            # print(data)
+            data['pet_pictures'] = pictures_data
+            print(data)
             return data
         else:
             pic_names = []
