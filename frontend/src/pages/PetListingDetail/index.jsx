@@ -94,8 +94,8 @@ function PetListingDetail() {
         age--;
     }
 
-    const newApplication = (id) => {
-        const applicationURL = `${window.location.origin}/application/new/${id}`; // TODO: try to use navigate?
+    const newApplication = () => {
+        const applicationURL = `${window.location.origin}/application/new/${petListingID}`; // TODO: try to use navigate?
         window.location.href = applicationURL;
     }
 
@@ -179,7 +179,7 @@ function PetListingDetail() {
                     <p><strong>Name:</strong> {petListing.ownerName}</p>
                     <p><strong>Email:</strong> {petListing.email}</p>
                     <p><strong>Phone:</strong> {petListing.ownerPhone}</p>
-                    <button className="btn btn-outline-primary sidebar-button" onClick={(petListing.id) => newApplication()}>
+                    <button className="btn btn-outline-primary sidebar-button" onClick={newApplication}>
                         Adopt This Pet
                     </button>
                 </div>

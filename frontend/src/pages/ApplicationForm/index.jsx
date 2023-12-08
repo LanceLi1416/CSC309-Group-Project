@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormField from '../../components/FormField';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as formik from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
@@ -13,6 +13,7 @@ function ApplicationForm({ id }) {
     const token = localStorage.getItem('access_token');
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
+    const { petId } = useParams();
 
     const [existingApplication, setExistingApplication] = useState({
         email: '',
@@ -56,9 +57,9 @@ function ApplicationForm({ id }) {
                 });
                 setReadOnly(true);
             }).catch((error) => {
-                // TODO: 404 page
                 if (error.response.status === 404) {
-                    console.log("Application not found");
+                    // console.log("Application not found");
+                    navigate("/404");
                 }
             });
         }
