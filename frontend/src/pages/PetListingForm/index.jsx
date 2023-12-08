@@ -3,12 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import * as yup from 'yup';
 import * as formik from 'formik';
-import Form from 'react-bootstrap/Form';
 import FormField from '../../components/FormField';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Row, Dropdown, Button, Col, Form } from 'react-bootstrap';
+import MultipleImagesUploadButton from '../../components/MultipleImagesUploadButton';
 
+const STATUS_TO_COLOR = {
+    "available": "success",
+    "adopted": "danger",
+    "pending": "warning",
+    "withdrawn": "secondary"
+};
 
 function PetListingForm() {
     const token = localStorage.getItem('access_token');
@@ -31,8 +35,9 @@ function PetListingForm() {
         email: "",
         ownerPhone: "",
         location: "",
-        ownerBirthday: ""
-    })
+        ownerBirthday: "",
+        status: "",
+    });
     const [ create, setCreate ] = useState(true);
 
     useEffect(() => {
@@ -62,7 +67,8 @@ function PetListingForm() {
                     email: response.data.email,
                     ownerPhone: response.data.owner_phone,
                     location: response.data.location,
-                    ownerBirthday: response.data.owner_birthday
+                    ownerBirthday: response.data.owner_birthday,
+                    status: response.data.status,
                 })
                 setCreate(false);
             })).catch((error) => {
@@ -79,7 +85,50 @@ function PetListingForm() {
         }
     }, [ petListingID, token, API_URL, navigate ])
 
-    const createHandler = (values) => {
+    const createHandler = (formData) => {
+        axios({
+            method: "POST",
+            url: `${API_URL}pet_listings/`,
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "multipart/form-data"
+            },
+            data: formData
+        }).then((response) => {
+            console.log("created");
+            console.log(response);
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 403) {
+                console.log(error.response.status); // TODO: redirect to 403
+            }
+        });
+    };
+
+    const updateHandler = (formData) => {
+        axios({
+            method: "PUT",
+            url: `${API_URL}pet_listings/${petListingID}/`,
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "multipart/form-data"
+            },
+            data: formData
+        }).then((response) => {
+            console.log("updated");
+            console.log(response);
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 403) {
+                console.log(error.response.status); // TODO: redirect to 403
+            }
+        });
+    };
+
+    const submitHandler = (values) => {
+        console.log(values);
         const formData = new FormData();
         formData.append("pet_name", values.petName);
         formData.append("gender", values.gender);
@@ -90,51 +139,23 @@ function PetListingForm() {
         formData.append("colour", values.colour);
         formData.append("vaccinated", values.vaccinated);
         formData.append("other_info", values.otherInfo);
-        formData.append("pictures", values.pictures);
+        // formData.append("pictures", values.pictures);
         formData.append("owner_name", values.ownerName);
         formData.append("email", values.email);
         formData.append("owner_phone", values.ownerPhone);
         formData.append("location", values.location);
         formData.append("owner_birthday", values.ownerBirthday);
-    
-        console.log(formData);
-
-        axios({
-            method: "POST",
-            url: `${API_URL}pet_listings/`,
-            header: {
-                "Authorization": "Bearer " + token,
-                "Content-Type": "multipart/form-data"
-            },
-            data: formData
-        }).then((response) => {
-            console.log("created");
-        }).catch((error) => {
-            if (error.response.status === 401) {
-                navigate("/login");
-            } else if (error.response.status === 403) {
-                console.log(error.response.status); // TODO: redirect to 403
-            }
-        });
-    };
-
-    const updateHandler = (values) => {
-        axios({
-            method: "PUT",
-            url: `${API_URL}pet_listings/${petListingID}/`,
-            header: {
-                "Authorization": "Bearer " + token
-            }
-        }).then((response) => {
-            console.log("created");
-        }).catch((error) => {
-            if (error.response.status === 401) {
-                navigate("/login");
-            } else if (error.response.status === 403) {
-                console.log(error.response.status); // TODO: redirect to 403
-            }
-        });
-    };
+        
+        console.log(values.pictures);
+        if (create) {
+            console.log(formData);
+            createHandler(formData);
+        } else {
+            formData.append("status", values.status);
+            console.log(formData);
+            updateHandler(formData);
+        }
+    }
 
     const { Formik } = formik;
     const phoneRegEx = /^\d{3}-\d{3}-\d{4}$/;
@@ -157,7 +178,7 @@ function PetListingForm() {
         colour: yup.string().required("Please enter the pet's colour")
                    .max(50, "Colour can only be a max of 50 characters"),
         vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
-        pictures: yup.string().required("Please upload at least 1 pet picture"),
+        // pictures: yup.string().required("Please upload at least 1 pet picture"),
         otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
         ownerName: yup.string().required("Please enter the owner's name")
                                .max(50, "Owner name can only be a max of 50 characters"),
@@ -169,17 +190,42 @@ function PetListingForm() {
                      .max(50, "Location can only be a max of 50 characters")
                      .matches(locationRegEx, "Invalid location. Please use the format: City, Country"),
         ownerBirthday: yup.date().required("Please enter the owner's birthday")
-                          .max(maxOwnerBirthday, "The owner must be at least 18 years old")
+                          .max(maxOwnerBirthday, "The owner must be at least 18 years old"),
+        status: yup.string().oneOf(["available", "adopted", "pending", "withdrawn"], "Invalid status")
     });
 
-    return <>
-    <div className="page-container">
-        <h1>Upload a pet for adoption</h1>
-        <p>Please fill in the form below with the pet and owner's details.</p>
+    const handleFieldChange = (fieldName, value) => {
+        setCurApplication(prevState => ({
+            ...prevState,
+            [fieldName]: value,
+        }));
+    };
+
+    return (<div className="page-container">
+        <div className="d-flex flex-row justify-content-between">
+            <div className="d-flex flex-column">
+                <h1>Upload a pet for adoption</h1>
+                <p>Please fill in the form below with the pet and owner's details.</p>
+            </div>
+            <div>
+            {!create && 
+            <Dropdown>
+                <Dropdown.Toggle variant={STATUS_TO_COLOR[curApplication.status]} id="statusDropdown">
+                    Status: {curApplication.status.charAt(0).toUpperCase() + curApplication.status.slice(1)}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => handleFieldChange('status', 'available')}>Available</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFieldChange('status', 'adopted')}>Adopted</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFieldChange('status', 'accepted')}>Pending</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFieldChange('status', 'accepted')}>Withdrawn</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>}
+            </div>
+        </div>
 
         <h2>Pet Information</h2>
         <Formik validationSchema={schema}
-                onSubmit={createHandler}
+                onSubmit={submitHandler}
                 initialValues={curApplication}
                 enableReinitialize={true} 
         >
@@ -202,10 +248,10 @@ function PetListingForm() {
                                     <option value="">Choose...</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
-                                    <Form.Control.Feedback type="invalid">
-                                        {touched.gender && errors.gender}
-                                    </Form.Control.Feedback>
                                 </Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                    {touched.gender && errors.gender}
+                                </Form.Control.Feedback>
                             </Col>
                         </Row>
 
@@ -290,7 +336,8 @@ function PetListingForm() {
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
+                            <MultipleImagesUploadButton name="pictures" accept="image/*" placeholder="Upload Pictures" />
+                            {/* <Col className="form-group">
                                 <Form.Label htmlFor="pictures">Upload Pictures</Form.Label>
                                 <Form.Control id="pictures"
                                               className="form-control"
@@ -300,7 +347,7 @@ function PetListingForm() {
                                               name="pictures" 
                                               onChange={handleChange} 
                                               error={touched.pictures && errors.pictures} />
-                            </Col>
+                            </Col> */}
                         </Row>
                     </div>
 
@@ -358,21 +405,12 @@ function PetListingForm() {
                                         error={touched.ownerBirthday && errors.ownerBirthday} 
                                         label="Birthday" boldLabel={false} />
                         </Row>
-
-
                     </div>
-                    <Row className="mt-4">
-                        <Button className="mb-4"
-                                variant="outline-primary" 
-                                type="submit"
-                                >Upload</Button>
-                    </Row>
+                    <Row className="mt-4"><Button variant="outline-primary" type="submit">{create ? "Upload" : "Update"}</Button></Row>
                 </Form>
             )}
         </Formik>
-
-    </div>
-    </>
+    </div>);
 }
 
 export default PetListingForm;
