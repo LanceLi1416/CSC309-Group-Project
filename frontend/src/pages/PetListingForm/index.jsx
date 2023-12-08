@@ -163,15 +163,14 @@ function PetListingForm() {
                                .max(50, "Owner name can only be a max of 50 characters"),
         email: yup.string().email("Invalid email").required("Please enter the owner's email")
                            .max(50, "Email can only be a max of 50 characters"),
-        phoneNumber: yup.string().required("Please enter the owner's phone number")
+        ownerPhone: yup.string().required("Please enter the owner's phone number")
                                  .matches(phoneRegEx, "Invalid phone number. Please use the format: 000-000-0000"),
         location: yup.string().required("Please enter the owner's location")
                      .max(50, "Location can only be a max of 50 characters")
                      .matches(locationRegEx, "Invalid location. Please use the format: City, Country"),
         ownerBirthday: yup.date().required("Please enter the owner's birthday")
-                          .max(maxOwnerBirthday, 
-                               "The owner must be at least 18 years old")
-    })
+                          .max(maxOwnerBirthday, "The owner must be at least 18 years old")
+    });
 
     return <>
     <div className="page-container">
@@ -184,131 +183,110 @@ function PetListingForm() {
                 initialValues={curApplication}
                 enableReinitialize={true} 
         >
-            {({ handleSubmit, handleChange, values, touched, errors }) => (
+            {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
                 <Form onSubmit={handleSubmit} noValidate>
                     <div className="row mt-2 pb-3 border rounded">
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="petName">Name</Form.Label>
-                                <FormField id="petName"
-                                           className="form-control"
-                                           type="text"
-                                           name="petName"
-                                           width={12}
-                                           placeholder="Pet Name"
-                                           values={values.petName}
-                                           onChange={handleChange} 
-                                           error={touched.petName && errors.petName} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="petName" type="text"
+                                        name="petName" placeholder="Pet Name"
+                                        value={values.petName}
+                                        handleChange={handleChange} 
+                                        error={touched.petName && errors.petName} 
+                                        label="Name" boldLabel={false}/>
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
                             <Col className="form-group">
-                                <Form.Label htmlFor="gender">Gender</Form.Label>
-                                <Form.Select id="gender" 
-                                             onChange={handleChange} 
-                                             error={touched.gender && errors.gender}>
+                                <Form.Label>Gender</Form.Label>
+                                <Form.Control as="select" id="gender" value={values.gender} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.gender && !!errors.gender}>
                                     <option value="">Choose...</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
-                                </Form.Select>
+                                    <Form.Control.Feedback type="invalid">
+                                        {touched.gender && errors.gender}
+                                    </Form.Control.Feedback>
+                                </Form.Control>
                             </Col>
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="petBirthday">Birthday</Form.Label>
-                                <FormField id="petBirthday"
-                                           className="form-control"
-                                           type="date"
-                                           name="petBirthday" 
-                                           onChange={handleChange} 
-                                           error={touched.petBirthday && errors.petBirthday} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="petBirthday" type="date"
+                                        name="petBirthday" 
+                                        value={values.petBirthday}
+                                        handleChange={handleChange} 
+                                        error={touched.petBirthday && errors.petBirthday} 
+                                        label="Birthday" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="petWeight">Weight</Form.Label>
-                                <FormField id="petWeight"
-                                           className="form-control"
-                                           min="0"
-                                           placeholder="0"
-                                           type="number"
-                                           name="petWeight" 
-                                           onChange={handleChange} 
-                                           error={touched.petWeight && errors.petWeight} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="petWeight"
+                                        min="0"
+                                        placeholder="0"
+                                        type="number"
+                                        name="petWeight" 
+                                        handleChange={handleChange} 
+                                        value={values.petWeight}
+                                        error={touched.petWeight && errors.petWeight} 
+                                        label="Weight" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="animal">Animal</Form.Label>
-                                <FormField id="animal"
-                                           className="form-control"
-                                           type="text"
-                                           name="animal" 
-                                           onChange={handleChange} 
-                                           error={touched.animal && errors.animal} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="animal"
+                                        type="text"
+                                        name="animal" 
+                                        handleChange={handleChange} 
+                                        error={touched.animal && errors.animal} 
+                                        value={values.animal}
+                                        label="Animal" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="breed">Breed</Form.Label>
-                                <FormField id="breed"
-                                           className="form-control"
-                                           type="text"
-                                           name="breed" 
-                                           onChange={handleChange} 
-                                           error={touched.breed && errors.breed} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="breed"
+                                        className="form-control"
+                                        type="text"
+                                        name="breed" 
+                                        handleChange={handleChange} 
+                                        value={values.breed}
+                                        error={touched.breed && errors.breed} 
+                                        label="Breed" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="colour">Colour</Form.Label>
-                                <FormField id="colour"
-                                           className="form-control"
-                                           type="text"
-                                           name="colour"
-                                           onChange={handleChange} 
-                                           error={touched.colour && errors.colour} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="colour"
+                                        type="text"
+                                        name="colour"
+                                        handleChange={handleChange} 
+                                        value={values.colour}
+                                        error={touched.colour && errors.colour} 
+                                        label="Colour" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="vaccinated">Vaccinated</Form.Label>
-                                <Form.Check id="vaccinated"
-                                            type="checkbox"
-                                            name="vaccinated"
-                                            
-                                            checked={!create ? values.vaccinated : null}
-                                            onChange={handleChange} 
-                                            error={touched.vaccinated && errors.vaccinated} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <Form.Group as={Col} md={12} controlId="vaccinated">
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Vaccinated"
+                                    name="vaccinated"
+                                    value="vaccinated"
+                                    checked={values.vaccinated}
+                                    onChange={handleChange}
+                                    isInvalid={!!(touched.vaccinated && errors.vaccinated)}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {touched.vaccinated && errors.vaccinated}
+                                </Form.Control.Feedback>
+                            </Form.Group>
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="otherInfo">Other Information</Form.Label>
-                                <FormField id="otherInfo"
-                                           className="form-control"
-                                           type="text"
-                                           name="otherInfo" 
-                                           placeholder="No additional information available"
-                                           onChange={handleChange} 
-                                           error={touched.otherInfo && errors.otherInfo} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="otherInfo"
+                                        type="text"
+                                        name="otherInfo" 
+                                        value={values.otherInfo}
+                                        placeholder="No additional information available"
+                                        handleChange={handleChange} 
+                                        error={touched.otherInfo && errors.otherInfo} 
+                                        label="Other Information" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
@@ -322,7 +300,6 @@ function PetListingForm() {
                                               name="pictures" 
                                               onChange={handleChange} 
                                               error={touched.pictures && errors.pictures} />
-                                            {/* disabled={readOnly} /> */}
                             </Col>
                         </Row>
                     </div>
@@ -330,76 +307,60 @@ function PetListingForm() {
                     <h2 className="page-title">Owner Information</h2>
                     <div className="row mt-2 pb-3 border rounded">
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="ownerName">Name</Form.Label>
-                                <FormField id="ownerName"
-                                           className="form-control"
-                                           type="text"
-                                           name="ownerName" 
-                                           onChange={handleChange} 
-                                           error={touched.ownerName && errors.ownerName} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="ownerName" placeholder="Owner Name"
+                                        type="text"
+                                        name="ownerName" 
+                                        value={values.ownerName}
+                                        handleChange={handleChange} 
+                                        error={touched.ownerName && errors.ownerName} 
+                                        label="Name" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="email">Email</Form.Label>
-                                <FormField id="email"
-                                           className="form-control"
-                                           type="text"
-                                           name="email" 
-                                           placeholder="example@domain.com"
-                                           onChange={handleChange} 
-                                           error={touched.email && errors.email} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="email"
+                                        type="text"
+                                        name="email" 
+                                        value={values.email}
+                                        placeholder="example@domain.com"
+                                        handleChange={handleChange} 
+                                        error={touched.email && errors.email}
+                                        label="Email" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="phoneNumber">Phone Number</Form.Label>
-                                <FormField id="phoneNumber"
-                                           className="form-control"
-                                           type="text"
-                                           name="phoneNumber"
-                                           placeholder="000-000-0000"
-                                           onChange={handleChange} 
-                                           error={touched.phoneNumber && errors.phoneNumber} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="ownerPhone"
+                                        type="text"
+                                        name="ownerPhone"
+                                        value={values.ownerPhone}
+                                        placeholder="000-000-0000"
+                                        handleChange={handleChange} 
+                                        error={touched.ownerPhone && errors.ownerPhone} 
+                                        label="Phone Number" boldLabel={false} />
                         </Row>
                         
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="location">Location</Form.Label>
-                                <FormField id="location"
-                                           className="form-control"
-                                           type="text"
-                                           name="location"
-                                           placeholder="City, Country"
-                                           onChange={handleChange} 
-                                           error={touched.location && errors.location} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="location"
+                                        type="text"
+                                        name="location"
+                                        value={values.location}
+                                        placeholder="City, Country"
+                                        handleChange={handleChange} 
+                                        error={touched.location && errors.location} 
+                                        label="Location" boldLabel={false} />
                         </Row>
 
                         <Row className="d-flex flex-row mt-3">
-                            <Col className="form-group">
-                                <Form.Label htmlFor="ownerBirthday">Birthday</Form.Label>
-                                <FormField id="ownerBirthday"
-                                           className="form-control"
-                                           type="date"
-                                           name="ownerBirthday" 
-                                           onChange={handleChange} 
-                                           error={touched.ownerBirthday && errors.ownerBirthday} />
-                                            {/* disabled={readOnly} /> */}
-                            </Col>
+                            <FormField id="ownerBirthday"
+                                        type="date"
+                                        name="ownerBirthday" 
+                                        value={values.ownerBirthday}
+                                        handleChange={handleChange} 
+                                        error={touched.ownerBirthday && errors.ownerBirthday} 
+                                        label="Birthday" boldLabel={false} />
                         </Row>
 
 
                     </div>
-                    {/* onClick={create ? createHandler : } */}
                     <Row className="mt-4">
                         <Button className="mb-4"
                                 variant="outline-primary" 
