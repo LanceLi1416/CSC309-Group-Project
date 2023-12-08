@@ -10,9 +10,11 @@ from .models import Pet, Owner, PetListing, Picture
 from moderation.models import ReportPetListing
 
 class PictureSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    
     class Meta:
         model = Picture
-        fields = ['path']
+        fields = ['id', 'path']
 
 
 class PetListingSerializer(serializers.Serializer):

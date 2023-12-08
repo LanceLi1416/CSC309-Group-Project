@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import SearchFilters from "../../components/SearchFilters";
+import SearchFilters from "./SearchFilters";
 import ResponsiveSearchFilters from "../../components/ResponsiveSearchFilters";
 import axios from "axios";
 

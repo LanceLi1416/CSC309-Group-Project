@@ -84,6 +84,8 @@ function PetListingForm() {
             })
         }
     }, [ petListingID, token, API_URL, navigate ])
+    
+    console.log(curApplication);
 
     const createHandler = (formData) => {
         axios({
@@ -124,6 +126,30 @@ function PetListingForm() {
             }
         });
     };
+
+    function deleteListingPic(picID) {
+        axios({
+            method: "DELETE",
+            url: `${API_URL}pet_listings/pictures/${petListingID}/${picID}/`,
+            headers: {
+                "Authorization": "Bearer " + token,
+            },
+        }).then((response) => {
+            let tmp = curApplication.pictures.filter(key => key.id !== picID);
+            setCurApplication({
+                ...curApplication, 
+                pictures: tmp
+            });
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                console.log(error.response.status); // TODO
+            } else if (error.response.status === 403) {
+                console.log(error.response.status);
+            } else if(error.response.status === 404) {
+                console.log(error.response.status);
+            }
+        });
+    }
 
     const submitHandler = (values) => {
         const formData = new FormData();
@@ -338,6 +364,19 @@ function PetListingForm() {
                                         error={touched.otherInfo && errors.otherInfo} 
                                         label="Other Information" boldLabel={false} />
                         </Row>
+
+                        {!create &&
+                        <Row className="d-flex flex-row mt-3">
+                            <label className="mb-3">Current Pictures</label>
+                            {curApplication.pictures.length > 0 ? curApplication.pictures.map((pic) => (
+                                <div key={pic.path}>
+                                    <Button className="pic-delete" variant="outline-primary"
+                                            onClick={() => deleteListingPic(pic.id)}>Delete</Button>
+                                    <img className="d block mb-3 w-25" alt={pic.path} src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`}/>
+                                    <br />
+                                </div>
+                            )) : <i>No existing images</i>}
+                        </Row>}
 
                         <Row className="d-flex flex-row mt-3">
                             <MultipleImagesUploadButton name="pictures" accept="image/*" placeholder="Upload Pictures" />
