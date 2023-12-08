@@ -18,13 +18,15 @@ const ShelterProfile = () => {
                 const response2 = await axios.get(`${url}accounts/` + shelter_id);
                 setShelter(response2.data);
             } catch (error) {
-                // TODO: If error code is 401, redirect to unauthorized page??
-                // TODO: If error code is 404, redirect to not found page??
-                // Not sure about how to handle these cases yet
+                if (error.response.status === 404) {
+                    navigate("/404");
+                } else if (error.response.status === 401) {
+                    navigate("/401");
+                }
             }
         }
         loadData();
-    }, [shelter_id, url]);
+    }, [shelter_id, url, navigate]);
 
     console.log(shelter);
 
