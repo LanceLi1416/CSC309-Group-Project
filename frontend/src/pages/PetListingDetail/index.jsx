@@ -1,4 +1,4 @@
-import { useNavigate, useParams, navigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
@@ -14,6 +14,8 @@ function PetListingDetail() {
     const navigate = useNavigate();
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const [ currentImage, setCurrentImage ] = useState(1);
     const { petListingID } = useParams();
     const [ petListing, setPetListing ] = useState({
@@ -98,8 +100,8 @@ function PetListingDetail() {
         age--;
     }
 
-    const newApplication = () => {
-        const applicationURL = `${window.location.origin}/application/new/${petListingID}`; // TODO: try to use navigate?
+    const newApplication = () => {        
+        const applicationURL = `${window.location.origin}/application/new/${petListingID}`;
         window.location.href = applicationURL;
     }
 
@@ -184,7 +186,7 @@ function PetListingDetail() {
                     <p><strong>Name:</strong> {petListing.ownerName}</p>
                     <p><strong>Email:</strong> {petListing.email}</p>
                     <p><strong>Phone:</strong> {petListing.ownerPhone}</p>
-                    <button className="btn btn-outline-primary sidebar-button" onClick={newApplication}>
+                    <button className="btn btn-outline-primary sidebar-button" onClick={newApplication} disabled={user.is_seeker ? false : true}>
                         Adopt This Pet
                     </button>
                 </div>
