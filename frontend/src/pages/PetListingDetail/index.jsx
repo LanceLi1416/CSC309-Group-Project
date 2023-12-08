@@ -120,7 +120,7 @@ function PetListingDetail() {
             {petListing.pictures.map((pic) => (
                 <Carousel.Item>
                     <div className="carousel-item active" key={pic.path}>
-                        <img className="d block w-50" src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`} />
+                        <img className="d block w-50" alt={`${pic.path}`} src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`} />
                     </div>
                 </Carousel.Item>
             ))}

@@ -96,7 +96,6 @@ function PetListingForm() {
             data: formData
         }).then((response) => {
             console.log("created");
-            console.log(response);
         }).catch((error) => {
             if (error.response.status === 401) {
                 navigate("/login");
@@ -112,12 +111,11 @@ function PetListingForm() {
             url: `${API_URL}pet_listings/${petListingID}/`,
             headers: {
                 "Authorization": "Bearer " + token,
-                "Content-Type": "multipart/form-data"
+                // "Content-Type": "multipart/form-data"
             },
             data: formData
         }).then((response) => {
             console.log("updated");
-            console.log(response);
         }).catch((error) => {
             if (error.response.status === 401) {
                 navigate("/login");
@@ -128,7 +126,6 @@ function PetListingForm() {
     };
 
     const submitHandler = (values) => {
-        console.log(values);
         const formData = new FormData();
         formData.append("pet_name", values.petName);
         formData.append("gender", values.gender);
@@ -139,20 +136,20 @@ function PetListingForm() {
         formData.append("colour", values.colour);
         formData.append("vaccinated", values.vaccinated);
         formData.append("other_info", values.otherInfo);
-        // formData.append("pictures", values.pictures);
         formData.append("owner_name", values.ownerName);
         formData.append("email", values.email);
         formData.append("owner_phone", values.ownerPhone);
         formData.append("location", values.location);
         formData.append("owner_birthday", values.ownerBirthday);
+
+        for (let i = 0; i < values.pictures.length; i++) {
+            formData.append("pictures", values.pictures[i]);
+        }
         
-        console.log(values.pictures);
         if (create) {
-            console.log(formData);
             createHandler(formData);
         } else {
             formData.append("status", values.status);
-            console.log(formData);
             updateHandler(formData);
         }
     }
@@ -178,7 +175,14 @@ function PetListingForm() {
         colour: yup.string().required("Please enter the pet's colour")
                    .max(50, "Colour can only be a max of 50 characters"),
         vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
+        // pictures: yup.array().of(yup.mixed()).max(5, "Please").min(1, "ID"),
         // pictures: yup.string().required("Please upload at least 1 pet picture"),
+        // pictures: yup.object().shape(yup.object().shape({
+        //     0: yup.string(),
+        //     // 1: yup.object()
+        // })),//min("Please upload at least 1 pet picture"),
+        // }),
+                     //.max("Only a max of 5 pictures can be uploaded"),
         otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
         ownerName: yup.string().required("Please enter the owner's name")
                                .max(50, "Owner name can only be a max of 50 characters"),
@@ -230,7 +234,7 @@ function PetListingForm() {
                 enableReinitialize={true} 
         >
             {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
-                <Form onSubmit={handleSubmit} noValidate>
+                <Form onSubmit={handleSubmit} noValidate encType="application/json">
                     <div className="row mt-2 pb-3 border rounded">
                         <Row className="d-flex flex-row mt-3">
                             <FormField id="petName" type="text"
