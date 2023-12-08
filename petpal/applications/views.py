@@ -25,6 +25,9 @@ class ApplicationsView(APIView):
             serializer.save()
             # Send request to notification API
             pet_listing = get_object_or_404(PetListing, id=serializer.data['pet_listing'])
+            if pet_listing.status == "removed_by_admin":
+                return Response(status=status.HTTP_403_FORBIDDEN, data={
+                    'error': 'applications cannot be made to this pet listing as it has been deleted by the admin'})
             request.data['receiver'] = pet_listing.shelter.id
             request.data['message'] = f'You have a new application from {request.user.username}'
             request.data['related_link'] = f'/applications/{serializer.data["id"]}'
