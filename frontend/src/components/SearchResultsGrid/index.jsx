@@ -42,9 +42,6 @@ function SearchResultsGrid() {
         sort: filterParams.get("sort") ?? "name" // TODO: Add search pet name option
     }), [ filterParams ]);
 
-    console.log(query);
-    console.log(petListings);
-
     useEffect(() => {
         axios({
             method: "POST",
@@ -66,7 +63,7 @@ function SearchResultsGrid() {
     const renderItem = (listing) => (
         <div className="col-md-3 d-flex align-items-center
                         flex-column position-relative"
-            key={listing.id}>
+            key={`Listing: ${listing.id}`}>
             <img className="img-fluid full-img px-2"
                  src={`${API_URL}${listing.pictures[0].path.replace('/media/', 'media/pet_listing_pics/')}`}
             />
@@ -102,12 +99,10 @@ function SearchResultsGrid() {
 
 
     function renderRows() {
-        console.log(1);
         const rows = [];
         // const lastRowItems = petListings.length % 4;
 
         for (var i = 0; i < Math.ceil(petListings.length / 4); i += 4) {
-            console.log("I " + i);
             let upperBound;
             if ((i + 1) * 4 < petListings.length) {
                 upperBound = 4;
@@ -116,11 +111,10 @@ function SearchResultsGrid() {
             }
             const itemsRow = petListings.slice(i, i+upperBound);
             const row = (
-                <div className="row mx-2" key={i}>
+                <div className="row mx-2" key={`Listing Render: ${i}`}>
                     {itemsRow.map(renderItem)}
                 </div>
             );
-            console.log(row);
             rows.push(row);
         }
         return rows;

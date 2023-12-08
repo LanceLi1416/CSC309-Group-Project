@@ -1,16 +1,20 @@
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from 'axios';
 
 
 function SearchFilters({ setFilterParams }) {
+    const token = localStorage.getItem('access_token');
+    const API_URL = process.env.REACT_APP_API_URL;
+    const navigate = useNavigate();
     const [ startDate, setStartDate ] = useState(null);
     const [ endDate, setEndDate ] = useState(null);
 
     const petTypes = [
-        { id: "dog", value: "Dog", checked: true },
-        { id: "cat", value: "Cat", checked: true },
-        { id: "bird", value: "Bird", checked: true },
-        { id: "other", value: "Other", checked: true }
+        { id: "dog", value: "Dog", checked: false },
+        { id: "cat", value: "Cat", checked: false },
+        { id: "bird", value: "Bird", checked: false },
+        { id: "other", value: "Other", checked: false }
 
     ];
     // const [ dogCheckbox, setDogCheckbox ] = useState(false);
@@ -19,20 +23,47 @@ function SearchFilters({ setFilterParams }) {
     // const [ otherCheckbox, setOtherCheckbox ] = useState(false);
     
     const genders = [
-        { id: "male", value: "Male", checked: true },
-        { id: "female", value: "Female", checked: true }
+        { id: "male", value: "Male", checked: false },
+        { id: "female", value: "Female", checked: false }
     ];
     // const [ maleCheckbox, setMaleCheckbox ] = useState(false);
     // const [ femaleCheckbox, setFemaleCheckbox ] = useState(false);
     
     const [ shelters, setShelters ] = useState([]);
 
+    console.log(1);
+    let tmp = [];
+    useEffect(() => {
+        console.log(2);
+        axios({
+            method: "GET",
+            url: `${API_URL}accounts/`,
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }).then((response) => {
+            for (var shelter of response.data) {
+                tmp.push({
+                    id: shelter.id,
+                    value: shelter.first_name + " " + shelter.last_name,
+                    checked: false
+                });
+            }
+            setShelters(tmp);
+        }
+        ).catch((error) => {
+            // if (error.response.status === 401) {
+            //     navigate("/login");
+            // }
+        })
+    }, []);
+
     
     const statuses = [
-        { id: "available", value: "Available", checked: true },
-        { id: "adopted", value: "Adopted", checked: true },
-        { id: "pending", value: "Pending", checked: true },
-        { id: "withdrawn", value: "Withdrawn", checked: true }
+        { id: "available", value: "Available", checked: false },
+        { id: "adopted", value: "Adopted", checked: false },
+        { id: "pending", value: "Pending", checked: false },
+        { id: "withdrawn", value: "Withdrawn", checked: false }
 
     ];
     // const [ availableCheckbox, setAvailableCheckbox ] = useState(false);
@@ -138,13 +169,13 @@ function SearchFilters({ setFilterParams }) {
 
             <div className="form-check">
             {petTypes.map((type) => (
-                <div key={type.id}>
+                <div key={`Types: ${type.id}`}>
                     <input className="form-check-input"
                            name="pet-type" 
                            id={type.id}
                            type="checkbox"
                            value={type.id}
-                           onClick={handleSetPetTypes(type.id)} />
+                           onClick={() => handleSetPetTypes(type.id)} />
                     <label htmlFor={type.id}>{type.value}</label><br />
                 </div>
             ))}
@@ -188,13 +219,13 @@ function SearchFilters({ setFilterParams }) {
             <div className="form-check">
 
                 {genders.map((gender) => (
-                <div key={gender.id}>
+                <div key={`Gender: ${gender.id}`}>
                     <input className="form-check-input"
                            name="gender"
                            id={gender.id}
                            type="checkbox"
                            value={gender.id}
-                           onClick={handleSetGenders(gender.id)} />
+                           onClick={() => handleSetGenders(gender.id)} />
                     <label htmlFor={gender.id}>{gender.value}</label>
                 </div>
                 ))}
@@ -219,10 +250,12 @@ function SearchFilters({ setFilterParams }) {
         <div className="mb-4">
             <h5>Shelter</h5>
             <div className="form-check">
-                <input className="form-check-input" id="shelter-a" name="shelter" type="checkbox" value="1" />
-                <label htmlFor="shelter-a">Shelter A</label><br />
-                <input className="form-check-input" id="shelter-b" name="shelter" type="checkbox" value="2" />
-                <label htmlFor="shelter-b">Shelter B</label><br />
+                {shelters.map((shelter) => (
+                    <div key={`Shelter: ${shelter.id}`}>
+                        <input className="form-check-input" id={shelter.id} name="shelter" type="checkbox" value={shelter.value} />
+                        <label htmlFor={shelter.id}>{shelter.value}</label><br />
+                    </div>
+                ))}
             </div>
         </div>
 
@@ -233,14 +266,14 @@ function SearchFilters({ setFilterParams }) {
             <div className="form-check">
 
                 {statuses.map((status) => (
-                    <div key={status.id}>
+                    <div key={`Status: ${status.id}`}>
                     
                         <input className="form-check-input" 
                                name="status"
                                id={status.id}
                                type="checkbox"
                                value={status.id}
-                               onClick={handleSetStatuses(status.id)} />
+                               onClick={() => handleSetStatuses(status.id)} />
                         <label htmlFor={status.id}>{status.value}</label>
 
                     </div>
