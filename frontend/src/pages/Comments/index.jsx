@@ -434,7 +434,7 @@ function ApplicationComment() {
         <div id="comment-section">
             <Comment.Group className="comment-group">
             <Header className="heading-text" as='h3' dividing>
-                <ArrowBackIcon id="back-button" onClick={() => {navigate(`/application/${application_id}`)}}/>
+                <ArrowBackIcon id="back-button" onClick={() => {navigate("/applications")}}/>
                 Comments for Application - { application.first_name + " " + application.last_name}
             </Header>
 
