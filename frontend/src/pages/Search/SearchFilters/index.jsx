@@ -1,7 +1,13 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 function SearchFilters({filters, setFilters}) {
+    const token = localStorage.getItem('access_token');
+    const API_URL = process.env.REACT_APP_API_URL;
+    const navigate = useNavigate();
+
     // Filter Options --------------------------------------------------------------------------------------------------
     const PET_TYPES = [{
         id: "dog", value: "Dog", checked: !!(filters.status !== undefined && filters.status.includes("dog"))
@@ -40,6 +46,22 @@ function SearchFilters({filters, setFilters}) {
     const [shelters, setShelters] = useState([]);
 
     // Hooks -----------------------------------------------------------------------------------------------------------
+
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: `${API_URL}accounts/`,
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }).then((response) => {
+            setShelters(response.data);
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                navigate("/login");
+            }
+        });
+    }, []);
 
     // Event Handlers --------------------------------------------------------------------------------------------------
     const handleMultiSelectChange = (event, filterType) => {
@@ -114,12 +136,17 @@ function SearchFilters({filters, setFilters}) {
             <div className="mb-4">
                 <h5>Shelter</h5>
                 <div className="form-check">
-                    {/* {shelters.map((shelter) => (
+                    {shelters.map((shelter) => (
                     <div key={`Shelter: ${shelter.id}`}>
-                        <input className="form-check-input" id={shelter.id} name="shelter" type="checkbox" value={shelter.value} />
-                        <label htmlFor={shelter.id}>{shelter.value}</label><br />
+                        <input className="form-check-input"
+                               id={shelter.id}
+                               name="shelter"
+                               type="checkbox"
+                               value={shelter.id}
+                               onChange={(e) => handleMultiSelectChange(e, "shelter")}/>
+                        <label htmlFor={shelter.id}>{shelter.first_name + " " + shelter.last_name}</label><br />
                     </div>
-                ))} */}
+                    ))}
                 </div>
             </div>
 

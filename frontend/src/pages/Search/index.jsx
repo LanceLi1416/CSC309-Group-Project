@@ -25,7 +25,6 @@ const SearchResults = () => {
 
     // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
-        console.log(filters);
         axios({
             method: "POST", url: `${API_URL}pet_listings/search_results/?page=${page}`,
             data: JSON.stringify(filters), headers: {
