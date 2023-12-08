@@ -29,4 +29,5 @@ urlpatterns = [
     path('comments/', include('comments.urls', namespace='comments')),
     path("pet_listings/", include("pet_listings.urls"), name="pet_listings"),
     path("notifications/", include("notifications.urls", namespace="notifications")),
+    path("moderation/", include("moderation.urls", namespace="moderation"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

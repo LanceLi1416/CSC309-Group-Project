@@ -17,7 +17,8 @@ class PetListing(models.Model):
         ('available', 'Available'),
         ('adopted', 'Adopted'),
         ('pending', 'Pending'),
-        ('withdrawn', 'Withdrawn')
+        ('withdrawn', 'Withdrawn'),
+        ('removed_by_admin', 'Removed By Admin')
     ]
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name='adoptions')
     shelter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='adoptions')
