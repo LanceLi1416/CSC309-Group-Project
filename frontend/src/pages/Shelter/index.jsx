@@ -16,6 +16,9 @@ const ShelterProfile = () => {
                 const accessToken = localStorage.getItem('access_token');
                 axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
                 const response2 = await axios.get(`${url}accounts/` + shelter_id);
+                if (response2.data.is_seeker === true) {
+                    navigate("/401");
+                }
                 setShelter(response2.data);
             } catch (error) {
                 if (error.response.status === 404) {
