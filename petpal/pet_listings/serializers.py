@@ -230,7 +230,7 @@ class SearchModelSerializer(serializers.ModelSerializer):
             pictures_data = PictureSerializer(instance.pet.pictures.all(), many=True).data
             # print(pictures_data)
             data['pet_pictures'] = pictures_data
-            print(data)
+            # print(data)
             return data
         else:
             pic_names = []

@@ -3,18 +3,34 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
 
-function SearchFilters({ setFilterParams }) {
+function SearchFilters() {
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
-    const [ startDate, setStartDate ] = useState(null);
-    const [ endDate, setEndDate ] = useState(null);
+    const [ startDate, setStartDate ] = useState("");
+    const [ endDate, setEndDate ] = useState("");
+    const [ filterParams, setFilterParams] = useSearchParams();
+
+    console.log(filterParams);
 
     const petTypes = [
-        { id: "dog", value: "Dog", checked: false },
-        { id: "cat", value: "Cat", checked: false },
-        { id: "bird", value: "Bird", checked: false },
-        { id: "other", value: "Other", checked: false }
+        { id: "dog", value: "Dog",
+          checked: 
+            filterParams.status !== undefined && filterParams.status.includes("dog")
+            ? true : false
+        },
+        { id: "cat", value: "Cat", 
+          checked: filterParams.status !== undefined && filterParams.status.includes("cat")
+          ? true : false
+        },
+        { id: "bird", value: "Bird",
+          checked: filterParams.status !== undefined && filterParams.status.includes("bird")
+          ? true : false
+        },
+        { id: "other", value: "Other",
+          checked: filterParams.status !== undefined && filterParams.status.includes("other")
+          ? true : false
+        }
 
     ];
     // const [ dogCheckbox, setDogCheckbox ] = useState(false);
@@ -23,8 +39,14 @@ function SearchFilters({ setFilterParams }) {
     // const [ otherCheckbox, setOtherCheckbox ] = useState(false);
     
     const genders = [
-        { id: "male", value: "Male", checked: false },
-        { id: "female", value: "Female", checked: false }
+        { id: "male", value: "Male",
+          checked: filterParams.gender !== undefined && filterParams.gender.includes("male")
+          ? true : false
+        },
+        { id: "female", value: "Female", 
+          checked: filterParams.gender !== undefined && filterParams.gender.includes("female")
+          ? true : false
+        }
     ];
     // const [ maleCheckbox, setMaleCheckbox ] = useState(false);
     // const [ femaleCheckbox, setFemaleCheckbox ] = useState(false);
@@ -46,7 +68,8 @@ function SearchFilters({ setFilterParams }) {
                 tmp.push({
                     id: shelter.id,
                     value: shelter.first_name + " " + shelter.last_name,
-                    checked: false
+                    checked: filterParams.shelter !== undefined && filterParams.shelter.includes(shelter.id)
+                    ? true : false
                 });
             }
             setShelters(tmp);
@@ -60,10 +83,22 @@ function SearchFilters({ setFilterParams }) {
 
     
     const statuses = [
-        { id: "available", value: "Available", checked: false },
-        { id: "adopted", value: "Adopted", checked: false },
-        { id: "pending", value: "Pending", checked: false },
-        { id: "withdrawn", value: "Withdrawn", checked: false }
+        { id: "available", value: "Available",
+          checked: filterParams.status !== undefined && filterParams.shelter.includes("available")
+          ? true : false
+        },
+        { id: "adopted", value: "Adopted",
+          checked: filterParams.shelter !== undefined && filterParams.shelter.includes("adopted")
+          ? true : false
+        },
+        { id: "pending", value: "Pending",
+          checked: filterParams.shelter !== undefined && filterParams.shelter.includes("pending")
+          ? true : false
+        },
+        { id: "withdrawn", value: "Withdrawn",
+          checked: filterParams.shelter !== undefined && filterParams.shelter.includes("withdrawn")
+          ? true : false
+        }
 
     ];
     // const [ availableCheckbox, setAvailableCheckbox ] = useState(false);
@@ -126,18 +161,20 @@ function SearchFilters({ setFilterParams }) {
                 filterLst.push(lst[i].id);
             }
         }
+        console.log("IDIIDEID");
+        console.log(filterLst);
         return filterLst;
     }
 
-    // const petTypeQuery = useMemo(() => ({
-    //     page : parseInt(filterParams.get("page") ?? 1),
-    //     shelter : filterParams.getAll("shelter") ?? [],
-    //     status : statuses,
-    //     gender : genders,
-    //     start_date : startDate,
-    //     end_date: endDate,
-    //     pet_type: petTypes,
-    // }), [ dogCheckbox, catCheckbox, birdCheckbox, otherCheckbox ]);
+    const query = useMemo(() => ({
+        page : parseInt(filterParams.get("page") ?? 1),
+        shelter : filterParams.getAll("shelter") ?? [],
+        status : filterParams.getAll("status") ?? [],
+        gender : filterParams.getAll("gender") ?? [],
+        // start_date : filterParams.get("start_date" ?? ""),
+        // end_date: filterParams.get("end_date" ?? ""),
+        pet_type: filterParams.getAll("pet_type" ?? []),
+    }), [ filterParams ]);
 
     return <>
     {/* Filter Options */}
@@ -174,8 +211,15 @@ function SearchFilters({ setFilterParams }) {
                            name="pet-type" 
                            id={type.id}
                            type="checkbox"
-                           value={type.id}
-                           onClick={() => handleSetPetTypes(type.id)} />
+                           value={type.id} 
+                           onChange={event => {
+                            if (event.target.checked) {
+                                setFilterParams({pet_type: [...query.pet_type, type.id]});
+                            } else {
+                                setFilterParams({pet_type: [...query.pet_type.filter(x => x !== type.id)]});
+                            }
+                           }} />
+                        {/* onClick={() => handleSetPetTypes(type.id)} /> */}
                     <label htmlFor={type.id}>{type.value}</label><br />
                 </div>
             ))}
@@ -250,12 +294,12 @@ function SearchFilters({ setFilterParams }) {
         <div className="mb-4">
             <h5>Shelter</h5>
             <div className="form-check">
-                {shelters.map((shelter) => (
+                {/* {shelters.map((shelter) => (
                     <div key={`Shelter: ${shelter.id}`}>
                         <input className="form-check-input" id={shelter.id} name="shelter" type="checkbox" value={shelter.value} />
                         <label htmlFor={shelter.id}>{shelter.value}</label><br />
                     </div>
-                ))}
+                ))} */}
             </div>
         </div>
 
@@ -313,7 +357,7 @@ function SearchFilters({ setFilterParams }) {
             </div> */}
         </div>
         {/* Save Search */}
-        <div className="mb-1">
+        {/* <div className="mb-1">
             <button className="btn btn-outline-primary"
                     onClick={() => {
                         setFilterParams({
@@ -326,7 +370,7 @@ function SearchFilters({ setFilterParams }) {
 
                         })
                     }}>Save Search</button>
-        </div>
+        </div> */}
     </div>
     </>
 }

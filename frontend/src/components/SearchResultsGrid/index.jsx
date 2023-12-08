@@ -26,7 +26,7 @@ function SearchResultsGrid() {
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
-    const [ filterParams, setFilterParams ] = useSearchParams([]);
+    const [ filterParams, setFilterParams ] = useSearchParams();
     const [ totalPages, setTotalPages ] = useState(1);
     const [ petListings, setPetListings ] = useState([]);
 
@@ -36,13 +36,14 @@ function SearchResultsGrid() {
         shelter : filterParams.getAll("shelter") ?? [],
         status : filterParams.getAll("status") ?? [],
         gender : filterParams.getAll("gender") ?? [],
-        start_date : filterParams.get("start_date") ?? "",
-        end_date: filterParams.get("end_date") ?? "",
+        // start_date : filterParams.get("start_date") ?? "",
+        // end_date: filterParams.get("end_date") ?? "",
         pet_type: filterParams.getAll("pet_type") ?? [],
         sort: filterParams.get("sort") ?? "name" // TODO: Add search pet name option
     }), [ filterParams ]);
 
     useEffect(() => {
+        console.log(JSON.stringify(query));
         axios({
             method: "POST",
             url: `${API_URL}pet_listings/search_results/`,
@@ -50,13 +51,13 @@ function SearchResultsGrid() {
             headers: {
                 "Authorization": "Bearer " + token
             }
-        }).then((response) => {
+        }).then(response => {
             console.log(222);
             console.log(response);
             setPetListings(response.data.results); // TODO
             setTotalPages(Math.ceil(response.data.count / 8));
         })
-    }, [ filterParams ]);
+    }, [ filterParams, navigate ]);
 
     function loadListingDetail(id) {
         navigate(`/pet_listings/details/${id}`);
@@ -68,7 +69,7 @@ function SearchResultsGrid() {
         <div className="col-md-3 d-flex align-items-center
                         flex-column position-relative"
             key={`Listing: ${listing.id}`}>
-            <img className="img-fluid full-img px-2"
+            <img className="img-fluid full-img px-2" alt={`${listing.id}`}
                  src={`${API_URL}${listing.pet_pictures[0].path.replace('/media/', 'media/pet_listing_pics/')}`}
             />
             <a className="stretched-link text-decoration-none"
@@ -136,7 +137,7 @@ function SearchResultsGrid() {
 
     return <>
     <ResponsiveSearchFilters />
-    <SearchFilters setFilterParams={setFilterParams} />
+    <SearchFilters />
     {/* Results Grid */}
     <div className="col-md-10 mx-4">
         {renderRows()}
