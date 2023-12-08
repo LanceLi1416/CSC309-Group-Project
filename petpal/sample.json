@@ -92,8 +92,8 @@
         "fields": {
             "name": "Nicholas",
             "email": "npoon@gmail.com",
-            "phone": 123,
-            "location": "1",
+            "phone": "416-123-4567",
+            "location": "Richmond Hill, Canada",
             "birthday": "2022-01-01"
         }
     },
@@ -153,6 +153,61 @@
         }
     },
     {
+        "model": "pet_listings.petlisting",
+        "pk": 6,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-24",
+            "owner_id": 1,
+            "shelter_id": 3
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 7,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-25",
+            "owner_id": 1,
+            "shelter_id": 3
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 8,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-25",
+            "owner_id": 1,
+            "shelter_id": 4
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 9,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-26",
+            "owner_id": 1,
+            "shelter_id": 4
+        }
+    },
+    {
+        "model": "pet_listings.petlisting",
+        "pk": 10,
+        "fields": {
+            "status": "available",
+            "last_update": "2024-02-19T05:23:39.789Z",
+            "creation_date": "2023-02-27",
+            "owner_id": 1,
+            "shelter_id": 4
+        }
+    },
+    {
         "model": "pet_listings.pet",
         "pk": 1,
         "fields": {
@@ -161,7 +216,7 @@
             "birthday": "2023-01-01",
             "weight": 12,
             "animal": "cat",
-            "breed": "idk",
+            "breed": "ragdoll",
             "colour": "brown",
             "vaccinated": true,
             "other_info": "",
@@ -177,7 +232,7 @@
             "birthday": "2023-01-02",
             "weight": 13,
             "animal": "cat",
-            "breed": "idk2",
+            "breed": "ragdoll",
             "colour": "brown",
             "vaccinated": true,
             "other_info": "",
@@ -193,7 +248,7 @@
             "birthday": "2023-01-03",
             "weight": 14,
             "animal": "cat",
-            "breed": "idk3",
+            "breed": "ragdoll",
             "colour": "brown",
             "vaccinated": true,
             "other_info": "",
@@ -209,7 +264,7 @@
             "birthday": "2023-01-04",
             "weight": 15,
             "animal": "cat",
-            "breed": "idk4",
+            "breed": "ragdoll",
             "colour": "brown",
             "vaccinated": true,
             "other_info": "",
@@ -225,11 +280,91 @@
             "birthday": "2023-01-05",
             "weight": 16,
             "animal": "dog",
-            "breed": "idk5",
+            "breed": "golden_retriever",
             "colour": "black",
             "vaccinated": true,
             "other_info": "",
             "pet_listing_id": 5
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 6,
+        "fields": {
+            "name": "Nick's Fake Dog",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 17,
+            "animal": "dog",
+            "breed": "golden_retriever",
+            "colour": "brown",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 6
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 7,
+        "fields": {
+            "name": "Nick's Reported Dog",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 18,
+            "animal": "dog",
+            "breed": "",
+            "colour": "black",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 7
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 8,
+        "fields": {
+            "name": "Nick's Banned Dog 1",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 18,
+            "animal": "dog",
+            "breed": "",
+            "colour": "black",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 8
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 9,
+        "fields": {
+            "name": "Nick's Banned Dog 2",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 19,
+            "animal": "dog",
+            "breed": "",
+            "colour": "black",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 9
+        }
+    },
+    {
+        "model": "pet_listings.pet",
+        "pk": 10,
+        "fields": {
+            "name": "Nick's Banned Dog 3",
+            "gender": "female",
+            "birthday": "2023-01-05",
+            "weight": 20,
+            "animal": "dog",
+            "breed": "",
+            "colour": "black",
+            "vaccinated": true,
+            "other_info": "",
+            "pet_listing_id": 10
         }
     },
     {
@@ -350,6 +485,7 @@
         "pk": 8,
         "fields": {
             "username": "thirduser@me.com",
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
             "first_name": "Third",
             "last_name": "User",
             "is_seeker": true,
@@ -401,6 +537,23 @@
             "first_name": "No Notif",
             "last_name": "Seeker",
             "is_seeker": true,
+            "notif_preference": false
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 13,
+        "fields": {
+            "username": "bannedshelter@shelter.com",
+            "first_name": "Rebel",
+            "last_name": "Again",
+            "is_seeker": false,
+            "password": "pbkdf2_sha256$390000$r2vH7wEAQuZGpFAFxUHH2P$wCJlN/Qe7L6F9YUGLFLhueZN6aMOQOCZDVS+j7V7R6E=",
+            "last_login": "2023-02-19T05:23:39.789Z",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": false,
+            "date_joined": "2023-02-18T19:09:04.505Z",
             "notif_preference": false
         }
     },

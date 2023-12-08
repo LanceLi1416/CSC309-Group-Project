@@ -9,16 +9,35 @@ from django.shortcuts import get_object_or_404
 
 import os
 
-from .serializers import PetListingSerializer, SearchModelSerializer
+from .serializers import PetListingSerializer, SearchModelSerializer, \
+                         ReportPetListingSerializer
 from .models import PetListing, User
 from notifications.views import NotificationCreateListView
 from django.conf import settings
 
 
+class ReportPermissions(BasePermission):
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")    
+        return True
+    
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_authenticated:
+            if obj.shelter == request.user:
+                raise PermissionDenied("You cannot report your own pet listing")
+            elif obj.status == "removed_by_admin":
+                raise PermissionDenied("This pet listing has already been removed and cannot be reported")
+            elif len(request.user.report_pet_listings.filter(pet_listing_id=obj.id)) != 0:
+                raise PermissionDenied("You have already reported this pet listing")
+            return True
+        raise AuthenticationFailed("Authentication Required")
+    
+
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
-            raise AuthenticationFailed("Authenticated Required")
+            raise AuthenticationFailed("Authentication Required")
         if request.user.is_seeker:
             raise PermissionDenied("Only shelters have access to view this")
         return True
@@ -27,11 +46,13 @@ class PetListingPermissions(BasePermission):
         if request.user.is_authenticated:
             if request.user != obj.shelter:
                 raise PermissionDenied("Only the shelter that posted this pet listing has access")
+            elif obj.status == "removed_by_admin":
+                raise PermissionDenied("The pet listing has been removed by the admin and cannot be edited")
             return True
         raise AuthenticationFailed("Authentication Required")
     
 
-class SearchPermission(BasePermission):
+class AuthenPermission(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             raise AuthenticationFailed("Authentication Required")
@@ -87,6 +108,8 @@ class PetListingEditView(APIView):
 
     def put(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been removed by the admin and cannot be edited")
         permission = PetListingPermissions()
         permission.has_object_permission(request, self, pet_listing)
         serializer = self.serializer_class(pet_listing, data=request.data, partial=True)
@@ -97,6 +120,8 @@ class PetListingEditView(APIView):
     
     def delete(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been reported and cannot be deleted")
         permission = PetListingPermissions()
         permission.has_object_permission(request, self, pet_listing)
         
@@ -113,7 +138,7 @@ class PetListingEditView(APIView):
 
 class SearchView(APIView):
     serializer_class = SearchModelSerializer
-    permission_classes = [SearchPermission]
+    permission_classes = [AuthenPermission]
 
     def post(self, request):
         pet_listings = PetListing.objects.all()
@@ -127,6 +152,8 @@ class SearchView(APIView):
             pet_status = request.data['status']
             if pet_status == [] or pet_status == '':
                 pet_status = ['available']
+            elif "removed_by_admin" in pet_status:
+                pet_status = [status for status in pet_status if status != "removed_by_admin"]
         else:
             pet_status = ['available']
 
@@ -177,10 +204,27 @@ class SearchView(APIView):
 class SearchDetailView(APIView):
     serializer_class = PetListingSerializer
     lookup_field = 'pet_listing_id'
-    permission_classes = [SearchPermission]
+    permission_classes = [AuthenPermission]
 
     def get(self, request, pet_listing_id):
         pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been removed by the admin and cannot be viewed")
         serializer = self.serializer_class(pet_listing)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
+
+class ReportPetListingView(APIView):
+    serializer_class = ReportPetListingSerializer
+    lookup_field = 'pet_listing_id'
+    permission_classes = [ReportPermissions]
+
+    def post(self, request, pet_listing_id):
+        pet_listing = get_object_or_404(PetListing, id=pet_listing_id)
+        permission = ReportPermissions()
+        permission.has_object_permission(request, self, pet_listing)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.create(serializer.validated_data, request, pet_listing)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

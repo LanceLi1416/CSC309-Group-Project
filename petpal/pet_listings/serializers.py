@@ -7,6 +7,7 @@ from django.conf import settings
 import os
 
 from .models import Pet, Owner, PetListing, Picture
+from moderation.models import ReportPetListing
 
 class PictureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,10 +21,10 @@ class PetListingSerializer(serializers.Serializer):
         ('female', 'Female')
     ]
     STATUS_CHOICES = [
-            ('available', 'Available'),
-            ('adopted', 'Adopted'),
-            ('pending', 'Pending'),
-            ('withdrawn', 'Withdrawn')
+        ('available', 'Available'),
+        ('adopted', 'Adopted'),
+        ('pending', 'Pending'),
+        ('withdrawn', 'Withdrawn')
     ]
     id = serializers.IntegerField(required=False)
     pet_name = serializers.CharField(source='pet.name', required=True, validators=[MaxLengthValidator(50)])
@@ -118,6 +119,12 @@ class PetListingSerializer(serializers.Serializer):
         return adoption
 
     def update(self, instance, validated_data):
+        status = validated_data.get('status')
+        if status == 'removed_by_admin':
+            raise serializers.ValidationError({"status": "This status cannot be set by the pet shelter"})
+        elif status is not None:
+            instance.status = validated_data.get('status')
+
         pet = instance.pet
 
         if validated_data.get('pet'):
@@ -197,8 +204,6 @@ class PetListingSerializer(serializers.Serializer):
                 owner.birthday = validated_data['owner'].get('birthday')
             owner.save()
 
-        if validated_data.get('status'):
-            instance.status = validated_data.get('status')
         instance.save()
 
         return instance
@@ -233,4 +238,17 @@ class SearchModelSerializer(serializers.ModelSerializer):
                 pic_names.append(instance['pet']['pictures']['all'][i].name)
             data['pictures'] = pic_names
             return data
+
+
+class ReportPetListingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportPetListing
+        fields = ["category", "other_info"]
         
+    def create(self, validated_data, request, pet_listing):
+        report = ReportPetListing(reporter = request.user,
+                                  pet_listing = pet_listing,
+                                  category = validated_data["category"],
+                                  other_info = validated_data.get("other_info", ""))
+        report.save()
+        return report

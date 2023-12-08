@@ -8,7 +8,8 @@ class Application(models.Model):
         ('accepted', 'Accepted'),
         ('denied', 'Denied'),
         ('pending', 'Pending'),
-        ('withdrawn', 'Withdrawn')
+        ('withdrawn', 'Withdrawn'),
+        ('removed_by_admin', 'Removed By Admin')
     ]
     INCOME_CHOICES = [
         ('$0-$30,000', '$0-$30,000'),
@@ -25,7 +26,7 @@ class Application(models.Model):
     ]
     seeker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
     shelter = models.ForeignKey(User, on_delete=models.CASCADE)
-    pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE)
+    pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE, related_name='applications')
     status = models.CharField(max_length=20, default='pending', choices=STATUS_CHOICES)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)

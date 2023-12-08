@@ -5,11 +5,17 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import BasePermission, IsAuthenticated
+from rest_framework.exceptions import PermissionDenied, AuthenticationFailed
+from rest_framework.pagination import PageNumberPagination
 
 import os
 
-from .serializers import AccountSerializer
+from .serializers import AccountSerializer, ReportShelterCommentSerializer, \
+    ReportAppCommentSerializer, ReportPetListingSerializer, ReportShelterCommentDetailSerializer, \
+    ReportAppCommentDetailSerializer, ReportPetListingDetailSerializer
 from .models import User
+from moderation.models import ReportApplicationComment, \
+    ReportShelterComment, ReportPetListing
 
 # Create your views here.
 class AccountAuthPermission(BasePermission):
@@ -17,6 +23,19 @@ class AccountAuthPermission(BasePermission):
         if request.method == 'POST':
             return True
         return request.user.is_authenticated
+    
+class ReportAccessPermission(BasePermission):
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("Authentication Required")
+        return True
+    
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_authenticated:
+            if obj.reporter != request.user:
+                raise PermissionDenied("Only the account that made this report has access")
+            return True
+        raise AuthenticationFailed("Authentication Required")
 
 class AccountsView(APIView):
     serializer_class = AccountSerializer
@@ -71,3 +90,136 @@ class GetAccountView(RetrieveAPIView):
             all_seekers = User.objects.filter(is_seeker=True)
             validated_seekers = all_seekers.filter(applications__shelter=self.request.user, applications__status='pending')
             return all_shelters | validated_seekers
+
+class AppCommentReportView(APIView):
+    serializer_class = ReportAppCommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        reports = ReportApplicationComment.objects.filter(reporter_id=request.user.id).all()
+
+        if 'category' in request.data:
+            category = request.data['category']
+            if category != [] and category != "":
+                reports = reports.filter(reports__category__in=category)
+        
+        if 'status' in request.data:
+            status = request.data['status']
+            if status != [] and status != "":
+                reports = reports.filter(reports__status__in=status)
+
+        if 'most_recent' in request.data:
+            reports = reports.order_by('-creation_date')
+        else:
+            reports = reports.order_by('creation_date')
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        paginated_reports = paginator.paginate_queryset(reports, request)
+
+        if paginated_reports is not None:
+            serializer = self.serializer_class(paginated_reports, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(reports, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class AppCommentReportDetailView(APIView):
+    serializer_class = ReportAppCommentDetailSerializer
+    lookup_field = 'report_id'
+    permission_classes = [ReportAccessPermission]
+
+    def get(self, request, report_id):
+        report = get_object_or_404(ReportApplicationComment, id=report_id)
+        permission = ReportAccessPermission()
+        permission.has_object_permission(request, self, report)
+        serializer = self.serializer_class(report)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class ShelterCommentReportView(APIView):
+    serializer_class = ReportShelterCommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        reports = ReportShelterComment.objects.filter(reporter_id=request.user.id).all()
+
+        if 'category' in request.data:
+            category = request.data['category']
+            if category != [] and category != "":
+                reports = reports.filter(reports__category__in=category)
+        
+        if 'status' in request.data:
+            status = request.data['status']
+            if status != [] and status != "":
+                reports = reports.filter(reports__status__in=status)
+
+        if 'most_recent' in request.data:
+            reports = reports.order_by('-creation_date')
+        else:
+            reports = reports.order_by('creation_date')
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        paginated_reports = paginator.paginate_queryset(reports, request)
+
+        if paginated_reports is not None:
+            serializer = self.serializer_class(paginated_reports, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(reports, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ShelterCommentReportDetailView(APIView):
+    serializer_class = ReportShelterCommentDetailSerializer
+    lookup_field = 'report_id'
+    permission_classes = [ReportAccessPermission]
+
+    def get(self, request, report_id):
+        report = get_object_or_404(ReportShelterComment, id=report_id)
+        permission = ReportAccessPermission()
+        permission.has_object_permission(request, self, report)
+        serializer = self.serializer_class(report)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PetListingReportView(APIView):
+    serializer_class = ReportPetListingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        reports = ReportPetListing.objects.filter(reporter_id=request.user.id).all()
+
+        if 'category' in request.data:
+            category = request.data['category']
+            if category != [] and category != "":
+                reports = reports.filter(reports__category__in=category)
+        
+        if 'status' in request.data:
+            status = request.data['status']
+            if status != [] and status != "":
+                reports = reports.filter(reports__status__in=status)
+
+        if 'most_recent' in request.data:
+            reports = reports.order_by('-creation_date')
+        else:
+            reports = reports.order_by('creation_date')
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        paginated_reports = paginator.paginate_queryset(reports, request)
+
+        if paginated_reports is not None:
+            serializer = self.serializer_class(paginated_reports, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(reports, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PetListingReportDetailView(APIView):
+    serializer_class = ReportPetListingDetailSerializer
+    lookup_field = 'report_id'
+    permission_classes = [ReportAccessPermission]
+
+    def get(self, request, report_id):
+        report = get_object_or_404(ReportPetListing, id=report_id)
+        permission = ReportAccessPermission()
+        permission.has_object_permission(request, self, report)
+        serializer = self.serializer_class(report)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    

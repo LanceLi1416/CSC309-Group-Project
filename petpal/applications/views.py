@@ -25,6 +25,9 @@ class ApplicationsView(APIView):
             serializer.save()
             # Send request to notification API
             pet_listing = get_object_or_404(PetListing, id=serializer.data['pet_listing'])
+            if pet_listing.status == "removed_by_admin":
+                return Response(status=status.HTTP_403_FORBIDDEN, data={
+                    'error': 'applications cannot be made to this pet listing as it has been deleted by the admin'})
             request.data['receiver'] = pet_listing.shelter.id
             request.data['message'] = f'You have a new application from {request.user.username}'
             request.data['related_link'] = f'/applications/{serializer.data["id"]}'
@@ -36,11 +39,16 @@ class ApplicationsView(APIView):
         old_app = get_object_or_404(Application, pk=request.data['id'])
         if old_app.seeker != request.user and old_app.shelter != request.user:
             return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you are not authorized to update this application'})
+        elif old_app.status == 'removed_by_admin':
+            return Response(status=status.HTTP_403_FORBIDDEN, data={'error': 'you are not authorized to update this application'})
         serializer = self.serializer_class(old_app, data=request.data, partial=True)
         if serializer.is_valid():
             # status is the only field that can be updated, everything else is read-only
             if 'status' in serializer.validated_data:
                 new_status = serializer.validated_data['status']
+                if new_status == 'removed_by_admin':
+                    return Response(status=status.HTTP_403_FORBIDDEN, 
+                                    data={'status': 'This status cannot be set by a pet seeker'})
                 user = request.user
                 if user.username == old_app.seeker.username:
                     if not (old_app.status in {'pending', 'accepted'} and new_status == 'withdrawn'):
@@ -74,7 +82,7 @@ class AllApplicationsView(APIView):
             applications = Application.objects.filter(seeker=request.user)
         else: 
             # shelters can only view their own applications, not that of other shelters
-            applications = Application.objects.filter(shelter=request.user)
+            applications = Application.objects.filter(shelter=request.user).exclude(status="removed_by_admin")
         
         if 'filters' in request.data:
             filters = request.data['filters']
@@ -121,4 +129,4 @@ class GetApplicationView(RetrieveAPIView):
         if self.request.user.is_seeker:
             return Application.objects.filter(seeker=self.request.user)
         else:
-            return Application.objects.filter(shelter=self.request.user)
+            return Application.objects.filter(shelter=self.request.user).exclude("removed_by_admin")
