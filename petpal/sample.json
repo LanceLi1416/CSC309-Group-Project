@@ -515,17 +515,6 @@
     },
     {
         "model": "comments.applicationcomment",
-        "pk": 1,
-        "fields": {
-            "application": 4,
-            "commenter": 6,
-            "comment": "This is a comment",
-            "parent": null,
-            "date": "2019-04-01T05:23:39.789Z"
-        }
-    },
-    {
-        "model": "comments.applicationcomment",
         "pk": 2,
         "fields": {
             "application": 4,
