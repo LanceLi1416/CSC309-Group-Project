@@ -12,6 +12,8 @@ import os
 from .serializers import PetListingSerializer, SearchModelSerializer
 from .models import PetListing, User
 from notifications.views import NotificationCreateListView
+from django.conf import settings
+
 
 class PetListingPermissions(BasePermission):
     def has_permission(self, request, view):
@@ -101,7 +103,7 @@ class PetListingEditView(APIView):
         pics = pet_listing.pet.pictures.all()
         for i in range(len(pics)):
             try:
-                os.remove(f'./static/pet_listing_pics/{str(pics[i].path)}')
+                os.remove(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{str(pics[i].path)}'))
             except OSError:
                 break
         pet_listing.delete()
