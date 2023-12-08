@@ -21,6 +21,7 @@ import Forbidden from "./pages/403_Forbidden";
 import NotFound from "./pages/404_NotFound";
 
 import Admin from "./pages/Admin";
+import Users from "./pages/Users";
 
 export default function App() {
     return (<NotificationProvider>
@@ -34,6 +35,7 @@ export default function App() {
                 <Route exact path="/applications" element={<Applications/>}/>
                 <Route exact path="/application/new" element={<ApplicationForm id="new"/>}/>
                 <Route exact path="/profile" element={<Profile/>}/>
+                <Route exact path="/users" element={<Users/>}/>
                 <Route exact path="/adopt" element={<AdoptionInfo/>}/>
                 <Route exact path="/admin" element={<Admin/>}/>
 

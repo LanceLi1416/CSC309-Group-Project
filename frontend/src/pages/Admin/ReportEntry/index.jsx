@@ -80,14 +80,14 @@ export const ApplicationReportEntry = ({report}) => {
 
             {/* TODO: Revise the links */}
             <div className="d-flex flex-column align-items-center w-25">
-                <button className="btn btn-primary w-100"
-                        onClick={() => navigate(`/applications/${report.id}`)}>
-                    View Application
-                </button>
+            {/*    <button className="btn btn-primary w-100"*/}
+            {/*            onClick={() => navigate(`/applications/${report.id}`)}>*/}
+            {/*        View Application*/}
+            {/*    </button>*/}
 
                 <button className="btn btn-primary mt-2 w-100"
-                        onClick={() => navigate(`/profile/${report.reporter}`)}>
-                    View Reported User
+                        onClick={() => navigate(`/users?id=${report.reporter}`)}>
+                    View Reporter
                 </button>
 
                 {/*  Drop down to take action  */}
@@ -169,7 +169,7 @@ export const ShelterCommentReportEntry = ({report}) => {
             {/* TODO: Revise the links */}
             <div className="d-flex flex-column align-items-center w-25">
                 <button className="btn btn-primary w-100"
-                        onClick={() => navigate(`/shelters/${report.id}`)}>
+                        onClick={() => navigate(`/users/${report.id}`)}>
                     View Shelter
                 </button>
 
