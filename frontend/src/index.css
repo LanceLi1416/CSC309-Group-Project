@@ -236,7 +236,7 @@ textarea {
 }
 
 .carousel-button-background {
-	background-color: black;
+	background-color: var(--bs-secondary);
 }
 
 #pet-summary-title {

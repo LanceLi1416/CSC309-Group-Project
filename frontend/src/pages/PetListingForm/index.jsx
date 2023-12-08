@@ -68,11 +68,12 @@ function PetListingForm() {
             })).catch((error) => {
                 if (error.response.status === 404) {
                     // TODO: redirect to 404
-                    console.log(error.response.status);
+                    console.log(error.response);
                 } else if (error.response.status === 401) {
+                    console.log(error.response);
                     navigate("/login"); // TODO: don't know if necessary
                 } else if (error.response.status === 403) {
-                    console.log(error.response.status);
+                    console.log(error.response);
                 }
             })
         }
@@ -192,8 +193,10 @@ function PetListingForm() {
                                 <FormField id="petName"
                                            className="form-control"
                                            type="text"
-                                           name="petName" 
-                                           value={values.petName}
+                                           name="petName"
+                                           width={12}
+                                           placeholder="Pet Name"
+                                           values={values.petName}
                                            onChange={handleChange} 
                                            error={touched.petName && errors.petName} />
                                             {/* disabled={readOnly} /> */}
@@ -220,7 +223,6 @@ function PetListingForm() {
                                            className="form-control"
                                            type="date"
                                            name="petBirthday" 
-                                           value={values.petBirthday}
                                            onChange={handleChange} 
                                            error={touched.petBirthday && errors.petBirthday} />
                                             {/* disabled={readOnly} /> */}
@@ -236,7 +238,6 @@ function PetListingForm() {
                                            placeholder="0"
                                            type="number"
                                            name="petWeight" 
-                                           value={values.petWeight}
                                            onChange={handleChange} 
                                            error={touched.petWeight && errors.petWeight} />
                                             {/* disabled={readOnly} /> */}
@@ -250,7 +251,6 @@ function PetListingForm() {
                                            className="form-control"
                                            type="text"
                                            name="animal" 
-                                           value={values.animal}
                                            onChange={handleChange} 
                                            error={touched.animal && errors.animal} />
                                             {/* disabled={readOnly} /> */}
@@ -264,7 +264,6 @@ function PetListingForm() {
                                            className="form-control"
                                            type="text"
                                            name="breed" 
-                                           value={values.breed}
                                            onChange={handleChange} 
                                            error={touched.breed && errors.breed} />
                                             {/* disabled={readOnly} /> */}
@@ -277,8 +276,7 @@ function PetListingForm() {
                                 <FormField id="colour"
                                            className="form-control"
                                            type="text"
-                                           name="colour" 
-                                           value={values.colour}
+                                           name="colour"
                                            onChange={handleChange} 
                                            error={touched.colour && errors.colour} />
                                             {/* disabled={readOnly} /> */}
@@ -290,7 +288,8 @@ function PetListingForm() {
                                 <Form.Label htmlFor="vaccinated">Vaccinated</Form.Label>
                                 <Form.Check id="vaccinated"
                                             type="checkbox"
-                                            name="vaccinated" 
+                                            name="vaccinated"
+                                            
                                             checked={!create ? values.vaccinated : null}
                                             onChange={handleChange} 
                                             error={touched.vaccinated && errors.vaccinated} />
@@ -306,7 +305,6 @@ function PetListingForm() {
                                            type="text"
                                            name="otherInfo" 
                                            placeholder="No additional information available"
-                                           value={values.otherInfo}
                                            onChange={handleChange} 
                                            error={touched.otherInfo && errors.otherInfo} />
                                             {/* disabled={readOnly} /> */}
@@ -338,7 +336,6 @@ function PetListingForm() {
                                            className="form-control"
                                            type="text"
                                            name="ownerName" 
-                                           value={values.ownerName}
                                            onChange={handleChange} 
                                            error={touched.ownerName && errors.ownerName} />
                                             {/* disabled={readOnly} /> */}
@@ -353,7 +350,6 @@ function PetListingForm() {
                                            type="text"
                                            name="email" 
                                            placeholder="example@domain.com"
-                                           value={values.email}
                                            onChange={handleChange} 
                                            error={touched.email && errors.email} />
                                             {/* disabled={readOnly} /> */}
@@ -368,7 +364,6 @@ function PetListingForm() {
                                            type="text"
                                            name="phoneNumber"
                                            placeholder="000-000-0000"
-                                           value={values.phoneNumber}
                                            onChange={handleChange} 
                                            error={touched.phoneNumber && errors.phoneNumber} />
                                             {/* disabled={readOnly} /> */}
@@ -383,7 +378,6 @@ function PetListingForm() {
                                            type="text"
                                            name="location"
                                            placeholder="City, Country"
-                                           value={values.location}
                                            onChange={handleChange} 
                                            error={touched.location && errors.location} />
                                             {/* disabled={readOnly} /> */}
@@ -397,7 +391,6 @@ function PetListingForm() {
                                            className="form-control"
                                            type="date"
                                            name="ownerBirthday" 
-                                           value={values.ownerBirthday}
                                            onChange={handleChange} 
                                            error={touched.ownerBirthday && errors.ownerBirthday} />
                                             {/* disabled={readOnly} /> */}

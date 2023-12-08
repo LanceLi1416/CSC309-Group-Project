@@ -1,6 +1,7 @@
 import { useNavigate, useParams, navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 function capitalize(str) {
@@ -13,6 +14,7 @@ function PetListingDetail() {
     const navigate = useNavigate();
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
+    const [ currentImage, setCurrentImage ] = useState(1);
     const { petListingID } = useParams();
     const [ petListing, setPetListing ] = useState({
         "petName": "",
@@ -105,11 +107,28 @@ function PetListingDetail() {
             <p>{capitalize(petListing.animal)} | {capitalize(petListing.breed)} | {petListing.location}</p>
             <p><strong>Status:</strong> {capitalize(petListing.status)}</p>
         </div>
-
         <h2 className="pet-detail-subtitles">Pictures</h2>
-        <div className="row mt-2 pb-3 border rounded">
+        <div className="row mt-2 border rounded">
+        <Carousel className="carousel-button-background">
+            {petListing.pictures.map((pic) => (
+                <Carousel.Item>
+                    <div className="carousel-item active" key={pic.path}>
+                        <img className="d block w-50" src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`} />
+                    </div>
+                </Carousel.Item>
+            ))}
+        </Carousel>
+        </div>
+        {/* <div className="row mt-2 pb-3 border rounded">
             <div className="carousel slide" data-ride="carousel" id="pet-pictures-indicators">
                 <div className="carousel-inner">
+                    <img className="d block w-50" src={`${API_URL}${(petListing.pictures.currentImage).path.replace('/media/', 'media/pet_listing_pics/')}`} />
+                    
+                    {petListing.pictures.map((pic) => (
+                        <div className="carousel-item active" key={pic.path}>
+                            <img className="d block w-50" src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`} />
+                        </div>
+                    ))}
                     <div className="carousel-item active">
                         <img alt="First Slide" className="d block w-50" src="../petpal/static/media/images/sample_dog1.jpg" />
                     </div>
@@ -117,22 +136,22 @@ function PetListingDetail() {
                         <img alt="Second Slide" className="d block w-50" src="../petpal/static/media/images/sample_dog2.jpeg" />
                     </div>
                 </div>
+                
+
                 <a className="carousel-control-prev carousel-button-background"
                    data-slide="prev"
-                   href="#pet-pictures-indicators"
                    role="button">
                     <span aria-hidden="true" className="carousel-control-prev-icon"></span>
                     <span className="sr-only">Previous</span>
                 </a>
                 <a className="carousel-control-next carousel-button-background"
                    data-slide="next"
-                   href="#pet-pictures-indicators"
                    role="button">
                     <span aria-hidden="true" className="carousel-control-next-icon"></span>
                     <span className="sr-only">Next</span>
                 </a>
             </div>
-        </div>
+        </div> */}
 
         <h2 className="pet-detail-subtitles">About</h2>
 
@@ -169,7 +188,7 @@ function PetListingDetail() {
                     <p><strong>Name:</strong> {petListing.shelterFirstName + " " + petListing.shelterLastName}</p>
                     <p><strong>Email:</strong> {petListing.shelterEmail}</p>
                     <p><strong>Phone:</strong> {petListing.shelterPhone}</p>
-                    <button className="btn btn-outline-primary sidebar-button" onClick="location.href='shelter-detail.html'">
+                    <button className="btn btn-outline-primary sidebar-button" onClick={console.log}>
                         View Detailed Shelter Info
                     </button>
                 </div>

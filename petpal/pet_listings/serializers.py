@@ -2,6 +2,7 @@ from rest_framework import serializers
 from PIL import Image
 from io import BytesIO
 from django.core.validators import MinValueValidator, MaxLengthValidator
+from django.conf import settings
 
 import os
 
@@ -106,7 +107,7 @@ class PetListingSerializer(serializers.Serializer):
             _, extension = os.path.splitext(original_name)
             image = validated_data['pet']['pictures']['all'][i].read()
             image = Image.open(BytesIO(image))
-            image.save(f'./static/pet_listing_pics/{pet.pk}_{i}{extension.lower()}')
+            image.save(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{pet.pk}_{i}{extension.lower()}'))
             image.close()
             new_pic = Picture(pet=pet,
                               path=f'{pet.pk}_{i}{extension.lower()}')
@@ -158,7 +159,7 @@ class PetListingSerializer(serializers.Serializer):
                     # Check whether to delete pic
                     pic = Picture.objects.filter(path__contains=f'{pet.pk}_{index}')
                     if len(pic) > 0:
-                        os.remove(f'./static/pet_listing_pics/{str(pic.first().path)}')
+                        os.remove(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{str(pic.first().path)}'))
                         pic.first().delete()
 
                     # Upload new pic
@@ -166,7 +167,7 @@ class PetListingSerializer(serializers.Serializer):
                     _, extension = os.path.splitext(original_name)
                     image = validated_data['pet']['pictures']['all'][i].read()
                     image = Image.open(BytesIO(image))
-                    image.save(f'./static/pet_listing_pics/{pet.pk}_{index}{extension.lower()}')
+                    image.save(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{pet.pk}_{index}{extension.lower()}'))
                     image.close()
 
                     # Upload new pic to db
