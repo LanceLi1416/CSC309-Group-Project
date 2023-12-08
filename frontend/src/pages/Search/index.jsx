@@ -46,7 +46,7 @@ const SearchResults = () => {
     const renderItem = (listing) => {
         return (<div className="col-md-3 d-flex align-items-center flex-column position-relative"
                      key={`Listing: ${listing.id}`}>
-            <img className="img-fluid full-img px-2" alt={`${listing.id}`}
+            <img className="search-pics img-fluid full-img px-2" alt={`${listing.id}`}
                  src={`${API_URL}${listing.pet_pictures[0].path.replace('/media/', 'media/pet_listing_pics/')}`}/>
             <a className="stretched-link text-decoration-none"
                onClick={() => navigate(`/pet_listings/details/${listing.id}`)}>

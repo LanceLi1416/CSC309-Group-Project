@@ -19,6 +19,8 @@ function PetListingForm() {
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
     const { petListingID } = useParams();
+    const [ originalPics, setOriginalPics ] = useState([]);
+    let deletedPics = [];
 
     const [ curApplication, setCurApplication ] = useState({
         petName: "",
@@ -69,7 +71,9 @@ function PetListingForm() {
                     location: response.data.location,
                     ownerBirthday: response.data.owner_birthday,
                     status: response.data.status,
-                })
+                });
+                console.log(curApplication);
+                setOriginalPics(response.data.pictures);
                 setCreate(false);
             })).catch((error) => {
                 if (error.response.status === 404) {
@@ -107,26 +111,6 @@ function PetListingForm() {
         });
     };
 
-    const updateHandler = (formData) => {
-        axios({
-            method: "PUT",
-            url: `${API_URL}pet_listings/${petListingID}/`,
-            headers: {
-                "Authorization": "Bearer " + token,
-                // "Content-Type": "multipart/form-data"
-            },
-            data: formData
-        }).then((response) => {
-            console.log("updated");
-        }).catch((error) => {
-            if (error.response.status === 401) {
-                navigate("/login");
-            } else if (error.response.status === 403) {
-                console.log(error.response.status); // TODO: redirect to 403
-            }
-        });
-    };
-
     function deleteListingPic(picID) {
         axios({
             method: "DELETE",
@@ -151,7 +135,32 @@ function PetListingForm() {
         });
     }
 
+    const updateHandler = (formData) => {
+        for (var pic of deletedPics) {
+            deleteListingPic(pic.id);
+        }
+        axios({
+            method: "PUT",
+            url: `${API_URL}pet_listings/${petListingID}/`,
+            headers: {
+                "Authorization": "Bearer " + token,
+                // "Content-Type": "multipart/form-data"
+            },
+            data: formData
+        }).then((response) => {
+            navigate(0);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 403) {
+                console.log(error.response.status); // TODO: redirect to 403
+            }
+        });
+    };
+
     const submitHandler = (values) => {
+        console.log(values);
         const formData = new FormData();
         formData.append("pet_name", values.petName);
         formData.append("gender", values.gender);
@@ -171,6 +180,14 @@ function PetListingForm() {
         for (let i = 0; i < values.pictures.length; i++) {
             formData.append("pictures", values.pictures[i]);
         }
+
+        // if (!create) {
+        //     console.log(originalPics);
+        //     for (var i in originalPics) {
+        //         console.log(originalPics[i]);
+        //         formData.append("pictures", originalPics[i]);
+        //     }
+        // }
         
         if (create) {
             createHandler(formData);
@@ -201,10 +218,22 @@ function PetListingForm() {
         colour: yup.string().required("Please enter the pet's colour")
                    .max(50, "Colour can only be a max of 50 characters"),
         vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
-        // pictures: yup.array().of(yup.mixed()).max(5, "Please").min(1, "ID"),
+        pictures: yup.mixed()
+                     .test('fileList', "Please upload at least 1 pet picture",
+                         (value) => {
+                             return value && value.length > 0;
+                         }
+                     ).test('fileList', 'Only a max of 5 pictures can be uploaded',
+                          (value) => {
+                              console.log(typeof(value));
+                              console.log(value.length);
+                              return 0 < value.length && value.length <= 5;
+                          }
+                     ),
+        // pictures: yup.array().of(yup.mixed()),//.max(5, "Please").min(1, "ID"),
         // pictures: yup.string().required("Please upload at least 1 pet picture"),
-        // pictures: yup.object().shape(yup.object().shape({
-        //     0: yup.string(),
+        // pictures: yup.object().shape({0: yup.object().shape()}),
+            // 0: yup.string(),
         //     // 1: yup.object()
         // })),//min("Please upload at least 1 pet picture"),
         // }),
@@ -368,11 +397,13 @@ function PetListingForm() {
                         {!create &&
                         <Row className="d-flex flex-row mt-3">
                             <label className="mb-3">Current Pictures</label>
-                            {curApplication.pictures.length > 0 ? curApplication.pictures.map((pic) => (
-                                <div key={pic.path}>
+                            {originalPics.length > 0 ? originalPics.map((delPic) => (
+                                <div key={delPic.path}>
                                     <Button className="pic-delete" variant="outline-primary"
-                                            onClick={() => deleteListingPic(pic.id)}>Delete</Button>
-                                    <img className="d block mb-3 w-25" alt={pic.path} src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`}/>
+                                            onClick={() => {
+                                                deletedPics.push(delPic)
+                                                setOriginalPics(originalPics.filter(pic => pic.id !== delPic.id))}}>Delete</Button>
+                                    <img className="d block mb-3 w-25" alt={delPic.path} src={`${API_URL}${delPic.path.replace('/media/', 'media/pet_listing_pics/')}`}/>
                                     <br />
                                 </div>
                             )) : <i>No existing images</i>}
