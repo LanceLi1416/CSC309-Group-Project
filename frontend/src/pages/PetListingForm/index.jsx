@@ -71,25 +71,21 @@ function PetListingForm() {
                     ownerBirthday: response.data.owner_birthday,
                     status: response.data.status,
                 });
-                console.log(curApplication);
                 setOriginalPics(response.data.pictures);
                 setCreate(false);
             })).catch((error) => {
                 if (error.response.status === 404) {
                     // TODO: redirect to 404
-                    console.log(error.response);
+                    navigate("/404");
                 } else if (error.response.status === 401) {
-                    console.log(error.response);
                     navigate("/login"); // TODO: don't know if necessary
                 } else if (error.response.status === 403) {
-                    console.log(error.response);
+                    navigate("/403");
                 }
             })
         }
-    }, [ petListingID, token, API_URL, navigate ])
+    }, [ petListingID, token, API_URL, navigate, curApplication ])
     
-    console.log(curApplication);
-
     const createHandler = (formData) => {
         axios({
             method: "POST",
@@ -100,13 +96,12 @@ function PetListingForm() {
             },
             data: formData
         }).then((response) => {
-            console.log("created");
             navigate(0);
         }).catch((error) => {
             if (error.response.status === 401) {
                 navigate("/login");
             } else if (error.response.status === 403) {
-                console.log(error.response.status); // TODO: redirect to 403
+                navigate("/403"); // TODO: redirect to 403
             }
         });
     };
@@ -126,11 +121,11 @@ function PetListingForm() {
             });
         }).catch((error) => {
             if (error.response.status === 401) {
-                console.log(error.response.status); // TODO
+                navigate("/login");
             } else if (error.response.status === 403) {
-                console.log(error.response.status);
+                navigate("/403");
             } else if(error.response.status === 404) {
-                console.log(error.response.status);
+                navigate("/404");
             }
         });
     }
@@ -157,6 +152,7 @@ function PetListingForm() {
                 navigate("/login");
             } else if (error.response.status === 403) {
                 console.log(error.response.status); // TODO: redirect to 403
+                navigate("/403");
             }
         });
     };
@@ -210,7 +206,8 @@ function PetListingForm() {
                     .max(50, "Pet name can only be a max of 50 characters"),
         gender: yup.string().required("Please indicate the pet's gender")
                    .oneOf(["male", "female"], "The gender is invalid"),
-        petBirthday: yup.date().required("Please enter the pet's birthday"),
+        petBirthday: yup.date().required("Please enter the pet's birthday")
+                        .max(new Date(), "Please enter a valid birthday"),
         petWeight: yup.number().required("Please enter the pet's weight")
                       .min(0, "The given pet weight is invalid"),
         animal: yup.string().required("Please enter the type of animal")

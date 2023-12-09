@@ -32,8 +32,14 @@ const SearchResults = () => {
             }
         }).then(response => {
             setResponse(response.data);
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                navigate("/404");
+            }
         })
-    }, [filters, page, navigate]);
+    }, [filters, page, navigate, token, API_URL]);
 
     // Event Handlers --------------------------------------------------------------------------------------------------
     const handleSortChange = (e) => {
@@ -47,10 +53,10 @@ const SearchResults = () => {
                      key={`Listing: ${listing.id}`}>
             <img className="search-pics img-fluid full-img px-2" alt={`${listing.id}`}
                  src={`${API_URL}${listing.pet_pictures[0].path.replace('/media/', 'media/pet_listing_pics/')}`}/>
-            <a className="stretched-link text-decoration-none"
+            <button className="stretched-link text-decoration-none btn text-primary"
                onClick={() => navigate(`/pet_listings/details/${listing.id}`)}>
                 <h5>{listing.pet_name}</h5>
-            </a>
+            </button>
         </div>);
     }
 

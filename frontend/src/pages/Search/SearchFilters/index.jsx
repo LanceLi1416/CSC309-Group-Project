@@ -61,7 +61,7 @@ function SearchFilters({filters, setFilters}) {
                 navigate("/login");
             }
         });
-    }, []);
+    }, [API_URL, navigate, token]);
 
     // Event Handlers --------------------------------------------------------------------------------------------------
     const handleMultiSelectChange = (event, filterType) => {

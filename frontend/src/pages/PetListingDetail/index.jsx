@@ -14,9 +14,8 @@ function PetListingDetail() {
     const navigate = useNavigate();
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user')) ?? {is_seeker: true};
 
-    const [ currentImage, setCurrentImage ] = useState(1);
     const { petListingID } = useParams();
     const [ petListing, setPetListing ] = useState({
         "petName": "",
@@ -78,17 +77,16 @@ function PetListingDetail() {
             });
         }).catch((error) => {
             if (error.response.status === 404) {
-                // TODO: Redirect to 404 page
+                navigate("/404");
                 console.log(error.response.status);
             } else if (error.response.status === 401) {
-                // TODO: Check if this works
                 navigate('/login');
             } else if (error.response.status === 403) {
                 // TODO: Redirect to 403 page
-                console.log(error.response.status);
+                navigate("/403");
             }
         });
-    }, [ petListingID, token, API_URL ]); // TODO: navigate?
+    }, [ petListingID, token, API_URL, navigate ]); // TODO: navigate?
 
     let today = new Date();
     let birthday = new Date(petListing.petBirthday);
@@ -126,39 +124,6 @@ function PetListingDetail() {
             ))}
         </Carousel>
         </div>
-        {/* <div className="row mt-2 pb-3 border rounded">
-            <div className="carousel slide" data-ride="carousel" id="pet-pictures-indicators">
-                <div className="carousel-inner">
-                    <img className="d block w-50" src={`${API_URL}${(petListing.pictures.currentImage).path.replace('/media/', 'media/pet_listing_pics/')}`} />
-                    
-                    {petListing.pictures.map((pic) => (
-                        <div className="carousel-item active" key={pic.path}>
-                            <img className="d block w-50" src={`${API_URL}${pic.path.replace('/media/', 'media/pet_listing_pics/')}`} />
-                        </div>
-                    ))}
-                    <div className="carousel-item active">
-                        <img alt="First Slide" className="d block w-50" src="../petpal/static/media/images/sample_dog1.jpg" />
-                    </div>
-                    <div className="carousel-item">
-                        <img alt="Second Slide" className="d block w-50" src="../petpal/static/media/images/sample_dog2.jpeg" />
-                    </div>
-                </div>
-                
-
-                <a className="carousel-control-prev carousel-button-background"
-                   data-slide="prev"
-                   role="button">
-                    <span aria-hidden="true" className="carousel-control-prev-icon"></span>
-                    <span className="sr-only">Previous</span>
-                </a>
-                <a className="carousel-control-next carousel-button-background"
-                   data-slide="next"
-                   role="button">
-                    <span aria-hidden="true" className="carousel-control-next-icon"></span>
-                    <span className="sr-only">Next</span>
-                </a>
-            </div>
-        </div> */}
 
         <h2 className="pet-detail-subtitles">About</h2>
 
