@@ -9,19 +9,19 @@ from .models import ReportApplicationComment, \
 
 
 class AdmReportShelterCommentSerializer(serializers.ModelSerializer):
-    read_only_fields = ["id", "reporter", "comment", "category", "creation_date"]
+    read_only_fields = ["id", "reporter", "comment", "category", "creation_date", "adm_other_info"]
 
     class Meta:
         model = ReportShelterComment
         fields = ["id", "reporter", "comment", "category", "other_info", "status",
-                  "action_taken", "creation_date"]
+                  "action_taken", "creation_date", "adm_other_info"]
 
 
 class AdmReportShelterCommentDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReportShelterComment
         fields = ["id", "reporter", "comment", "category", "other_info", "status",
-                  "action_taken", "adm_other_info", "creation_date"]
+                  "action_taken", "adm_other_info", "creation_date", "adm_other_info"]
 
     def update(self, instance, validated_data):
         status = "processed"
@@ -159,22 +159,22 @@ class AdmReportShelterCommentDetailSerializer(serializers.ModelSerializer):
 
 class AdmReportAppCommentSerializer(serializers.ModelSerializer):
     read_only_fields = ["reporter", "comment", "category", "other_info",
-                        "status", "creation_date"]
+                        "status", "creation_date", "adm_other_info"]
 
     class Meta:
         model = ReportApplicationComment
         fields = ["id", "reporter", "comment", "category", "other_info", "status",
-                  "action_taken", "creation_date"]
+                  "action_taken", "creation_date", "adm_other_info"]
 
 
 class AdmReportAppCommentDetailSerializer(serializers.ModelSerializer):
     read_only_fields = ["id", "reporter", "comment", "category", "other_info",
-                        "status", "creation_date"]
+                        "status", "creation_date", "adm_other_info"]
 
     class Meta:
         model = ReportApplicationComment
         fields = ["id", "reporter", "comment", "category", "other_info", "status",
-                  "action_taken", "adm_other_info", "creation_date"]
+                  "action_taken", "adm_other_info", "creation_date", "adm_other_info"]
 
     def update(self, instance, validated_data):
         status = "processed"
@@ -277,12 +277,12 @@ class AdmReportPetListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReportPetListing
         fields = ["id", "reporter", "pet_listing", "category", "other_info", "status",
-                  "action_taken", "creation_date"]
+                  "action_taken", "creation_date", "adm_other_info"]
 
 
 class AdmReportPetListingDetailSerializer(serializers.ModelSerializer):
     read_only_fields = ["id", "reporter", "pet_listing", "category", "other_info",
-                        "status", "creation_date"]
+                        "status", "creation_date", "adm_other_info"]
 
     class Meta:
         model = ReportPetListing

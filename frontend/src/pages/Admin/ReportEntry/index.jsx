@@ -50,7 +50,7 @@ export const ApplicationReportEntry = ({report, endpoint}) => {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('access_token')}`,
             }
-        }).then(response => {
+        }).then(() => {
             // navigate("/admin/");
             navigate(0);
         }).catch(e => {
@@ -126,7 +126,7 @@ export const ApplicationReportEntry = ({report, endpoint}) => {
         </div>
         <div>
             <strong>Add admin comment</strong>
-            <textarea className="form-control" rows="3" key={`comment${report.id}`} placeholder="Add admin comment"
+            <textarea className="form-control" rows="3" placeholder={report.adm_other_info}
                       disabled={report.status === "processed"}
                       onChange={(e) => setAdminComment(e.target.value)}></textarea>
         </div>
@@ -150,7 +150,7 @@ export const ShelterCommentReportEntry = ({report, endpoint}) => {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('access_token')}`,
             }
-        }).then(response => {
+        }).then(() => {
             // navigate("/admin/");
             navigate(0);
         }).catch(e => {
@@ -226,7 +226,7 @@ export const ShelterCommentReportEntry = ({report, endpoint}) => {
         </div>
         <div>
             <strong>Add admin comment</strong>
-            <textarea className="form-control" rows="3" key={`comment${report.id}`} placeholder="Add admin comment"
+            <textarea className="form-control" rows="3" placeholder={report.adm_other_info}
                       disabled={report.status === "processed"}
                       onChange={(e) => setAdminComment(e.target.value)}></textarea>
         </div>
@@ -250,7 +250,7 @@ export const PetListingReportEntry = ({report, endpoint}) => {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('access_token')}`,
             }
-        }).then(response => {
+        }).then(() => {
             // navigate("/admin/");
             navigate(0);
         }).catch(e => {
@@ -326,7 +326,8 @@ export const PetListingReportEntry = ({report, endpoint}) => {
         </div>
         <div>
             <strong>Add admin comment</strong>
-            <textarea className="form-control" rows="3" key={`comment${report.id}`} placeholder="Add admin comment" disabled={report.status === "processed"}
+            <textarea className="form-control" rows="3" placeholder={report.adm_other_info}
+                      disabled={report.status === "processed"}
                       onChange={(e) => setAdminComment(e.target.value)}></textarea>
         </div>
     </li>);
