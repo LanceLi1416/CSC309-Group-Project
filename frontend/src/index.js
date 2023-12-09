@@ -21,6 +21,7 @@ import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
 import Profile from './pages/Profile';
 import AdoptionInfo from './pages/AdoptionInfo';
+import PetListings from "./pages/PetListings";
 import './index.css';
 import PetListingReportForm from './pages/PetListingReportForm';
 
@@ -46,6 +47,7 @@ export default function App() {
           <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ShelterReportForm />} />
           <Route exact path="/report/application/:application_id/:comment_id" element={<ApplicationReportForm />} />
           <Route exact path="/shelter/:shelter_id" element={<ShelterProfile />} />
+          <Route exact path="/pet_listings" element={<PetListings />} />
         </Routes>
         <Footer/>
     </BrowserRouter>
