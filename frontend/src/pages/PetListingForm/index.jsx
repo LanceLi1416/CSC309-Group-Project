@@ -64,7 +64,6 @@ function PetListingForm() {
                     colour: response.data.colour,
                     vaccinated: response.data.vaccinated,
                     otherInfo: response.data.other_info,
-                    pictures: response.data.pictures,
                     ownerName: response.data.owner_name,
                     email: response.data.email,
                     ownerPhone: response.data.owner_phone,
@@ -102,6 +101,7 @@ function PetListingForm() {
             data: formData
         }).then((response) => {
             console.log("created");
+            navigate(0);
         }).catch((error) => {
             if (error.response.status === 401) {
                 navigate("/login");
@@ -136,6 +136,7 @@ function PetListingForm() {
     }
 
     const updateHandler = (formData) => {
+        console.log("In update handler");
         for (var pic of deletedPics) {
             deleteListingPic(pic.id);
         }
@@ -148,6 +149,7 @@ function PetListingForm() {
             },
             data: formData
         }).then((response) => {
+            console.log("updated");
             navigate(0);
         }).catch((error) => {
             console.log(error);
@@ -221,30 +223,23 @@ function PetListingForm() {
         pictures: yup.mixed()
                      .test('fileList', "Please upload at least 1 pet picture",
                          (value) => {
-                             return value && value.length > 0;
+                            if (create) {
+                                return value && value.length > 0;
+                            }
+                            return true;
                          }
                      ).test('fileList', 'Only a max of 5 pictures can be uploaded',
                           (value) => {
-                              console.log(typeof(value));
-                              console.log(value.length);
-                              return 0 < value.length && value.length <= 5;
+                                return value && 0 < value.length && value.length <= 5;
                           }
                      ),
-        // pictures: yup.array().of(yup.mixed()),//.max(5, "Please").min(1, "ID"),
-        // pictures: yup.string().required("Please upload at least 1 pet picture"),
-        // pictures: yup.object().shape({0: yup.object().shape()}),
-            // 0: yup.string(),
-        //     // 1: yup.object()
-        // })),//min("Please upload at least 1 pet picture"),
-        // }),
-                     //.max("Only a max of 5 pictures can be uploaded"),
         otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
         ownerName: yup.string().required("Please enter the owner's name")
                                .max(50, "Owner name can only be a max of 50 characters"),
         email: yup.string().email("Invalid email").required("Please enter the owner's email")
                            .max(50, "Email can only be a max of 50 characters"),
         ownerPhone: yup.string().required("Please enter the owner's phone number")
-                                 .matches(phoneRegEx, "Invalid phone number. Please use the format: 000-000-0000"),
+                                .matches(phoneRegEx, "Invalid phone number. Please use the format: 000-000-0000"),
         location: yup.string().required("Please enter the owner's location")
                      .max(50, "Location can only be a max of 50 characters")
                      .matches(locationRegEx, "Invalid location. Please use the format: City, Country"),
