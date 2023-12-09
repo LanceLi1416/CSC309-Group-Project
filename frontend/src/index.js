@@ -60,6 +60,8 @@ export default function App() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// TODO: remove StrictMode when we are done with development
+// root.render(<App/>);
 root.render(<React.StrictMode>
     <App/>
 </React.StrictMode>);

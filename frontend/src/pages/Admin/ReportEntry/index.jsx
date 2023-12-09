@@ -33,14 +33,14 @@ const ACTION_TO_COLOR = {
     "null": "primary", "no_action_taken": "secondary", "warning_issued": "warning", "banned": "danger",
 }
 
-export const ApplicationReportEntry = ({report}) => {
+export const ApplicationReportEntry = ({report, endpoint}) => {
     const navigate = useNavigate();
 
     if (report === null) return;
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleProcessReport = (action) => {
-        axios.put(process.env.REACT_APP_API_URL + "moderation/reports/application_comments/" + report.id + "/", {
+        axios.put(process.env.REACT_APP_API_URL + endpoint + "reports/application_comments/" + report.id + "/", {
             action_taken: action,
         }, {
             headers: {
@@ -92,10 +92,11 @@ export const ApplicationReportEntry = ({report}) => {
 
                 {/*  Drop down to take action  */}
                 <Dropdown className="dropdown mt-2 w-100">
+                    {endpoint === "moderation/" &&
                     <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false" disabled={report.status === "processed"}>
                         Process Report
-                    </button>
+                    </button>}
                     <ul className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <button className={`dropdown-item text-${ACTION_TO_COLOR["no_action_taken"]}`}
@@ -122,14 +123,14 @@ export const ApplicationReportEntry = ({report}) => {
     </li>);
 }
 
-export const ShelterCommentReportEntry = ({report}) => {
+export const ShelterCommentReportEntry = ({report, endpoint}) => {
     const navigate = useNavigate();
 
     if (report === null) return;
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleProcessReport = (action) => {
-        axios.put(process.env.REACT_APP_API_URL + "moderation/reports/shelter_comments/" + report.id + "/", {
+        axios.put(process.env.REACT_APP_API_URL + endpoint + "reports/shelter_comments/" + report.id + "/", {
             action_taken: action,
         }, {
             headers: {
@@ -180,10 +181,11 @@ export const ShelterCommentReportEntry = ({report}) => {
 
                 {/*  Drop down to take action  */}
                 <Dropdown className="dropdown mt-2 w-100">
+                    {endpoint === "moderation/" &&
                     <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false" disabled={report.status === "processed"}>
                         Process Report
-                    </button>
+                    </button>}
                     <ul className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <button className={`dropdown-item text-${ACTION_TO_COLOR["no_action_taken"]}`}
@@ -210,14 +212,14 @@ export const ShelterCommentReportEntry = ({report}) => {
     </li>);
 }
 
-export const PetListingReportEntry = ({report}) => {
+export const PetListingReportEntry = ({report, endpoint}) => {
     const navigate = useNavigate();
 
     if (report === null) return;
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleProcessReport = (action) => {
-        axios.put(process.env.REACT_APP_API_URL + "moderation/reports/pet_listings/" + report.id + "/", {
+        axios.put(process.env.REACT_APP_API_URL + endpoint + "reports/pet_listings/" + report.id + "/", {
             action_taken: action,
         }, {
             headers: {
@@ -269,10 +271,11 @@ export const PetListingReportEntry = ({report}) => {
 
                 {/*  Drop down to take action  */}
                 <Dropdown className="dropdown mt-2 w-100">
+                    {endpoint === "moderation/" &&
                     <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false" disabled={report.status === "processed"}>
                         Process Report
-                    </button>
+                    </button>}
                     <ul className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <button className={`dropdown-item text-${ACTION_TO_COLOR["no_action_taken"]}`}

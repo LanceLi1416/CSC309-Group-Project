@@ -6,9 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {ApplicationReportEntry, ShelterCommentReportEntry, PetListingReportEntry} from "./ReportEntry";
 
 const TYPE_TO_URI = {
-    "application": "moderation/reports/application_comments/",
-    "shelter_comment": "moderation/reports/shelter_comments/",
-    "pet_listing": "moderation/reports/pet_listings/",
+    "application": "reports/application_comments/",
+    "shelter_comment": "reports/shelter_comments/",
+    "pet_listing": "reports/pet_listings/",
 };
 
 export const Admin = () => {
@@ -25,6 +25,7 @@ export const Admin = () => {
     const [filters, setFilters] = useState({category: [], status: [], most_recent: true,});
     const [serializedFilters, setSerializedFilters] = useState("");
     const [page, setPage] = useState(1);
+    const [pathEndpoint, setPathEndpoint] = useState("moderation/")
 
     // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
@@ -37,7 +38,10 @@ export const Admin = () => {
             return;
         }
 
-        axios.post(API_URL + TYPE_TO_URI[type] + `?page=${page}`, serializedFilters, {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const path = user.is_superuser ? API_URL + "moderation/" + TYPE_TO_URI[type] + `?page=${page}` : API_URL + "accounts/" + TYPE_TO_URI[type] + `?page=${page}`;
+        user.is_superuser ? setPathEndpoint("moderation/") : setPathEndpoint("accounts/");
+        axios.post(path, serializedFilters, {
             // filters + `?page=${page}`, {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${token}`,
@@ -151,9 +155,9 @@ export const Admin = () => {
                     {reports.count === 0 ? <div className="alert alert-info">There are no reports to display.</div> :
                         <ul className="list-group">
                             {reports.results.map((report) => type === 'application' ?
-                                <ApplicationReportEntry key={report.id} report={report}/> : type === 'shelter_comment' ?
-                                    <ShelterCommentReportEntry key={report.id} report={report}/> :
-                                    <PetListingReportEntry key={report.id} report={report}/>)}
+                                <ApplicationReportEntry key={report.id} report={report} endpoint={pathEndpoint}/> : type === 'shelter_comment' ?
+                                    <ShelterCommentReportEntry key={report.id} report={report} endpoint={pathEndpoint}/> :
+                                    <PetListingReportEntry key={report.id} report={report} endpoint={pathEndpoint}/>)}
                         </ul>}
 
                     {/* Pagination Controls */}
