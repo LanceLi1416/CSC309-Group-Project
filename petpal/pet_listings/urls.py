@@ -9,5 +9,6 @@ urlpatterns = [
     path("<int:pet_listing_id>/report/", views.ReportPetListingView.as_view(), 
          name='report_pet_listing'),
     path("search_results/", views.SearchView.as_view(), name='search'),
-    path("search_results/<int:pet_listing_id>/", views.SearchDetailView.as_view(), name='search_detail')
+    path("search_results/<int:pet_listing_id>/", views.SearchDetailView.as_view(), name='search_detail'),
+    path("pictures/<int:pet_listing_id>/<int:pic_id>/", views.PictureView.as_view(), name="delete_picture")
 ]

@@ -52,9 +52,9 @@ function Profile() {
                     notifPreference: response.data.notif_preference
                 });
             }).catch((error) => {
-                // TODO: 404 page
                 if (error.response.status === 404) {
-                    console.log("Account not found");
+                    // console.log("Account not found");
+                    navigate("/404");
                 }
             });
         }
