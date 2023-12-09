@@ -32,7 +32,7 @@ const NotificationsPage = () => {
         }
 
         // Mark notification as read
-        axios.put(`${BASE_URL}/notifications/${notification.id}/`, {}, {
+        axios.put(`${BASE_URL}notifications/${notification.id}/`, {}, {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
@@ -49,7 +49,7 @@ const NotificationsPage = () => {
     // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
         const isReadParam = query.filter === 'unread' ? 'is_read=False&' : query.filter === 'read' ? 'is_read=True&' : '';
-        const url = `${BASE_URL}/notifications?${isReadParam}page=${query.page}`;
+        const url = `${BASE_URL}notifications?${isReadParam}page=${query.page}`;
         // Fetch notifications
         axios.get(url, {
             headers: {

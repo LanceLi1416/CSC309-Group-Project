@@ -152,7 +152,7 @@ export const Header = () => {
 
                                 <li>
                                     <button className="dropdown-item" disabled={count === 0} onClick={() => {
-                                        axios.put(`${BASE_URL}/notifications/`, {}, {
+                                        axios.put(`${BASE_URL}notifications/`, {}, {
                                             headers: {
                                                 "Content-Type": "application/json",
                                                 Authorization: `Bearer ${localStorage.getItem("access_token")}`,
