@@ -24,15 +24,17 @@ const NotificationsPage = () => {
     // Event handlers --------------------------------------------------------------------------------------------------
     function handleNotificationClick(notification) {
         const navigationLink = generateNavigationLink(notification);
+        console.log(navigationLink);
         const is_read = notification.is_read;
 
         if (is_read === true) {
             console.log("Notification is already read");
+            navigate(navigationLink);
             return;
         }
 
         // Mark notification as read
-        axios.put(`${BASE_URL}/notifications/${notification.id}/`, {}, {
+        axios.put(`${BASE_URL}notifications/${notification.id}/`, {}, {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
@@ -49,7 +51,7 @@ const NotificationsPage = () => {
     // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
         const isReadParam = query.filter === 'unread' ? 'is_read=False&' : query.filter === 'read' ? 'is_read=True&' : '';
-        const url = `${BASE_URL}/notifications?${isReadParam}page=${query.page}`;
+        const url = `${BASE_URL}notifications?${isReadParam}page=${query.page}`;
         // Fetch notifications
         axios.get(url, {
             headers: {
