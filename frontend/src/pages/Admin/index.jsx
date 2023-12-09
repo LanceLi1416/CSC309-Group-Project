@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {json, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ApplicationReportEntry, ShelterCommentReportEntry, PetListingReportEntry} from "./ReportEntry";
+import {ApplicationReportEntry, PetListingReportEntry, ShelterCommentReportEntry} from "./ReportEntry";
 
 const TYPE_TO_URI = {
     "application": "reports/application_comments/",
@@ -53,11 +53,11 @@ export const Admin = () => {
         user.is_superuser ? setPathEndpoint("moderation/") : setPathEndpoint("accounts/");
         axios.post(path, JSON.stringify(filters),
             {
-            // filters + `?page=${page}`, {
-            headers: {
-                'Content-Type': 'application/json', Authorization: `Bearer ${token}`,
-            }
-        }).then(response => {
+                // filters + `?page=${page}`, {
+                headers: {
+                    'Content-Type': 'application/json', Authorization: `Bearer ${token}`,
+                }
+            }).then(response => {
             setReports({
                 count: response.data.count,
                 next: response.data.next,
@@ -69,6 +69,8 @@ export const Admin = () => {
                 navigate('/login');
             } else if (e.response.status === 403) {
                 navigate('/403');
+            } else {
+                navigate('/')
             }
         });
     }, [type, filters, page, token, API_URL, navigate]);
@@ -165,8 +167,10 @@ export const Admin = () => {
                     {reports.count === 0 ? <div className="alert alert-info">There are no reports to display.</div> :
                         <ul className="list-group">
                             {reports.results.map((report) => type === 'application' ?
-                                <ApplicationReportEntry key={report.id} report={report} endpoint={pathEndpoint}/> : type === 'shelter_comment' ?
-                                    <ShelterCommentReportEntry key={report.id} report={report} endpoint={pathEndpoint}/> :
+                                <ApplicationReportEntry key={report.id} report={report}
+                                                        endpoint={pathEndpoint}/> : type === 'shelter_comment' ?
+                                    <ShelterCommentReportEntry key={report.id} report={report}
+                                                               endpoint={pathEndpoint}/> :
                                     <PetListingReportEntry key={report.id} report={report} endpoint={pathEndpoint}/>)}
                         </ul>}
 

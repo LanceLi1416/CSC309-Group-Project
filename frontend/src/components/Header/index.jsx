@@ -41,7 +41,7 @@ export const Header = () => {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
-        }).then((response) => {
+        }).then(() => {
             // Update notification state
             updateNotificationState(!notificationState);
             // Redirect to related link
@@ -157,11 +157,12 @@ export const Header = () => {
                                                 "Content-Type": "application/json",
                                                 Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                                             }
-                                        }).then((response) => {
+                                        }).then(() => {
                                             // Update notification state
                                             updateNotificationState(!notificationState);
-                                        }).catch((error) => {
-                                            console.log(error);
+                                        }).catch(() => {
+                                            navigate('/');
+                                            handleLogout();
                                         });
                                     }}>Mark All as Read
                                     </button>
@@ -186,7 +187,7 @@ export const Header = () => {
                                 <li><Link to="/profile" className="dropdown-item">View Profile</Link></li>
 
                                 {(JSON.parse(localStorage.getItem('user')).is_superuser === true) ?
-                                    <li><Link to="/admin" className="dropdown-item">Admin</Link></li> :
+                                    <li><Link to="/admin" className="dropdown-item">Administrative</Link></li> :
 
                                     // TODO: revise these links
                                     <>
@@ -194,6 +195,7 @@ export const Header = () => {
                                         {(JSON.parse(localStorage.getItem('user')).is_seeker === false) ?
                                             <li><Link to="/pet_listings" className="dropdown-item">Pet Listings</Link>
                                             </li> : <></>}
+                                        <li><Link to="/admin" className="dropdown-item">Reports</Link></li>
                                     </>}
 
                                 <li>

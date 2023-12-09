@@ -9,6 +9,7 @@ import {Dropdown} from "react-bootstrap";
 const NotificationsPage = () => {
     const BASE_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("user"));
 
     // States ----------------------------------------------------------------------------------------------------------
     const [notifications, setNotifications] = useState([]);
@@ -36,7 +37,7 @@ const NotificationsPage = () => {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
-        }).then((response) => {
+        }).then(() => {
             // Update notification state
             updateNotificationState(!notificationState);
             // Redirect to related link
@@ -46,7 +47,7 @@ const NotificationsPage = () => {
         });
     }
 
-    // Initial fetch and setup -----------------------------------------------------------------------------------------
+    // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
         const isReadParam = query.filter === 'unread' ? 'is_read=False&' : query.filter === 'read' ? 'is_read=True&' : '';
         const url = `${BASE_URL}/notifications?${isReadParam}page=${query.page}`;
@@ -59,10 +60,23 @@ const NotificationsPage = () => {
             setNotifications([...response.data.results]);
             setCount(response.data.count);
             setHasMore(response.data.next !== null)
-        }).catch((error) => {
-            console.log(error);
+        }).catch((e) => {
+            console.log(e);
+            if (e.response.status === 401) {
+                navigate('/login');
+            } else if (e.response.status === 403) {
+                navigate('/forbidden');
+            } else {
+                navigate('/');
+            }
         });
     }, [query, notificationState, BASE_URL]);
+
+    // Redirect to login page if user is not logged in
+    if (!user) {
+        navigate('/login');
+        return null;
+    }
 
     return (<div>
         {/* Back Arrow */}
