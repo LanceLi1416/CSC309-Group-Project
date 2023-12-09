@@ -13,7 +13,7 @@ import {ShelterReportForm, ApplicationReportForm} from './pages/ReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Applications from './pages/Applications';
 import ApplicationForm from './pages/ApplicationForm';
-import 'semantic-ui-css/semantic.min.css';
+// import 'semantic-ui-css/semantic.min.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
 import Profile from './pages/Profile';
