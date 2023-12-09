@@ -139,7 +139,7 @@
             "email": "npoon@gmail.com",
             "phone": "416-123-4567",
             "location": "Richmond Hill, Canada",
-            "birthday": "2022-01-01"
+            "birthday": "2002-01-01"
         }
     },
     {
@@ -147,7 +147,7 @@
         "pk": 1,
         "fields": {
             "status": "available",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-22T05:23:39.789Z",
             "creation_date": "2023-02-19",
             "owner_id": 1,
             "shelter_id": 2
@@ -158,7 +158,7 @@
         "pk": 2,
         "fields": {
             "status": "adopted",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-22T05:23:39.789Z",
             "creation_date": "2023-02-20",
             "owner_id": 1,
             "shelter_id": 2
@@ -169,7 +169,7 @@
         "pk": 3,
         "fields": {
             "status": "pending",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-28T05:23:39.789Z",
             "creation_date": "2023-02-21",
             "owner_id": 1,
             "shelter_id": 2
@@ -180,7 +180,7 @@
         "pk": 4,
         "fields": {
             "status": "withdrawn",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-28T05:23:39.789Z",
             "creation_date": "2023-02-22",
             "owner_id": 1,
             "shelter_id": 2
@@ -191,7 +191,7 @@
         "pk": 5,
         "fields": {
             "status": "available",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-28T05:23:39.789Z",
             "creation_date": "2023-02-23",
             "owner_id": 1,
             "shelter_id": 3
@@ -202,7 +202,7 @@
         "pk": 6,
         "fields": {
             "status": "available",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-25T05:23:39.789Z",
             "creation_date": "2023-02-24",
             "owner_id": 1,
             "shelter_id": 3
@@ -213,7 +213,7 @@
         "pk": 7,
         "fields": {
             "status": "available",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-26T05:23:39.789Z",
             "creation_date": "2023-02-25",
             "owner_id": 1,
             "shelter_id": 3
@@ -224,7 +224,7 @@
         "pk": 8,
         "fields": {
             "status": "removed_by_admin",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-26T05:23:39.789Z",
             "creation_date": "2023-02-25",
             "owner_id": 1,
             "shelter_id": 4
@@ -235,7 +235,7 @@
         "pk": 9,
         "fields": {
             "status": "removed_by_admin",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-28T05:23:39.789Z",
             "creation_date": "2023-02-26",
             "owner_id": 1,
             "shelter_id": 4
@@ -246,7 +246,7 @@
         "pk": 10,
         "fields": {
             "status": "removed_by_admin",
-            "last_update": "2024-02-19T05:23:39.789Z",
+            "last_update": "2023-02-27T05:23:39.789Z",
             "creation_date": "2023-02-27",
             "owner_id": 1,
             "shelter_id": 4
@@ -325,7 +325,7 @@
             "birthday": "2023-01-05",
             "weight": 16,
             "animal": "dog",
-            "breed": "golden_retriever",
+            "breed": "Golden Retriever",
             "colour": "black",
             "vaccinated": true,
             "other_info": "",
@@ -341,7 +341,7 @@
             "birthday": "2023-01-05",
             "weight": 17,
             "animal": "dog",
-            "breed": "golden_retriever",
+            "breed": "Golden Retriever",
             "colour": "brown",
             "vaccinated": true,
             "other_info": "",
@@ -357,7 +357,7 @@
             "birthday": "2023-01-05",
             "weight": 18,
             "animal": "dog",
-            "breed": "",
+            "breed": "Golden Retriever",
             "colour": "black",
             "vaccinated": true,
             "other_info": "",
@@ -373,7 +373,7 @@
             "birthday": "2023-01-05",
             "weight": 18,
             "animal": "dog",
-            "breed": "",
+            "breed": "Golden Retriever",
             "colour": "black",
             "vaccinated": true,
             "other_info": "",
@@ -389,7 +389,7 @@
             "birthday": "2023-01-05",
             "weight": 19,
             "animal": "dog",
-            "breed": "",
+            "breed": "Golden Retriever",
             "colour": "black",
             "vaccinated": true,
             "other_info": "",
@@ -405,7 +405,7 @@
             "birthday": "2023-01-05",
             "weight": 20,
             "animal": "dog",
-            "breed": "",
+            "breed": "Golden Retriever",
             "colour": "black",
             "vaccinated": true,
             "other_info": "",
@@ -1053,8 +1053,8 @@
             "status": "pending",
             "action_taken": "null",
             "adm_other_info": "",
-            "action_time": "2024-03-24 05:23:39.789Z",
-            "creation_date": "2024-03-21",
+            "action_time": "2023-03-24 05:23:39.789Z",
+            "creation_date": "2023-03-21",
             "pet_listing_id": 7,
             "reporter_id": 1
         }
@@ -1068,8 +1068,8 @@
             "status": "pending",
             "action_taken": "banned",
             "adm_other_info": "",
-            "action_time": "2024-03-25 05:25:39.789Z",
-            "creation_date": "2024-03-22",
+            "action_time": "2023-03-25 05:25:39.789Z",
+            "creation_date": "2023-03-22",
             "pet_listing_id": 8,
             "reporter_id": 1
         }
@@ -1083,8 +1083,8 @@
             "status": "pending",
             "action_taken": "banned",
             "adm_other_info": "",
-            "action_time": "2024-03-26 05:23:39.789Z",
-            "creation_date": "2024-03-23",
+            "action_time": "2023-03-26 05:23:39.789Z",
+            "creation_date": "2023-03-23",
             "pet_listing_id": 9,
             "reporter_id": 1
         }
@@ -1098,8 +1098,8 @@
             "status": "pending",
             "action_taken": "banned",
             "adm_other_info": "",
-            "action_time": "2024-03-27 05:23:39.789Z",
-            "creation_date": "2024-03-24",
+            "action_time": "2023-03-27 05:23:39.789Z",
+            "creation_date": "2023-03-24",
             "pet_listing_id": 10,
             "reporter_id": 1
         }

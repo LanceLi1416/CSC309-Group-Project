@@ -132,13 +132,13 @@ function PetListingForm() {
     }
 
     const updateHandler = (formData) => {
-        console.log("In update handler");
+        // console.log("In update handler");
         for (var pic of deletedPics) {
             deleteListingPic(pic.id);
         }
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', ' + pair[1]); 
+        // }
         axios({
             method: "PUT",
             url: `${API_URL}pet_listings/${petListingID}/`,
@@ -152,18 +152,18 @@ function PetListingForm() {
             // console.log("updated");
             navigate(0);
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             if (error.response.status === 401) {
                 navigate("/login");
             } else if (error.response.status === 403) {
-                console.log(error.response.status); // TODO: redirect to 403
+                // console.log(error.response.status); // TODO: redirect to 403
                 navigate("/403");
             }
         });
     };
 
     const submitHandler = (values) => {
-        console.log(values);
+        // console.log(values);
         const formData = new FormData();
         formData.append("pet_name", values.petName);
         formData.append("gender", values.gender);

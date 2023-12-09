@@ -34,7 +34,7 @@ export default function App() {
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/notifications" element={<Notifications/>}/>
           <Route exact path="/applications" element={<Applications />} />
-          <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
+          <Route exact path="/application/new/:petListingID" element={<ApplicationForm id="new" />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/adopt" element={<AdoptionInfo />} />
           <Route exact path="/pet_listing/:petListingID" element={<PetListingForm />} />

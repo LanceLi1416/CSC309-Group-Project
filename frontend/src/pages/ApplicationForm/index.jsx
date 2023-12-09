@@ -118,17 +118,21 @@ function ApplicationForm({ id, pet_listing_id }) {
 
     const { Formik } = formik;
     const phoneRegExp = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/
+    let maxOwnerBirthday = new Date();
+    maxOwnerBirthday.setFullYear(maxOwnerBirthday.getFullYear() - 18);
     const schema = yup.object().shape({
         email: yup.string().email('Invalid email').required('Email is required'),
         firstName: yup.string().required('First name is required'),
         lastName: yup.string().required('Last name is required'),
-        birthday: yup.date().required('Birthday is required'),
+        birthday: yup.date().required('Birthday is required')
+                     .max(maxOwnerBirthday, "The seeker must be at least 18 years old"),
         address: yup.string().required('Address is required'),
         phone: yup.string().matches(phoneRegExp, 'Phone number must be in the format 000-000-0000').required('Phone number is required'),
         income: yup.string().required('Income is required'),
         experience: yup.string().required('Experience is required'),
         current_pets: yup.string().required('Current pets is required'),
-        availability: yup.date().required('Pick up date is required'),
+        availability: yup.date().required('Pick up date is required')
+                                .min(new Date(), "The earliest pick up date is tomorrow"),
         checkbox: yup.bool().oneOf([true], 'This must be checked'),
     });
 

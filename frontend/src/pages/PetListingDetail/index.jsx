@@ -94,7 +94,7 @@ function PetListingDetail() {
 
     let age = today.getFullYear() - birthday.getFullYear();
 
-    if (today.getMonth() > birthday.getMonth() || 
+    if (today.getMonth() < birthday.getMonth() || 
         (today.getMonth() === birthday.getMonth() && today.getDay() > birthday.getDay())) {
         age--;
     }
