@@ -45,7 +45,7 @@ function PetListingDetail() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `${API_URL}pet_listings/${petListingID}/`,
+            url: `${API_URL}pet_listings/search_results/${petListingID}/`,
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -83,7 +83,8 @@ function PetListingDetail() {
                 navigate('/login');
             } else if (error.response.status === 403) {
                 // TODO: Redirect to 403 page
-                navigate("/403");
+                console.log(error.response);
+                // navigate("/403");
             }
         });
     }, [ petListingID, token, API_URL, navigate ]); // TODO: navigate?
@@ -162,6 +163,11 @@ function PetListingDetail() {
                     <p><strong>Phone:</strong> {petListing.shelterPhone}</p>
                     <button className="btn btn-outline-primary sidebar-button" onClick={() => {navigate(`../shelter/${petListing.shelterID}`)}}>
                         View Detailed Shelter Info
+                    </button>
+                </div>
+                <div className="row mt-2 mb-2 pt-2 pb-2 border rounded">
+                    <button className="btn btn-outline-danger sidebar-button">
+                        Report Pet Listing
                     </button>
                 </div>
             </div>
