@@ -6,13 +6,16 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 import os
 
 from .serializers import PetListingSerializer, SearchModelSerializer, \
-                         ReportPetListingSerializer
-from .models import PetListing, User
+                         ReportPetListingSerializer, PictureSerializer
+from .models import PetListing, User, Picture
 from notifications.views import NotificationCreateListView
+from django.conf import settings
+
 
 class ReportPermissions(BasePermission):
     def has_permission(self, request, view):
@@ -70,14 +73,14 @@ class PetListingCreateView(APIView):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            serializer.create(serializer.validated_data, request)
+            new_pet_listing = serializer.create(serializer.validated_data, request)
 
             # send notification to all seekers with notif_preference = True
             notif_users = User.objects.filter(is_seeker=True).filter(notif_preference=True)
             for user in notif_users:
                 request.data['receiver'] = user.id
                 request.data['message'] = f'New pet listing from {request.user.username}'
-                request.data['related_link'] = f'/pet_listings/{serializer.validated_data["id"]}'
+                request.data['related_link'] = f'/pet_listings/{new_pet_listing.id}'
                 NotificationCreateListView.post(self, request)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -126,9 +129,9 @@ class PetListingEditView(APIView):
         pics = pet_listing.pet.pictures.all()
         for i in range(len(pics)):
             try:
-                os.remove(f'./static/pet_listing_pics/{str(pics[i].path)}')
+                os.remove(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{str(pics[i].path)}'))
             except OSError:
-                break
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         pet_listing.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -140,6 +143,11 @@ class SearchView(APIView):
 
     def post(self, request):
         pet_listings = PetListing.objects.all()
+
+        if 'pet_name' in request.data:
+            pet_name = request.data['pet_name']
+            if pet_name != "":
+                pet_listings = pet_listings.filter(pet__name__icontains=pet_name)
 
         if 'shelter' in request.data:
             shelter = request.data['shelter']
@@ -189,7 +197,7 @@ class SearchView(APIView):
             pet_listings = pet_listings.order_by('pet__name')
 
         paginator = PageNumberPagination()
-        paginator.page_size = 4
+        paginator.page_size = 8
         paginated_pet_listings = paginator.paginate_queryset(pet_listings, request)
 
         if paginated_pet_listings is not None:
@@ -210,6 +218,32 @@ class SearchDetailView(APIView):
             raise PermissionDenied("This pet listing has been removed by the admin and cannot be viewed")
         serializer = self.serializer_class(pet_listing)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class PictureView(APIView):
+    serializer_class = PictureSerializer
+    lookup_field = 'pic_id'
+    permission_classes = [PetListingPermissions]
+
+    def delete(self, request, pet_listing_id, pic_id):
+        pet_listing = get_object_or_404(PetListing, pk=pet_listing_id)
+        if pet_listing.status == "removed_by_admin":
+            raise PermissionDenied("This pet listing has been reported and associated pictures cannot be deleted")
+        permission = PetListingPermissions()
+        permission.has_object_permission(request, self, pet_listing)
+
+        pic = get_object_or_404(Picture, pk=pic_id)
+        if pic.pet.pet_listing.shelter != request.user:
+            print("Hello")
+            raise Http404
+        
+        try:
+            os.remove(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{str(pic.path)}'))
+        except OSError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        pic.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ReportPetListingView(APIView):

@@ -40,7 +40,7 @@ class Pet(models.Model):
     breed = models.CharField(max_length=50)
     colour = models.CharField(max_length=50)
     vaccinated = models.BooleanField(default=False)
-    other_info = models.CharField(max_length=50)
+    other_info = models.CharField(max_length=50, blank=True)
     pet_listing = models.OneToOneField(PetListing, on_delete=models.CASCADE, related_name='pet')
 
 

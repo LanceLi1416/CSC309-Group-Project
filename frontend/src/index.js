@@ -7,9 +7,12 @@ import Footer from "./components/Footer";
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import SearchResults from './pages/Search';
+import PetListingDetail from './pages/PetListingDetail';
+import PetListingForm from './pages/PetListingForm';
 import { ShelterComment, ApplicationComment } from './pages/Comments';
 import ShelterProfile from './pages/Shelter';
-import {ShelterReportForm, ApplicationReportForm} from './pages/ReportForm';
+import {ShelterReportForm, ApplicationReportForm} from './pages/CommentReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Applications from './pages/Applications';
 import ApplicationForm from './pages/ApplicationForm';
@@ -20,6 +23,7 @@ import Profile from './pages/Profile';
 import AdoptionInfo from './pages/AdoptionInfo';
 import PetListings from "./pages/PetListings";
 import './index.css';
+import PetListingReportForm from './pages/PetListingReportForm';
 
 export default function App() {
   return (<NotificationProvider>
@@ -31,9 +35,13 @@ export default function App() {
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/notifications" element={<Notifications/>}/>
           <Route exact path="/applications" element={<Applications />} />
-          <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
+          <Route exact path="/application/new/:petListingID" element={<ApplicationForm id="new" />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/adopt" element={<AdoptionInfo />} />
+          <Route exact path="/pet_listing/:petListingID" element={<PetListingForm />} />
+          <Route path="/pet_listings/details/:petListingID" element={<PetListingDetail/>}/>
+          <Route path="/pet_listings/:petListingID/report" element={<PetListingReportForm/>}/>
+          <Route exact path="/search" element={<SearchResults/>}/>
           <Route exact path="/shelter/:shelter_id/comments" element={<ShelterComment />} />
           <Route exact path="/application/:application_id/comments" element={<ApplicationComment />} />
           <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ShelterReportForm />} />

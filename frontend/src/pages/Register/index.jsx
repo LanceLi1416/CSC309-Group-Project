@@ -121,8 +121,8 @@ function Register() {
         </Formik>
         <div className="text-center mt-2 mb-4">
             Already have a PetPal account? <Link to="/login">Log in</Link>.
-            {registerError.map((errorMessage) => (<>
-                <div className='error-text'>{errorMessage}</div>
+            {registerError.map((errorMessage, index) => (<>
+                <div className='error-text' key={index}>{errorMessage}</div>
             </>))}
         </div>
     </>);
