@@ -37,11 +37,11 @@ export const Header = () => {
     }
 
     function handleNotificationClick(notification) {
-        axios.put(`${BASE_URL}/notifications/${notification.id}/`, {}, {
+        axios.put(`${BASE_URL}notifications/${notification.id}/`, {}, {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
-        }).then((response) => {
+        }).then(() => {
             // Update notification state
             updateNotificationState(!notificationState);
             // Redirect to related link
@@ -65,7 +65,7 @@ export const Header = () => {
         if (!isLoggedIn) return;
 
         // Fetch notifications
-        axios.get(`${BASE_URL}/notifications/?is_read=False`, {
+        axios.get(`${BASE_URL}notifications/?is_read=False`, {
             headers: {
                 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('access_token')}`
             }
@@ -157,11 +157,12 @@ export const Header = () => {
                                                 "Content-Type": "application/json",
                                                 Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                                             }
-                                        }).then((response) => {
+                                        }).then(() => {
                                             // Update notification state
                                             updateNotificationState(!notificationState);
-                                        }).catch((error) => {
-                                            console.log(error);
+                                        }).catch(() => {
+                                            navigate('/');
+                                            handleLogout();
                                         });
                                     }}>Mark All as Read
                                     </button>
@@ -184,9 +185,19 @@ export const Header = () => {
                             </button>
                             <ul className={`dropdown-menu dropdown-menu-dark bg-${bgColour}`}>
                                 <li><Link to="/profile" className="dropdown-item">View Profile</Link></li>
-                                <li><Link to="/manage-properties" className="dropdown-item">Manage
-                                    Properties</Link>
-                                </li>
+
+                                {(JSON.parse(localStorage.getItem('user')).is_superuser === true) ?
+                                    <li><Link to="/admin" className="dropdown-item">Administrative</Link></li> :
+
+                                    // TODO: revise these links
+                                    <>
+                                        <li><Link to="/applications" className="dropdown-item">Applications</Link></li>
+                                        {(JSON.parse(localStorage.getItem('user')).is_seeker === false) ?
+                                            <li><Link to="/pet_listings" className="dropdown-item">Pet Listings</Link>
+                                            </li> : <></>}
+                                        <li><Link to="/admin" className="dropdown-item">Reports</Link></li>
+                                    </>}
+
                                 <li>
                                     <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                                 </li>
@@ -212,7 +223,8 @@ export const Header = () => {
                 </div>
             </div>
         </nav>
-    </header>);
+    </header>)
+
 }
 
 export default Header;

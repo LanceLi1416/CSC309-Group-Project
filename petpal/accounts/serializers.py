@@ -12,9 +12,12 @@ import os
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar', 'notif_preference', 'bio', 'address', 'phone']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'is_seeker', 'avatar',
+                  'notif_preference', 'bio', 'address', 'phone', 'is_staff', 'is_superuser']
         extra_kwargs = {
             'password': {'write_only': True},
+            'is_staff': {'read_only': True},
+            'is_superuser': {'read_only': True},
         }
 
     def create(self, validated_data):
@@ -53,14 +56,14 @@ class AccountSerializer(ModelSerializer):
         
         instance.save()
         return instance
-    
+
 
 class ReportShelterCommentSerializer(ModelSerializer):
     class Meta:
         model = ReportShelterComment
         fields = ["reporter", "comment", "category", "other_info", "status",
                   "action_taken", "creation_date"]
-        
+
 class ReportShelterCommentDetailSerializer(ModelSerializer):
     class Meta:
         model = ReportShelterComment
@@ -72,7 +75,7 @@ class ReportAppCommentSerializer(ModelSerializer):
         model = ReportApplicationComment
         fields = ["reporter", "comment", "category", "other_info", "status",
                   "action_taken", "creation_date"]
-        
+
 class ReportAppCommentDetailSerializer(ModelSerializer):
     class Meta:
         model = ReportApplicationComment

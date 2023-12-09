@@ -80,6 +80,9 @@ class GetAccountView(RetrieveAPIView):
     action = 'retrieve'
 
     def get_queryset(self):
+        # superusers can see all accounts
+        if self.request.user.is_superuser:
+            return User.objects.all()
         # any user (shelter or seeker) can see the profile of a shelter
         all_shelters = User.objects.filter(is_seeker=False)
         if self.request.user.is_seeker:
@@ -109,12 +112,12 @@ class AppCommentReportView(APIView):
         if 'category' in request.data:
             category = request.data['category']
             if category != [] and category != "":
-                reports = reports.filter(reports__category__in=category)
+                reports = reports.filter(category__in=category)
 
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
-                reports = reports.filter(reports__status__in=status)
+                reports = reports.filter(status__in=status)
 
         if 'most_recent' in request.data:
             reports = reports.order_by('-creation_date')
@@ -153,12 +156,12 @@ class ShelterCommentReportView(APIView):
         if 'category' in request.data:
             category = request.data['category']
             if category != [] and category != "":
-                reports = reports.filter(reports__category__in=category)
+                reports = reports.filter(category__in=category)
 
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
-                reports = reports.filter(reports__status__in=status)
+                reports = reports.filter(status__in=status)
 
         if 'most_recent' in request.data:
             reports = reports.order_by('-creation_date')
@@ -197,12 +200,12 @@ class PetListingReportView(APIView):
         if 'category' in request.data:
             category = request.data['category']
             if category != [] and category != "":
-                reports = reports.filter(reports__category__in=category)
+                reports = reports.filter(category__in=category)
 
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
-                reports = reports.filter(reports__status__in=status)
+                reports = reports.filter(status__in=status)
 
         if 'most_recent' in request.data:
             reports = reports.order_by('-creation_date')

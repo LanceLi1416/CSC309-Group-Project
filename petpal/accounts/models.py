@@ -51,7 +51,13 @@ class User(AbstractUser):
     address = models.TextField(max_length=100, blank=True, null=True, default='')
     phone = models.CharField(max_length=12, blank=True, null=True, default='')
 
+    # For behaviour related purposes; ban when 3 points reached
+    score = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'is_seeker']
+
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()

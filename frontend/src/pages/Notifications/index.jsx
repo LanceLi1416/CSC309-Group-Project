@@ -4,10 +4,12 @@ import formatDateTimeString from "../../utils/formatDateTimeString";
 import {useNotificationContext} from "../../context/NotificationContext";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Dropdown} from "react-bootstrap";
 
 const NotificationsPage = () => {
     const BASE_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("user"));
 
     // States ----------------------------------------------------------------------------------------------------------
     const [notifications, setNotifications] = useState([]);
@@ -35,7 +37,7 @@ const NotificationsPage = () => {
             headers: {
                 "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             }
-        }).then((response) => {
+        }).then(() => {
             // Update notification state
             updateNotificationState(!notificationState);
             // Redirect to related link
@@ -45,7 +47,7 @@ const NotificationsPage = () => {
         });
     }
 
-    // Initial fetch and setup -----------------------------------------------------------------------------------------
+    // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
         const isReadParam = query.filter === 'unread' ? 'is_read=False&' : query.filter === 'read' ? 'is_read=True&' : '';
         const url = `${BASE_URL}/notifications?${isReadParam}page=${query.page}`;
@@ -58,10 +60,23 @@ const NotificationsPage = () => {
             setNotifications([...response.data.results]);
             setCount(response.data.count);
             setHasMore(response.data.next !== null)
-        }).catch((error) => {
-            console.log(error);
+        }).catch((e) => {
+            console.log(e);
+            if (e.response.status === 401) {
+                navigate('/login');
+            } else if (e.response.status === 403) {
+                navigate('/forbidden');
+            } else {
+                navigate('/');
+            }
         });
-    }, [query, notificationState, BASE_URL]);
+    }, [query, notificationState, BASE_URL, navigate]);
+
+    // Redirect to login page if user is not logged in
+    if (!user) {
+        navigate('/login');
+        return null;
+    }
 
     return (<div>
         {/* Back Arrow */}
@@ -70,19 +85,18 @@ const NotificationsPage = () => {
         </button>
 
         {/* Title */}
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex flex-column my-3">
             {/* Display Total Number of Notifications */}
-            {<h1>You
-                have {count} {query.filter === 'unread' ? 'unread' : query.filter === 'read' ? 'read' : ''} {count === 1 ? 'notification' : 'notifications'}</h1>}
+            {<h1>You have {count} {query.filter === 'unread' ? 'unread' : query.filter === 'read' ? 'read' : ''} {count === 1 ? 'notification' : 'notifications'}</h1>}
 
-            {/* Dropdown for Filter */}
-            <div className="my-3">
+            {/* Dropdown for Filter */} {/* Should have bg color primary */}
+            <Dropdown className="my-2">
                 <select value={query.filter} onChange={(e) => setQuery({page: 1, filter: e.target.value})}>
                     <option value="unread">Show unread notifications</option>
                     <option value="read">Show read notifications</option>
                     <option value="all">Show all notifications</option>
                 </select>
-            </div>
+            </Dropdown>
         </div>
 
         {/* Notification List */}

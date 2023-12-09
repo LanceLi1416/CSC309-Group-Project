@@ -25,6 +25,13 @@ import PetListings from "./pages/PetListings";
 import './index.css';
 import PetListingReportForm from './pages/PetListingReportForm';
 
+import Unauthorized from "./pages/401_Unauthorized";
+import Forbidden from "./pages/403_Forbidden";
+import NotFound from "./pages/404_NotFound";
+
+import Admin from "./pages/Admin";
+import Users from "./pages/Users";
+
 export default function App() {
   return (<NotificationProvider>
     <BrowserRouter>
@@ -48,6 +55,14 @@ export default function App() {
           <Route exact path="/report/application/:application_id/:comment_id" element={<ApplicationReportForm />} />
           <Route exact path="/shelter/:shelter_id" element={<ShelterProfile />} />
           <Route exact path="/pet_listings" element={<PetListings />} />
+
+            <Route exact path="/users" element={<Users/>}/>
+            <Route exact path="/adopt" element={<AdoptionInfo/>}/>
+            <Route exact path="/admin" element={<Admin/>}/>
+
+            <Route exact path="/401" element={<Unauthorized/>}/>
+            <Route exact path="/403" element={<Forbidden/>}/>
+            <Route path="*" element={<NotFound/>}/>
         </Routes>
         <Footer/>
     </BrowserRouter>
@@ -55,6 +70,8 @@ export default function App() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// TODO: remove StrictMode when we are done with development
+// root.render(<App/>);
 root.render(<React.StrictMode>
     <App/>
 </React.StrictMode>);
