@@ -7,14 +7,18 @@ import Footer from "./components/Footer";
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { ShelterComment, ApplicationComment } from './pages/Comments';
+import ShelterProfile from './pages/Shelter';
+import {ShelterReportForm, ApplicationReportForm} from './pages/ReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Applications from './pages/Applications';
 import ApplicationForm from './pages/ApplicationForm';
-import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 import Notifications from "./pages/Notifications";
 import {NotificationProvider} from "./context/NotificationContext";
 import Profile from './pages/Profile';
 import AdoptionInfo from './pages/AdoptionInfo';
+import './index.css';
 
 export default function App() {
   return (<NotificationProvider>
@@ -29,6 +33,11 @@ export default function App() {
           <Route exact path="/application/new" element={<ApplicationForm id="new" />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/adopt" element={<AdoptionInfo />} />
+          <Route exact path="/shelter/:shelter_id/comments" element={<ShelterComment />} />
+          <Route exact path="/application/:application_id/comments" element={<ApplicationComment />} />
+          <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ShelterReportForm />} />
+          <Route exact path="/report/application/:application_id/:comment_id" element={<ApplicationReportForm />} />
+          <Route exact path="/shelter/:shelter_id" element={<ShelterProfile />} />
         </Routes>
         <Footer/>
     </BrowserRouter>
