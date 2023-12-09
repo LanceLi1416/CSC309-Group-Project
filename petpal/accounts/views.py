@@ -23,13 +23,13 @@ class AccountAuthPermission(BasePermission):
         if request.method == 'POST':
             return True
         return request.user.is_authenticated
-    
+
 class ReportAccessPermission(BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             raise AuthenticationFailed("Authentication Required")
         return True
-    
+
     def has_object_permission(self, request, view, obj):
         if request.user.is_authenticated:
             if obj.reporter != request.user:
@@ -94,6 +94,14 @@ class GetAccountView(RetrieveAPIView):
             validated_seekers = all_seekers.filter(applications__shelter=self.request.user, applications__status='pending')
             return all_shelters | validated_seekers
 
+class GetAccountForCommentsView(RetrieveAPIView):
+    serializer_class = AccountSerializer
+    permission_classes = [IsAuthenticated]
+    action = 'retrieve'
+
+    def get_queryset(self):
+        return User.objects
+
 class AppCommentReportView(APIView):
     serializer_class = ReportAppCommentSerializer
     permission_classes = [IsAuthenticated]
@@ -105,7 +113,7 @@ class AppCommentReportView(APIView):
             category = request.data['category']
             if category != [] and category != "":
                 reports = reports.filter(reports__category__in=category)
-        
+
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
@@ -125,7 +133,7 @@ class AppCommentReportView(APIView):
             return paginator.get_paginated_response(serializer.data)
         serializer = self.serializer_class(reports, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 class AppCommentReportDetailView(APIView):
     serializer_class = ReportAppCommentDetailSerializer
     lookup_field = 'report_id'
@@ -137,7 +145,7 @@ class AppCommentReportDetailView(APIView):
         permission.has_object_permission(request, self, report)
         serializer = self.serializer_class(report)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 class ShelterCommentReportView(APIView):
     serializer_class = ReportShelterCommentSerializer
     permission_classes = [IsAuthenticated]
@@ -149,7 +157,7 @@ class ShelterCommentReportView(APIView):
             category = request.data['category']
             if category != [] and category != "":
                 reports = reports.filter(reports__category__in=category)
-        
+
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
@@ -193,7 +201,7 @@ class PetListingReportView(APIView):
             category = request.data['category']
             if category != [] and category != "":
                 reports = reports.filter(reports__category__in=category)
-        
+
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
@@ -225,4 +233,3 @@ class PetListingReportDetailView(APIView):
         permission.has_object_permission(request, self, report)
         serializer = self.serializer_class(report)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    

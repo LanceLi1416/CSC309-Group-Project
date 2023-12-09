@@ -44,7 +44,7 @@ class AdmShelterCommentsReportView(APIView):
             category = request.data['category']
             if category != [] and category != "":
                 reports = reports.filter(category__in=category)
-        
+
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
@@ -154,12 +154,12 @@ class AdmPetListingReportView(APIView):
             category = request.data['category']
             if category != [] and category != "":
                 reports = reports.filter(category__in=category)
-        
+
         if 'status' in request.data:
             status = request.data['status']
             if status != [] and status != "":
                 reports = reports.filter(status__in=status)
-        
+
         if 'most_recent' in request.data:
             if request.data['most_recent']:
                 reports = reports.order_by('-creation_date')

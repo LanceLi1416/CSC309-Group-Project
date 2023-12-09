@@ -2,6 +2,7 @@ from rest_framework.serializers import ModelSerializer, ValidationError
 from PIL import Image
 from io import BytesIO
 from .models import User
+
 from moderation.models import ReportShelterComment, \
     ReportApplicationComment, ReportPetListing
 from django.conf import settings
