@@ -139,6 +139,9 @@ function Applications() {
                         </Dropdown.Menu>
                     </Dropdown>
                     Application last modified on {last_modified_string}
+                    <Button className="ms-3" onClick={() => {navigate(`/application/${application.id}/comments`)}}>
+                        View Comments
+                    </Button>
                 </Accordion.Header>
                 <Accordion.Body><ApplicationForm id={application.id} pet_listing_id={application.pet_listing}/></Accordion.Body>
             </Accordion.Item>
