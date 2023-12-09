@@ -87,7 +87,7 @@ const PetListings = () => {
             {/* Create New Listing Button */}
             <div className="d-flex flex-row h-50">
                 {/* TODO: revise this link */}
-                <button className="btn btn-success" onClick={() => navigate("/pet_listing/create")}>
+                <button className="btn btn-success" onClick={() => navigate("/pet_listing/new")}>
                     Create New Listing
                 </button>
             </div>

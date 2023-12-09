@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import * as yup from 'yup';
@@ -96,7 +96,7 @@ function PetListingForm() {
                 "Content-Type": "multipart/form-data"
             },
             data: formData
-        }).then((response) => {
+        }).then(() => {
             navigate(0);
         }).catch((error) => {
             if (error.response.status === 401) {
@@ -114,7 +114,7 @@ function PetListingForm() {
             headers: {
                 "Authorization": "Bearer " + token,
             },
-        }).then((response) => {
+        }).then(() => {
             let tmp = curApplication.pictures.filter(key => key.id !== picID);
             setCurApplication({
                 ...curApplication, 
@@ -147,7 +147,7 @@ function PetListingForm() {
                 // "Content-Type": "multipart/form-data"
             },
             data: formData
-        }).then((response) => {
+        }).then(() => {
             // console.log(response);
             // console.log("updated");
             navigate(0);
@@ -329,6 +329,10 @@ function PetListingForm() {
 
     return (<div className="page-container">
         <div className="d-flex flex-row justify-content-between">
+            {/* Back Arrow */}
+            <button className="btn" onClick={() => navigate(-1)}>
+                <i className="bi bi-arrow-left"></i> Back
+            </button>
             <div className="d-flex flex-column">
                 <h1>Upload a pet for adoption</h1>
                 <p>Please fill in the form below with the pet and owner's details.</p>
