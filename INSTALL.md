@@ -3,7 +3,7 @@
 ## Django REST API Server
 
 This section guide is tailored for deploying the API server on a Raspberry Pi. The API server is written in Python 3.11
-and uses the Django framework. The API server is deployed using the Apache web server and the gunicorn WSGI server.
+and uses the Django framework. The API server is deployed using the Nginx web server and the gunicorn WSGI server.
 
 ### Setting Up the Raspberry Pi
 
