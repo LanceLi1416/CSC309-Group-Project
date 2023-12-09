@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
 import axios from "axios";
@@ -36,20 +36,24 @@ const ACTION_TO_COLOR = {
 export const ApplicationReportEntry = ({report, endpoint}) => {
     const navigate = useNavigate();
 
+    // States ----------------------------------------------------------------------------------------------------------
+    const [adminComment, setAdminComment] = useState("");
+
     if (report === null) return;
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleProcessReport = (action) => {
         axios.put(process.env.REACT_APP_API_URL + endpoint + "reports/application_comments/" + report.id + "/", {
             action_taken: action,
+            adm_other_info: adminComment,
         }, {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('access_token')}`,
             }
         }).then(response => {
             // navigate("/admin/");
+            navigate(0);
         }).catch(e => {
-            console.log(e);
             if (e.response.status === 401) {
                 navigate('/login');
             } else if (e.response.status === 403) {
@@ -60,7 +64,6 @@ export const ApplicationReportEntry = ({report, endpoint}) => {
 
     /* { "id": 1,   "reporter": 1,  "comment": 6,   "category": "violence", "other_info": "",   "status": "pending",
          "action_taken": "null",    "creation_date": "2023-12-01" } */
-    console.log(report)
     return (<li key={`report${report.id}`} className="list-group-item">
         <h5 className="mb-3">Application Comment Report #{report.id}</h5>
 
@@ -80,10 +83,10 @@ export const ApplicationReportEntry = ({report, endpoint}) => {
 
             {/* TODO: Revise the links */}
             <div className="d-flex flex-column align-items-center w-25">
-            {/*    <button className="btn btn-primary w-100"*/}
-            {/*            onClick={() => navigate(`/applications/${report.id}`)}>*/}
-            {/*        View Application*/}
-            {/*    </button>*/}
+                {/*<button className="btn btn-primary w-100"*/}
+                {/*        onClick={() => navigate(`/applications/${report.id}`)}>*/}
+                {/*    View Application*/}
+                {/*</button>*/}
 
                 <button className="btn btn-primary mt-2 w-100"
                         onClick={() => navigate(`/users?id=${report.reporter}`)}>
@@ -93,10 +96,11 @@ export const ApplicationReportEntry = ({report, endpoint}) => {
                 {/*  Drop down to take action  */}
                 <Dropdown className="dropdown mt-2 w-100">
                     {endpoint === "moderation/" &&
-                    <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" disabled={report.status === "processed"}>
-                        Process Report
-                    </button>}
+                        <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                disabled={report.status === "processed"}>
+                            Process Report
+                        </button>}
                     <ul className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <button className={`dropdown-item text-${ACTION_TO_COLOR["no_action_taken"]}`}
@@ -120,11 +124,20 @@ export const ApplicationReportEntry = ({report, endpoint}) => {
                 </Dropdown>
             </div>
         </div>
+        <div>
+            <strong>Add admin comment</strong>
+            <textarea className="form-control" rows="3" key={`comment${report.id}`} placeholder="Add admin comment"
+                      disabled={report.status === "processed"}
+                      onChange={(e) => setAdminComment(e.target.value)}></textarea>
+        </div>
     </li>);
 }
 
 export const ShelterCommentReportEntry = ({report, endpoint}) => {
     const navigate = useNavigate();
+
+    // States ----------------------------------------------------------------------------------------------------------
+    const [adminComment, setAdminComment] = useState("");
 
     if (report === null) return;
 
@@ -132,14 +145,15 @@ export const ShelterCommentReportEntry = ({report, endpoint}) => {
     const handleProcessReport = (action) => {
         axios.put(process.env.REACT_APP_API_URL + endpoint + "reports/shelter_comments/" + report.id + "/", {
             action_taken: action,
+            adm_other_info: adminComment,
         }, {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('access_token')}`,
             }
         }).then(response => {
             // navigate("/admin/");
+            navigate(0);
         }).catch(e => {
-            console.log(e);
             if (e.response.status === 401) {
                 navigate('/login');
             } else if (e.response.status === 403) {
@@ -169,10 +183,10 @@ export const ShelterCommentReportEntry = ({report, endpoint}) => {
 
             {/* TODO: Revise the links */}
             <div className="d-flex flex-column align-items-center w-25">
-                <button className="btn btn-primary w-100"
-                        onClick={() => navigate(`/users/${report.id}`)}>
-                    View Shelter
-                </button>
+                {/*<button className="btn btn-primary w-100"*/}
+                {/*        onClick={() => navigate(`/shelter/${report.id}`)}>*/}
+                {/*    View Shelter*/}
+                {/*</button>*/}
 
                 <button className="btn btn-primary mt-2 w-100"
                         onClick={() => navigate(`/profile/${report.reporter}`)}>
@@ -182,10 +196,11 @@ export const ShelterCommentReportEntry = ({report, endpoint}) => {
                 {/*  Drop down to take action  */}
                 <Dropdown className="dropdown mt-2 w-100">
                     {endpoint === "moderation/" &&
-                    <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" disabled={report.status === "processed"}>
-                        Process Report
-                    </button>}
+                        <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                disabled={report.status === "processed"}>
+                            Process Report
+                        </button>}
                     <ul className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <button className={`dropdown-item text-${ACTION_TO_COLOR["no_action_taken"]}`}
@@ -209,11 +224,20 @@ export const ShelterCommentReportEntry = ({report, endpoint}) => {
                 </Dropdown>
             </div>
         </div>
+        <div>
+            <strong>Add admin comment</strong>
+            <textarea className="form-control" rows="3" key={`comment${report.id}`} placeholder="Add admin comment"
+                      disabled={report.status === "processed"}
+                      onChange={(e) => setAdminComment(e.target.value)}></textarea>
+        </div>
     </li>);
 }
 
 export const PetListingReportEntry = ({report, endpoint}) => {
     const navigate = useNavigate();
+
+    // States ----------------------------------------------------------------------------------------------------------
+    const [adminComment, setAdminComment] = useState("");
 
     if (report === null) return;
 
@@ -221,14 +245,15 @@ export const PetListingReportEntry = ({report, endpoint}) => {
     const handleProcessReport = (action) => {
         axios.put(process.env.REACT_APP_API_URL + endpoint + "reports/pet_listings/" + report.id + "/", {
             action_taken: action,
+            adm_other_info: adminComment,
         }, {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('access_token')}`,
             }
         }).then(response => {
             // navigate("/admin/");
+            navigate(0);
         }).catch(e => {
-            console.log(e);
             if (e.response.status === 401) {
                 navigate('/login');
             } else if (e.response.status === 403) {
@@ -239,7 +264,6 @@ export const PetListingReportEntry = ({report, endpoint}) => {
 
     /* { "id": 1,   "reporter": 1,  "pet_listing": 1,   "category": "violence", "other_info": "violent image",
          "status": "pending",       "action_taken": "null",                     "creation_date": "2023-12-02" } */
-    console.log(report)
     return (<li key={report.id} className="list-group-item">
         <h5>Pet Listing Report #{report.id}</h5>
 
@@ -260,22 +284,23 @@ export const PetListingReportEntry = ({report, endpoint}) => {
             {/* TODO: Revise the links */}
             <div className="d-flex flex-column align-items-center w-25">
                 <button className="btn btn-primary w-100"
-                        onClick={() => navigate(`/profile/${report.id}`)}>
+                        onClick={() => navigate(`/pet_listing/${report.pet_listing}`)}>
                     View Pet Listing
                 </button>
 
                 <button className="btn btn-primary mt-2 w-100"
                         onClick={() => navigate(`/profile/${report.reporter}`)}>
-                    View Reported Shelter
+                    View Reporter
                 </button>
 
                 {/*  Drop down to take action  */}
                 <Dropdown className="dropdown mt-2 w-100">
                     {endpoint === "moderation/" &&
-                    <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" disabled={report.status === "processed"}>
-                        Process Report
-                    </button>}
+                        <button className="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                disabled={report.status === "processed"}>
+                            Process Report
+                        </button>}
                     <ul className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <button className={`dropdown-item text-${ACTION_TO_COLOR["no_action_taken"]}`}
@@ -298,6 +323,11 @@ export const PetListingReportEntry = ({report, endpoint}) => {
                     </ul>
                 </Dropdown>
             </div>
+        </div>
+        <div>
+            <strong>Add admin comment</strong>
+            <textarea className="form-control" rows="3" key={`comment${report.id}`} placeholder="Add admin comment" disabled={report.status === "processed"}
+                      onChange={(e) => setAdminComment(e.target.value)}></textarea>
         </div>
     </li>);
 }

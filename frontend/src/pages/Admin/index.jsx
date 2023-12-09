@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {json, useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,16 +20,26 @@ export const Admin = () => {
     const statuses = ["processed", "pending"];
 
     // States ----------------------------------------------------------------------------------------------------------
-    const [type, setType] = useState('application');
+    // const [type, setType] = useState('application');
     const [reports, setReports] = useState({count: 0, next: null, previous: null, results: [],});
-    const [filters, setFilters] = useState({category: [], status: [], most_recent: true,});
-    const [serializedFilters, setSerializedFilters] = useState("");
     const [page, setPage] = useState(1);
     const [pathEndpoint, setPathEndpoint] = useState("moderation/")
+    const [type, setType] = useState(() => {
+        const savedType = localStorage.getItem('admin-filter-type');
+        return savedType ? savedType : "application";
+    });
+    const [filters, setFilters] = useState(() => {
+        const savedFilters = localStorage.getItem('filters');
+        return savedFilters ? JSON.parse(savedFilters) : {category: [], status: [], most_recent: true};
+    });
 
     // Hooks -----------------------------------------------------------------------------------------------------------
     useEffect(() => {
-        setSerializedFilters(JSON.stringify(filters));
+        localStorage.setItem('admin-filter-type', type);
+    }, [type]);
+
+    useEffect(() => {
+        localStorage.setItem('filters', JSON.stringify(filters));
     }, [filters]);
 
     useEffect(() => {
@@ -41,7 +51,8 @@ export const Admin = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         const path = user.is_superuser ? API_URL + "moderation/" + TYPE_TO_URI[type] + `?page=${page}` : API_URL + "accounts/" + TYPE_TO_URI[type] + `?page=${page}`;
         user.is_superuser ? setPathEndpoint("moderation/") : setPathEndpoint("accounts/");
-        axios.post(path, serializedFilters, {
+        axios.post(path, JSON.stringify(filters),
+            {
             // filters + `?page=${page}`, {
             headers: {
                 'Content-Type': 'application/json', Authorization: `Bearer ${token}`,
@@ -54,14 +65,13 @@ export const Admin = () => {
                 results: response.data.results,
             });
         }).catch(e => {
-            console.log(e);
             if (e.response.status === 401) {
                 navigate('/login');
             } else if (e.response.status === 403) {
                 navigate('/403');
             }
         });
-    }, [type, filters, serializedFilters, page, token, API_URL, navigate]);
+    }, [type, filters, page, token, API_URL, navigate]);
 
     // Event handlers --------------------------------------------------------------------------------------------------
     const handleMultiSelectChange = (event, filterType) => {
