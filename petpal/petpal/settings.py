@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'applications',
     'notifications',
     'corsheaders',
+    'moderation'
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import ShelterComment, ApplicationComment
+from moderation.models import ReportShelterComment, ReportApplicationComment
 from rest_framework.fields import SerializerMethodField
 
 class ShelterCommentSerializer(ModelSerializer):
@@ -31,3 +32,29 @@ class ApplicationCommentSerializer(ModelSerializer):
         replies = ApplicationComment.objects.filter(parent=obj).order_by('-date')
         serializer = ApplicationCommentSerializer(replies, many=True)
         return serializer.data
+    
+class ReportShelterCommentSerializer(ModelSerializer):
+    class Meta:
+        model = ReportShelterComment
+        fields = ["category", "other_info"]
+
+    def create(self, validated_data, request, comment):
+        report = ReportShelterComment(reporter = request.user,
+                                      comment = comment,
+                                      category = validated_data["category"],
+                                      other_info = validated_data.get("other_info", ""))
+        report.save()
+        return report
+    
+class ReportAppCommentSerializer(ModelSerializer):
+    class Meta:
+        model = ReportApplicationComment
+        fields = ["category", "other_info"]
+    
+    def create(self, validated_data, request, comment):
+        report = ReportApplicationComment(reporter = request.user,
+                                          comment = comment,
+                                          category = validated_data["category"],
+                                          other_info = validated_data.get("other_info", ""))
+        report.save()
+        return report
