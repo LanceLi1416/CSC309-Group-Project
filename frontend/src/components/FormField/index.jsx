@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 function FormField({ id, width, type, placeholder, name, value, handleChange, error, label, boldLabel=true, disabled=false }) {
     return (
         <Form.Group as={Col} md={width} controlId={id}>
-            {label && boldLabel ? <Form.Label className="fw-bold">{label}</Form.Label> : <Form.Label>{label}</Form.Label>}
+            {label && (boldLabel ? <Form.Label className="fw-bold">{label}</Form.Label> : <Form.Label>{label}</Form.Label>)}
             <Form.Control
                 type={type}
                 placeholder={placeholder}
