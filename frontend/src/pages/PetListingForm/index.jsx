@@ -284,6 +284,25 @@ function PetListingForm() {
             colour: yup.string().required("Please enter the pet's colour")
                         .max(50, "Colour can only be a max of 50 characters"),
             vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
+            pictures: yup.mixed().test('fileType', 'Invalid file type. Please upload .jpg and .png images only',
+                                (value) => {
+                                    if (!value) {
+                                        return true;
+                                    }
+                                    let i = 0;
+                                    for (var key in value) {
+                                        if (i === value.length) {
+                                            break;
+                                        } else if (key === "length") {
+                                            continue;
+                                        }
+                                        if (!['image/jpeg', 'image/png'].includes(value[key].type)) {
+                                            return false;
+                                        }
+                                        i += 1;
+                                    }
+                                    return true;
+                                }),
             otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
             ownerName: yup.string().required("Please enter the owner's name")
                                     .max(50, "Owner name can only be a max of 50 characters"),
