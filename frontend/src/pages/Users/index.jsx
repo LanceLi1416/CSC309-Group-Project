@@ -51,7 +51,7 @@ export const Search = () => {
                 }
             });
         }
-    }, [token, navigate, API_URL]);
+    }, [id, token, navigate, API_URL]);
 
     return (<div>
         <button className="btn" onClick={() => navigate(-1)}>

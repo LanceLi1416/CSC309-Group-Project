@@ -70,7 +70,7 @@ const NotificationsPage = () => {
                 navigate('/');
             }
         });
-    }, [query, notificationState, BASE_URL]);
+    }, [query, notificationState, BASE_URL, navigate]);
 
     // Redirect to login page if user is not logged in
     if (!user) {
