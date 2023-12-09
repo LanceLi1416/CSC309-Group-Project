@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import SearchFilters from "./SearchFilters";
-import ResponsiveSearchFilters from "../../components/ResponsiveSearchFilters";
+import ResponsiveSearchFilters from "./ResponsiveSearchFilters";
 import axios from "axios";
 
 
@@ -102,8 +102,8 @@ const SearchResults = () => {
             </div>
         </div>
 
+        <ResponsiveSearchFilters filters={filters} setFilters={setFilters}/>
         <div className="d-flex flex-row mt-3">
-            <ResponsiveSearchFilters filters={filters} setFilters={setFilters}/>
             <SearchFilters filters={filters} setFilters={setFilters}/>
             {/* Results Grid */}
             <div className="col-md-10 mx-4">

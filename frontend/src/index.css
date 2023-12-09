@@ -293,7 +293,7 @@ textarea {
 	}
 
 	#filter-small {
-		display: none;
+		display: block;
 	}
 
 	#filter-small.show {

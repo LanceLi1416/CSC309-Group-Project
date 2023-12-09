@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Dropdown, Row} from "react-bootstrap";
 
 
-function SearchFilters({filters, setFilters}) {
+function ResponsiveSearchFilters({filters, setFilters}) {
     const token = localStorage.getItem('access_token');
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
+    const [filterDropdown, setFilterDropdown] = useState(false);
 
     // Filter Options --------------------------------------------------------------------------------------------------
     const PET_TYPES = [{
@@ -76,9 +78,15 @@ function SearchFilters({filters, setFilters}) {
     }
 
     return (<>
-        {/* Filter Options */}
-        <div className="p-2 border full-height" id="filter">
-            <h3 className="mb-4">Filters</h3>
+    {/* Filter Options Dropdown Button, For Smaller Screens */}
+    {/* <Dropdown.Menu>
+        <Dropdown.Item>Hello</Dropdown.Item>
+    </Dropdown.Menu> */}
+    <Row id="filter-toggle">
+        <button className="btn btn-outline-primary"
+                id="filter-toggle-button"
+                onClick={() => (setFilterDropdown(!filterDropdown))}>Show Filters</button>
+        {filterDropdown && <div className="p-2 border full-height" id="filter-small">
             {/* Filter By Date */}
             <div className="mb-4 d-flex flex-column">
                 <h5>Date Added</h5>
@@ -94,7 +102,7 @@ function SearchFilters({filters, setFilters}) {
                     <input className="form-control"
                            id="end-date"
                            type="date"
-                           onChange={(e) => setFilters({...filters, "end_date": e.target.value})}/>
+                           onChange={(e) => setFilters({...filters, "end_date": e.target.value})} />
                 </div>
             </div>
             {/* Filter By Pet Type */}
@@ -147,7 +155,6 @@ function SearchFilters({filters, setFilters}) {
                     ))}
                 </div>
             </div>
-
             {/* Filter By Status */}
             <div className="mb-4">
                 <h5>Status</h5>
@@ -163,8 +170,9 @@ function SearchFilters({filters, setFilters}) {
                     </div>))}
                 </div>
             </div>
-        </div>
-    </>);
+        </div>}
+    </Row>
+    </>)
 }
 
-export default SearchFilters;
+export default ResponsiveSearchFilters;
