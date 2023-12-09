@@ -4,15 +4,33 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormField from '../../components/FormField';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as formik from 'formik';
 import * as yup from 'yup';
-import axios from 'axios'
+import axios from 'axios';
+import Heading from '../../components/Heading';
 
-function ApplicationForm({ id }) {
+function ApplicationForm({ id, pet_listing_id }) {
     const token = localStorage.getItem('access_token');
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
+    const { petListingID } = useParams();
+    const [applicationError, setApplicationError] = useState([]);
+
+    let fieldToErrorField = {
+        "email": "Email",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "birthday": "Birthday",
+        "address": "Address",
+        "phone": "Phone Number",
+        "income": "Household Income",
+        "experience": "Experience with Pets",
+        "current_pets": "Any Current Pets",
+        "availability": "Pickup Date",
+        "checkbox": "Declaration",
+        "pet_listing": "Pet Listing"
+    }
 
     const [existingApplication, setExistingApplication] = useState({
         email: '',
@@ -53,67 +71,79 @@ function ApplicationForm({ id }) {
                     current_pets: response.data.current_pets,
                     availability: response.data.availability,
                     checkbox: true,
+                    pet_listing: response.data.pet_listing,
                 });
                 setReadOnly(true);
             }).catch((error) => {
-                // TODO: 404 page
                 if (error.response.status === 404) {
-                    console.log("Application not found");
+                    // console.log("Application not found");
+                    navigate("/404");
                 }
             });
         }
     }, [id, token, navigate, API_URL]);
 
-    // TODO: need to get the corresponding pet listing id from navigate
-    // const submitHandler = (values) => {
-    //     const formData = {
-    //         "email": values.email,
-    //         "first_name": values.firstName,
-    //         "last_name": values.lastName,
-    //         "birthday": values.birthday,
-    //         "address": values.address,
-    //         "phone": values.phone,
-    //         "income": values.income,
-    //         "experience": values.experience,
-    //         "current_pets": values.current_pets,
-    //         "availability": values.availability,
-    //     }
-    //     axios({
-    //         method: "POST",
-    //         url: API_URL + "applications/",
-    //         data: formData,
-    //         headers: {
-    //             "Authorization": "Bearer " + token,
-    //         }
-    //     }).then((response) => {
-    //         console.log(response.data);
-    //         navigate("/");
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    // };
+    const submitHandler = (values) => {
+        const formData = {
+            "pet_listing": petListingID,
+            "email": values.email,
+            "first_name": values.firstName,
+            "last_name": values.lastName,
+            "birthday": values.birthday,
+            "address": values.address,
+            "phone": values.phone,
+            "income": values.income,
+            "experience": values.experience,
+            "current_pets": values.current_pets,
+            "availability": values.availability,
+        }
+        axios({
+            method: "POST",
+            url: API_URL + "applications/",
+            data: formData,
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        }).then((response) => {
+            console.log(response.data);
+            navigate("/applications");
+        }).catch((error) => {
+            let errorMessages = [];
+            for (var key in error.response.data) {
+                errorMessages.push(fieldToErrorField[key] + ': ' + error.response.data[key]);
+            }
+            setApplicationError(errorMessages);
+        });
+    };
 
     const { Formik } = formik;
     const phoneRegExp = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/
+    let maxOwnerBirthday = new Date();
+    maxOwnerBirthday.setFullYear(maxOwnerBirthday.getFullYear() - 18);
     const schema = yup.object().shape({
         email: yup.string().email('Invalid email').required('Email is required'),
         firstName: yup.string().required('First name is required'),
         lastName: yup.string().required('Last name is required'),
-        birthday: yup.date().required('Birthday is required'),
+        birthday: yup.date().required('Birthday is required')
+                     .max(maxOwnerBirthday, "The seeker must be at least 18 years old"),
         address: yup.string().required('Address is required'),
         phone: yup.string().matches(phoneRegExp, 'Phone number must be in the format 000-000-0000').required('Phone number is required'),
-        income: yup.number().required('Income is required'),
+        income: yup.string().required('Income is required'),
         experience: yup.string().required('Experience is required'),
         current_pets: yup.string().required('Current pets is required'),
-        availability: yup.date().required('Pick up date is required'),
+        availability: yup.date().required('Pick up date is required')
+                                .min(new Date(), "The earliest pick up date is tomorrow"),
         checkbox: yup.bool().oneOf([true], 'This must be checked'),
     });
 
     return (<>
-        {/* <Heading header={id} subheader="" /> */}
+        {id === "new" && (<button className="btn" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left"></i> Back
+        </button>)}
+        <Heading header={"Application for Pet Listing #" + (petListingID === undefined ? pet_listing_id : petListingID)} />
         <Formik
             validationSchema={schema}
-            onSubmit={console.log}
+            onSubmit={submitHandler}
             initialValues={existingApplication}
             enableReinitialize={true}
         >
@@ -213,10 +243,10 @@ function ApplicationForm({ id }) {
                         />
                         <Form.Check
                             type="radio"
-                            label="Less then 2 years"
+                            label="Less than 2 years"
                             name="experience"
-                            value="Less then 2 years"
-                            checked={values.experience === "Less then 2 years"}
+                            value="Less than 2 years"
+                            checked={values.experience === "Less than 2 years"}
                             onChange={handleChange}
                             isInvalid={!!(touched.experience && errors.experience)}
                             disabled={readOnly}
@@ -271,7 +301,10 @@ function ApplicationForm({ id }) {
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Row>
-                {id === "new" && (<Button className="mb-4" type="submit" variant="outline-primary">Submit</Button>)}
+                {id === "new" && (<div className="text-center mt-2 mb-4">
+                    <Button className="mb-2" type="submit" variant="outline-primary">Submit</Button>
+                    {applicationError.map((errorMessage, index) => (<div className='error-text' key={index}>{errorMessage}</div>))}
+                </div>)}
             </Form>
         )}
         </Formik>

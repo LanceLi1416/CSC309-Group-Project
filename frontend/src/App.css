@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+.pic-delete {
+  margin-right: 3em;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +39,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#otherInfo::placeholder {
+  font-style: italic;
 }

@@ -236,7 +236,7 @@ textarea {
 }
 
 .carousel-button-background {
-	background-color: black;
+	background-color: var(--bs-secondary);
 }
 
 #pet-summary-title {
@@ -293,7 +293,7 @@ textarea {
 	}
 
 	#filter-small {
-		display: none;
+		display: block;
 	}
 
 	#filter-small.show {
@@ -342,6 +342,13 @@ textarea {
     height: 30%;
     object-fit: cover;
 }
+
+.search-pics {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 
 #profile-image {
     width: 50px;

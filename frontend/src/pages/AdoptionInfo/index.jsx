@@ -1,15 +1,20 @@
 import { Col } from 'react-bootstrap';
 import logo from '../../assets/images/petpal.svg';
+import { useNavigate } from "react-router-dom";
 
 function AdoptionInfo() {
-    return (
+    const navigate = useNavigate();
+    return (<>
+        <button className="btn" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left"></i> Back
+        </button>
         <Col className="mt-3 justify-content-center align-items-center">
 			<h1 className="text-center">Pet Adoption Information</h1>
             <div className="info-cont">
 			<p className="pet-info">In order to adopt a pet that you think you might be compatible with, first navigate to the desired listing 
                 through the search bar. From there, you can see a variety of information about the pet, including a form 
                 to begin the adoption process. Note that the adoption fees are decided by the pet owner, and may be negotiated
-                through the chat system. Pet seekers can typically expect to pay anywhere from $50-$200 for adoption fees.
+                through the comments system. Pet seekers can typically expect to pay anywhere from $50-$200 for adoption fees.
             </p>
             <p className="pet-info">After submitting an application, pet seekers can expect to wait anywhere from 1-2 weeks for a response
                 from the pet owner. If the pet owner approves the application, the pet seeker will be notified and can then set up a time
@@ -22,7 +27,7 @@ function AdoptionInfo() {
             <img src={logo} alt="pet adoption" className="img-fluid dog-img mb-4"/>
             </div>
 		</Col>
-    );
+    </>);
 }
 
 export default AdoptionInfo;

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from PIL import Image
 from io import BytesIO
 from django.core.validators import MinValueValidator, MaxLengthValidator
+from django.conf import settings
 
 import os
 
@@ -9,9 +10,11 @@ from .models import Pet, Owner, PetListing, Picture
 from moderation.models import ReportPetListing
 
 class PictureSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Picture
-        fields = ['path']
+        fields = ['id', 'path']
 
 
 class PetListingSerializer(serializers.Serializer):
@@ -38,10 +41,16 @@ class PetListingSerializer(serializers.Serializer):
     pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', required=True)
     owner_name = serializers.CharField(source='owner.name', required=True, validators=[MaxLengthValidator(50)])
     email = serializers.EmailField(source='owner.email', required=True, validators=[MaxLengthValidator(50)])
-    phone_number = serializers.CharField(source='owner.phone', required=True, validators=[MaxLengthValidator(50)])
+    owner_phone = serializers.CharField(source='owner.phone', required=True, validators=[MaxLengthValidator(50)])
     location = serializers.CharField(source='owner.location', required=True, validators=[MaxLengthValidator(50)])
     owner_birthday = serializers.DateField(required=True, source='owner.birthday')
     status = serializers.ChoiceField(required=False, choices=STATUS_CHOICES, validators=[MaxLengthValidator(50)])
+    shelter_id = serializers.IntegerField(source='shelter.id', required=False)
+    shelter_first_name = serializers.CharField(source='shelter.first_name', required=False)
+    shelter_last_name = serializers.CharField(source='shelter.last_name', required=False)
+    shelter_phone = serializers.CharField(source='shelter.phone', required=False)
+    shelter_email = serializers.CharField(source='shelter.username', required=False)
+    creation_date = serializers.DateField(required=False)
 
 
     def validate_vaccinated(self, vaccinated):
@@ -103,7 +112,7 @@ class PetListingSerializer(serializers.Serializer):
             _, extension = os.path.splitext(original_name)
             image = validated_data['pet']['pictures']['all'][i].read()
             image = Image.open(BytesIO(image))
-            image.save(f'./static/pet_listing_pics/{pet.pk}_{i}{extension.lower()}')
+            image.save(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{pet.pk}_{i}{extension.lower()}'))
             image.close()
             new_pic = Picture(pet=pet,
                               path=f'{pet.pk}_{i}{extension.lower()}')
@@ -161,7 +170,7 @@ class PetListingSerializer(serializers.Serializer):
                     # Check whether to delete pic
                     pic = Picture.objects.filter(path__contains=f'{pet.pk}_{index}')
                     if len(pic) > 0:
-                        os.remove(f'./static/pet_listing_pics/{str(pic.first().path)}')
+                        os.remove(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{str(pic.first().path)}'))
                         pic.first().delete()
 
                     # Upload new pic
@@ -169,7 +178,7 @@ class PetListingSerializer(serializers.Serializer):
                     _, extension = os.path.splitext(original_name)
                     image = validated_data['pet']['pictures']['all'][i].read()
                     image = Image.open(BytesIO(image))
-                    image.save(f'./static/pet_listing_pics/{pet.pk}_{index}{extension.lower()}')
+                    image.save(os.path.join(settings.MEDIA_ROOT, f'pet_listing_pics/{pet.pk}_{index}{extension.lower()}'))
                     image.close()
 
                     # Upload new pic to db
@@ -203,9 +212,26 @@ class PetListingSerializer(serializers.Serializer):
 
 
 class SearchModelSerializer(serializers.ModelSerializer):
+    pet_name = serializers.CharField(source="pet.name")
+    pet_pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', read_only=True)
+
     class Meta:
         model = PetListing
-        fields = ['id', 'pet', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+        fields = ['id', 'pet', 'pet_name', 'pet_pictures', 'owner', 'shelter', 'status', 'last_update', 'creation_date']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        pictures_data = data.get('pet_pictures')
+        if type(instance) == PetListing and pictures_data is not None:
+            pictures_data = PictureSerializer(instance.pet.pictures.all(), many=True).data
+            data['pet_pictures'] = pictures_data
+            return data
+        else:
+            pic_names = []
+            for i in range(len(instance['pet']['pictures']['all'])):
+                pic_names.append(instance['pet']['pictures']['all'][i].name)
+            data['pictures'] = pic_names
+            return data
 
 
 class ReportPetListingSerializer(serializers.ModelSerializer):
