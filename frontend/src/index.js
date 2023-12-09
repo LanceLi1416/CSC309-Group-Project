@@ -12,7 +12,7 @@ import PetListingDetail from './pages/PetListingDetail';
 import PetListingForm from './pages/PetListingForm';
 import { ShelterComment, ApplicationComment } from './pages/Comments';
 import ShelterProfile from './pages/Shelter';
-import {ShelterReportForm, ApplicationReportForm} from './pages/ReportForm';
+import {ShelterReportForm, ApplicationReportForm} from './pages/CommentReportForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Applications from './pages/Applications';
 import ApplicationForm from './pages/ApplicationForm';
@@ -22,6 +22,7 @@ import {NotificationProvider} from "./context/NotificationContext";
 import Profile from './pages/Profile';
 import AdoptionInfo from './pages/AdoptionInfo';
 import './index.css';
+import PetListingReportForm from './pages/PetListingReportForm';
 
 export default function App() {
   return (<NotificationProvider>
@@ -38,6 +39,7 @@ export default function App() {
           <Route exact path="/adopt" element={<AdoptionInfo />} />
           <Route exact path="/pet_listing/:petListingID" element={<PetListingForm />} />
           <Route path="/pet_listings/details/:petListingID" element={<PetListingDetail/>}/>
+          <Route path="/pet_listings/:petListingID/report" element={<PetListingReportForm/>}/>
           <Route exact path="/search" element={<SearchResults/>}/>
           <Route exact path="/shelter/:shelter_id/comments" element={<ShelterComment />} />
           <Route exact path="/application/:application_id/comments" element={<ApplicationComment />} />

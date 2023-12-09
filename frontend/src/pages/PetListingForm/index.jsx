@@ -64,6 +64,7 @@ function PetListingForm() {
                     colour: response.data.colour,
                     vaccinated: response.data.vaccinated,
                     otherInfo: response.data.other_info,
+                    // pictures: response.data.pictures,
                     ownerName: response.data.owner_name,
                     email: response.data.email,
                     ownerPhone: response.data.owner_phone,
@@ -147,9 +148,9 @@ function PetListingForm() {
             },
             data: formData
         }).then((response) => {
-            console.log(response);
-            console.log("updated");
-            // navigate(0);
+            // console.log(response);
+            // console.log("updated");
+            navigate(0);
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 401) {

@@ -161,12 +161,14 @@ function PetListingDetail() {
                     <p><strong>Name:</strong> {petListing.shelterFirstName + " " + petListing.shelterLastName}</p>
                     <p><strong>Email:</strong> {petListing.shelterEmail}</p>
                     <p><strong>Phone:</strong> {petListing.shelterPhone}</p>
-                    <button className="btn btn-outline-primary sidebar-button" onClick={() => {navigate(`../shelter/${petListing.shelterID}`)}}>
+                    <button className="btn btn-outline-primary sidebar-button"
+                            onClick={() => {navigate(`../shelter/${petListing.shelterID}`)}}>
                         View Detailed Shelter Info
                     </button>
                 </div>
                 <div className="row mt-2 mb-2 pt-2 pb-2 border rounded">
-                    <button className="btn btn-outline-danger sidebar-button">
+                    <button className="btn btn-outline-danger sidebar-button"
+                            onClick={() => {navigate(`/pet_listings/${petListingID}/report`)}}>
                         Report Pet Listing
                     </button>
                 </div>

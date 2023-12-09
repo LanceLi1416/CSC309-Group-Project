@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {Dropdown, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 
 
 function ResponsiveSearchFilters({filters, setFilters}) {
@@ -79,9 +79,6 @@ function ResponsiveSearchFilters({filters, setFilters}) {
 
     return (<>
     {/* Filter Options Dropdown Button, For Smaller Screens */}
-    {/* <Dropdown.Menu>
-        <Dropdown.Item>Hello</Dropdown.Item>
-    </Dropdown.Menu> */}
     <Row id="filter-toggle">
         <button className="btn btn-outline-primary"
                 id="filter-toggle-button"
