@@ -223,16 +223,8 @@ class SearchModelSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         pictures_data = data.get('pet_pictures')
         if type(instance) == PetListing and pictures_data is not None:
-            # print(instance)
-            # print(instance.pet)
-            # print(instance.pet.pictures.all())
-            # print(type(instance) == PetListing)
-            # print(data)
-            # print(instance)
             pictures_data = PictureSerializer(instance.pet.pictures.all(), many=True).data
-            # print(pictures_data)
             data['pet_pictures'] = pictures_data
-            # print(data)
             return data
         else:
             pic_names = []

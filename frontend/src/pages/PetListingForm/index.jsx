@@ -84,7 +84,7 @@ function PetListingForm() {
                 }
             })
         }
-    }, [ petListingID, token, API_URL, navigate, curApplication ])
+    }, [ petListingID, token, API_URL, navigate ])
     
     const createHandler = (formData) => {
         axios({
@@ -135,6 +135,9 @@ function PetListingForm() {
         for (var pic of deletedPics) {
             deleteListingPic(pic.id);
         }
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
         axios({
             method: "PUT",
             url: `${API_URL}pet_listings/${petListingID}/`,
@@ -144,8 +147,9 @@ function PetListingForm() {
             },
             data: formData
         }).then((response) => {
+            console.log(response);
             console.log("updated");
-            navigate(0);
+            // navigate(0);
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 401) {
@@ -168,15 +172,17 @@ function PetListingForm() {
         formData.append("breed", values.breed);
         formData.append("colour", values.colour);
         formData.append("vaccinated", values.vaccinated);
-        formData.append("other_info", values.otherInfo);
+        formData.append("other_info", values.otherInfo ?? "");
         formData.append("owner_name", values.ownerName);
         formData.append("email", values.email);
         formData.append("owner_phone", values.ownerPhone);
         formData.append("location", values.location);
         formData.append("owner_birthday", values.ownerBirthday);
 
-        for (let i = 0; i < values.pictures.length; i++) {
-            formData.append("pictures", values.pictures[i]);
+        if (create || values.pictures !== undefined) {
+            for (let i = 0; i < values.pictures.length; i++) {
+                formData.append("pictures", values.pictures[i]);
+            }
         }
 
         // if (!create) {
@@ -201,49 +207,98 @@ function PetListingForm() {
     let maxOwnerBirthday = new Date();
     maxOwnerBirthday.setFullYear(maxOwnerBirthday.getFullYear() - 18);
 
-    const schema = yup.object().shape({
-        petName: yup.string().required("Please enter the pet's name")
-                    .max(50, "Pet name can only be a max of 50 characters"),
-        gender: yup.string().required("Please indicate the pet's gender")
-                   .oneOf(["male", "female"], "The gender is invalid"),
-        petBirthday: yup.date().required("Please enter the pet's birthday")
-                        .max(new Date(), "Please enter a valid birthday"),
-        petWeight: yup.number().required("Please enter the pet's weight")
-                      .min(0, "The given pet weight is invalid"),
-        animal: yup.string().required("Please enter the type of animal")
-                   .max(50, "Animal can only be a max of 50 characters"),
-        breed: yup.string().required("Please enter the pet's breed")
-                  .max(50, "Breed can only be a max of 50 characters"),
-        colour: yup.string().required("Please enter the pet's colour")
-                   .max(50, "Colour can only be a max of 50 characters"),
-        vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
-        pictures: yup.mixed()
-                     .test('fileList', "Please upload at least 1 pet picture",
-                         (value) => {
-                            if (create) {
-                                return value && value.length > 0;
-                            }
-                            return true;
-                         }
-                     ).test('fileList', 'Only a max of 5 pictures can be uploaded',
-                          (value) => {
-                                return value && 0 < value.length && value.length <= 5;
-                          }
-                     ),
-        otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
-        ownerName: yup.string().required("Please enter the owner's name")
-                               .max(50, "Owner name can only be a max of 50 characters"),
-        email: yup.string().email("Invalid email").required("Please enter the owner's email")
-                           .max(50, "Email can only be a max of 50 characters"),
-        ownerPhone: yup.string().required("Please enter the owner's phone number")
-                                .matches(phoneRegEx, "Invalid phone number. Please use the format: 000-000-0000"),
-        location: yup.string().required("Please enter the owner's location")
-                     .max(50, "Location can only be a max of 50 characters")
-                     .matches(locationRegEx, "Invalid location. Please use the format: City, Country"),
-        ownerBirthday: yup.date().required("Please enter the owner's birthday")
-                          .max(maxOwnerBirthday, "The owner must be at least 18 years old"),
-        status: yup.string().oneOf(["available", "adopted", "pending", "withdrawn"], "Invalid status")
-    });
+    let schema;
+    if (create || originalPics.length === 0) {
+        schema = yup.object().shape({
+            petName: yup.string().required("Please enter the pet's name")
+                        .max(50, "Pet name can only be a max of 50 characters"),
+            gender: yup.string().required("Please indicate the pet's gender")
+                       .oneOf(["male", "female"], "The gender is invalid"),
+            petBirthday: yup.date().required("Please enter the pet's birthday")
+                            .max(new Date(), "Please enter a valid birthday"),
+            petWeight: yup.number().required("Please enter the pet's weight")
+                          .min(0, "The given pet weight is invalid"),
+            animal: yup.string().required("Please enter the type of animal")
+                       .max(50, "Animal can only be a max of 50 characters"),
+            breed: yup.string().required("Please enter the pet's breed")
+                      .max(50, "Breed can only be a max of 50 characters"),
+            colour: yup.string().required("Please enter the pet's colour")
+                       .max(50, "Colour can only be a max of 50 characters"),
+            vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
+            pictures: yup.mixed()
+                         .test('fileList', "Please upload at least 1 pet picture",
+                             (value) => {
+                                if (create) {
+                                    return value && value.length > 0;
+                                }
+                                return true;
+                             }
+                         ).test('fileList', 'Only a max of 5 pictures can be uploaded',
+                              (value) => {
+                                    return value && 0 < value.length && value.length <= 5;
+                              }
+                         ).test('fileType', 'Invalid file type. Please upload .jpg and .png images only',
+                            (value) => {
+                                let i = 0;
+                                for (var key in value) {
+                                    if (i === value.length) {
+                                        break;
+                                    } else if (key === "length") {
+                                        continue;
+                                    }
+                                    if (!['image/jpeg', 'image/png'].includes(value[key].type)) {
+                                        return false;
+                                    }
+                                    i += 1;
+                                }
+                                return true;
+                            }),
+            otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
+            ownerName: yup.string().required("Please enter the owner's name")
+                                   .max(50, "Owner name can only be a max of 50 characters"),
+            email: yup.string().email("Invalid email").required("Please enter the owner's email")
+                               .max(50, "Email can only be a max of 50 characters"),
+            ownerPhone: yup.string().required("Please enter the owner's phone number")
+                                    .matches(phoneRegEx, "Invalid phone number. Please use the format: 000-000-0000"),
+            location: yup.string().required("Please enter the owner's location")
+                         .max(50, "Location can only be a max of 50 characters")
+                         .matches(locationRegEx, "Invalid location. Please use the format: City, Country"),
+            ownerBirthday: yup.date().required("Please enter the owner's birthday")
+                              .max(maxOwnerBirthday, "The owner must be at least 18 years old"),
+            status: yup.string().oneOf(["available", "adopted", "pending", "withdrawn"], "Invalid status")
+        });
+    } else {
+        schema = yup.object().shape({
+            petName: yup.string().required("Please enter the pet's name")
+                        .max(50, "Pet name can only be a max of 50 characters"),
+            gender: yup.string().required("Please indicate the pet's gender")
+                        .oneOf(["male", "female"], "The gender is invalid"),
+            petBirthday: yup.date().required("Please enter the pet's birthday")
+                            .max(new Date(), "Please enter a valid birthday"),
+            petWeight: yup.number().required("Please enter the pet's weight")
+                            .min(0, "The given pet weight is invalid"),
+            animal: yup.string().required("Please enter the type of animal")
+                        .max(50, "Animal can only be a max of 50 characters"),
+            breed: yup.string().required("Please enter the pet's breed")
+                        .max(50, "Breed can only be a max of 50 characters"),
+            colour: yup.string().required("Please enter the pet's colour")
+                        .max(50, "Colour can only be a max of 50 characters"),
+            vaccinated: yup.bool().oneOf([true], "The pet must be vaccinated"),
+            otherInfo: yup.string().max(50, "Extra information can only be a max of 50 characters"),
+            ownerName: yup.string().required("Please enter the owner's name")
+                                    .max(50, "Owner name can only be a max of 50 characters"),
+            email: yup.string().email("Invalid email").required("Please enter the owner's email")
+                                .max(50, "Email can only be a max of 50 characters"),
+            ownerPhone: yup.string().required("Please enter the owner's phone number")
+                                    .matches(phoneRegEx, "Invalid phone number. Please use the format: 000-000-0000"),
+            location: yup.string().required("Please enter the owner's location")
+                            .max(50, "Location can only be a max of 50 characters")
+                            .matches(locationRegEx, "Invalid location. Please use the format: City, Country"),
+            ownerBirthday: yup.date().required("Please enter the owner's birthday")
+                                .max(maxOwnerBirthday, "The owner must be at least 18 years old"),
+            status: yup.string().oneOf(["available", "adopted", "pending", "withdrawn"], "Invalid status")
+        });
+    }
 
     const handleFieldChange = (fieldName, value) => {
         setCurApplication(prevState => ({
