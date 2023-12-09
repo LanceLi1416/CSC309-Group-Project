@@ -107,6 +107,9 @@ function PetListingDetail() {
     return <>
     <div className="page-container" id="pet-detail-container">
     <div className="main-page">
+        <button className="btn" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left"></i> Back
+        </button>
         <div className="row mt-2 pb-3 border rounded">
             <h1>{petListing.petName}</h1>
             <p>{capitalize(petListing.animal)} | {capitalize(petListing.breed)} | {petListing.location}</p>

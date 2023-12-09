@@ -137,6 +137,9 @@ function ApplicationForm({ id, pet_listing_id }) {
     });
 
     return (<>
+        {id === "new" && (<button className="btn" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left"></i> Back
+        </button>)}
         <Heading header={"Application for Pet Listing #" + (petListingID === undefined ? pet_listing_id : petListingID)} />
         <Formik
             validationSchema={schema}
