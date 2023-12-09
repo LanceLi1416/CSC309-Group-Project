@@ -9,7 +9,6 @@ import {Dropdown} from "react-bootstrap";
 const NotificationsPage = () => {
     const BASE_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user"));
 
     // States ----------------------------------------------------------------------------------------------------------
     const [notifications, setNotifications] = useState([]);
@@ -71,12 +70,6 @@ const NotificationsPage = () => {
             }
         });
     }, [query, notificationState, BASE_URL, navigate]);
-
-    // Redirect to login page if user is not logged in
-    if (!user) {
-        navigate('/login');
-        return null;
-    }
 
     return (<div>
         {/* Back Arrow */}

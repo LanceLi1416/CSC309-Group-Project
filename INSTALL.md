@@ -130,7 +130,10 @@ the Raspberry Pi.
    
        location = /favicon.ico { access_log off; log_not_found off; }
        location /static/ {
-           root [path to project]/staticfiles;
+           alias [path to project]/staticfiles;
+       }
+       location /media/ {
+             alias [path to project]/media;
        }
    
        location / {

@@ -15,6 +15,7 @@ export const Admin = () => {
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
     const token = localStorage.getItem('access_token');
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const categories = ["spam", "sexually_explicit", "child_abuse", "violence", "hate_speech", "harassment", "misinformation", "other"];
     const statuses = ["processed", "pending"];
@@ -96,7 +97,7 @@ export const Admin = () => {
             <i className="bi bi-arrow-left"></i> Back
         </button>
 
-        <h1>Admin</h1>
+        <h1>{user.is_superuser ? 'Administrative' : 'Reports'}</h1>
         {/* Drop down to select category */}
         <div className="d-flex flex-column my-3">
             <h4>Type</h4>
