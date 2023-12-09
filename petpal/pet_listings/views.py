@@ -144,6 +144,11 @@ class SearchView(APIView):
     def post(self, request):
         pet_listings = PetListing.objects.all()
 
+        if 'pet_name' in request.data:
+            pet_name = request.data['pet_name']
+            if pet_name != "":
+                pet_listings = pet_listings.filter(pet__name__icontains=pet_name)
+
         if 'shelter' in request.data:
             shelter = request.data['shelter']
             if shelter != [] and shelter != '':

@@ -11,7 +11,7 @@ from moderation.models import ReportPetListing
 
 class PictureSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    
+
     class Meta:
         model = Picture
         fields = ['id', 'path']
@@ -212,7 +212,7 @@ class PetListingSerializer(serializers.Serializer):
 
 
 class SearchModelSerializer(serializers.ModelSerializer):
-    pet_name = serializers.CharField(source="pet.name", read_only=True)
+    pet_name = serializers.CharField(source="pet.name")
     pet_pictures = serializers.ListField(child=serializers.ImageField(), source='pet.pictures.all', read_only=True)
 
     class Meta:
