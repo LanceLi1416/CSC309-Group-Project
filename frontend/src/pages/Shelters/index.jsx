@@ -33,7 +33,8 @@ function Shelters() {
                 }
             }).then((response) => {
                 console.log(response.data);
-                setShelters(response.data.results);
+                console.log(response.data.results);
+                setShelters(response.data);
                 setHasNext(response.data.next !== null);
             }).catch((error) => {
                 console.log(error);
@@ -47,7 +48,7 @@ function Shelters() {
         </Row>
 
         <ListGroup>
-            {(Array.isArray(shelters) && shelters.length > 0) ?
+            {shelters.length > 0 ?
                 shelters.map(shelter => {
                     return (<ListGroup.Item key={shelter.id}>
                         <div className="d-flex flex-row justify-content-between">
