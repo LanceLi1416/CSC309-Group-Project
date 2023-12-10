@@ -32,8 +32,7 @@ function Shelters() {
                     "Authorization": "Bearer " + token
                 }
             }).then((response) => {
-                console.log(response.data);
-                setShelters(response.data.results);
+                setShelters(response.data);
                 setHasNext(response.data.next !== null);
             }).catch((error) => {
                 console.log(error);
