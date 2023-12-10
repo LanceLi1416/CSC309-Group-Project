@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.exceptions import PermissionDenied, AuthenticationFailed
 from rest_framework.pagination import PageNumberPagination
+from django.conf import settings
 
 import os
 
@@ -62,17 +63,29 @@ class AccountsView(APIView):
     
     def delete(self, request):
         user = request.user
-        if user.avatar != 'default.jpg':
-            os.remove(f'./static/avatars/{user.avatar}')
+        if user.avatar != 'avatars/default.jpg':
+            os.remove(os.path.join(settings.MEDIA_ROOT, user.avatar))
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     def get(self, request):
         # get all users with is_seeker = False based on the requirement below 
         # requirement: can view a list of shelters, cannot view a list of pet seekers
+        paginate = request.query_params.get('paginate', 'false').lower() == 'true'
         users = User.objects.filter(is_seeker=False)
-        serializer = self.serializer_class(users, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+        # pagination support
+        if paginate:
+            paginator = PageNumberPagination()
+            paginator.page_size = 10
+            paginated_users = paginator.paginate_queryset(users, request)
+
+            if paginated_users is not None:
+                serializer = self.serializer_class(paginated_users, many=True)
+                return paginator.get_paginated_response(serializer.data)
+        else: 
+            serializer = self.serializer_class(users, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GetAccountView(RetrieveAPIView):
     serializer_class = AccountSerializer

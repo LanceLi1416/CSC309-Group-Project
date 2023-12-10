@@ -31,6 +31,7 @@ import NotFound from "./pages/404_NotFound";
 
 import Admin from "./pages/Admin";
 import Users from "./pages/Users";
+import Shelters from './pages/Shelters';
 
 export default function App() {
   return (<NotificationProvider>
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/pet_listings/details/:petListingID" element={<PetListingDetail/>}/>
           <Route path="/pet_listings/:petListingID/report" element={<PetListingReportForm/>}/>
           <Route exact path="/search" element={<SearchResults/>}/>
+          <Route exact path="/shelters" element={<Shelters/>}/>
           <Route exact path="/shelter/:shelter_id/comments" element={<ShelterComment />} />
           <Route exact path="/application/:application_id/comments" element={<ApplicationComment />} />
           <Route exact path="/report/shelter/:shelter_id/:comment_id" element={<ShelterReportForm />} />

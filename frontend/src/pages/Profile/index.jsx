@@ -60,6 +60,22 @@ function Profile() {
         }
     }, [token, navigate, API_URL]);
 
+    const handleDelete = () => {
+        axios({
+            method: "DELETE",
+            url: API_URL + "accounts/",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }).then(() => {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+            navigate("/login");
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+    
     const submitHandler = (values) => {
         const formData = new FormData();
         formData.append('first_name', values.firstName);
@@ -163,7 +179,8 @@ function Profile() {
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Row>)}
-                <Button className="mb-4" type="submit" variant="outline-primary">Update</Button>
+                <Button className="mb-3" type="submit" variant="outline-primary">Update</Button>
+                <Button className="mb-4" variant="outline-danger" onClick={handleDelete}>Delete Account</Button>
             </Form>
         )}
         </Formik>

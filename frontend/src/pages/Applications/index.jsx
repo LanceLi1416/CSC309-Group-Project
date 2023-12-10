@@ -149,11 +149,7 @@ function Applications() {
     }
 
     return (<>
-        <button className="btn" onClick={() => navigate(-1)}>
-            <i className="bi bi-arrow-left"></i> Back
-        </button>
-
-        <Row className="mt-2 d-flex flex-row">
+        <Row className="mt-3 d-flex flex-row">
             <Heading header="Applications" subheader="View your applications here!" />
             <Col className="d-flex flex-row justify-content-center justify-content-md-end">
                 <Dropdown className="mx-3">

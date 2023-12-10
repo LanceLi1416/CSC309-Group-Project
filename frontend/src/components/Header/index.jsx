@@ -185,11 +185,9 @@ export const Header = () => {
                             </button>
                             <ul className={`dropdown-menu dropdown-menu-dark bg-${bgColour}`}>
                                 <li><Link to="/profile" className="dropdown-item">View Profile</Link></li>
-
+                                <li><Link to="/shelters" className="dropdown-item">Shelters</Link></li>
                                 {(JSON.parse(localStorage.getItem('user')).is_superuser === true) ?
                                     <li><Link to="/admin" className="dropdown-item">Administrative</Link></li> :
-
-                                    // TODO: revise these links
                                     <>
                                         <li><Link to="/applications" className="dropdown-item">Applications</Link></li>
                                         {(JSON.parse(localStorage.getItem('user')).is_seeker === false) ?
@@ -197,10 +195,7 @@ export const Header = () => {
                                             </li> : <></>}
                                         <li><Link to="/admin" className="dropdown-item">Reports</Link></li>
                                     </>}
-
-                                <li>
-                                    <button className="dropdown-item" onClick={handleLogout}>Logout</button>
-                                </li>
+                                <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                             </ul>
                         </div>
                     </>) : (<>

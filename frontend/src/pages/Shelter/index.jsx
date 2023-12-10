@@ -38,8 +38,11 @@ const ShelterProfile = () => {
         navigate("/shelter/" + shelter_id + "/comments")
     };
 
-    return (
-    <div className="shelter-container">
+    return (<>
+    <button className="btn mt-3" onClick={() => navigate(-1)}>
+        <i className="bi bi-arrow-left"></i> Back
+    </button>
+    <div className="shelter-container mb-5">
     {/* Heading */}
     <div className="image-wrapper">
         <img
@@ -89,7 +92,7 @@ const ShelterProfile = () => {
         </button>
     </div>
     </div>
-    );
+    </>);
     };
 
     export default ShelterProfile;
